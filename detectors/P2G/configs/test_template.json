@@ -1,0 +1,14 @@
+{   
+    "run_name" : "${NAME}",
+    "device" : "${DEVICE}",
+    "batch_size_eval" :512,
+    "dataset": "TrueFake",
+    "data_path": "${DATA_ROOT}/",
+    "split_file": "${SPLIT_FILE}",
+    "softmax" : false,
+    "prototype" : "fake", 
+    "scenario": ["${DATA_KEYS}"],
+    "upperbound" : false,
+    "random_select" : false,
+    "precision" : "fp16"
+}
