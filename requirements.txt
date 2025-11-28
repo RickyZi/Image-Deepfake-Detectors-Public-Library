@@ -30,4 +30,3 @@ tqdm==4.67.1
 albumentations
 ftfy
 open-clip-torch
-gradio

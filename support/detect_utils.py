@@ -54,11 +54,10 @@ def save_result(result, output_path):
     """Save detection result to JSON file.
     
     Args:
-        result (dict): Detection result dictionary
+        result (dict): Detection result to save
         output_path (str): Path to save the JSON file
     """
-    if os.path.dirname(output_path):
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, 'w') as f:
         json.dump(result, f, indent=2)
 

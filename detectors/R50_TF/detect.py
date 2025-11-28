@@ -152,7 +152,7 @@ def main():
     parser.add_argument('--checkpoint', type=str, required=False, help='Path to model checkpoint file')
     parser.add_argument('--model', type=str, required=False, help='Model name or checkpoint directory (alias for --checkpoint)')
     parser.add_argument('--config', type=str, default='configs/R50_TF.yaml', help='Path to YAML config file')
-    parser.add_argument('--device', type=str, default=None, help='Device to use (cuda:0, cpu, etc.)')
+    parser.add_argument('--device', type=str, default='cuda:0', help='Device to use (cuda:0, cpu, etc.)')
     
     args = parser.parse_args()
 
@@ -196,24 +196,11 @@ def main():
     settings = parse_detector_args(detector_args)
     
     # Get device from config if available, else use argument
-    # Prioritize argument if explicitly provided (we assume if it's not default, or if we trust the caller)
-    # Since we want to support --device cpu override, we should prioritize args.device
     device_str = args.device
-    
-    # Only check config if args.device wasn't explicitly passed (but here it has a default)
-    # Let's assume if the user passed --device, they want that.
-    # But args.device has a default 'cuda:0'.
-    # We should change the default to None to distinguish.
-    
-    if args.device is None:
-        if config.get('global', {}).get('device_override'):
-            device_override = config['global']['device_override']
-            if device_override and device_override != "null" and device_override != "":
-                device_str = device_override
-        else:
-             device_str = 'cuda:0'
-    else:
-        device_str = args.device
+    if config.get('global', {}).get('device_override'):
+        device_override = config['global']['device_override']
+        if device_override and device_override != "null" and device_override != "":
+            device_str = device_override
     
     # Determine device
     if device_str.startswith('cuda') and not torch.cuda.is_available():
@@ -237,7 +224,7 @@ def main():
     elapsed_time = runtime_ms / 1000.0
     formatted = format_result(label, float(round(probability, 4)), elapsed_time)
 
-    # Save using shared utility (if output path is provided)
+    # Save using shared utility
     if args.output:
         save_result(formatted, args.output)
         print(f"Results saved to {args.output}")

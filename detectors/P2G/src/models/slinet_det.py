@@ -97,7 +97,7 @@ class SliNet(nn.Module):
     def make_prompts(self, prompts):
         with torch.no_grad():
             tmp = torch.cat([clip.tokenize(p) for p in prompts]).clone()
-            # tmp = tmp.to('cuda:0') # Removed hardcoded cuda
+            tmp = tmp.to('cuda:0')
             tmp = tmp.to(next(self.clip_model.parameters()).device)  # CLIP on CPU at the beginning, after in GPU
             self.text_tokenized = tmp
             self.text_x = self.token_embedding(self.text_tokenized).type(

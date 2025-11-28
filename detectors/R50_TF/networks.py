@@ -38,11 +38,11 @@ class ImageClassifier(nn.Module):
     def __init__(self, settings):
         super().__init__()
         if settings.arch == 'baseline':
-            self.backbone = models.resnet50(weights=None)
+            self.backbone = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
             self.backbone.fc = nn.Linear(self.backbone.fc.in_features, 1)
 
         elif settings.arch == 'nodown':
-            self.backbone = models.resnet50(weights=None)
+            self.backbone = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
 
             # Replace first conv layer to avoid downsampling
             new_conv = nn.Conv2d(3, 64, kernel_size=7, stride=1, padding=3, bias=False)

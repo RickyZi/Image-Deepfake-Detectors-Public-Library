@@ -47,11 +47,7 @@ def run_detect(args):
     global_config = config.get('global', {})
     
     # Set device
-    if hasattr(args, 'device') and args.device:
-        device = args.device
-    else:
-        device = global_config.get('device_override')
-    
+    device = global_config.get('device_override')
     if not device or device == "null":
         _, memory = get_gpus()
         if len(memory) > 0:
