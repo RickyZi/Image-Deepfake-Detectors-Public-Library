@@ -21,6 +21,6 @@ def get_parser():
     parser.add_argument("--data_keys", type=str, help="Dataset specifications")
 
     parser.add_argument("--batch_size", type=int, default=64, help='Dataloader batch size')
-    parser.add_argument("--num_threads", type=int, default=14, help='# threads for loading data') # 14 for locutus / 16 for hal
+    parser.add_argument("--num_threads", type=int, default=14, help='# threads for loading data') 
     
     return parser

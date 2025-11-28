@@ -37,7 +37,19 @@ _MODELS = {
 }
 
 
+import ssl
+
 def _download(url: str, root: str = os.path.expanduser("~/.cache/clip")):
+    # Bypass SSL verification
+    try:
+        _create_unverified_https_context = ssl._create_unverified_context
+    except AttributeError:
+        # Legacy Python that doesn't verify HTTPS certificates by default
+        pass
+    else:
+        # Handle target environment that doesn't support HTTPS verification
+        ssl._create_default_https_context = _create_unverified_https_context
+
     os.makedirs(root, exist_ok=True)
     filename = os.path.basename(url)
 

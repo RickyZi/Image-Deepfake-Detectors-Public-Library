@@ -19,5 +19,4 @@ if __name__ == "__main__":
         f.write(training_template)
         print("Test config file created")
 
-    # subprocess.run(f'python -u src/eval.py --config configs/cddb_inference.json', shell=True)
     subprocess.run(f'python -u src/eval.py --config configs/test.json', shell=True)

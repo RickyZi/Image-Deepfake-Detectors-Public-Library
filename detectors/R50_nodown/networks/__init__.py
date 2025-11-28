@@ -20,14 +20,14 @@ def create_architecture(name_arch, pretrained=False, num_classes=1):
         from .resnet_mod import resnet50
 
         if pretrained:
-            model = resnet50(pretrained=True, stride0=1, dropout=0.5).change_output(num_classes)
+            model = resnet50(pretrained=False, stride0=1, dropout=0.5).change_output(num_classes)
         else:
             model = resnet50(num_classes=num_classes, stride0=1, dropout=0.5)
     elif name_arch == "res50":
         from .resnet_mod import resnet50
 
         if pretrained:
-            model = resnet50(pretrained=True, stride0=2).change_output(num_classes)
+            model = resnet50(pretrained=False, stride0=2).change_output(num_classes)
         else:
             model = resnet50(num_classes=num_classes, stride0=2)
     else:

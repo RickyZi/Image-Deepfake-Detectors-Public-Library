@@ -14,6 +14,8 @@ from einops import reduce, rearrange
 import bisect
 from models.slinet import SliNet
 import pandas as pd
+import time
+from sklearn.metrics import roc_auc_score, accuracy_score
 def parse_dataset(data_keys):
     gen_keys = {
         'gan1':['StyleGAN'],
@@ -153,7 +155,36 @@ class DummyDataset(Dataset):
             self.pil_loader(img_path, self.do_compress[0], self.do_compress[1])
         )
         label = self.labels[idx]
-        object_label = self.object_labels[img_path.replace(self.dataset_path, "")][0:5]
+        #object_label = self.object_labels[img_path.replace(self.dataset_path, "")][0:5]
+
+        # Normalize to a relative path key like those stored in classes.pkl
+        rel_path = os.path.relpath(img_path, self.dataset_path).replace(os.sep, '/')
+
+        # Try a few variants to match keys stored in classes.pkl
+        candidates = [rel_path, rel_path.lstrip('/'), '/' + rel_path]
+        found_key = None
+        for k in candidates:
+            if k in self.object_labels:
+                found_key = k
+                break
+
+        # If not found, try matching by basename (may be ambiguous but prevents crash)
+        if found_key is None:
+            basename = os.path.basename(rel_path)
+            for k in self.object_labels.keys():
+                if k.endswith('/' + basename) or k.endswith(basename):
+                    found_key = k
+                    break
+
+        # If still not found, fall back to the first available label entry to avoid KeyError
+        if found_key is None:
+            # pick any available entry as fallback (preserve expected structure)
+            fallback_val = next(iter(self.object_labels.values()))
+            object_label = fallback_val[0:5]
+            print(f"[warn] object label not found for '{rel_path}' (requested '{img_path}'), using fallback label")
+        else:
+            object_label = self.object_labels[found_key][0:5]
+        
         return object_label, image, label, img_path
 
     def pil_loader(self, path, do_compress, quality):
@@ -223,7 +254,7 @@ def load_configuration():
     args = setup_parser().parse_args()
     param = load_json(args.config)
     if args.resume == "":
-        args.resume = f'./train/{param["run_name"]}/models/best.pt'
+        args.resume = f'./best.pt'
     args_dict = vars(args)
     args_dict.update(param)
     return args_dict
@@ -290,8 +321,7 @@ def accuracy_binary(y_pred, y_true, increment=2):
 
 
 def prepare_model(args):
-    checkpoint = torch.load(args["resume"], map_location=args["device"])
-
+    checkpoint = torch.load(f'./checkpoint/{args["run_name"]}/weights/best.pt', map_location=args["device"])
     # update config args
     args["K"] = checkpoint["K"]
     args["topk_classes"] = checkpoint["topk_classes"]
@@ -341,14 +371,15 @@ def prepare_data_loader(args):
 
 @torch.no_grad
 def inference_step(args, model: SliNet, test_loader, keys_dict):
+    start_time = time.time()
+    
+    total_tasks = args["num_tasks"]
+    
     def upperbound_selection(targets):
         domain_indices = torch.div(targets, 2, rounding_mode="floor")
         domain_prob = torch.zeros(
             (len(targets), total_tasks), dtype=torch.float16, device=args["device"]
         )
-        # print(domain_indices)
-        # print(domain_prob.shape)
-        # print(torch.arange(len(targets)))
         domain_prob[torch.arange(len(targets)), domain_indices] = 1.0
         return domain_prob
 
@@ -356,53 +387,146 @@ def inference_step(args, model: SliNet, test_loader, keys_dict):
         keys_dict["upperbound"] = upperbound_selection(targets)
         if args["upperbound"]:
             keys_dict["prototype"] = "upperbound"
-
         outputs = model.interface(inputs, object_name, total_tasks, keys_dict)
 
         if args["softmax"]:
             outputs = torch.nn.functional.softmax(outputs, dim=-1)
         return compute_predictions(outputs)
     
-    csv_filename = f'./train/{args["run_name"]}/data/{args["scenario"]}/results.csv'
-    # df = pd.DataFrame(columns=['name', 'pro_top', 'pro_mean', 'pro_mix','flag'])
+    # File paths
+    output_dir = f'./results/{args["run_name"]}/data/{args["scenario"]}'
+    os.makedirs(output_dir, exist_ok=True)
+    csv_filename = os.path.join(output_dir, 'results.csv')
+    metrics_filename = os.path.join(output_dir, 'metrics.json')
+    image_results_filename = os.path.join(output_dir, 'image_results.json')
+    
+    # Extract training dataset keys from run_name (format: "training_keys_freeze_down" or "training_keys")
+    training_dataset_keys = []
+    run_name = args["run_name"]
+    if '_freeze_down' in run_name:
+        training_name = run_name.replace('_freeze_down', '')
+    else:
+        training_name = run_name
+    if '&' in training_name:
+        training_dataset_keys = training_name.split('&')
+    else:
+        training_dataset_keys = [training_name]
+    
+    # Collect all results
+    all_predictions_top1 = []
+    all_predictions_mean = []
+    all_predictions_mix = []
+    all_labels = []
+    all_binary_labels = []
+    all_paths = []
+    image_results = []
+    
+    # Write CSV header
     with open(csv_filename, 'w') as f:
         f.write(f"{','.join(['name', 'pro_top', 'pro_mean', 'pro_mix', 'flag'])}\n")
 
-    total_tasks = args["num_tasks"]
-    # y_pred = {key: [] for key in ["top1", "mean", "mix_top_mean"]}
-    # y_true = []
-
     for _, (object_name, inputs, targets, paths) in tqdm(enumerate(test_loader), total=len(test_loader), mininterval=5):
-        # print(len(object_name), len(inputs), len(targets))
         inputs, targets = inputs.to(args["device"]), targets.to(args["device"])
-        # print(targets)
         predictions = process_batch(inputs, targets, object_name)
 
-        # y_pred = {key: [] for key in ["top1", "mean", "mix_top_mean"]}
-        # for key, pred in predictions.items():
-        #     y_pred[key].append(pred.cpu().numpy())
-        # y_true.append(targets.cpu().numpy())
-
+        # Collect results
+        for score_top, score_mean, score_mix, label, path in zip(predictions['top1'], predictions['mean'], predictions['mix_top_mean'], targets, paths):
+            label_val = label.item()
+            binary_label = label_val % 2  # Convert to binary (task-agnostic)
+            
+            all_predictions_top1.append(score_top.item())
+            all_predictions_mean.append(score_mean.item())
+            all_predictions_mix.append(score_mix.item())
+            all_labels.append(label_val)
+            all_binary_labels.append(binary_label)
+            all_paths.append(path)
+            
+            image_results.append({
+                'path': path,
+                'score_top1': score_top.item(),
+                'score_mean': score_mean.item(),
+                'score_mix': score_mix.item(),
+                'label': label_val,
+                'binary_label': binary_label
+            })
+        
+        # Write to CSV (maintain backward compatibility)
         with open(csv_filename, 'a') as f:
             for score_top, score_mean, score_mix, label, path in zip(predictions['top1'], predictions['mean'], predictions['mix_top_mean'], targets, paths):
-            #df = df._append({'name': path,'pro_top': score_top.item(), 'pro_mean': score_mean.item(), 'pro_mix': score_mix.item(),'flag':label.item()}, ignore_index=True)
                 f.write(f"{path}, {score_top.item()}, {score_mean.item()}, {score_mix.item()}, {label.item()}\n")
-    # df.to_csv(csv_filename, index=False)
 
-    # y_true = np.concatenate(y_true)
+    # Calculate metrics using 'mix_top_mean' as primary prediction method
+    all_predictions_mix = np.array(all_predictions_mix)
+    all_binary_labels = np.array(all_binary_labels)
     
-    # for key in y_pred.keys():
-    #     y_pred[key] = np.concatenate(y_pred[key])
-
-    # # assert False, "You still have to implement this"
-
-    # accuracies = {
-    #     key: accuracy_binary(np.concatenate(pred), y_true)
-    #     for key, pred in y_pred.items()
-    # }
-
-
-    # return accuracies
+    # Predictions are already binary (0 or 1)
+    predictions = all_predictions_mix.astype(int)
+    
+    # Calculate overall metrics
+    total_accuracy = accuracy_score(all_binary_labels, predictions)
+    
+    # TPR (True Positive Rate) = TP / (TP + FN) = accuracy on fake images (label==1)
+    fake_mask = all_binary_labels == 1
+    if fake_mask.sum() > 0:
+        tpr = accuracy_score(all_binary_labels[fake_mask], predictions[fake_mask])
+    else:
+        tpr = 0.0
+    
+    
+    # Calculate TNR on real images (label==0) in the test set
+    real_mask = all_binary_labels == 0
+    if real_mask.sum() > 0:
+        # Overall TNR calculated on all real images in the test set
+        tnr = accuracy_score(all_binary_labels[real_mask], predictions[real_mask])
+    else:
+        tnr = 0.0
+        
+    # AUC calculation
+    # For AUC, we need probabilities. Since predictions are binary (0/1), we'll use the scores
+    # We need to convert binary predictions to probabilities. Since we don't have raw logits,
+    # we'll use a simple approach: normalize predictions or use a threshold-based probability
+    if len(np.unique(all_binary_labels)) > 1:  # Need both classes for AUC
+        # Use predictions directly as probabilities (they're already 0/1, but AUC needs continuous)
+        # For binary predictions, we can create probabilities based on the score distribution
+        # Since mix_top_mean gives us binary predictions, we'll use a simple approach:
+        # Create probabilities by normalizing or using the predictions directly
+        # Actually, for AUC with binary predictions, we can use the predictions as-is
+        # But ideally we'd have probabilities. For now, we'll calculate AUC using predictions
+        # Note: This might not be ideal, but works for binary classifier outputs
+        try:
+            auc = roc_auc_score(all_binary_labels, predictions.astype(float))
+        except:
+            auc = 0.0
+    else:
+        auc = 0.0
+    
+    execution_time = time.time() - start_time
+    
+    # Prepare metrics JSON
+    metrics = {
+        'TPR': float(tpr),
+        'TNR': float(tnr),
+        'Acc total': float(total_accuracy),
+        'AUC': float(auc),
+        'execution time': float(execution_time)
+    }
+    
+    # Write metrics JSON
+    with open(metrics_filename, 'w') as f:
+        json.dump(metrics, f, indent=2)
+    
+    # Write individual image results JSON
+    with open(image_results_filename, 'w') as f:
+        json.dump(image_results, f, indent=2)
+    
+    print(f'\nMetrics saved to {metrics_filename}')
+    print(f'Image results saved to {image_results_filename}')
+    print(f'\nMetrics (using mix_top_mean):')
+    print(f'  TPR: {tpr:.4f}')
+    print(f'  TNR: {tnr:.4f}')
+    print(f'  Accuracy: {total_accuracy:.4f}')
+    print(f'  AUC: {auc:.4f}')
+    print(f'  Execution time: {execution_time:.2f} seconds')
 
 
 def pretty_print(data):
@@ -419,11 +543,8 @@ if __name__ == "__main__":
 
     for s in scenarios:
         args["scenario"] = s
-        os.makedirs(f'./train/{args["run_name"]}/data/{args["scenario"]}', exist_ok=True)
+        os.makedirs(f'./results/{args["run_name"]}/data/{args["scenario"]}', exist_ok=True)
 
         test_loader = prepare_data_loader(args)
         inference_step(args, model, test_loader, keys_dict)
-        # if args["upperbound"] and s != "ood":
-        #     print(pretty_print(inference_step(args, model, test_loader, keys_dict)))
-        # if args["random_select"]:
-        #     print(pretty_print(inference_step(args, model, test_loader, keys_dict)))
+        

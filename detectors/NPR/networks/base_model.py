@@ -15,7 +15,7 @@ class BaseModel(nn.Module):
         self.lr = opt.lr
         # self.save_dir = os.path.join(opt.checkpoints_dir, opt.name)
         # self.save_dir = os.path.join(opt.checkpoints_dir, opt.name)
-        self.save_dir = os.path.join('train', opt.name, 'models')
+        self.save_dir = os.path.join(f'./checkpoint/{opt.name}/weights/')
         os.makedirs(self.save_dir, exist_ok=True)
         #self.device = torch.device('cuda:{}'.format(opt.gpu_ids[0])) if opt.gpu_ids else torch.device('cpu')
         self.device = torch.device(opt.device if torch.cuda.is_available() else 'cpu')

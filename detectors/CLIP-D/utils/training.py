@@ -28,7 +28,7 @@ class TrainingModel(torch.nn.Module):
 
         self.opt = opt
         self.total_steps = 0
-        self.save_dir = os.path.join('train', opt.name, 'models')
+        self.save_dir = os.path.join('checkpoint', opt.name,'weights')
         self.device = torch.device(opt.device if torch.cuda.is_available() else 'cpu')
 
         self.model = create_architecture(opt.arch, pretrained=True,  num_classes=1)

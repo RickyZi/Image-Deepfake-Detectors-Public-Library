@@ -1,0 +1,29 @@
+name: IDFD_VENV
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  # Core Python
+  - python=3.10
+  - pip
+
+  # ML / DL Frameworks
+  - pytorch-cuda=12.1  # remove if using CPU-only
+
+  # pip-only packages
+  - pip:
+      - torch==2.4.0
+      - torchvision==0.19
+      - pandas==2.2.3
+      - scikit-image==0.22.0
+      - scikit-learn==1.5.2
+      - pyyaml==6.0.2
+      - tqdm==4.67.1
+      - opencv-python==4.10.0.84
+      - transformers
+      - einops==0.8.0
+      - albumentations
+      - ftfy
+      - open-clip-torch
+      - wandb==0.19.0

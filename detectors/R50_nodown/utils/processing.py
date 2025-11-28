@@ -82,10 +82,7 @@ def parse_arguments(opt):
         opt.blur_sig = [float(s) for s in opt.blur_sig.split(",")]
     if not isinstance(opt.cmp_qual, list):
         opt.cmp_qual = [int(s) for s in opt.cmp_qual.split(",")]
-        # if len(opt.cmp_qual) == 2:
-        #     opt.cmp_qual = list(range(opt.cmp_qual[0], opt.cmp_qual[1] + 1))
-        # elif len(opt.cmp_qual) > 2:
-        #     raise ValueError("Shouldn't have more than 2 values for --cmp_qual.")
+        
     print(opt.cmp_qual)
     return opt
 

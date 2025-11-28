@@ -1,0 +1,16 @@
+*.pth
+*.pt
+detectors/*/results/*
+venv_OS_library*/
+copy_images.sh
+split_demo.json
+detectors/*/checkpoint/gan2*
+detectors/*/checkpoint/demo
+demo_images/*/
+detection_results/*
+logs/*
+*.zip
+split_truefake.json
+IDFD_VENV/
+detectors/P2G/logs/*
+v_gradio

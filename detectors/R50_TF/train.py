@@ -13,7 +13,6 @@ import torch.optim as optim
 from networks import ImageClassifier
 from parser import get_parser
 from dataset import create_dataloader
-# from torcheval.metrics import BinaryAccuracy
 from sklearn.metrics import balanced_accuracy_score
 
 def check_accuracy(val_dataloader, model, settings):
@@ -47,31 +46,26 @@ def train(train_dataloader, val_dataloader, model, settings):
         model.train()
         with tqdm(train_dataloader, unit='batch', mininterval=0.5) as tepoch:
             tepoch.set_description(f'Epoch {epoch}', refresh=False)
-            for batch_idx, (data, label, _) in enumerate(tepoch):
-                data = data.to(device)
-                label = label.to(device).float()
+            if epoch > 0:
+                for batch_idx, (data, label, _) in enumerate(tepoch):
+                    data = data.to(device)
+                    label = label.to(device).float()
 
-                scores = model(data).squeeze(1)
+                    scores = model(data).squeeze(1)
 
-                loss = criterion(scores, label).mean()
-                # if epoch < 1:
-                #     reg_loss = torch.mean((model.backbone.fc.weight - torch.eye(model.backbone.fc.in_features, device=device))**2)
-                #     loss += reg_loss * 1e-4
- 
-                optimizer.zero_grad()
-                loss.backward()
-                optimizer.step()
-                
-                tepoch.set_postfix(loss=loss.item())
-
-        if epoch % 20 == 0:
-            torch.save(model.state_dict(), f'./train/{settings.name}/models/epoch_{epoch}.pt')
+                    loss = criterion(scores, label).mean()
+    
+                    optimizer.zero_grad()
+                    loss.backward()
+                    optimizer.step()
+                    
+                    tepoch.set_postfix(loss=loss.item())
 
         accuracy = check_accuracy(val_dataloader, model, settings)
 
         if accuracy > best_accuracy:
             best_accuracy = accuracy
-            torch.save(model.state_dict(), f'./train/{settings.name}/models/best.pt')
+            torch.save(model.state_dict(), f'./checkpoint/{settings.name}/weights/best.pt')
 
             print(f'New best model saved with accuracy {best_accuracy:.4f} \n')
             lr_decay_counter = 0
@@ -97,24 +91,16 @@ if __name__ == "__main__":
 
     model = ImageClassifier(settings)
     model.to(device)
+    os.makedirs(f'./checkpoint/{settings.name}/weights/', exist_ok=True)
     
-    os.makedirs(f'./train/{settings.name}/models', exist_ok=True)
-    for file in glob.glob(f'*.py'):
-        shutil.copy(file, f'./train/{settings.name}/')
-    
-    with open(f'./train/{settings.name}/settings.txt', 'w') as f:
+    with open(f'./checkpoint/settings.txt', 'w') as f:
         f.write(str(settings))
 
     train_dataloader = create_dataloader(settings, split='train')
     val_dataloader = create_dataloader(settings, split='val')
 
-    # model.noise = True
-
-
     optimizer = optim.Adam((p for p in model.parameters() if p.requires_grad), lr=settings.lr)
 
     criterion = nn.BCEWithLogitsLoss(reduction='none')
-    # criterion = nn.BCELoss(reduction='none')
-    # metric = BinaryAccuracy()
 
     train(train_dataloader, val_dataloader, model, settings)

@@ -88,15 +88,13 @@ def parse_dataset(settings):
     }
 
     gen_keys['all'] =   [gen_keys[key][0] for key in gen_keys.keys()]
-    # gen_keys['gan'] =   [gen_keys[key][0] for key in gen_keys.keys() if 'gan'   in key]
-    # gen_keys['sd'] =    [gen_keys[key][0] for key in gen_keys.keys() if 'sd'    in key]
     gen_keys['real'] =  [gen_keys[key][0] for key in gen_keys.keys() if 'real'  in key]
 
     mod_keys = {
         'pre':  ['PreSocial'],
         'fb':   ['Facebook'],
         'tl':   ['Telegram'],
-        'tw':   ['Twitter'],
+        'tw':   ['X'],
     }
 
     mod_keys['all'] = [mod_keys[key][0] for key in mod_keys.keys()]

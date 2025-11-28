@@ -3,6 +3,7 @@ import time
 import os
 import csv
 import torch
+import json
 from util import Logger, printSet
 from validate import validate
 from networks.resnet import resnet50
@@ -11,6 +12,7 @@ import networks.resnet as resnet
 import numpy as np
 import random
 from data import create_dataloader
+from sklearn.metrics import roc_auc_score, accuracy_score
 
 from tqdm import tqdm
 import pandas as pd
@@ -26,32 +28,9 @@ def seed_torch(seed=1029):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.enabled = False
 seed_torch(100)
-# DetectionTests = {
-#                 'ForenSynths': { 'dataroot'   : '/opt/data/private/DeepfakeDetection/ForenSynths/',
-#                                  'no_resize'  : False, # Due to the different shapes of images in the dataset, resizing is required during batch detection.
-#                                  'no_crop'    : True,
-#                                },
-
-#            'GANGen-Detection': { 'dataroot'   : '/opt/data/private/DeepfakeDetection/GANGen-Detection/',
-#                                  'no_resize'  : True,
-#                                  'no_crop'    : True,
-#                                },
-
-#          'DiffusionForensics': { 'dataroot'   : '/opt/data/private/DeepfakeDetection/DiffusionForensics/',
-#                                  'no_resize'  : False, # Due to the different shapes of images in the dataset, resizing is required during batch detection.
-#                                  'no_crop'    : True,
-#                                },
-
-#         'UniversalFakeDetect': { 'dataroot'   : '/opt/data/private/DeepfakeDetection/UniversalFakeDetect/',
-#                                  'no_resize'  : False, # Due to the different shapes of images in the dataset, resizing is required during batch detection.
-#                                  'no_crop'    : True,
-#                                },
-
-#                  }
-
 
 opt = TestOptions().parse(print_options=False)
-opt.model_path = f'./train/{opt.name}/models/best.pt'
+opt.model_path = os.path.join(f'./checkpoint/{opt.name}/weights/best.pt')
 print(f'Model_path {opt.model_path}')
 
 
@@ -64,14 +43,39 @@ model.eval()
 opt.no_resize = False
 opt.no_crop   = True
 
-os.makedirs(f'./train/{opt.name}/data/{opt.data_keys}', exist_ok=True)
-test_dataloader = create_dataloader(opt, split='test')
+output_dir = f'./results/{opt.name}/data/{opt.data_keys}'
+os.makedirs(output_dir, exist_ok=True)
 
+test_dataloader = create_dataloader(opt, split='test')
 
 model.eval()
 
-csv_filename = f'./train/{opt.name}/data/{opt.data_keys}/results.csv'
-# df = pd.DataFrame(columns=['name', 'pro','flag'])
+# File paths
+csv_filename = os.path.join(output_dir, 'results.csv')
+metrics_filename = os.path.join(output_dir, 'metrics.json')
+image_results_filename = os.path.join(output_dir, 'image_results.json')
+
+# Extract training dataset keys from model name (format: "training_keys_freeze_down" or "training_keys")
+training_dataset_keys = []
+model_name = opt.name
+if '_freeze_down' in model_name:
+    training_name = model_name.replace('_freeze_down', '')
+else:
+    training_name = model_name
+if '&' in training_name:
+    training_dataset_keys = training_name.split('&')
+else:
+    training_dataset_keys = [training_name]
+
+# Collect all results
+all_scores = []
+all_labels = []
+all_paths = []
+image_results = []
+
+start_time = time.time()
+
+# Write CSV header
 with open(csv_filename, 'w') as f:
     f.write(f"{','.join(['name', 'pro', 'flag'])}\n")
 
@@ -84,27 +88,86 @@ with torch.no_grad():
 
             scores = model(data).squeeze(1)
 
+            # Collect results
+            for score, label, path in zip(scores, labels, paths):
+                score_val = score.item()
+                label_val = label.item()
+                
+                all_scores.append(score_val)
+                all_labels.append(label_val)
+                all_paths.append(path)
+                
+                image_results.append({
+                    'path': path,
+                    'score': score_val,
+                    'label': label_val
+                })
+            
+            # Write to CSV (maintain backward compatibility)
             with open(csv_filename, 'a') as f:
                 for score, label, path in zip(scores, labels, paths):
                     f.write(f"{path}, {score.item()}, {label.item()}\n")
-                    # df = df._append({'name': path,'pro': score.item(),'flag':label.item()}, ignore_index=True)
 
-# df.to_csv(csv_filename, index=False)
+# Calculate metrics
+all_scores = np.array(all_scores)
+all_labels = np.array(all_labels)
 
+# Convert scores to probabilities using sigmoid (as done in validate.py)
+probabilities = torch.sigmoid(torch.tensor(all_scores)).numpy()
 
-# for testSet in DetectionTests.keys():
-#     dataroot = DetectionTests[testSet]['dataroot']
-#     printSet(testSet)
+# Convert probabilities to predictions using threshold 0.5 (as done in validate.py)
+predictions = (probabilities > 0.5).astype(int)
 
-#     accs = [];aps = []
-#     print(time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime()))
-#     for v_id, val in enumerate(os.listdir(dataroot)):
-#         opt.dataroot = '{}/{}'.format(dataroot, val)
-#         opt.classes  = '' #os.listdir(opt.dataroot) if multiclass[v_id] else ['']
-#         opt.no_resize = DetectionTests[testSet]['no_resize']
-#         opt.no_crop   = DetectionTests[testSet]['no_crop']
-#         acc, ap, _, _, _, _ = validate(model, opt)
-#         accs.append(acc);aps.append(ap)
-#         print("({} {:12}) acc: {:.1f}; ap: {:.1f}".format(v_id, val, acc*100, ap*100))
-#     print("({} {:10}) acc: {:.1f}; ap: {:.1f}".format(v_id+1,'Mean', np.array(accs).mean()*100, np.array(aps).mean()*100));print('*'*25) 
+# Calculate overall metrics
+total_accuracy = accuracy_score(all_labels, predictions)
+
+# TPR (True Positive Rate) = TP / (TP + FN) = accuracy on fake images (label==1)
+fake_mask = all_labels == 1
+if fake_mask.sum() > 0:
+    tpr = accuracy_score(all_labels[fake_mask], predictions[fake_mask])
+else:
+    tpr = 0.0
+
+# Calculate TNR on real images (label==0) in the test set
+real_mask = all_labels == 0
+if real_mask.sum() > 0:
+    # Overall TNR calculated on all real images in the test set
+    tnr = accuracy_score(all_labels[real_mask], predictions[real_mask])
+else:
+    tnr = 0.0
+
+# AUC calculation (using probabilities)
+if len(np.unique(all_labels)) > 1:  # Need both classes for AUC
+    auc = roc_auc_score(all_labels, probabilities)
+else:
+    auc = 0.0
+
+execution_time = time.time() - start_time
+
+# Prepare metrics JSON
+metrics = {
+    'TPR': float(tpr),
+    'TNR': float(tnr),
+    'Acc total': float(total_accuracy),
+    'AUC': float(auc),
+    'execution time': float(execution_time)
+}
+
+# Write metrics JSON
+with open(metrics_filename, 'w') as f:
+    json.dump(metrics, f, indent=2)
+
+# Write individual image results JSON
+with open(image_results_filename, 'w') as f:
+    json.dump(image_results, f, indent=2)
+
+print(f'\nMetrics saved to {metrics_filename}')
+print(f'Image results saved to {image_results_filename}')
+print(f'\nMetrics:')
+print(f'  TPR: {tpr:.4f}')
+print(f'  TNR: {tnr:.4f}')
+print(f'  Accuracy: {total_accuracy:.4f}')
+print(f'  AUC: {auc:.4f}')
+print(f'  Execution time: {execution_time:.2f} seconds')
+
 

@@ -10,8 +10,7 @@ if __name__ == "__main__":
     parser = add_processing_arguments(parser)
 
     opt = parser.parse_args()
-
-    os.makedirs(os.path.join('train', opt.name, 'models'), exist_ok=True)
+    os.makedirs(os.path.join('checkpoint', opt.name,'weights'), exist_ok=True)
 
     valid_data_loader = create_dataloader(opt, split="val")
     train_data_loader = create_dataloader(opt, split="train")

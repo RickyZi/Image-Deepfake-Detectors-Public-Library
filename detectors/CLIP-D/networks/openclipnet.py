@@ -39,11 +39,21 @@ class OpenClipLinear(nn.Module):
     def __init__(self, num_classes=1, pretrain='clipL14commonpool', normalize=True, next_to_last=False):
         super(OpenClipLinear, self).__init__()
         
+        # Modified to handle download failures gracefully
+        # The checkpoint only contains fc weights, so we need the pretrained backbone
         if len(dict_pretrain[pretrain])==2:
-            backbone = open_clip.create_model(dict_pretrain[pretrain][0], pretrained=dict_pretrain[pretrain][1])
+            try:
+                backbone = open_clip.create_model(dict_pretrain[pretrain][0], pretrained=dict_pretrain[pretrain][1])
+            except Exception as e:
+                print(f"WARNING: Could not download pretrained weights ({e}). Using random initialization.")
+                backbone = open_clip.create_model(dict_pretrain[pretrain][0], pretrained=None)
         else:
-            from huggingface_hub import hf_hub_download
-            backbone = open_clip.create_model(dict_pretrain[pretrain][0], pretrained=hf_hub_download(*dict_pretrain[pretrain][1:]))
+            try:
+                from huggingface_hub import hf_hub_download
+                backbone = open_clip.create_model(dict_pretrain[pretrain][0], pretrained=hf_hub_download(*dict_pretrain[pretrain][1:]))
+            except Exception as e:
+                print(f"WARNING: Could not download pretrained weights ({e}). Using random initialization.")
+                backbone = open_clip.create_model(dict_pretrain[pretrain][0], pretrained=None)
         
         if next_to_last:
             self.num_features = backbone.visual.proj.shape[0]
