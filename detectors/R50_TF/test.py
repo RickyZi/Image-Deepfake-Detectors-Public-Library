@@ -156,7 +156,8 @@ if __name__ == "__main__":
     model = ImageClassifier(settings)
     model.to(device)
     path_weight = f'./checkpoint/{settings.name}/weights/best.pt' 
-    state_dict = torch.load(path_weight)
+    # state_dict = torch.load(path_weight)
+    state_dict = torch.load(path_weight, map_location=device) # fix runtime error (use torch.load with map_location to map your storages to an existing device)
     model.load_state_dict(state_dict)
 
     test(test_dataloader, model, settings, device)
