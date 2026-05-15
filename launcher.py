@@ -70,9 +70,13 @@ def run_demo(args):
     import torch
 
     project_root = os.path.abspath(os.path.dirname(__file__))
-    demo_root = os.path.join(project_root, 'demo_images')
-    assert os.path.isdir(demo_root), f"Demo folder not found: {demo_root}"
 
+    # if 'tb_preset' in args.demo_dataset:
+    
+    demo_root = os.path.join(project_root, 'demo_images', args.demo_dataset) #'tb_preset', 'style_BW01') # path to the dataset folder (socials subfolder structure)
+    assert os.path.isdir(demo_root), f"Demo folder not found: {demo_root}"
+    print(f"[demo] Using demo dataset at: {demo_root}")
+    # breakpoint()
     # Build split file from demo_images
     def build_demo_split_json(root_path, out_path):
         test_entries = []
@@ -133,6 +137,7 @@ def run_demo(args):
 
     detectors_root = os.path.join(project_root, 'detectors')
     all_methods = ['R50_nodown', 'CLIP-D', 'R50_TF', 'P2G', 'NPR']
+    # missing R50_TF and P2G results
     methods = all_methods if args.demo_detector == 'all' else [args.demo_detector]
 
     os.makedirs(os.path.join(project_root, 'logs'), exist_ok=True)
@@ -173,6 +178,7 @@ def run_demo(args):
                 os.chdir(det_dir)
                 try:
                     print(f"[demo] Running {method} test with args: {cmd_args}")
+                    # breakpoint()
                     runner = 'test.py'
                     subprocess.run(f'python -u {runner} {cmd_args}', shell=True)#, stdout=f, stderr=f)
                 finally:
@@ -195,6 +201,7 @@ def main():
     parser.add_argument('--weights_name', type=str, default=None, 
                         help='Name of the weights directory')
     parser.add_argument('--demo', action='store_true', help='Run demo on demo_images across detectors')
+    parser.add_argument('--demo-dataset', type=str, default='demo_images', help='Which dataset to demo (default: demo_images)') # add dataset to 
     parser.add_argument('--demo-detector', type=str, default='all', choices=['all', 'R50_TF', 'R50_nodown', 'CLIP-D', 'P2G', 'NPR'], help='Which detector to demo (default: all)')
     
     # Add detect mode arguments
