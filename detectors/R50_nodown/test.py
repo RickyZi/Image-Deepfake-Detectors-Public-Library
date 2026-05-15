@@ -11,14 +11,24 @@ from utils.dataset import create_dataloader
 from utils.processing import add_processing_arguments
 from parser import get_parser
 
+from datetime import datetime
+
 def test(loader, model, settings, device):
     model.eval()
     
     start_time = time.time()
     
-    # File paths
-    output_dir = f'./results/{settings.name}/{settings.data_keys}/data/'
+    # # File paths
+    # output_dir = f'./results/{settings.name}/{settings.data_keys}/data/'
+    # os.makedirs(output_dir, exist_ok=True)
+    # --------------------------- #
+    # File paths update
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
+    # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
+    dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
+    output_dir = f'/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_nodown/{settings.data_keys}' # change path to be outside detector folder
     os.makedirs(output_dir, exist_ok=True)
+    # --------------------------- #
     
     csv_filename = os.path.join(output_dir, 'results.csv')
     metrics_filename = os.path.join(output_dir, 'metrics.json')

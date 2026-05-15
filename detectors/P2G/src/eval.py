@@ -16,6 +16,9 @@ from models.slinet import SliNet
 import pandas as pd
 import time
 from sklearn.metrics import roc_auc_score, accuracy_score
+
+from datetime import datetime
+
 def parse_dataset(data_keys):
     gen_keys = {
         'gan1':['StyleGAN'],
@@ -40,7 +43,7 @@ def parse_dataset(data_keys):
         'fb':   ['Facebook'],
         'tl':   ['Telegram'],
         # 'tw':   ['Twitter'],
-        'tw':   ['X'],
+        "tw":   ['X'],
     }
 
     mod_keys['all'] = [mod_keys[key][0] for key in mod_keys.keys()]
@@ -111,10 +114,23 @@ class DummyDataset(Dataset):
         elif data_type == "TrueFake":
             print(f"--- Test on {data_scenario} ---")
 
-            with open(split_file, "r") as f:
-                splits = json.load(f)
-                test_split = sorted(splits["test"])
-
+            
+            """
+            Check this
+            --- Test on sd15:tw ---
+                0it [00:00, ?it/s]
+                /media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/IDFD_VENV/lib/python3.10/site-packages/numpy/lib/_function_base_impl.py:552: RuntimeWarning: Mean of empty slice.
+                avg = a.mean(axis, **keepdims_kw)
+                /media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/IDFD_VENV/lib/python3.10/site-packages/numpy/_core/_methods.py:145: RuntimeWarning: invalid value encountered in scalar divide
+                ret = ret.dtype.type(ret / rcount)
+            """
+            # added check on spit_file to avoid error 'mean of empty slice' (sometimes imgs are not found? -> Accuracy: nan) -> still have cases where acc: nan
+            if split_file is not None:
+                with open(split_file, "r") as f:
+                    splits = json.load(f)
+                    test_split = sorted(splits["test"])
+            else:
+                test_split = None
 
             dataset_list = parse_dataset(data_scenario)
 
@@ -203,6 +219,8 @@ class DummyDataset(Dataset):
             return output
 
     def _in_list(self, split, elem):
+        if split is None:
+            return True
         i = bisect.bisect_left(split, elem)
         return i != len(split) and split[i] == elem
 
@@ -395,8 +413,19 @@ def inference_step(args, model: SliNet, test_loader, keys_dict):
         return compute_predictions(outputs)
     
     # File paths
-    output_dir = f'./results/{args["run_name"]}/data/{args["scenario"]}'
+    # output_dir = f'./results/{args["run_name"]}/data/{args["scenario"]}'
+    # os.makedirs(output_dir, exist_ok=True)
+    # --------------------------- #
+    # File paths update
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
+    # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
+    dataset_dir_name = args["data_path"].split('/')[-2]  # Extract dataset directory name from path
+    output_dir = f'/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{args["run_name"]}/{dataset_dir_name}/P2G/{args["scenario"]}' # change path to be outside detector folder
     os.makedirs(output_dir, exist_ok=True)
+    # breakpoint()
+    # --------------------------- #
+
+
     csv_filename = os.path.join(output_dir, 'results.csv')
     metrics_filename = os.path.join(output_dir, 'metrics.json')
     image_results_filename = os.path.join(output_dir, 'image_results.json')
@@ -541,6 +570,8 @@ if __name__ == "__main__":
     scenarios = copy.deepcopy(args["scenario"])
     model, keys_dict = prepare_model(args)
     keys_dict["prototype"] = args["prototype"]
+    
+    # breakpoint()
 
     for s in scenarios:
         args["scenario"] = s

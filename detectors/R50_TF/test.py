@@ -14,14 +14,25 @@ from networks import ImageClassifier
 from parser import get_parser
 from dataset import create_dataloader
 
+from datetime import datetime
+
 def test(loader, model, settings, device):
     model.eval()
     
     start_time = time.time()
     
-    # File paths
-    output_dir = f'./results/{settings.name}/{settings.data_keys}/data/'
+    # # File paths
+    # output_dir = f'./results/{settings.name}/{settings.data_keys}/data/'
+    # os.makedirs(output_dir, exist_ok=True)
+
+    # --------------------------- #
+    # File paths update
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") #
+    # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
+    dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name
+    output_dir = f'/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF/{settings.data_keys}' # change path to be outside detector folder
     os.makedirs(output_dir, exist_ok=True)
+    # --------------------------- #
     
     csv_filename = os.path.join(output_dir, 'results.csv')
     metrics_filename = os.path.join(output_dir, 'metrics.json')
@@ -154,9 +165,12 @@ if __name__ == "__main__":
     test_dataloader = create_dataloader(settings, split='test')
 
     model = ImageClassifier(settings)
+    # breakpoint()
     model.to(device)
     path_weight = f'./checkpoint/{settings.name}/weights/best.pt' 
     state_dict = torch.load(path_weight, map_location=device)
+    # breakpoint()
+    # RuntimeError: Attempting to deserialize object on CUDA device 1 but torch.cuda.device_count() is 1. 
+    # Please use torch.load with map_location to map your storages to an existing device.
     model.load_state_dict(state_dict)
-
     test(test_dataloader, model, settings, device)

@@ -4,6 +4,7 @@ import torch
 import pandas as pd
 import json
 import time
+from datetime import datetime
 import numpy as np
 from sklearn.metrics import roc_auc_score, accuracy_score
 from networks import create_architecture, count_parameters
@@ -15,10 +16,15 @@ def test(loader, model, settings, device):
     model.eval()
     
     start_time = time.time()
-    
-    # File paths
-    output_dir = f'./results/{settings.name}/data/{settings.data_keys}'
+
+    # --------------------------- #
+    # File paths update
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
+    # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
+    dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
+    output_dir = f'/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/CLIP-D/{settings.data_keys}' # change path to be outside detector folder
     os.makedirs(output_dir, exist_ok=True)
+    # --------------------------- #
     
     csv_filename = os.path.join(output_dir, 'results.csv')
     metrics_filename = os.path.join(output_dir, 'metrics.json')
@@ -144,6 +150,7 @@ def test(loader, model, settings, device):
     print(f'  Accuracy: {total_accuracy:.4f}')
     print(f'  AUC: {auc:.4f}')
     print(f'  Execution time: {execution_time:.2f} seconds')
+    # breakpoint()
 
 if __name__ == '__main__':
     parser = get_parser()

@@ -17,6 +17,8 @@ from sklearn.metrics import roc_auc_score, accuracy_score
 from tqdm import tqdm
 import pandas as pd
 
+from datetime import datetime
+
 def seed_torch(seed=1029):
     random.seed(seed)
     os.environ['PYTHONHASHSEED'] = str(seed)
@@ -43,8 +45,17 @@ model.eval()
 opt.no_resize = False
 opt.no_crop   = True
 
-output_dir = f'./results/{opt.name}/data/{opt.data_keys}'
+# output_dir = f'./results/{opt.name}/data/{opt.data_keys}'
+# os.makedirs(output_dir, exist_ok=True)
+
+# --------------------------- #
+# File paths update
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
+# output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
+dataset_dir_name = opt.data_root.split('/')[-1]  # Extract dataset directory name from path
+output_dir = f'/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{opt.name}/{dataset_dir_name}/NPR/{opt.data_keys}' # change path to be outside detector folder
 os.makedirs(output_dir, exist_ok=True)
+# --------------------------- #
 
 test_dataloader = create_dataloader(opt, split='test')
 

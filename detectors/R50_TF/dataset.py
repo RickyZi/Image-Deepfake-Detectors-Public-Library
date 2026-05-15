@@ -129,7 +129,11 @@ class TrueFake_dataset(datasets.DatasetFolder):
             print(self.transform_aug['heavy'])
         print(self.transform_end)
 
-        print(f'Loaded {len(self.samples)} samples for {self.split}')
+        if len(self.samples) == 0:
+            print(f'Warning: No samples found for {self.split} split with the given settings. Please check your data_keys and split_file.')
+            breakpoint()
+        else:
+            print(f'Loaded {len(self.samples)} samples for {self.split}')
                     
     def _in_list(self, split, elem):
         i = bisect.bisect_left(split, elem)

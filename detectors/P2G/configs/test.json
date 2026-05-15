@@ -1,13 +1,13 @@
 {   
-    "run_name" : "pretrained",
+    "run_name" : "demo",
     "device" : "cuda:0",
     "batch_size_eval" :512,
     "dataset": "TrueFake",
-    "data_path": "/media/NAS/DeepShield/",
-    "split_file": "/home/andrea.montibeller/Image-Deepfake-Detectors-Public-Library/split.json",
+    "data_path": "/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/demo_images/style_warmgold/",
+    "split_file": "/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/split_demo.json",
     "softmax" : false,
     "prototype" : "fake", 
-    "scenario": ["realFORLAB:fb"],
+    "scenario": ["flux:pre"],
     "upperbound" : false,
     "random_select" : false,
     "precision" : "fp16"
