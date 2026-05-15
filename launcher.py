@@ -201,7 +201,7 @@ def main():
     parser.add_argument('--weights_name', type=str, default=None, 
                         help='Name of the weights directory')
     parser.add_argument('--demo', action='store_true', help='Run demo on demo_images across detectors')
-    parser.add_argument('--demo-dataset', type=str, default='demo_images', help='Which dataset to demo (default: demo_images)') # add dataset to 
+    parser.add_argument('--demo-dataset', type=str, default='demo_images', help='Which dataset to demo (default: demo_images)') # add custom dataset for demo
     parser.add_argument('--demo-detector', type=str, default='all', choices=['all', 'R50_TF', 'R50_nodown', 'CLIP-D', 'P2G', 'NPR'], help='Which detector to demo (default: all)')
     
     # Add detect mode arguments
