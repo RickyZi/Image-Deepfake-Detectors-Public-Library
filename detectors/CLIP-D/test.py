@@ -171,6 +171,6 @@ if __name__ == '__main__':
     model.load_state_dict(torch.load(load_path, map_location=device)['model'])
     model.to(device)
 
-    breakpoint()
+    # breakpoint()
 
     test(test_dataloader, model, settings, device)
