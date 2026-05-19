@@ -198,10 +198,15 @@ def main():
                         help='Phases to run: train, test, or both (default: both)')
     parser.add_argument('--config-dir', type=str, default='configs',
                         help='Path to configs directory (default: configs/)'),
-    parser.add_argument('--weights_name', type=str, default=None, 
+    parser.add_argument('--weights-name', type=str, default=None, 
                         help='Name of the weights directory')
+    # --------------------------- #
+    parser.add_argument('--ft', action='store_true', help='Path to pretrained model to load') ## for FT model (os just --ft flag?)
+    # --------------------------- #
     parser.add_argument('--demo', action='store_true', help='Run demo on demo_images across detectors')
+    # --------------------------- #
     parser.add_argument('--demo-dataset', type=str, default='demo_images', help='Which dataset to demo (default: demo_images)') # add custom dataset for demo
+    # --------------------------- #
     parser.add_argument('--demo-detector', type=str, default='all', choices=['all', 'R50_TF', 'R50_nodown', 'CLIP-D', 'P2G', 'NPR'], help='Which detector to demo (default: all)')
     
     # Add detect mode arguments
@@ -211,8 +216,14 @@ def main():
     detect_group.add_argument('--weights', type=str, default='pretrained', help='Path to model weights for detection')
     detect_group.add_argument('--output', type=str, help='Path to save detection results')
     detect_group.add_argument('--dry-run', action='store_true', help='Print commands without executing')
+
+    #  python launcher.py --detect --detector model_name --image path/to/img.jpg --weights pretrained or demo
+    #  python3 launcher.py --detector R50_nodown --phases train --weights-name pretrained --ft # FT test -> --ft arg not recognized
     
     args = parser.parse_args()
+
+    # print(f"args: {args}")
+    # breakpoint()
 
     if args.demo:
         return run_demo(args)
@@ -248,8 +259,11 @@ def main():
     if device_override == "null" or device_override == "":
         device_override = None
     min_vram = global_config.get('min_vram', 16000)
-    split_file = os.path.abspath(global_config.get('split_file', 'split.json'))
-    num_threads = global_config.get('num_threads', 8)
+    if args.ft:
+        split_file = os.path.abspath(global_config.get('split_file', 'split_prova_ft.json'))
+    else: 
+        split_file = os.path.abspath(global_config.get('split_file', 'split.json'))
+    num_threads = global_config.get('num_threads', 8) # check if ok for TeslaT4, might need to decrease it to 4
     dry_run = global_config.get('dry_run', False)
     only_list = global_config.get('only_list', False)
     phases = parse_phases(args.phases)
@@ -289,6 +303,8 @@ def main():
         cmd_args.append(f'--num_threads {num_threads}')
         cmd_args.append(f'--data_keys "{task["details"]["data"]}"')
         cmd_args.append(f'--data_root {dataset_path}')
+        if args.ft: 
+                cmd_args.append(f'--ft')
         
         device = None
         if device_override is not None:
@@ -307,6 +323,9 @@ def main():
         
         cmd_args.append(f'--device {device}')
         
+        # print(f"cmd_args: {cmd_args}")
+        # breakpoint()
+
         # Add detector-specific arguments
         for arg in detector_args:
             cmd_args.append(arg)
@@ -317,6 +336,10 @@ def main():
         if not dry_run:
             #log_file = f'logs/{task["type"]}_{task["details"]["detector"]}_{task["details"]["model"]}_{task["details"]["data"]}.log'
             log_file = f'logs/{task["type"]}_{task["details"]["detector"]}_{model_name}_{task["details"]["data"]}.log'
+            if args.ft:
+                log_file = f'logs/FT_{task["details"]["detector"]}_{model_name}_seasonTM01.log'
+            else:
+                log_file = f'logs/{task["type"]}_{task["details"]["detector"]}_{model_name}_{task["details"]["data"]}.log'
             with open(log_file, 'w') as f:
                 cwd = os.getcwd()
                 os.chdir(f'./detectors/{task["details"]["detector"]}')

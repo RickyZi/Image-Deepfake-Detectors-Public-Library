@@ -30,7 +30,8 @@ class TrainingModel(torch.nn.Module):
         self.total_steps = 0
         self.save_dir = (os.path.join('checkpoint', opt.name,'weights'))
         self.device = torch.device(opt.device if torch.cuda.is_available() else 'cpu')
-
+        print(f"opt.arch: {opt.arch}")
+        # breakpoint()
         self.model = create_architecture(opt.arch, pretrained=True,  num_classes=1)
         num_parameters = count_parameters(self.model)
         print(f"Arch: {opt.arch} with #trainable {num_parameters}")

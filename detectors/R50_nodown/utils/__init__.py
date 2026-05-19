@@ -17,6 +17,7 @@ limitations under the License.
 
 from .dataset import create_dataloader
 from .training import TrainingModel
+from .finetuning import FTModel
 class EarlyStopping:
     def __init__(self, init_score=None, patience=1, verbose=False, delta=0):
         self.best_score = init_score

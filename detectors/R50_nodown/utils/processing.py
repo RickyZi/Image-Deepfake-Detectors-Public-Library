@@ -72,7 +72,7 @@ def add_processing_arguments(parser):
     parser.add_argument("--resize_ratio", type=float, default=1.0)
 
     # other
-    parser.add_argument("--norm_type", type=str, default="resnet")  # normalization type
+    parser.add_argument("--norm_type", type=str, default="resnet")  # normalization type (248x248)
 
     return parser
 

@@ -13,7 +13,7 @@ from parser import get_parser
 
 from datetime import datetime
 
-def test(loader, model, settings, device):
+def test(loader, model, settings, device, timestamp):
     model.eval()
     
     start_time = time.time()
@@ -23,7 +23,7 @@ def test(loader, model, settings, device):
     # os.makedirs(output_dir, exist_ok=True)
     # --------------------------- #
     # File paths update
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
+    
     # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
     dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
     output_dir = f'/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_nodown/{settings.data_keys}' # change path to be outside detector folder
@@ -68,7 +68,7 @@ def test(loader, model, settings, device):
                 paths = data_dict['path']
 
                 scores = model(data).squeeze(1)
-                
+                # breakpoint()
                 # Collect results
                 for score, label, path in zip(scores, labels, paths):
                     score_val = score.item()
@@ -153,19 +153,22 @@ def test(loader, model, settings, device):
 if __name__ == '__main__':
     parser = get_parser()
     parser = add_processing_arguments(parser)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
     settings = parser.parse_args()
+    print(f"settings/args in test.py: {settings}")
+    # breakpoint()
     
     device = torch.device(settings.device if torch.cuda.is_available() else 'cpu')
 
     test_dataloader = create_dataloader(settings, split='test')
-
+    
     model = create_architecture(settings.arch, pretrained=True, num_classes=1).to(device)
     num_parameters = count_parameters(model)
     print(f"Arch: {settings.arch} with #parameters {num_parameters}")
-    load_path = f'./checkpoint/{settings.name}/weights/best.pt'
-    
+    load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/best.pt'
     print('loading the model from %s' % load_path)
+    # breakpoint()
     model.load_state_dict(torch.load(load_path, map_location=device)['model'])
     model.to(device)
 
-    test(test_dataloader, model, settings, device)
+    test(test_dataloader, model, settings, device, timestamp)
