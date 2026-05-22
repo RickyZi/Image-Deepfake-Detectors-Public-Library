@@ -92,25 +92,27 @@ def compute_metric_differences(ref_metrics, new_metrics):
         result[key] = new_metrics[key]
         # Add diff if the key exists in reference too
         if key in ref_metrics:
-            diff = new_metrics[key] - ref_metrics[key]
-            result[key + '_diff'] = diff
-            if ref_metrics[key] != 0:
-                result[key + '_percent_diff'] = diff / abs(ref_metrics[key]) * 100
-    
+            # diff = abs(new_metrics[key] - ref_metrics[key])
+            result[key + '_abs_diff'] = abs(new_metrics[key] - ref_metrics[key])
+            # if ref_metrics[key] != 0:
+            #     # result[key + '_percent_diff'] = diff / abs(ref_metrics[key]) * 100
+            #     results[key + '_abs_diff'] = abs(diff)
+    # print(f"results; {result}")
+    # breakpoint()
     return result
 
 def write_metrics(metrics, output_path):
     with open(output_path, 'w') as f:
         json.dump(metrics, f, indent=4)
 
+ # --------------------------------- #
+# ---------- Entry point ---------- #
+# --------------------------------- #       
+
 if __name__ == "__main__":
 
     ref_metrics_path = './results/demo/demo_images/demo_images_aggregated_metrics.json'
-    metrics2compare_path = Path(sys.argv[1]) if len(sys.argv) > 1 else Path('./results/demo/seasons_SM01/seasons_SM01_aggregated_metrics.json')
-    
-    
-    
-
+    metrics2compare_path = Path(sys.argv[1]) if len(sys.argv) > 1 else Path('./results/demo/season_SM01/season_SM01_aggregated_metrics.json')
     # load metrics from json files
     ref_metrics = load_metrics(ref_metrics_path)
     metrics2compare = load_metrics(metrics2compare_path)

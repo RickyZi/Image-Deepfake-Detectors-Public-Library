@@ -1,31 +1,11 @@
 """
-compare_ft.py
+Similar to plot_tables, but crate the tables for 2 specific aggregated scores
+-> ie. R50_nodown_pretrained vs R50_nodown_ft
 
-Compares two R50_nodown runs (base vs fine-tuned) across all data keys.
-Reads aggregated_metrics.json from each run folder and plots a side-by-side
-table with per-data-key metrics and % change from base to FT.
+the table will be saved in the ./results/metric_tables/
 
 Usage:
-    python compare_ft.py <base_run_dir> <ft_run_dir> [--output <out.png>]
-
-    <base_run_dir>  path to the base model results folder
-                    e.g. results/pretrained/season_TM01/R50_nodown
-    <ft_run_dir>    path to the fine-tuned model results folder
-                    e.g. results/pretrained_ft/season_TM01/R50_nodown
-
-    --output        output image path (default: ./results/metric_tables/R50_nodown_base_vs_ft.png)
-    --metric        which metric to colour-code (default: AUC)
-                    choices: TPR TNR Acc "Balanced Acc" F1 AUC
-
-Examples:
-    python compare_ft.py \\
-        results/pretrained/season_TM01/R50_nodown \\
-        results/pretrained_ft/season_TM01/R50_nodown
-
-    python compare_ft.py \\
-        results/pretrained/season_TM01/R50_nodown \\
-        results/pretrained_ft/season_TM01/R50_nodown \\
-        --metric TPR --output results/metric_tables/tpr_comparison.png
+python3 utils/plot_vs_tables.py <agg_metrics_1> <agg_metrics_2> [optional --output <out_path_table_name.png>]
 """
 
 import argparse
@@ -39,15 +19,15 @@ from matplotlib.patches import FancyBboxPatch
 import numpy as np
 
 
-# ── Config ────────────────────────────────────────────────────────────────────
+# Constants
 
 METRICS = ["TPR", "TNR", "Acc", "Balanced Acc", "F1", "AUC"]
 
-# Red → white → green for % change column
+# colors configurations
 CMAP_DIFF = mcolors.LinearSegmentedColormap.from_list(
-    "rg_diverging", ["#b22222", "#f0f0ec", "#2a7a2a"]
+    "rg_diverging", ["#b22222", "#f5f5f0", "#2a7a2a"]
 )
-# Cool sequential blue for absolute values
+
 CMAP_VAL = mcolors.LinearSegmentedColormap.from_list(
     "blue_seq", ["#0d1b4b", "#1a3a8a", "#4a7fd4", "#a8c8f8"]
 )
@@ -55,15 +35,15 @@ CMAP_VAL = mcolors.LinearSegmentedColormap.from_list(
 OUTPUT_DIR = Path("./results/metric_tables")
 AGGREGATED_FILENAME = "aggregated_metrics.json"
 
-BG        = "#12121f"
+BG        = "#1a1a2e"
 HEADER_BG = "#1e1e35"
-ROW_SEP   = "#2a2a44"
+ROW_SEP   = "#444466"
 TEXT_MAIN = "#e8e8f8"
-TEXT_DIM  = "#7878aa"
+TEXT_DIM  = "#aaaacc"
 ACCENT    = "#4a7fd4"
 
 
-# ── I/O ───────────────────────────────────────────────────────────────────────
+# Data loading helpers
 
 def load_aggregated(run_dir: Path) -> dict:
     path = run_dir / AGGREGATED_FILENAME
@@ -88,10 +68,9 @@ def collect_per_key(data: dict) -> dict[str, dict]:
     return out
 
 
-# ── Layout helpers ────────────────────────────────────────────────────────────
-
+# Table layout helpers
 # Column layout: [key_label | base_M1 base_M2 ... | ft_M1 ft_M2 ... | Δ_M1 Δ_M2 ...]
-# We draw three groups separated by thick dividers.
+# We draw three groups separated by thick dividers
 
 def _col_positions(n_metrics, key_w, cell_w, gap):
     """Return x-left positions for each of the 3*n_metrics value columns."""
@@ -110,7 +89,7 @@ def _cell_color_val(val, norm, cmap):
     rgba = cmap(norm(val))
     bg   = mcolors.to_hex(rgba)
     lum  = 0.299*rgba[0] + 0.587*rgba[1] + 0.114*rgba[2]
-    txt  = "#12121f" if lum > 0.50 else "#f0f0f0"
+    txt  = "#1a1a2e" if lum > 0.52 else "#f0f0f0"
     return bg, txt
 
 
@@ -120,11 +99,8 @@ def _cell_color_diff(pct, norm):
     rgba = CMAP_DIFF(norm(pct))
     bg   = mcolors.to_hex(rgba)
     lum  = 0.299*rgba[0] + 0.587*rgba[1] + 0.114*rgba[2]
-    txt  = "#12121f" if lum > 0.50 else "#f0f0f0"
+    txt  = "#1a1a2e" if lum > 0.52 else "#f0f0f0"
     return bg, txt
-
-
-# ── Main plot ─────────────────────────────────────────────────────────────────
 
 def plot_comparison(base_data, ft_data, base_label, ft_label, metric, output_path, model_name, dataset_name, overall_only = True):
     base_keys = collect_per_key(base_data)
@@ -136,7 +112,7 @@ def plot_comparison(base_data, ft_data, base_label, ft_label, metric, output_pat
     
 
     if overall_only:
-        row_labels = [base_label, ft_label, "Δ  (FT − Base) %"]
+        row_labels = [base_label, ft_label, "|FT − Base|"]
         base_row = base_keys.get("OVERALL", {})
         ft_row = ft_keys.get("OVERALL", {})
         diff_row = {}
@@ -144,7 +120,8 @@ def plot_comparison(base_data, ft_data, base_label, ft_label, metric, output_pat
             b = base_row.get(m, float("nan"))
             f = ft_row.get(m, float("nan"))
             if not np.isnan(b) and not np.isnan(f) and b != 0:
-                diff_row[m] = (f - b) / abs(b) * 100
+                # diff_row[m] = (f - b) / abs(b) * 100
+                diff_row[m] = abs(f - b)
             else:
                 diff_row[m] = float("nan")
         row_data = [base_row, ft_row, diff_row]
@@ -163,12 +140,12 @@ def plot_comparison(base_data, ft_data, base_label, ft_label, metric, output_pat
 
     # Dimensions
     key_w  = 2.2   # width of the row-label column
-    cell_w = 1.3   # width of each metric cell
-    cell_h = 0.52  # height of each row
+    cell_w = 1.6   # width of each metric cell  
+    cell_h = 0.60  # height of each row          
     gap    = 0.25  # gap between groups
     pad_l  = 0.3
     pad_r  = 0.3
-    pad_t  = 1.55  # top padding (headers)
+    pad_t  = 1.20  # top padding (headers)
     pad_b  = 0.55  # bottom padding (colour bar)
 
     if not overall_only:
@@ -189,7 +166,7 @@ def plot_comparison(base_data, ft_data, base_label, ft_label, metric, output_pat
     ax.set_xlim(0, total_w)
     ax.set_ylim(0, total_h)
 
-    # ── Colour normalisation ────────────────────────────────────────────────
+    # Colour normalisation
     # Collect all absolute values for the chosen highlight metric across both runs
     if overall_only:
         all_abs = [
@@ -223,34 +200,27 @@ def plot_comparison(base_data, ft_data, base_label, ft_label, metric, output_pat
                 b = base_keys.get(key, {}).get(m, float("nan"))
                 f = ft_keys.get(key, {}).get(m, float("nan"))
                 if not np.isnan(b) and not np.isnan(f) and b != 0:
-                    all_diffs.append((f - b) / abs(b) * 100)
-    abs_max = max(max(abs(d) for d in all_diffs) * 1.1, 1.0) if all_diffs else 10.0
+                    # all_diffs.append((f - b) / abs(b) * 100)
+                    all_diffs.append(abs(f - b))
+    abs_max = max(max(abs(d) for d in all_diffs), 1.0) if all_diffs else 10.0
     diff_norm = mcolors.TwoSlopeNorm(vmin=-abs_max, vcenter=0, vmax=abs_max)
 
-    # ── Title ───────────────────────────────────────────────────────────────
+    # title
     ax.text(
         total_w / 2, total_h - 0.18,
         f"{model_name} - Base vs Fine-Tuned - {dataset_name}",
-        ha="center", va="top", fontsize=14, fontweight="bold",
-        color=TEXT_MAIN, fontfamily="monospace",
+        ha="center", va="top", fontsize=13, fontweight="bold",
+        color="#ffffff", fontfamily="monospace",
     )
-    # ax.text(
-    #     total_w / 2, total_h - 0.50,
-    #     "season_TM01",
-    #     ha="center", va="top", fontsize=9,
-    #     color=TEXT_DIM, fontfamily="monospace",
-    # )
 
-    # ── Group headers ───────────────────────────────────────────────────────
+    # group headers
     if overall_only:
-        group_labels = [
-            (group_start + n_metrics * cell_w / 2, "Overall metrics", ACCENT),
-        ]
+        group_labels = []   # no group header in overall-only mode
     else:
         group_labels = [
             (base_start + n_metrics * cell_w / 2, base_label, ACCENT),
             (ft_start   + n_metrics * cell_w / 2, ft_label,   "#6abf69"),
-            (diff_start + n_metrics * cell_w / 2, "Δ  (FT − Base) %", "#cc8844"),
+            (diff_start + n_metrics * cell_w / 2, "|FT − Base|", "#cc8844"),
         ]
     header_y = pad_b + n_rows * cell_h + 0.60
     for x, label, color in group_labels:
@@ -264,24 +234,24 @@ def plot_comparison(base_data, ft_data, base_label, ft_label, metric, output_pat
         for idx, m in enumerate(METRICS):
             x = group_start + idx * cell_w + cell_w / 2
             ax.text(x, subheader_y, m,
-                    ha="center", va="bottom", fontsize=7.5, fontweight="bold",
-                    color=TEXT_DIM, fontfamily="monospace")
+                    ha="center", va="bottom", fontsize=11, fontweight="bold",
+                    color="#e0e0f8", fontfamily="monospace")
     else:
         for idx, m in enumerate(METRICS):
             for group_start in (base_start, ft_start, diff_start):
                 x = group_start + idx * cell_w + cell_w / 2
                 ax.text(x, subheader_y, m,
-                        ha="center", va="bottom", fontsize=7.5, fontweight="bold",
-                        color=TEXT_DIM, fontfamily="monospace")
+                        ha="center", va="bottom", fontsize=11, fontweight="bold",
+                        color="#e0e0f8", fontfamily="monospace")
 
-    # ── Group separator lines ───────────────────────────────────────────────────────────────
+    # group separator lines
     if not overall_only:
         for x in (ft_start - gap / 2, diff_start - gap / 2):
             ax.plot([x, x],
                     [pad_b - 0.05, pad_b + n_rows * cell_h + 0.75],
                     color=ROW_SEP, linewidth=1.5, zorder=10)
 
-    # ── Rows ───────────────────────────────────────────────────────────────
+    # Rows
     if overall_only:
         row_iter = list(zip(range(n_rows), row_labels, row_data))
     else:
@@ -289,11 +259,11 @@ def plot_comparison(base_data, ft_data, base_label, ft_label, metric, output_pat
 
     for row_idx, row_label, row_data_item in row_iter:
         y = pad_b + (n_rows - 1 - row_idx) * cell_h
-        is_highlight = overall_only and row_idx == 2
+        # is_highlight = overall_only and row_idx == 2
 
         row_bg = "#1c1c30" if row_idx % 2 == 0 else BG
-        if overall_only and row_idx == 2:
-            row_bg = "#1e2a1e"
+        # if overall_only and row_idx == 2:
+        #     row_bg = "#1e2a1e"
         ax.add_patch(plt.Rectangle(
             (0, y), total_w, cell_h,
             facecolor=row_bg, linewidth=0, zorder=0
@@ -304,9 +274,9 @@ def plot_comparison(base_data, ft_data, base_label, ft_label, metric, output_pat
             y + cell_h / 2,
             row_label,
             ha="right", va="center",
-            fontsize=8.5 if not is_highlight else 9,
-            fontweight="bold" if is_highlight else "normal",
-            color=TEXT_MAIN if not is_highlight else "#aaffaa",
+            fontsize=10,
+            fontweight="bold",
+            color="#e8e8f8",
             fontfamily="monospace",
         )
 
@@ -318,7 +288,6 @@ def plot_comparison(base_data, ft_data, base_label, ft_label, metric, output_pat
             ft_row = ft_keys.get(key, {})
 
         for m_idx, m in enumerate(METRICS):
-            pad_inner = 0.05
             if overall_only:
                 val = row.get(m, float("nan"))
                 if row_idx < 2:
@@ -326,21 +295,33 @@ def plot_comparison(base_data, ft_data, base_label, ft_label, metric, output_pat
                     text = f"{val:.3f}" if not np.isnan(val) else "—"
                 else:
                     bg, txt_color = _cell_color_diff(val, diff_norm)
-                    text = f"{'+' if not np.isnan(val) and val >= 0 else ''}{val:.1f}%" if not np.isnan(val) else "—"
+                    # text = f"{'+' if not np.isnan(val) and val >= 0 else ''}{val:.1f}%" if not np.isnan(val) else "—"
+                    text = f"{val:.3f}" if not np.isnan(val) else "—"
                 x = group_start + m_idx * cell_w
                 ax.add_patch(FancyBboxPatch(
-                    (x + pad_inner, y + pad_inner),
-                    cell_w - 2 * pad_inner, cell_h - 2 * pad_inner,
-                    boxstyle="round,pad=0.03", linewidth=0,
+                    (x + 0.06, y + 0.06),
+                    cell_w - 0.12, cell_h - 0.12,
+                    boxstyle="round,pad=0.05", linewidth=0,
                     facecolor=bg, zorder=1, clip_on=False,
                 ))
-                ax.text(
-                    x + cell_w / 2, y + cell_h / 2,
-                    text,
-                    ha="center", va="center",
-                    fontsize=8, fontweight="bold",
-                    color=txt_color, fontfamily="monospace", zorder=2,
-                )
+                if row_idx < 2:
+                    # absolute score rows — single centred value (matches reference table)
+                    ax.text(
+                        x + cell_w / 2, y + cell_h / 2,
+                        text,
+                        ha="center", va="center",
+                        fontsize=11, fontweight="bold",
+                        color=txt_color, fontfamily="monospace", zorder=2,
+                    )
+                else:
+                    # diff row — value only, centred
+                    ax.text(
+                        x + cell_w / 2, y + cell_h / 2,
+                        text,
+                        ha="center", va="center",
+                        fontsize=11, fontweight="bold",
+                        color=txt_color, fontfamily="monospace", zorder=2,
+                    )
             else:
                 b_val = base_row.get(m, float("nan"))
                 f_val = ft_row.get(m, float("nan"))
@@ -356,35 +337,35 @@ def plot_comparison(base_data, ft_data, base_label, ft_label, metric, output_pat
                     x = x_off + m_idx * cell_w
                     bg, txt_color = _cell_color_val(val, val_norm, CMAP_VAL)
                     ax.add_patch(FancyBboxPatch(
-                        (x + pad_inner, y + pad_inner),
-                        cell_w - 2 * pad_inner, cell_h - 2 * pad_inner,
-                        boxstyle="round,pad=0.03", linewidth=0,
+                        (x + 0.06, y + 0.06),
+                        cell_w - 0.12, cell_h - 0.12,
+                        boxstyle="round,pad=0.05", linewidth=0,
                         facecolor=bg, zorder=1, clip_on=False,
                     ))
                     ax.text(
                         x + cell_w / 2, y + cell_h / 2,
                         f"{val:.3f}" if not np.isnan(val) else "—",
                         ha="center", va="center",
-                        fontsize=8, fontweight="bold",
+                        fontsize=11, fontweight="bold",
                         color=txt_color, fontfamily="monospace", zorder=2,
                     )
 
                 x = diff_start + m_idx * cell_w
                 bg, txt_color = _cell_color_diff(pct, diff_norm)
                 ax.add_patch(FancyBboxPatch(
-                    (x + pad_inner, y + pad_inner),
-                    cell_w - 2 * pad_inner, cell_h - 2 * pad_inner,
-                    boxstyle="round,pad=0.03", linewidth=0,
+                    (x + 0.06, y + 0.06),
+                    cell_w - 0.12, cell_h - 0.12,
+                    boxstyle="round,pad=0.05", linewidth=0,
                     facecolor=bg, zorder=1, clip_on=False,
                 ))
                 ax.text(
                     x + cell_w / 2, y + cell_h / 2,
                     f"{'+' if not np.isnan(pct) and pct >= 0 else ''}{pct:.1f}%" if not np.isnan(pct) else "—",
                     ha="center", va="center",
-                    fontsize=7.5, fontweight="bold",
+                    fontsize=11, fontweight="bold",
                     color=txt_color, fontfamily="monospace", zorder=2,
                 )
-    # ── Colour bars ─────────────────────────────────────────────────────────
+    # colour bars
     bar_y  = 0.06
     bar_h  = 0.18
     if overall_only:
@@ -407,8 +388,8 @@ def plot_comparison(base_data, ft_data, base_label, ft_label, metric, output_pat
     sm1 = plt.cm.ScalarMappable(cmap=CMAP_VAL, norm=val_norm)
     sm1.set_array([])
     cb1 = fig.colorbar(sm1, cax=cbar_ax1, orientation="horizontal")
-    cb1.ax.tick_params(colors=TEXT_DIM, labelsize=6.5)
-    cb1.set_label("absolute score", color=TEXT_DIM, fontsize=6.5)
+    cb1.ax.tick_params(colors=TEXT_DIM, labelsize=7.5)
+    cb1.set_label("absolute score", color=TEXT_DIM, fontsize=7.5)
     cb1.outline.set_edgecolor(ROW_SEP)
 
     cbar_ax2 = fig.add_axes([
@@ -420,20 +401,20 @@ def plot_comparison(base_data, ft_data, base_label, ft_label, metric, output_pat
     sm2 = plt.cm.ScalarMappable(cmap=CMAP_DIFF, norm=diff_norm)
     sm2.set_array([])
     cb2 = fig.colorbar(sm2, cax=cbar_ax2, orientation="horizontal")
-    cb2.ax.tick_params(colors=TEXT_DIM, labelsize=6.5)
-    cb2.set_label("% change  (green = improvement)", color=TEXT_DIM, fontsize=6.5)
+    cb2.ax.tick_params(colors=TEXT_DIM, labelsize=7.5)
+    cb2.set_label("% change  (green = improvement)", color=TEXT_DIM, fontsize=7.5)
     cb2.outline.set_edgecolor(ROW_SEP)
 
-    # ── Save ────────────────────────────────────────────────────────────────
+    # save table
     output_path.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(output_path, dpi=150, bbox_inches="tight",
                 facecolor=fig.get_facecolor())
     plt.close(fig)
     print(f"Saved → {output_path}")
 
-
-# ── Entry point ───────────────────────────────────────────────────────────────
-
+# --------------------------------- #
+# ---------- Entry point ---------- #
+# --------------------------------- #
 def main():
     parser = argparse.ArgumentParser(
         description="Compare base vs fine-tuned R50_nodown results.",
@@ -446,16 +427,16 @@ def main():
     parser.add_argument("ft_dir", type=Path,
                         help="Path to the fine-tuned model results folder "
                              "(must contain aggregated_metrics.json)")
-    parser.add_argument("--output", type=Path, default=None,
-                        help="Output image path "
-                             "(default: results/metric_tables/R50_nodown_base_vs_ft.png)")
+    # parser.add_argument("--output", type=Path, default=None,
+    #                     help="Output image path "
+    #                          "(default: results/metric_tables/R50_nodown_base_vs_ft.png)")
     parser.add_argument("--metric", default="AUC", choices=METRICS,
                         help="Metric used for colour scale on absolute columns (default: AUC)")
     parser.add_argument("--base-label", default="Base", dest="base_label",
                         help="Display label for the base model column (default: Base)")
     parser.add_argument("--ft-label", default="Fine-Tuned", dest="ft_label",
                         help="Display label for the FT model column (default: Fine-Tuned)")
-    parser.add_argument("--overall-only", action = 'store_true', 
+    parser.add_argument("--overall", action = 'store_false', 
                         help="select only overall results to be displayed")
     args = parser.parse_args()
 
@@ -476,7 +457,8 @@ def main():
     base_data = load_aggregated(base_dir)
     ft_data   = load_aggregated(ft_dir)
 
-    output_path = args.output or (OUTPUT_DIR / "R50_nodown_base_vs_ft.png")
+    # output_path = args.output or (OUTPUT_DIR / "R50_nodown_base_vs_ft.png")
+    output_path = (OUTPUT_DIR / "R50_nodown_base_vs_ft.png") if not args.overall else ((OUTPUT_DIR / "R50_nodown_base_vs_ft_overall.png"))
 
     plot_comparison(
         base_data, ft_data,
@@ -484,7 +466,7 @@ def main():
         args.metric, output_path,
         model_name,
         dataset_name,
-        overall_only=args.overall_only,
+        overall_only=args.overall,
     )
 
 

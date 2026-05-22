@@ -22,7 +22,7 @@ results.csv contains name,pro,flag for each image
 metrics.json contains the overall metrics for the run
 image_results.json contains the scores for each image along with the path and label
 
-Metrics calculated:
+Metrics calculated (using  detector's formulas):
 - TPR (True Positive Rate) = TP / (TP + FN) = accuracy on fake images (label==1)
 - TNR (True Negative Rate) = TN / (TN + FP) = accuracy on real images (label==0)
 - Accuracy = (TP + TN) / (TP + TN + FP + FN)
@@ -32,35 +32,6 @@ Metrics calculated:
 -> aggregate scores and labels across all runs
 -> compute overall metrics (TPR, TNR, Accuracy, AUC)
 -> save aggregated metrics to a new JSON file (e.g., aggregated_metrics.json) in the results directory
-
-organzie score in a new json file:
-{
-    "Fake": {
-        "image_path_1": {"score": 0.8, "label": 1},
-        "image_path_2": {"score": 0.6, "label": 1},
-        ...
-    },
-
-    "Real": {
-        "image_path_3": {"score": -0.2, "label": 0},
-        "image_path_4": {"score": -0.5, "label  ": 0},
-        ... 
-    }
-}
----
-
-Different detectors use different metrics:
-- CLIP-D -> TPR, TNR, Accuracy, AUC 
-    - img_path, score, label
-- R50_nodonw -> TPR, TNR, Accuracy, AUC
-    - img_path, score, label
-- R50_TF -> TPR, TNR, Accuracy, AUC
-    - img_path, score, label
-- P2G -> TPR, TNR, Accuracy, AUC
-    - img_path, score_top1, score_mean, score_mix, label, binary_label
-- NPR -> TPR, TNR, Accuracy, AUC
-    - img_path, score, label
-
 
 """
 

@@ -5,6 +5,7 @@ Generates ONE color-coded table per dataset:
   - Comparison JSONs  → score + % change vs reference (red/green)
   - Reference JSON    → raw scores only, neutral blue palette
 
+Usage:
 Auto-discovery mode (no args):
     python plot_metric_tables.py
     Scans ./results/metrics_comparison/metric_comparison_*_vs_*.json
@@ -30,11 +31,12 @@ from matplotlib.patches import FancyBboxPatch
 from pathlib import Path
 
 
-# ── Configuration ──────────────────────────────────────────────────────────────
+# Constants
 
 MODELS  = ["R50_nodown", "CLIP-D", "NPR", "R50_TF", "P2G"]
 METRICS = ["TPR", "TNR", "Acc", "Balanced Acc", "F1", "AUC"]
 
+# colors configurations
 # Red → white → green  (comparison tables)
 CMAP_DIFF = mcolors.LinearSegmentedColormap.from_list(
     "rg_diverging", ["#b22222", "#f5f5f0", "#2a7a2a"],
@@ -50,8 +52,7 @@ INPUT_DIR   = Path("./results/demo/")
 DEFAULT_REF = Path("./results/demo/demo_images/demo_images_aggregated_metrics.json")
 
 
-# ── Data loading ───────────────────────────────────────────────────────────────
-
+# Data loading helpers
 def load_json(path):
     with open(path) as f:
         return json.load(f)
@@ -80,7 +81,8 @@ def extract_comparison_table(data):
             continue
         for j, metric in enumerate(METRICS):
             v = md.get(metric)
-            p = md.get(f"{metric}_percent_diff")
+            # p = md.get(f"{metric}_percent_diff")
+            p = md.get(f"{metric}_abs_diff")
             if v is not None:
                 values[i, j] = v
             if p is not None:
@@ -113,7 +115,7 @@ def extract_reference_table(data):
     return values
 
 
-# ── Shared layout helpers ──────────────────────────────────────────────────────
+# Table layout helpers 
 
 def _base_figure():
     n_models, n_metrics = len(MODELS), len(METRICS)
@@ -173,7 +175,7 @@ def _save(fig, output_path):
     print(f"  Saved -> {output_path}")
 
 
-# ── Comparison table (score + % change, red/green) ────────────────────────────
+# Comparison table (score + abs change, red/green) 
 
 def plot_comparison_table(values, pcts, test_name, ref_name, output_path):
     fig, ax, cell_w, cell_h, left_pad, top_pad, n_models, n_metrics = _base_figure()
@@ -196,7 +198,8 @@ def plot_comparison_table(values, pcts, test_name, ref_name, output_path):
                 lum  = 0.299*rgba[0] + 0.587*rgba[1] + 0.114*rgba[2]
                 txt_color = "#1a1a2e" if lum > 0.52 else "#f0f0f0"
                 top_txt = f"{val:.3f}"
-                bot_txt = f"{'+'if pct>=0 else ''}{pct:.1f}%"
+                # bot_txt = f"{'+'if pct>=0 else ''}{pct:.1f}"
+                bot_txt = f"{pct:.3f}"
 
             ax.add_patch(FancyBboxPatch(
                 (x+0.06, y+0.06), cell_w-0.12, cell_h-0.12,
@@ -224,8 +227,7 @@ def plot_comparison_table(values, pcts, test_name, ref_name, output_path):
     _save(fig, output_path)
 
 
-# ── Reference table (raw scores only, blue palette) ───────────────────────────
-
+# Reference table (raw scores only, blue palette)
 def plot_reference_table(values, dataset_name, output_path):
     fig, ax, cell_w, cell_h, left_pad, top_pad, n_models, n_metrics = _base_figure()
 
@@ -271,8 +273,7 @@ def plot_reference_table(values, dataset_name, output_path):
     _save(fig, output_path)
 
 
-# ── Discovery ──────────────────────────────────────────────────────────────────
-
+# Auto-discover jsons files 
 def discover_jsons(folder):
     files = sorted(folder.glob("metric_comparison_*_vs_*.json"))
     if not files:
@@ -281,7 +282,7 @@ def discover_jsons(folder):
     return files
 
 
-# ── Main ───────────────────────────────────────────────────────────────────────
+# ------------------------------------------ #
 
 def main():
     parser = argparse.ArgumentParser(
@@ -295,15 +296,15 @@ def main():
     )
     parser.add_argument(
         "comparisons", nargs="*",
-        help="Comparison JSON files. If omitted, auto-discovers from ./results/demom/",
+        help="Comparison JSON files. If omitted, auto-discovers from ./results/demo/",
     )
     args = parser.parse_args()
 
-    
+
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     plotted = 0
 
-    # ── reference table ──
+    # reference table 
     ref_path = Path(args.ref) if args.ref else (DEFAULT_REF if DEFAULT_REF.exists() else None)
     if ref_path:
         if ref_path.exists():
@@ -320,7 +321,7 @@ def main():
         print("(No reference file found at default path — skipping reference table.)")
         print("  Pass --ref <path> to plot one explicitly.\n")
 
-    # ── comparison tables ──
+    # comparison tables
     if args.comparisons:
         paths = [Path(p) for p in args.comparisons]
         print(f"Using {len(paths)} file(s) from command-line arguments.\n")
@@ -343,3 +344,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

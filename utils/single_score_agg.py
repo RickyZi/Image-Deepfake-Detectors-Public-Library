@@ -15,10 +15,8 @@ Usage:
   # Filter to specific data keys (e.g. only Facebook results):
   python score_aggregator.py <path/to/R50_nodown> --filter fb
 
-Examples:
+Usage:
   python score_aggregator.py results/pretrained/season_TM01/R50_nodown
-  python score_aggregator.py results/pretrained/season_TM01/R50_nodown --filter gan1
-  python score_aggregator.py results/pretrained/season_TM01/R50_nodown --filter fb
 """
 
 import sys
@@ -30,7 +28,7 @@ from sklearn.metrics import roc_auc_score, accuracy_score
 
 
 # ------------------------------------------------------------------ #
-# I/O                                                                 #
+# I/O                                                                #
 # ------------------------------------------------------------------ #
 
 def load_image_results(data_key_dir: Path):
@@ -44,10 +42,10 @@ def load_image_results(data_key_dir: Path):
 
 
 # ------------------------------------------------------------------ #
-# Score aggregation                                                   #
+# Score aggregation                                                  #
 # ------------------------------------------------------------------ #
 
-def aggregate_scores(run_dir: Path, key_filter=None):
+def aggregate_scores(run_dir: Path): #, key_filter=None):
     """
     Collect scores and labels from all data-key folders directly under run_dir.
 
@@ -93,7 +91,7 @@ def aggregate_scores(run_dir: Path, key_filter=None):
 
 
 # ------------------------------------------------------------------ #
-# Metrics                                                             #
+# Metrics                                                            #
 # ------------------------------------------------------------------ #
 
 def calculate_metrics(scores, labels, is_p2g=False):
@@ -101,6 +99,7 @@ def calculate_metrics(scores, labels, is_p2g=False):
     labels = np.array(labels)
 
     if is_p2g:
+        # TO BE FIXED!!!!
         predictions = scores.astype(int)
         auc_input   = scores.astype(float)
     else:
@@ -146,9 +145,9 @@ if __name__ == '__main__':
     parser.add_argument('results_dir', type=Path,
                         help='Path to the detector run folder, '
                              'e.g. results/pretrained/season_TM01/R50_nodown')
-    parser.add_argument('--filter', type=str, default=None, dest='key_filter',
-                        help='Only include data-key folders whose name contains this string '
-                             '(e.g. "fb" for Facebook-only, "gan1" for StyleGAN-only).')
+    # parser.add_argument('--filter', type=str, default=None, dest='key_filter',
+    #                     help='Only include data-key folders whose name contains this string '
+    #                          '(e.g. "fb" for Facebook-only, "gan1" for StyleGAN-only).')
     args = parser.parse_args()
 
     run_dir = args.results_dir.resolve()
@@ -160,7 +159,7 @@ if __name__ == '__main__':
     print(f"Filter  : {args.key_filter or '(none — all keys)'}\n")
 
     all_scores, all_labels, image_results, per_key = aggregate_scores(
-        run_dir, key_filter=args.key_filter
+        run_dir, #key_filter=args.key_filter
     )
 
     if not all_scores:
@@ -190,7 +189,7 @@ if __name__ == '__main__':
         'detector':     detector_name,
         'key_filter':   args.key_filter,
         'overall':      overall,
-        'per_data_key': per_key_metrics,
+        'per_data_key': per_key_metrics, # per generator data (flux:fb, ...)
     }
 
     suffix   = f"_{args.key_filter}" if args.key_filter else ""
