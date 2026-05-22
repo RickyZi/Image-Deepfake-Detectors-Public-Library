@@ -18,7 +18,7 @@ Explicit mode:
                    In auto-discovery mode the default reference path is used if it exists.
 
 Output:
-    ./metric_tables/<dataset_name>.png
+    ./results//metric_tables/<dataset_name>.png
 """
 
 import json
