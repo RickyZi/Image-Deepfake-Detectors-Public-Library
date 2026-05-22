@@ -38,11 +38,13 @@ detector_args:
   - "0.2"
 
 training:
-  # - data: gan2:pre&sdXL:pre&realFFHQ:pre&realFORLAB:pre # want to train it over all trn data
- - data: gan1:pre&gan1:fb&gan1:tl&gan1:tw&gan2:pre&gan2:fb&gan2:tl&gan2:tw&gan3:pre&gan3:fb&gan3:tl&gan3:tw&sd15:pre&sd15:fb&sd15:tl&sd15:tw&sd2:pre&sd2:fb&sd2:tl&sd2:tw&sd3:pre&sd3:fb&sd3:tl&sd3:tw&sdXL:pre&sdXL:fb&sdXL:tl&sdXL:tw&flux:pre&flux:fb&flux:tl&flux:tw&realFFHQ:pre&realFFHQ:fb&realFFHQ:tl&realFFHQ:tw&realFORLAB:pre&realFORLAB:fb&realFORLAB:tl&realFORLAB:tw
+  - data: gan2:pre&sdXL:pre&realFFHQ:pre&realFORLAB:pre # fixed training data
+  # trn all over trn set
+#  - data: gan1:pre&gan1:fb&gan1:tl&gan1:tw&gan2:pre&gan2:fb&gan2:tl&gan2:tw&gan3:pre&gan3:fb&gan3:tl&gan3:tw&sd15:pre&sd15:fb&sd15:tl&sd15:tw&sd2:pre&sd2:fb&sd2:tl&sd2:tw&sd3:pre&sd3:fb&sd3:tl&sd3:tw&sdXL:pre&sdXL:fb&sdXL:tl&sdXL:tw&flux:pre&flux:fb&flux:tl&flux:tw&realFFHQ:pre&realFFHQ:fb&realFFHQ:tl&realFFHQ:tw&realFORLAB:pre&realFORLAB:fb&realFORLAB:tl&realFORLAB:tw
  
 
 testing:
+# for FT with demo images, removed trn subset to avoid duplicate (we do not have enough data)
   - realFFHQ:fb
   - realFORLAB:fb
   - gan1:fb
@@ -73,14 +75,14 @@ testing:
   - sd3:tw
   - sdXL:tw
   - flux:tw
-  - realFFHQ:pre
-  - realFORLAB:pre
+  # - realFFHQ:pre
+  # - realFORLAB:pre
   - gan1:pre
-  - gan2:pre
+  # - gan2:pre
   - gan3:pre
   - sd15:pre
   - sd2:pre
   - sd3:pre
-  - sdXL:pre
+  # - sdXL:pre
   - flux:pre
 

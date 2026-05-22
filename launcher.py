@@ -198,7 +198,7 @@ def main():
                         help='Phases to run: train, test, or both (default: both)')
     parser.add_argument('--config-dir', type=str, default='configs',
                         help='Path to configs directory (default: configs/)'),
-    parser.add_argument('--weights-name', type=str, default=None, 
+    parser.add_argument('--weights-name', type=str, default='pretrained', 
                         help='Name of the weights directory')
     # --------------------------- #
     parser.add_argument('--ft', action='store_true', help='Path to pretrained model to load') ## for FT model (os just --ft flag?)
@@ -212,7 +212,7 @@ def main():
     # Add detect mode arguments
     detect_group = parser.add_argument_group('detect', 'Single image detection options')
     detect_group.add_argument('--detect', action='store_true', help='Run single image detection mode')
-    detect_group.add_argument('--image', type=str, help='Path to image file for detection')
+    detect_group.add_argument('--image', type=str, help='Path to image file for detectionpython3 ')
     detect_group.add_argument('--weights', type=str, default='pretrained', help='Path to model weights for detection')
     detect_group.add_argument('--output', type=str, help='Path to save detection results')
     detect_group.add_argument('--dry-run', action='store_true', help='Print commands without executing')
@@ -260,7 +260,9 @@ def main():
         device_override = None
     min_vram = global_config.get('min_vram', 16000)
     if args.ft:
-        split_file = os.path.abspath(global_config.get('split_file', 'split_prova_ft.json'))
+        split_file = '/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/split_hc.json'
+        # os.path.abspath(global_config.get('split_file', 'split_hc.json'))
+        
     else: 
         split_file = os.path.abspath(global_config.get('split_file', 'split.json'))
     num_threads = global_config.get('num_threads', 8) # check if ok for TeslaT4, might need to decrease it to 4

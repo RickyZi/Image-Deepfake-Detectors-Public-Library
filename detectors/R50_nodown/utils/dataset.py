@@ -134,8 +134,8 @@ class TrueFake_dataset(datasets.DatasetFolder):
                         continue
 
                     # Compute path relative to mod root, e.g.:
-                    #   Real/FFHQ              (2 parts — no sub, Real images)
-                    #   Fake/StyleGAN3/conf-t  (3 parts — has sub, Fake images)
+                    #   Real/FFHQ (2 parts — no sub, Real images)
+                    #   Fake/StyleGAN3/conf-t (3 parts — has sub, Fake images)
                     rel = os.path.relpath(dataset_root, mod_root)
                     parts = rel.split(os.sep)
                     if len(parts) < 2:
@@ -151,56 +151,13 @@ class TrueFake_dataset(datasets.DatasetFolder):
                         if os.path.splitext(filename)[1].lower() not in ['.png', '.jpg', '.jpeg']:
                             continue
                         stem = os.path.splitext(filename)[0]
-                        # Key must match exactly what test_json_split.py wrote:
-                        #   gen/stem        for Real  (e.g. "FFHQ/00098")
-                        #   gen/sub/stem    for Fake  (e.g. "StyleGAN3/conf-t-psi-0.5/00098")
+                        # Key must match with test_json_split.py:
+                        #   gen/stem for Real  (e.g. "FFHQ/00098")
+                        #   gen/sub/stem for Fake  (e.g. "StyleGAN3/conf-t-psi-0.5/00098")
                         key = os.path.join(gen, sub, stem) if sub else os.path.join(gen, stem)
                         if self._in_list(split_list, key):
                             self.samples.append(os.path.join(dataset_root, filename))
                             self.info.append((mod, label, gen, sub))
-
-        # self.samples = []
-        # self.info = []
-        # for dict in dataset_list:
-        #     generators = dict['gen']
-        #     modifiers = dict['mod']
-
-        #     for mod in modifiers:
-        #         mod_root = os.path.join(self.data_root, mod)
-        #         print(f"\n[DEBUG] Walking mod_root: {mod_root}")
-        #         print(f"[DEBUG] mod_root exists: {os.path.isdir(mod_root)}")
-                
-        #         for dataset_root, dataset_dirs, dataset_files in os.walk(mod_root, topdown=True, followlinks=True):
-        #             if len(dataset_dirs):
-        #                 continue
-
-        #             rel = os.path.relpath(dataset_root, mod_root)
-        #             parts = rel.split(os.sep)
-        #             print(f"[DEBUG]   rel={rel!r}, parts={parts}")
-
-        #             if len(parts) < 2:
-        #                 print(f"[DEBUG]   SKIP: too few parts")
-        #                 continue
-
-        #             label, gen = parts[0], parts[1]
-        #             sub = parts[2] if len(parts) > 2 else None
-        #             print(f"[DEBUG]   label={label!r}, gen={gen!r}, sub={sub!r}, generators={generators}")
-
-        #             if gen not in generators:
-        #                 print(f"[DEBUG]   SKIP: gen not in generators")
-        #                 continue
-
-        #             for filename in sorted(dataset_files)[:2]:  # just first 2 files
-        #                 stem = os.path.splitext(filename)[0]
-        #                 key = os.path.join(gen, sub, stem) if sub else os.path.join(gen, stem)
-        #                 in_list = self._in_list(split_list, key)
-        #                 print(f"[DEBUG]   key={key!r}, in_split={in_list}")
-        #                 if not in_list and split_list:
-        #                     # Show nearby entries to spot near-misses
-        #                     import bisect
-        #                     idx = bisect.bisect_left(split_list, key)
-        #                     nearby = split_list[max(0,idx-1):idx+2]
-        #                     print(f"[DEBUG]   nearby split entries: {nearby}")
 
         self.transform = make_processing(settings)
         print(self.transform)
