@@ -28,17 +28,37 @@ class TrainingModel(torch.nn.Module):
 
         self.opt = opt
         self.total_steps = 0
-        self.save_dir = os.path.join('checkpoint', opt.name,'weights')
         self.device = torch.device(opt.device if torch.cuda.is_available() else 'cpu')
 
-        self.model = create_architecture(opt.arch, pretrained=True,  num_classes=1)
-        num_parameters = count_parameters(self.model)
-        print(f"Arch: {opt.arch} with #trainable {num_parameters}")
+        # ft saves to a separate directory to preserve the original checkpoint
+        if opt.ft:
+            self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights')
+        else:
+            self.save_dir = os.path.join('checkpoint', opt.name, 'weights')
+        os.makedirs(self.save_dir, exist_ok=True)
 
-        self.loss_fn = torch.nn.BCEWithLogitsLoss().to(self.device)
-        parameters = filter(lambda p: p.requires_grad, self.model.parameters())
-        self.optimizer = torch.optim.Adam(parameters, lr=opt.lr, betas=(opt.beta1, 0.999), weight_decay=opt.weight_decay)
+        # Build architecture — backbone frozen structurally via torch.no_grad()
+        self.model = create_architecture(opt.arch, pretrained=True, num_classes=1)
+        print(f'Arch: {opt.arch}  trainable params (fc only): {count_parameters(self.model)}')
 
+        # # fine-tuning: load the previously trained fc weights before retraining
+        if opt.ft:
+            load_path = os.path.join('checkpoint', opt.name, 'weights', 'best.pt')
+            if os.path.isfile(load_path):
+                print(f'[FT] Loading head weights from {load_path}')
+                state = torch.load(load_path, map_location=self.device)
+                self.model.load_state_dict(state['model'] if 'model' in state else state)
+                # self.total_steps = state.get('total_steps', 0)
+            else:
+                print(f'[FT] WARNING: no checkpoint at {load_path}, starting from random fc init.')
+
+        self.loss_fn  = torch.nn.BCEWithLogitsLoss().to(self.device)
+        self.optimizer = torch.optim.Adam(
+            self.model.parameters(),   # only fc visible here — backbone is in bb[]
+            lr=opt.lr,
+            betas=(opt.beta1, 0.999),
+            weight_decay=opt.weight_decay,
+        )
         self.model.to(self.device)
 
     def adjust_learning_rate(self, min_lr=1e-6):
