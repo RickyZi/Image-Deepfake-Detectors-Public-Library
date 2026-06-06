@@ -31,7 +31,9 @@ def safe_split(files, ratios=(0.7, 0.15, 0.15), generator=None):
     return random_split(files, sizes, generator=generator)
 
 
-dataset_path = './demo_images/season_TM01/'
+# dataset_path = '../truefake_2k/dataset/' 
+dataset_path = './demo_images/demo_images/'
+
 
 # ------------------------------------------------------------------ #
 # IMPORTANT: run fix_folder_names.py --apply BEFORE this script.     #
@@ -40,9 +42,13 @@ dataset_path = './demo_images/season_TM01/'
 # ------------------------------------------------------------------ #
 
 datasets = []
-for dataset_root, dataset_dirs, dataset_files in os.walk(dataset_path, topdown=True, followlinks=True):
+for dataset_root, dataset_dirs, dataset_files in os.walk(dataset_path, topdown=True, followlinks=True): 
     if not dataset_files:
         continue
+
+    # # ignore json files in the dataset path
+    # if any(f.lower().endswith('.json') for f in dataset_files):
+    #     continue
 
     # Path relative to dataset root, e.g.:
     #   Facebook/Real/FFHQ                     (Real, no sub)
@@ -52,8 +58,16 @@ for dataset_root, dataset_dirs, dataset_files in os.walk(dataset_path, topdown=T
 
     if len(parts) < 3:
         continue
+    
 
-    mod, label, gen = parts[0], parts[1], parts[2]
+    # ----------------------------------------- #
+    # mod : {Presocial, Faceboo, Telegram, X}
+    # label: Real of Fake
+    # gen: FFHQ, StyleGAN, etc.
+    # sub: e.g. images-psi-0.5 (only for Fake)
+    # ----------------------------------------- #
+
+    mod, label, gen = parts[0], parts[1], parts[2]  
     sub = parts[3] if len(parts) > 3 else None
 
     # Key prefix written into the split file — must match what dataset.py constructs:
@@ -104,8 +118,8 @@ if bad:
 else:
     print("[OK] No '0p' naming issues detected in split keys.")
 
-output_file = "split_prova.json"
-with open(output_file, "w") as f:
-    json.dump({'train': train_set, 'val': val_set, 'test': test_set}, f, indent=2)
+# output_file = "split_tf2k_TM01.json"
+# with open(output_file, "w") as f:
+#     json.dump({'train': train_set, 'val': val_set, 'test': test_set}, f, indent=2)
 
-print(f"\nWrote {output_file}")
+# print(f"\nWrote {output_file}")
