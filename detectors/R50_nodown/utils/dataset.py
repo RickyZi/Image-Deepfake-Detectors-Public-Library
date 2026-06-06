@@ -119,16 +119,22 @@ class TrueFake_dataset(datasets.DatasetFolder):
         with open(settings.split_file, "r") as f:
             split_list = sorted(json.load(f)[self.split])
         
+        
         dataset_list = parse_dataset(settings)
+
+        print(f"\tR50_nodown - dataset.py - dataset_list: {dataset_list}")
+        breakpoint()    
         
         self.samples = []
         self.info = []
         for dict in dataset_list:
             generators = dict['gen']
-            modifiers = dict['mod']
-
+            modifiers = dict['mod'] if 'mod' in dict.keys() else None
+            print(f"\n\tR50_nodown - dataset.py - generators: {generators}, modifiers: {modifiers}")
+            # breakpoint()
             for mod in modifiers:
                 mod_root = os.path.join(self.data_root, mod)
+                print(f"\n\tR50_nodown - dataset.py - mod_root: {mod_root}")
                 for dataset_root, dataset_dirs, dataset_files in os.walk(mod_root, topdown=True, followlinks=True):
                     if len(dataset_dirs):
                         continue

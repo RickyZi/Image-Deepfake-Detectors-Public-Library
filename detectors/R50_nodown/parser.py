@@ -25,4 +25,7 @@ def get_parser():
     # add ft flag
     parser.add_argument('--ft', action='store_true', help='Path to pretrained model to load')
 
+    # add tf2k flag
+    parser.add_argument('--tf2k', type = bool, default = False, help = 'Use 2k dataset and splits for training and testing')
+
     return parser

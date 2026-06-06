@@ -1,6 +1,10 @@
 import os
 import tqdm
-from utils import TrainingModel, create_dataloader, EarlyStopping, FTModel
+# from utils import TrainingModel, EarlyStopping, FTModel # create_dataloader
+from utils.finetuning import FTModel
+from utils.training import TrainingModel
+from utils import EarlyStopping
+from utils.tf2k_dataset import tf2k_create_dataloader
 from sklearn.metrics import balanced_accuracy_score, roc_auc_score
 from utils.processing import add_processing_arguments
 from parser import get_parser
@@ -15,11 +19,12 @@ if __name__ == "__main__":
     # if opt.ft:
     weights_name = 'ft_weights' if opt.ft else 'weights'
     os.makedirs(os.path.join('checkpoint', opt.name, weights_name), exist_ok=True)
+    # breakpoint()
     # else:
     #     os.makedirs(os.path.join('checkpoint', opt.name,'weights'), exist_ok=True)
 
-    valid_data_loader = create_dataloader(opt, split="val")
-    train_data_loader = create_dataloader(opt, split="train")
+    valid_data_loader = tf2k_create_dataloader(opt, split="val")
+    train_data_loader = tf2k_create_dataloader(opt, split="train")
     # print()
     print("# validation batches = %d" % len(valid_data_loader))
     print("#   training batches = %d" % len(train_data_loader))
