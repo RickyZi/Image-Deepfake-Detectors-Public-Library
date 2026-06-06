@@ -42,6 +42,17 @@ class TrainingModel(torch.nn.Module):
 
         self.model.to(self.device)
 
+    # def load_networks(self, checkpoint_path):
+    #     """Load model (and optionally optimizer) from a checkpoint."""
+    #     if not os.path.exists(checkpoint_path):
+    #         raise FileNotFoundError(f"Checkpoint not found: {checkpoint_path}")
+
+    #     state_dict = torch.load(checkpoint_path, map_location=self.device)
+
+    #     self.model.load_state_dict(state_dict['model'])
+    #     print(f"Loaded model weights from {checkpoint_path}")
+
+
     def adjust_learning_rate(self, min_lr=1e-6):
         for param_group in self.optimizer.param_groups:
             param_group["lr"] /= 10.0

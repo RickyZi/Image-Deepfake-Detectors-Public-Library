@@ -39,13 +39,20 @@ class FTModel(torch.nn.Module):
         trainable_count = sum(p.numel() for p in self.model.parameters() if p.requires_grad)
         print(f"Optimizer reinitialized — trainable params: {trainable_count}")
 
-    def freeze_backbone(self):
+    def freeze_backbone(self, unfreeze_layer4 = False):
         """Freeze all layers except the final fc head."""
         for param in self.model.parameters():
             param.requires_grad = False
+
+        if unfreeze_layer4:
+            # may consided to unfreeze layer4 to give feature extractor some capacity to adapt
+            for param in self.model.layer4.parameters():
+                param.requires_grad = True
+
         for param in self.model.fc.parameters():
             param.requires_grad = True
-        self.reinitialize_optimizer()
+
+        self.reinitialize_optimizer() # optimizer recomputed on unfrozen parameters
 
         # Sanity check
         trainable = [n for n, p in self.model.named_parameters() if p.requires_grad]

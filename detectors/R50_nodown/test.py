@@ -7,7 +7,7 @@ import time
 import numpy as np
 from sklearn.metrics import roc_auc_score, accuracy_score
 from networks import create_architecture, count_parameters
-# from utils.dataset import create_dataloader
+from utils.dataset import create_dataloader
 from utils.tf2k_dataset import tf2k_create_dataloader
 from utils.processing import add_processing_arguments
 from parser import get_parser
@@ -161,7 +161,10 @@ if __name__ == '__main__':
     
     device = torch.device(settings.device if torch.cuda.is_available() else 'cpu')
 
-    test_dataloader = tf2k_create_dataloader(settings, split='test')
+    if settings.tf2k:
+        test_dataloader = tf2k_create_dataloader(settings, split='test')
+    else:
+        test_dataloader = create_dataloader(settings, split='test')
     # breakpoint()
     
     model = create_architecture(settings.arch, pretrained=True, num_classes=1).to(device)

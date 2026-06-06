@@ -165,13 +165,8 @@ class TrueFake_dataset(datasets.DatasetFolder):
         forlab_keys = [k for k in split_list if 'FORLAB' in k]
         print(f"FORLAB keys in split file: {forlab_keys[:5]}")
         self.split_set = set(split_list)
-        # if settings.tf2k:
+        
         dataset_list = parse_tf2k_dataset(settings)
-        # else:
-        #     dataset_list = parse_dataset(settings)
-
-        # print(f"\tR50_nodown - dataset.py - dataset_list: {dataset_list}")
-        # breakpoint()    
         
         self.samples = []
         self.info = []
@@ -199,17 +194,6 @@ class TrueFake_dataset(datasets.DatasetFolder):
                 label, gen = parts[0], parts[1]
                 sub = parts[2] if len(parts) > 2 else None
 
-
-                # check FORLAB split
-                # ADD THIS:
-                # if 'FORLAB' in gen:
-                #     print(f"FORLAB found: rel={rel}, label={label}, gen={gen}, sub={sub}")
-                #     # Print a sample key to compare with split file
-                #     if dataset_files:
-                #         stem = os.path.splitext(dataset_files[0])[0]
-                #         key = os.path.join(gen, sub, stem) if sub else os.path.join(gen, stem)
-                #         print(f"  sample key built: '{key}'")
-
                 if gen not in generators:
                     continue
 
@@ -224,16 +208,6 @@ class TrueFake_dataset(datasets.DatasetFolder):
                     if self._in_list(split_list, key):
                         self.samples.append(os.path.join(dataset_root, filename))
                         self.info.append((label, gen, sub))
-
-                    # if key in self.split_set:
-                    #     self.samples.append(os.path.join(dataset_root, filename))
-                    #     self.info.append((label, gen, sub))
-
-                        # if 'FORLAB' in gen:
-                        #     print(f"  key='{key}', in_split={key in self.split_set}")
-                        #     if dataset_files:
-                        #         print(f"  first 3 split keys with FORLAB: {sorted(k for k in self.split_set if 'FORLAB' in k)[:3]}")
-
 
         self.transform = make_processing(settings)
         print(self.transform)
