@@ -25,6 +25,7 @@ from pathlib import Path
 import json
 import numpy as np
 from sklearn.metrics import roc_auc_score, accuracy_score
+import os
 
 
 # ------------------------------------------------------------------ #
@@ -60,8 +61,8 @@ def aggregate_scores(run_dir: Path): #, key_filter=None):
 
     for dk_dir in dk_dirs:
         key = dk_dir.name
-        if key_filter and key_filter not in key:
-            continue
+        # if key_filter and key_filter not in key:
+        #     continue
 
         items = load_image_results(dk_dir)
         if not items:
@@ -156,7 +157,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     print(f"\nRun dir : {run_dir}")
-    print(f"Filter  : {args.key_filter or '(none — all keys)'}\n")
+    # print(f"Filter  : {args.key_filter or '(none — all keys)'}\n")
 
     all_scores, all_labels, image_results, per_key = aggregate_scores(
         run_dir, #key_filter=args.key_filter
@@ -168,6 +169,11 @@ if __name__ == '__main__':
 
     detector_name = run_dir.name
     is_p2g = 'P2G' in detector_name
+
+    dataset_name = str(run_dir).split(os.sep)[-2]
+    print(f"detector_name: {detector_name}")
+    print(f"dataset_name: {dataset_name} ")
+    # breakpoint()
 
     # Per-data-key metrics
     print()
@@ -187,13 +193,13 @@ if __name__ == '__main__':
     output = {
         'run_dir':      str(run_dir),
         'detector':     detector_name,
-        'key_filter':   args.key_filter,
+        # 'key_filter':   args.key_filter,
         'overall':      overall,
         'per_data_key': per_key_metrics, # per generator data (flux:fb, ...)
     }
 
-    suffix   = f"_{args.key_filter}" if args.key_filter else ""
-    out_path = run_dir / f"aggregated_metrics{suffix}.json"
+    # suffix   = f"_{args.key_filter}" if args.key_filter else ""
+    out_path = run_dir / f"{detector_name}_{dataset_name}_aggregated_metrics.json"
 
     with open(out_path, 'w') as f:
         json.dump(output, f, indent=2)
