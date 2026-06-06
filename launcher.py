@@ -159,8 +159,8 @@ def run_demo(args):
         testing_keys = config.get('testing', []) or ['all:all']
 
         global_cfg = config.get('global', {})
-        num_threads = global_cfg.get('num_threads', 8)
-
+        # num_threads = global_cfg.get('num_threads', 8)
+        num_threads = global_cfg.get('num_threads', 4) # lowered num of workers to 4 to fit requirements of T4 vm (warning)
         for data_keys in testing_keys:
             args_list = [
                 f'--name "{name}"',
