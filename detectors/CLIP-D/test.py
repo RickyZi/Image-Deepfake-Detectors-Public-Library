@@ -22,8 +22,9 @@ def test(loader, model, settings, device):
     # File paths update
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
     # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
+    tag = 'ft' if settings.ft else 'pretrained'
     dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
-    output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/CLIP-D/{settings.data_keys}' # change path to be outside detector folder
+    output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/CLIP-D_{tag}/{settings.data_keys}' # change path to be outside detector folder
     os.makedirs(output_dir, exist_ok=True)
     # --------------------------- #
     
