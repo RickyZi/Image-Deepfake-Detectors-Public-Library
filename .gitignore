@@ -15,3 +15,8 @@ IDFD_VENV/
 detectors/P2G/logs/*
 v_gradio
 results/
+truefake_2k/*
+detectors/*/checkpoint/
+detectors/*/__pycache__/*
+detectors/*/*/__pycache__/*
+*/__pycache__/*
