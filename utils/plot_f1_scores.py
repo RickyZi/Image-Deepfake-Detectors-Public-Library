@@ -19,13 +19,13 @@ from collections import defaultdict
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 from datetime import datetime
+import argparse
 
+# -------------------------------------------------------- #
 # Configuration
 RESULTS_DIR = Path("./results/pretrained")
 OUTPUT_DIR  = Path("./results/plots")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
-timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
 
 # Colour palette
 PALETTE = [
@@ -33,6 +33,18 @@ PALETTE = [
     "#8172B3", "#937860", "#DA8BC3", "#8C8C8C",
     "#CCB974", "#64B5CD",
 ]
+# -------------------------------------------------------- #
+
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
+
+parser = argparse.ArgumentParser(description='Plotting test-run tables for one detector.')
+
+parser.add_argument('--model', type = str,  default = 'R50_nodown', help = 'Model run name, i.e. R50_nodown or CLIP-D')
+
+args = parser.parse_args()
+
+print(f"model: {args.model}")
+
 
 # Collect data
 # data[model_name][dataset_name] = f1_value
@@ -43,34 +55,45 @@ if not RESULTS_DIR.exists():
 
 # Walk:  pretrained/<dataset>/<model_folder>/*_aggregated_metrics.json
 for dataset_dir in sorted(RESULTS_DIR.iterdir()):
+    print(f"dataset_dir: {dataset_dir}")
     if not dataset_dir.is_dir():
         continue
 
     dataset_name = 'tf_dataset' if dataset_dir.name == 'dataset' else dataset_dir.name # e.g. "autumn_TM01"
 
     for model_dir in sorted(dataset_dir.iterdir()):
+        print(f"model_dir: {model_dir}")
         if not model_dir.is_dir():
             continue
-        model_name = 'R50_nodown_baseline' if 'pretrained' in model_dir.name else model_dir.name # e.g. "R50_nodown_pretrained"
+        
+        if args.model in model_dir.name:
+        #     if '_pretrained' in model_dir.name:
+        #         model_name = model_dir.name.replace('_pretrained', '_baseline')
+        #         print(f"model_name: {model_name}")
+        #     else:
+        #         model_name = model_dir.name
+            model_name = f'{args.model}_baseline' if 'pretrained' in model_dir.name else model_dir.name # e.g. "R50_nodown_pretrained"
+            print(f"model_name: {model_name}")
+            # breakpoint()
 
-        json_files = sorted(model_dir.glob("*_aggregated_metrics.json"))
-        if not json_files:
-            print(f"  [skip] no aggregated_metrics.json in {model_dir}")
-            continue
+            json_files = sorted(model_dir.glob("*_aggregated_metrics.json"))
+            if not json_files:
+                print(f"  [skip] no aggregated_metrics.json in {model_dir}")
+                continue
 
-        # There should be exactly one per run folder; take the first.
-        fpath = json_files[0]
-        with fpath.open() as f:
-            payload = json.load(f)
+            # There should be exactly one per run folder; take the first.
+            fpath = json_files[0]
+            with fpath.open() as f:
+                payload = json.load(f)
 
-        try:
-            f1 = payload["overall"]["F1"]
-        except KeyError:
-            print(f"  [skip] 'overall.F1' missing in {fpath}")
-            continue
+            try:
+                f1 = payload["overall"]["F1"]
+            except KeyError:
+                print(f"  [skip] 'overall.F1' missing in {fpath}")
+                continue
 
-        data[model_name][dataset_name] = f1
-        print(f"  [ok] model={model_name!r:35s}  dataset={dataset_name!r:25s}  F1={f1:.4f}")
+            data[model_name][dataset_name] = f1
+            print(f"  [ok] model={model_name!r:35s}  dataset={dataset_name!r:25s}  F1={f1:.4f}")
 
 if not data:
     raise ValueError("No valid results found. Check the folder structure.")
