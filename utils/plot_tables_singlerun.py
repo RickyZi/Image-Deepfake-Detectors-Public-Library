@@ -376,15 +376,15 @@ def main():
         baseline,
         ref_label   = REF_LABEL,
         ref_scores  = ref_scores,
-        title       = f"{BASELINE_SUBDIR} results",
-        output_path = OUTPUT_DIR / f"{BASELINE_SUBDIR}.png",
+        title       = f"{args.model}_baseline results",
+        output_path = OUTPUT_DIR / f"{args.model}_baseline.png",
     )
     plot_table(
         ft,
         ref_label   = REF_LABEL,
         ref_scores  = ref_scores,
-        title       = f"{FT_SUBDIR} results",
-        output_path = OUTPUT_DIR / f"{FT_SUBDIR}.png",
+        title       = f"{args.model}_FT results",
+        output_path = OUTPUT_DIR / f"{args.model}_FT.png",
     )
     print(f"\nDone — tables saved to {OUTPUT_DIR.resolve()}/")
 
