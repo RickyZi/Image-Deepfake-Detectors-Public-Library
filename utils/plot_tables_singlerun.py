@@ -35,6 +35,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from matplotlib.patches import FancyBboxPatch
 from pathlib import Path
+import argparse
 
 # Constants
 METRICS      = ["TPR", "TNR", "Acc", "Balanced Acc", "F1", "AUC"]
@@ -45,8 +46,10 @@ RESULTS_ROOT = Path("./results/pretrained")
 OUTPUT_DIR   = Path("./results/metric_tables")
 
 # Subfolder name inside each dataset dir
-BASELINE_SUBDIR = "R50_nodown_pretrained"
-FT_SUBDIR       = "R50_nodown_ft"
+# BASELINE_SUBDIR = "R50_nodown_pretrained"
+# FT_SUBDIR       = "R50_nodown_ft"
+# BASELINE_SUBDIR = f"{args.model}_pretrained"
+# FT_SUBDIR = f"{args.model}_ft"
 
 # Colormaps
 CMAP_DIFF = mcolors.LinearSegmentedColormap.from_list(
@@ -76,7 +79,7 @@ def find_json(folder: Path) -> Path | None:
     return hits[0] if hits else None
 
 
-def load_ref_scores() -> dict | None:
+def load_ref_scores(BASELINE_SUBDIR) -> dict | None:
     """
     Load overall metrics from the reference folder (results/pretrained/dataset/).
     Returns {metric: value} or None if not found.
@@ -87,8 +90,9 @@ def load_ref_scores() -> dict | None:
 
     ref_dir = RESULTS_ROOT / REF_FOLDER
     # Reference JSON may live under either model subfolder; try both
-    for subdir in [BASELINE_SUBDIR, FT_SUBDIR]:
+    for subdir in [BASELINE_SUBDIR]: #, FT_SUBDIR]:
         model_dir = ref_dir / subdir
+        print(model_dir)
         if model_dir.is_dir():
             json_path = find_json(model_dir)
             if json_path:
@@ -334,20 +338,36 @@ def plot_table(results: dict[str, dict], ref_label: str, title: str, output_path
 # Entry point #
 # ----------- #
 def main():
+
+    parser = argparse.ArgumentParser(description='Plotting test-run tables for one detector.')
+
+    parser.add_argument('--model', type = str,  default = 'R50_nodown', help = 'Model run name, i.e. R50_nodown or CLIP-D')
+    
+    args = parser.parse_args()
+
+    print(f"model: {args.model}")
+
+    BASELINE_SUBDIR = args.model + '_pretrained'
+    FT_SUBDIR = args.model + '_ft'
+    print(f"BASELINE_SUBDIR: {BASELINE_SUBDIR}")
+    print(f"FT_SUBDIR: {FT_SUBDIR}")
+    # breakpoint()
+
+
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     # 1. Load reference scores once from results/pretrained/dataset/
     print(f"\n── Loading reference scores ({REF_FOLDER} → displayed as {REF_LABEL}) ──")
-    ref_scores = load_ref_scores()
+    ref_scores = load_ref_scores(BASELINE_SUBDIR)
     if ref_scores is None:
         print("  [error] Cannot continue without reference scores.")
         return
 
     # 2. Collect comparison rows (all folders except reference)
-    print("\n── Collecting baseline results (R50_nodown_pretrained) ──────────")
+    print(f"\n── Collecting baseline results ({BASELINE_SUBDIR}) ──────────")
     baseline = collect_results(BASELINE_SUBDIR)
 
-    print("\n── Collecting FT results (R50_nodown_ft) ────────────────────────")
+    print(f"\n── Collecting FT results ({FT_SUBDIR}) ────────────────────────")
     ft = collect_results(FT_SUBDIR)
 
     # 3. Plot
@@ -356,15 +376,15 @@ def main():
         baseline,
         ref_label   = REF_LABEL,
         ref_scores  = ref_scores,
-        title       = "R50_nodown_baseline results",
-        output_path = OUTPUT_DIR / "R50_nodown_baseline.png",
+        title       = f"{BASELINE_SUBDIR} results",
+        output_path = OUTPUT_DIR / f"{BASELINE_SUBDIR}.png",
     )
     plot_table(
         ft,
         ref_label   = REF_LABEL,
         ref_scores  = ref_scores,
-        title       = "R50_nodown_FT results",
-        output_path = OUTPUT_DIR / "R50_nodown_FT.png",
+        title       = f"{FT_SUBDIR} results",
+        output_path = OUTPUT_DIR / f"{FT_SUBDIR}.png",
     )
     print(f"\nDone — tables saved to {OUTPUT_DIR.resolve()}/")
 
