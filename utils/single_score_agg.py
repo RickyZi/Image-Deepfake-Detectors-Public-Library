@@ -200,7 +200,7 @@ if __name__ == '__main__':
 
     parser.add_argument('--results-dir', type=Path, default = './results/pretrained/', help='Path to the detector run folder, e.g. results/pretrained/season_TM01/R50_nodown')
 
-    parser.add_argument('--model', type = str,  default = 'R50_nodown_pretrained', help = 'Model run name, i.e. R50_nodown_pretrained or R50_nodown_ft')
+    parser.add_argument('--model', type = str,  default = 'R50_nodown', help = 'Model run name, i.e. R50_nodown_pretrained or R50_nodown_ft')
     
     args = parser.parse_args()
 
@@ -213,20 +213,23 @@ if __name__ == '__main__':
         print(f"[ERROR] Not a directory: {run_dir}")
         sys.exit(1)
 
-    # single folder run -> i.e. results/pretrained/filminspired_warmgold/R50_nodown_pretrained
-    if run_dir != './resuls/pretrained/':
-        print(f"Aggregating scores for\n\t model: {Path(run_dir).name}\n\t dataset: {str(run_dir).split(os.sep)[-2]} ")
-        breakpoint()
-        agg_scores(run_dir)
+    
+    
+    # walk all dataset in the run directories
+    for dataset_dir in sorted(Path(run_dir).iterdir()):
+        # print(f"dataset_dir: {dataset_dir}")
 
-    else:
-        # walk all dataset in the run directories
-        for dataset_dir in sorted(Path(run_dir).iterdir()):
-            # print(f"dataset_dir: {dataset_dir}")
-
+        # check if single run folder (model name instead dataset_dir)
+        # single folder run -> i.e. results/pretrained/filminspired_warmgold/
+        # dataset_dir = model name instead of filminspired_warmgold
+        if dataset_dir.name == args.model:
+            print(f"\n Aggregating SINGLE run scores for \n\t model: {dataset_dir.name}\n\t dataset: {run_dir.name}")
+            breakpoint()
+            agg_scores(dataset_dir)
+        else:
             # check the models name inside dataset dir
             for model_dir in sorted(dataset_dir.iterdir()):
-                # print(f"model_dir: {model_dir}")
+                # print(f"model_dir: {model_dir.name}")
                 if model_dir.name == args.model:
                     print(f"\nAggregating scores for\n\t model: {model_dir.name}\n\t dataset: {dataset_dir.name}")
                     agg_scores(model_dir)

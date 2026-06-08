@@ -36,6 +36,7 @@ import matplotlib.colors as mcolors
 from matplotlib.patches import FancyBboxPatch
 from pathlib import Path
 import argparse
+from datetime import datetime
 
 # Constants
 METRICS      = ["TPR", "TNR", "Acc", "Balanced Acc", "F1", "AUC"]
@@ -340,10 +341,10 @@ def plot_table(results: dict[str, dict], ref_label: str, title: str, output_path
 def main():
 
     parser = argparse.ArgumentParser(description='Plotting test-run tables for one detector.')
-
     parser.add_argument('--model', type = str,  default = 'R50_nodown', help = 'Model run name, i.e. R50_nodown or CLIP-D')
-    
     args = parser.parse_args()
+
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
     print(f"model: {args.model}")
 
@@ -377,14 +378,14 @@ def main():
         ref_label   = REF_LABEL,
         ref_scores  = ref_scores,
         title       = f"{args.model}_baseline results",
-        output_path = OUTPUT_DIR / f"{args.model}_baseline.png",
+        output_path = OUTPUT_DIR / f"{args.model}_baseline_{timestamp}.png",
     )
     plot_table(
         ft,
         ref_label   = REF_LABEL,
         ref_scores  = ref_scores,
         title       = f"{args.model}_FT results",
-        output_path = OUTPUT_DIR / f"{args.model}_FT.png",
+        output_path = OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png",
     )
     print(f"\nDone — tables saved to {OUTPUT_DIR.resolve()}/")
 

@@ -185,13 +185,8 @@ def plot_f1(scores: dict[str, float], title: str, out_path: Path):
 # ------------------------------------- #
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Plot F1 scores per dataset for one detector model."
-    )
-    parser.add_argument(
-        "--model", type=str, default="R50_nodown",
-        help="Model name prefix, e.g. R50_nodown or CLIP-D",
-    )
+    parser = argparse.ArgumentParser(description="Plot F1 scores per dataset for one detector model.")
+    parser.add_argument("--model", type=str, default="R50_nodown", help="Model name prefix, e.g. R50_nodown or CLIP-D")
     args = parser.parse_args()
  
     baseline_subdir = f"{args.model}_pretrained"
