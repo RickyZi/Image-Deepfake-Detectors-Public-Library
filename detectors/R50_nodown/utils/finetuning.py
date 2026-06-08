@@ -19,6 +19,7 @@ class FTModel(torch.nn.Module):
         print(f"opt.arch: {opt.arch}")
         self.model = create_architecture(opt.arch, pretrained=True, num_classes=1)
         print(f"Arch: {opt.arch} with #trainable params: {count_parameters(self.model)}")
+        breakpoint()
 
         self.loss_fn = torch.nn.BCEWithLogitsLoss().to(self.device)
         self.optimizer = self._build_optimizer()

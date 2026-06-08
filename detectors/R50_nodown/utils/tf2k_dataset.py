@@ -161,9 +161,9 @@ class TrueFake_dataset(datasets.DatasetFolder):
         with open(settings.split_file, "r") as f:
             split_list = sorted(json.load(f)[self.split])
         
-        # check FORLAB in split_file
-        forlab_keys = [k for k in split_list if 'FORLAB' in k]
-        print(f"FORLAB keys in split file: {forlab_keys[:5]}")
+        # # check FORLAB in split_file
+        # forlab_keys = [k for k in split_list if 'FORLAB' in k]
+        # print(f"FORLAB keys in split file: {forlab_keys[:5]}")
         self.split_set = set(split_list)
         
         dataset_list = parse_tf2k_dataset(settings)
