@@ -39,7 +39,7 @@ if __name__ == "__main__":
     early_stopping = None
     start_epoch = model.total_steps // len(train_data_loader)
     print()
-    breakpoint()
+    # breakpoint()
 
     for epoch in range(start_epoch, opt.num_epoches+1):
         if epoch > start_epoch:
@@ -70,7 +70,7 @@ if __name__ == "__main__":
                 verbose=True,
             )
             print(f"early_stopping: {early_stopping}")
-            breakpoint()
+            # breakpoint()
             print('Save best model', flush=True)
             model.save_networks('best')
         else:

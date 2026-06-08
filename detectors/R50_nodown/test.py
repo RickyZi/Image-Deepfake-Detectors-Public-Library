@@ -170,7 +170,7 @@ if __name__ == '__main__':
     model = create_architecture(settings.arch, pretrained=True, num_classes=1).to(device)
     num_parameters = count_parameters(model)
     print(f"Arch: {settings.arch} with #parameters {num_parameters}")
-    load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/best.pt'
+    load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
     print('loading the model from %s' % load_path)
     # breakpoint()
     model.load_state_dict(torch.load(load_path, map_location=device)['model'])

@@ -28,6 +28,9 @@ def get_parser():
 
     # add tf2k flag
     parser.add_argument('--tf2k', type = bool, default = False, help = 'Use 2k dataset and splits for training and testing')
+    
+    # add dataset flag
+    parser.add_argument('--dataset', type = str, default = 'dataset', help = 'Which dataset to use (default: dataset)') # add custom dataset for demo
     # ----------------------------------- #
     
     return parser

@@ -341,6 +341,7 @@ def main():
         cmd_args.append(f'--num_threads {num_threads}')
         cmd_args.append(f'--data_keys "{task["details"]["data"]}"')
         cmd_args.append(f'--data_root {dataset_path}')
+        cmd_args.append(f'--dataset {args.dataset}')
         
         if args.tf2k:
             cmd_args.append(f'--tf2k {args.tf2k}') # pass tf2k flag to train/test scripts for correct dataset handling

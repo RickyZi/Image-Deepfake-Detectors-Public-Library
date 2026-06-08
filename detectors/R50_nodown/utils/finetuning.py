@@ -13,13 +13,18 @@ class FTModel(torch.nn.Module):
         super(FTModel, self).__init__()
         self.opt = opt
         self.total_steps = 0
-        self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights')
+        dataset = opt.dataset.replace(os.sep, '_')
+        print(dataset)
+        # breakpoint()
+        
+        self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights', dataset)
+        os.makedirs(self.save_dir, exist_ok=True)
         self.device = torch.device(opt.device if torch.cuda.is_available() else 'cpu')
 
         print(f"opt.arch: {opt.arch}")
         self.model = create_architecture(opt.arch, pretrained=True, num_classes=1)
         print(f"Arch: {opt.arch} with #trainable params: {count_parameters(self.model)}")
-        breakpoint()
+        # breakpoint()
 
         self.loss_fn = torch.nn.BCEWithLogitsLoss().to(self.device)
         self.optimizer = self._build_optimizer()

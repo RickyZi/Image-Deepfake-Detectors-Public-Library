@@ -31,8 +31,11 @@ class TrainingModel(torch.nn.Module):
         self.device = torch.device(opt.device if torch.cuda.is_available() else 'cpu')
 
         # ft saves to a separate directory to preserve the original checkpoint
+        
         if opt.ft:
-            self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights')
+            dataset = opt.dataset.replace(os.sep, '_')
+            self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights', dataset)
+            # os.makedirs(self.save_dir, exist_ok=True)
         else:
             self.save_dir = os.path.join('checkpoint', opt.name, 'weights')
         os.makedirs(self.save_dir, exist_ok=True)

@@ -160,7 +160,7 @@ if __name__ == '__main__':
     settings = parser.parse_args()
     
     device = torch.device(settings.device if torch.cuda.is_available() else 'cpu')
-
+    
     if settings.tf2k:
         test_dataloader = tf2k_create_dataloader(settings, split = 'test')
     else:
@@ -171,9 +171,10 @@ if __name__ == '__main__':
     print(f"Arch: {settings.arch} with #parameters {num_parameters}")
     
     # load_path = f'./checkpoint/{settings.name}/weights/best.pt'
-    load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/best.pt'
+    load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
     
     print('loading the model from %s' % load_path)
+    breakpoint()
     model.load_state_dict(torch.load(load_path, map_location=device)['model'])
     model.to(device)
 
