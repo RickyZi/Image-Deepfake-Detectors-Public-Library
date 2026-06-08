@@ -174,10 +174,10 @@ if __name__ == '__main__':
     load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
     
     print('loading the model from %s' % load_path)
-    breakpoint()
+    # breakpoint()
     model.load_state_dict(torch.load(load_path, map_location=device)['model'])
     model.to(device)
-
+    
     # breakpoint()
 
     test(test_dataloader, model, settings, device)
