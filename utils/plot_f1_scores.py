@@ -20,6 +20,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 from datetime import datetime
 import argparse
+import itertools
 
 # -------------------------------------------------------- #
 # Configuration
@@ -27,99 +28,106 @@ RESULTS_DIR = Path("./results/pretrained")
 OUTPUT_DIR  = Path("./results/plots")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
+REF_FOLDER = 'dataset' # ref run folder name
+REF_LABEL = 'tf2k_dataset' # label ref run
+
 # Colour palette
-PALETTE = [
-    "#4C72B0", "#DD8452", "#55A868", "#C44E52",
-    "#8172B3", "#937860", "#DA8BC3", "#8C8C8C",
-    "#CCB974", "#64B5CD",
+# PALETTE = [
+#     "#4C72B0", "#DD8452", "#55A868", "#C44E52",
+#     "#8172B3", "#937860", "#DA8BC3", "#8C8C8C",
+#     "#CCB974", "#64B5CD",
+# ]
+
+PALETTE_REF      = "#4C72B0"   # blue  — reference bar
+PALETTE   = [           # cycling palette for the other datasets
+    "#DD8452", "#55A868", "#C44E52",
+    "#8172B3", "#937860", "#DA8BC3",
+    "#8C8C8C", "#CCB974", "#64B5CD",
 ]
-# -------------------------------------------------------- #
-
-timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
-
-parser = argparse.ArgumentParser(description='Plotting test-run tables for one detector.')
-
-parser.add_argument('--model', type = str,  default = 'R50_nodown', help = 'Model run name, i.e. R50_nodown or CLIP-D')
-
-args = parser.parse_args()
-
-print(f"model: {args.model}")
 
 
-# Collect data
-# data[model_name][dataset_name] = f1_value
-data: dict[str, dict[str, float]] = defaultdict(dict)
+# --------------------------------------------------------- #
+# Data Collection
+# --------------------------------------------------------- #
 
-if not RESULTS_DIR.exists():
-    raise FileNotFoundError(f"Results directory not found: {RESULTS_DIR.resolve()}")
+def find_json(folder: Path):
+    json_files = sorted(folder.glob("*_aggregated_metrics.json"))
+    # There should be exactly one per run folder; take the first.
+    return json_files[0] if json_files else None
 
-# Walk:  pretrained/<dataset>/<model_folder>/*_aggregated_metrics.json
-for dataset_dir in sorted(RESULTS_DIR.iterdir()):
-    print(f"dataset_dir: {dataset_dir}")
-    if not dataset_dir.is_dir():
-        continue
 
-    dataset_name = 'tf_dataset' if dataset_dir.name == 'dataset' else dataset_dir.name # e.g. "autumn_TM01"
-
-    for model_dir in sorted(dataset_dir.iterdir()):
-        print(f"model_dir: {model_dir}")
+def collect_f1(subdir_name: str) -> dict[str, float]:
+    """
+    Walk results/pretrained/<dataset>/<subdir_name>/
+    Returns {dataset_label: f1_value} including the reference entry.
+    """
+    scores = {}
+ 
+    if not RESULTS_DIR.exists():
+        raise FileNotFoundError(f"Results root not found: {RESULTS_DIR.resolve()}")
+ 
+    for dataset_dir in sorted(RESULTS_DIR.iterdir()):
+        if not dataset_dir.is_dir():
+            continue
+ 
+        model_dir = dataset_dir / subdir_name
         if not model_dir.is_dir():
             continue
-        
-        if args.model in model_dir.name:
-        #     if '_pretrained' in model_dir.name:
-        #         model_name = model_dir.name.replace('_pretrained', '_baseline')
-        #         print(f"model_name: {model_name}")
-        #     else:
-        #         model_name = model_dir.name
-            model_name = f'{args.model}_baseline' if 'pretrained' in model_dir.name else model_dir.name # e.g. "R50_nodown_pretrained"
-            print(f"model_name: {model_name}")
-            # breakpoint()
+ 
+        json_path = find_json(model_dir)
+        if json_path is None:
+            print(f"  [skip] no aggregated_metrics.json in {model_dir}")
+            continue
+ 
+        with json_path.open() as f:
+            payload = json.load(f)
+ 
+        try:
+            f1 = payload["overall"]["F1"]
+        except KeyError:
+            print(f"  [skip] 'overall.F1' missing in {json_path}")
+            continue
+ 
+        label = REF_LABEL if dataset_dir.name == REF_FOLDER else dataset_dir.name
+        scores[label] = f1
+        print(f"  [ok] model={model_dir.name!r:35s}  dataset={dataset_dir.name!r:25s}  F1={f1:.4f}")
+ 
+    return scores
 
-            json_files = sorted(model_dir.glob("*_aggregated_metrics.json"))
-            if not json_files:
-                print(f"  [skip] no aggregated_metrics.json in {model_dir}")
-                continue
 
-            # There should be exactly one per run folder; take the first.
-            fpath = json_files[0]
-            with fpath.open() as f:
-                payload = json.load(f)
 
-            try:
-                f1 = payload["overall"]["F1"]
-            except KeyError:
-                print(f"  [skip] 'overall.F1' missing in {fpath}")
-                continue
-
-            data[model_name][dataset_name] = f1
-            print(f"  [ok] model={model_name!r:35s}  dataset={dataset_name!r:25s}  F1={f1:.4f}")
-
-if not data:
-    raise ValueError("No valid results found. Check the folder structure.")
-
-# Pretty-print the collected dictionary
-print("\n── Collected F1 scores ──────────────────────────────────────────────")
-for model, scores in sorted(data.items()):
-    print(f"\n  Model: {model}")
-    for dataset, f1 in sorted(scores.items()):
-        print(f"    {dataset:<30s}  F1 = {f1:.4f}")
-
-# Plot one figure per model
-for model, dataset_scores in sorted(data.items()):
-    datasets = sorted(dataset_scores.keys())
-    f1_vals  = [dataset_scores[d] for d in datasets]
-    n        = len(datasets)
-
-    fig_w = max(8, n * 1.0 + 2)
+def plot_f1(scores: dict[str, float], title: str, out_path: Path):
+    """
+    Bar chart for one model variant (baseline or FT).
+    Reference bar is always first and coloured distinctly.
+    """
+    if not scores:
+        print(f"  [skip] no data for: {title}")
+        return
+ 
+    # Reference bar first, then remaining datasets sorted alphabetically
+    datasets = (
+        [REF_LABEL] if REF_LABEL in scores else []
+    ) + sorted(k for k in scores if k != REF_LABEL)
+ 
+    f1_vals = [scores[d] for d in datasets]
+    n = len(datasets)
+ 
+    # Colours: reference = blue, others cycle through PALETTE_OTHERS
+    palette_iter = itertools.cycle(PALETTE)
+    colors = [
+        PALETTE_REF if d == REF_LABEL else next(palette_iter)
+        for d in datasets
+    ]
+ 
+    fig_w = max(8, n * 1.1 + 2)
     fig, ax = plt.subplots(figsize=(fig_w, 5))
     fig.patch.set_facecolor("#F7F7F7")
     ax.set_facecolor("#F7F7F7")
-
-    colors = [PALETTE[i % len(PALETTE)] for i in range(n)]
-    bars   = ax.bar(datasets, f1_vals, color=colors, width=0.6,
-                    edgecolor="white", linewidth=0.8, zorder=3)
-
+ 
+    bars = ax.bar(datasets, f1_vals, color=colors, width=0.6,
+                  edgecolor="white", linewidth=0.8, zorder=3)
+ 
     # Value labels on top of each bar
     for bar, val in zip(bars, f1_vals):
         ax.text(
@@ -129,7 +137,13 @@ for model, dataset_scores in sorted(data.items()):
             ha="center", va="bottom",
             fontsize=8.5, fontweight="bold", color="#333333",
         )
-
+ 
+    # Reference bar annotation
+    if REF_LABEL in scores:
+        ref_val = scores[REF_LABEL]
+        ax.axhline(ref_val, color=PALETTE_REF, linewidth=1.0,
+                   linestyle="--", alpha=0.5, zorder=2)
+ 
     # Gridlines
     ax.yaxis.set_major_locator(mticker.MultipleLocator(0.1))
     ax.yaxis.set_minor_locator(mticker.MultipleLocator(0.05))
@@ -137,7 +151,7 @@ for model, dataset_scores in sorted(data.items()):
             color="#CCCCCC", zorder=0)
     ax.grid(axis="y", which="minor", linestyle=":",  linewidth=0.4,
             color="#DDDDDD", zorder=0)
-
+ 
     # Axes styling
     ax.set_ylim(0, min(1.15, max(f1_vals) + 0.18))
     ax.set_ylabel("F1 Score", fontsize=11, labelpad=8)
@@ -148,18 +162,86 @@ for model, dataset_scores in sorted(data.items()):
         ax.spines[spine].set_visible(False)
     for spine in ["left", "bottom"]:
         ax.spines[spine].set_color("#BBBBBB")
-
-    # Model name as main title
-    fig.suptitle(model, fontsize=14, fontweight="bold", color="#222222", y=1.02)
-    ax.set_title("Overall F1 Score per Dataset", fontsize=10,
-                 color="#555555", pad=6)
-
+ 
+    # Legend for the reference bar
+    from matplotlib.patches import Patch
+    legend_elements = [Patch(facecolor=PALETTE_REF, label=f"reference ({REF_LABEL})")]
+    # ax.legend(handles=legend_elements, fontsize=8.5, loc="lower right", framealpha=0.7)
+ 
+    fig.suptitle(title, fontsize=14, fontweight="bold", color="#222222", y=1.02)
+    ax.set_title("Overall F1 Score per Dataset", fontsize=10, color="#555555", pad=6)
+ 
     plt.tight_layout()
-
-    out_path = OUTPUT_DIR / f"{model}_f1_{timestamp}.png"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out_path, dpi=150, bbox_inches="tight",
                 facecolor=fig.get_facecolor())
     plt.close(fig)
-    print(f"\n  → plot saved: {out_path}")
+    print(f"  → saved: {out_path}")
 
-print(f"\nDone — {len(data)} plot(s) saved to {OUTPUT_DIR.resolve()}")
+
+
+# ------------------------------------- #
+# ENTRY POINT #
+# ------------------------------------- #
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Plot F1 scores per dataset for one detector model."
+    )
+    parser.add_argument(
+        "--model", type=str, default="R50_nodown",
+        help="Model name prefix, e.g. R50_nodown or CLIP-D",
+    )
+    args = parser.parse_args()
+ 
+    baseline_subdir = f"{args.model}_pretrained"
+    ft_subdir       = f"{args.model}_ft"
+    timestamp       = datetime.now().strftime("%Y%m%d_%H%M%S")
+ 
+    print(f"\nModel    : {args.model}")
+    print(f"Baseline : {baseline_subdir}")
+    print(f"FT       : {ft_subdir}\n")
+ 
+    # Collect F1 scores
+    print(f"── Collecting baseline F1 scores ({baseline_subdir}) ─────────────")
+    baseline_scores = collect_f1(baseline_subdir)
+ 
+    print(f"\n── Collecting FT F1 scores ({ft_subdir}) ─────────────────────────")
+    ft_scores = collect_f1(ft_subdir)
+
+    # Inject reference into FT scores if missing (dataset/ folder only has
+    # the pretrained subfolder, so collect_f1 for ft_subdir won't find it)
+    if REF_LABEL not in ft_scores and REF_LABEL in baseline_scores:
+        ft_scores[REF_LABEL] = baseline_scores[REF_LABEL]
+        print(f"  [ref] injected '{REF_LABEL}' from baseline into FT scores")
+
+ 
+    # Print summary
+    print("\n── Baseline F1 summary ──────────────────────────────────────────")
+    for d, v in sorted(baseline_scores.items()):
+        marker = " ← ref" if d == REF_LABEL else ""
+        print(f"  {d:<30s}  F1 = {v:.4f}{marker}")
+ 
+    print("\n── FT F1 summary ────────────────────────────────────────────────")
+    for d, v in sorted(ft_scores.items()):
+        marker = " ← ref" if d == REF_LABEL else ""
+        print(f"  {d:<30s}  F1 = {v:.4f}{marker}")
+ 
+    # Plot
+    print("\n── Plotting ─────────────────────────────────────────────────────")
+    plot_f1(
+        scores   = baseline_scores,
+        title    = f"{args.model} baseline",
+        out_path = OUTPUT_DIR / f"{baseline_subdir}_f1_{timestamp}.png",
+    )
+    plot_f1(
+        scores   = ft_scores,
+        title    = f"{args.model} FT",
+        out_path = OUTPUT_DIR / f"{ft_subdir}_f1_{timestamp}.png",
+    )
+ 
+    print(f"\nDone — plots saved to {OUTPUT_DIR.resolve()}/")
+ 
+ 
+if __name__ == "__main__":
+    main()
