@@ -48,10 +48,7 @@ def load_image_results(data_key_dir: Path):
 
 def aggregate_scores(run_dir: Path): #, key_filter=None):
     """
-    Collect scores and labels from all data-key folders directly under run_dir.
-
-    key_filter: if set, only include folders whose name contains this string.
-    Returns (all_scores, all_labels, image_results_dict, per_key_dict).
+    Collect scores and labels from all run-dir folders
     """
     all_scores, all_labels = [], []
     image_results = {"Fake": {}, "Real": {}}
@@ -101,8 +98,10 @@ def calculate_metrics(scores, labels, is_p2g=False):
 
     if is_p2g:
         # TO BE FIXED!!!!
-        predictions = scores.astype(int)
-        auc_input   = scores.astype(float)
+        # predictions = scores.astype(int)
+        # auc_input   = scores.astype(float)
+        print("P2G detector currently not supported! - SKIPPING METRICS COMPUTATION!")
+        return
     else:
         predictions = (scores > 0).astype(int)
         import torch
@@ -142,9 +141,7 @@ def calculate_metrics(scores, labels, is_p2g=False):
 # ------------------------------------------------------------------ #
 
 def agg_scores(run_dir):
-    all_scores, all_labels, image_results, per_key = aggregate_scores(
-        run_dir, #key_filter=args.key_filter
-    )
+    all_scores, all_labels, image_results, per_key = aggregate_scores(run_dir)
 
     if not all_scores:
         print("[ERROR] No scores collected. Check that image_results.json files exist.")
@@ -183,28 +180,32 @@ def agg_scores(run_dir):
 
     # suffix   = f"_{args.key_filter}" if args.key_filter else ""
     out_path = run_dir / f"{detector_name}_{dataset_name}_aggregated_metrics.json"
-    return output, out_path
 
-def save_agg_scores(output, output_path):
+    save_agg_scores(output, out_path)
+    
+
+def save_agg_scores(output, out_path):
     with open(out_path, 'w') as f:
         json.dump(output, f, indent=2)
 
     print(f"\nAggregated metrics saved to:\n  {out_path}\n")
 
+
+# ------------------------------------------------------------------ #
+# Entry point                                                        #
+# ------------------------------------------------------------------ #
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Aggregate test-run scores for one detector.')
 
-    parser.add_argument('--results_dir', type=Path, default = './results/pretrained/',
-                        help='Path to the detector run folder, '
-                             'e.g. results/pretrained/season_TM01/R50_nodown')
+    parser.add_argument('--results-dir', type=Path, default = './results/pretrained/', help='Path to the detector run folder, e.g. results/pretrained/season_TM01/R50_nodown')
 
-    parser.add_argument('--model', type = str,  default = 'R50_nodown', help = 'Model run name, i.e. R50_nodown_pretrained or R50_nodown_ft')
+    parser.add_argument('--model', type = str,  default = 'R50_nodown_pretrained', help = 'Model run name, i.e. R50_nodown_pretrained or R50_nodown_ft')
     
     args = parser.parse_args()
 
     # example run: python3 utils/single_score_agg.py --model CLIP-D_ft 
     
-
     run_dir = args.results_dir.resolve()
     print(f"\nRun dir : {run_dir}")
 
@@ -212,27 +213,21 @@ if __name__ == '__main__':
         print(f"[ERROR] Not a directory: {run_dir}")
         sys.exit(1)
 
-    # walk all dataset in the run directories
-    for dataset_dir in sorted(Path(run_dir).iterdir()):
-        # print(f"dataset_dir: {dataset_dir}")
+    # single folder run -> i.e. results/pretrained/filminspired_warmgold/R50_nodown_pretrained
+    if run_dir != './resuls/pretrained/':
+        print(f"Aggregating scores for\n\t model: {Path(run_dir).name}\n\t dataset: {str(run_dir).split(os.sep)[-2]} ")
+        breakpoint()
+        agg_scores(run_dir)
 
-        # check the models name inside dataset dir
-        for model_dir in sorted(dataset_dir.iterdir()):
-            # print(f"model_dir: {model_dir}")
-            if model_dir.name == args.model:
-                print(f"\nAggregating scores for {model_dir.name} - {dataset_dir.name}")
-                # breakpoint()
-                output, out_path = agg_scores(model_dir)
+    else:
+        # walk all dataset in the run directories
+        for dataset_dir in sorted(Path(run_dir).iterdir()):
+            # print(f"dataset_dir: {dataset_dir}")
 
-                save_agg_scores(output, out_path)
-
-
-    # breakpoint()
-        
-
-    
-    # print(f"Filter  : {args.key_filter or '(none — all keys)'}\n")
-
-   
-
+            # check the models name inside dataset dir
+            for model_dir in sorted(dataset_dir.iterdir()):
+                # print(f"model_dir: {model_dir}")
+                if model_dir.name == args.model:
+                    print(f"\nAggregating scores for\n\t model: {model_dir.name}\n\t dataset: {dataset_dir.name}")
+                    agg_scores(model_dir)
     
