@@ -47,10 +47,10 @@
 # ---------------------------- #
 # test baseline #
 # ---------------------------- #
-
+# # R50_nodown
 # python3 launcher.py --detector R50_nodown --phases test --dataset seasons/autumn_TM01
 
-# python3 launcher.py --detector R50_nodown --phases test --dataset seasons/spring_SP01
+# python3 launcher.py --detector R50_nodown --phases test --dataset sedasons/spring_SP01
 
 # python3 launcher.py --detector R50_nodown --phases test --dataset seasons/summer_SM01
 
@@ -68,8 +68,12 @@
 
 # python3 launcher.py --detector R50_nodown --phases test --dataset style/vintage_VN01
 
+
 # --------- # 
-# python3 launcher.py --detector R50_nodown --phases both --dataset seasons/autumn_TM01 --ft
+# FT model  #
+# --------- #
+# R50_nodown -> trained only classification head
+# # python3 launcher.py --detector R50_nodown --phases both --dataset seasons/autumn_TM01 --ft
 
 python3 launcher.py --detector R50_nodown --phases both --dataset seasons/spring_SP01 --ft
 
