@@ -1,14 +1,16 @@
 {   
-    "run_name" : "demo",
+    "run_name" : "pretrained",
     "device" : "cuda:0",
     "batch_size_eval" :512,
     "dataset": "TrueFake",
-    "data_path": "/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/demo_images/style_warmgold/",
-    "split_file": "/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/split_demo.json",
+    "data_path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/tf2k_lr_org/seasons/winter_WN01/",
+    "split_file": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/test2k_splits.json",
     "softmax" : false,
     "prototype" : "fake", 
     "scenario": ["flux:pre"],
     "upperbound" : false,
     "random_select" : false,
-    "precision" : "fp16"
+    "precision" : "fp16",
+    "tf2k": true,
+    "ft": false
 }

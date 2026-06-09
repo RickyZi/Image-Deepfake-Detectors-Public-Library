@@ -10,5 +10,7 @@
     "scenario": ["${DATA_KEYS}"],
     "upperbound" : false,
     "random_select" : false,
-    "precision" : "fp16"
+    "precision" : "fp16",
+    "tf2k": true,
+    "ft": false
 }

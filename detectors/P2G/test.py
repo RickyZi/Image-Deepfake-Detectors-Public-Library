@@ -5,6 +5,7 @@ if __name__ == "__main__":
     parser = get_parser()
     settings = parser.parse_args()
     print(settings)
+    # breakpoint()
 
     with open ("configs/test_template.json", "r") as f:
         training_template = f.read()
@@ -14,6 +15,7 @@ if __name__ == "__main__":
         training_template = training_template.replace("${NAME}", settings.name)
         training_template = training_template.replace("${DEVICE}", settings.device)
         training_template = training_template.replace("${TASK}", settings.task)
+        # training_template = training_template.replace("${TF2K}", settings.tf2k) # fixed to true in test_template-json
 
     with open("configs/test.json", "w") as f:
         f.write(training_template)
