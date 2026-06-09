@@ -7,8 +7,9 @@ Walks results/pretrained/<dataset>/ and produces TWO color-coded metric tables:
                              reference row  (tf2k_dataset) shows RAW scores
                              all other rows show RAW score + absolute diff vs ref
 
-  2. R50_nodown FT        →  same layout, same reference, but reads the
-                             R50_nodown_ft sub-folder instead
+  2. R50_nodown FT        →  same layout, same reference row (tf2k_dataset baseline),
+                             but each other row shows the FT model's raw score +
+                             absolute diff vs that SAME DATASET's baseline score.
 
 Folder conventions
 ------------------
@@ -45,12 +46,6 @@ REF_LABEL    = "tf2k_dataset"     # how to display it in the table
 
 RESULTS_ROOT = Path("./results/pretrained")
 OUTPUT_DIR   = Path("./results/metric_tables")
-
-# Subfolder name inside each dataset dir
-# BASELINE_SUBDIR = "R50_nodown_pretrained"
-# FT_SUBDIR       = "R50_nodown_ft"
-# BASELINE_SUBDIR = f"{args.model}_pretrained"
-# FT_SUBDIR = f"{args.model}_ft"
 
 # Colormaps
 CMAP_DIFF = mcolors.LinearSegmentedColormap.from_list(
@@ -90,8 +85,7 @@ def load_ref_scores(BASELINE_SUBDIR) -> dict | None:
         return None
 
     ref_dir = RESULTS_ROOT / REF_FOLDER
-    # Reference JSON may live under either model subfolder; try both
-    for subdir in [BASELINE_SUBDIR]: #, FT_SUBDIR]:
+    for subdir in [BASELINE_SUBDIR]:
         model_dir = ref_dir / subdir
         print(model_dir)
         if model_dir.is_dir():
@@ -217,31 +211,51 @@ def _save(fig, path: Path):
 
 
 # ── Main plotting function ────────────────────────────────────────────────────
-def plot_table(results: dict[str, dict], ref_label: str, title: str, output_path: Path,
-               ref_scores: dict | None = None):
+def plot_table(results: dict[str, dict], ref_label: str, title: str, output_path: Path, ref_scores: dict | None = None, per_row_baseline: dict[str, dict] | None = None):
     """
-    results   : {dataset_label: {metric: value}}
-    ref_label : the row that shows raw scores only (no diff)
-    ref_scores: explicit reference metric dict used for computing diffs.
-                If None, falls back to results[ref_label].
-                Pass this so the FT table can use the baseline reference scores.
+    results          : {dataset_label: {metric: value}}
+    ref_label        : the row that shows raw scores only (no diff); always the
+                       tf2k_dataset baseline
+    ref_scores       : metric dict for the reference row (tf2k_dataset baseline).
+                       Used to populate the first row and as fallback for diffs.
+    per_row_baseline : optional {dataset_label: {metric: value}} mapping.
+                       When provided, each non-ref row's diff is computed against
+                       its corresponding entry here (i.e. same-dataset baseline)
+                       rather than against ref_scores.  Pass the full baseline
+                       results dict when plotting the FT table.
     """
     if not results:
         print(f"  [skip] no data for table: {title}")
         return
-
+    # ---------------------------------------------------------------------------------- #
     # Inject the reference row into the table if it is not already present
     # (e.g. the FT results dict has no tf2k_dataset entry of its own)
+    # table_data = dict(results)
+    # if ref_label not in table_data and ref_scores:
+    #     table_data[ref_label] = ref_scores
+
+    # # Row order: reference first, then all others sorted
+    # other_labels = sorted(k for k in table_data if k != ref_label)
+    # row_labels   = ([ref_label] if ref_label in table_data else []) + other_labels
+
+    # # Use explicit ref_scores if provided, else fall back to the ref row in table_data
+    # ref_row = ref_scores if ref_scores is not None else table_data.get(ref_label, {})
+    # ---------------------------------------------------------------------------------- #
     table_data = dict(results)
-    if ref_label not in table_data and ref_scores:
-        table_data[ref_label] = ref_scores
-
-    # Row order: reference first, then all others sorted
-    other_labels = sorted(k for k in table_data if k != ref_label)
-    row_labels   = ([ref_label] if ref_label in table_data else []) + other_labels
-
-    # Use explicit ref_scores if provided, else fall back to the ref row in table_data
+ 
+    if per_row_baseline:
+        # FT table: no reference row — just the FT datasets sorted
+        row_labels = sorted(table_data.keys())
+    else:
+        # Baseline table: inject reference row first if missing, then others
+        if ref_label not in table_data and ref_scores:
+            table_data[ref_label] = ref_scores
+        other_labels = sorted(k for k in table_data if k != ref_label)
+        row_labels   = ([ref_label] if ref_label in table_data else []) + other_labels
+ 
+    # ref_row is only used as a fallback diff source in the baseline table
     ref_row = ref_scores if ref_scores is not None else table_data.get(ref_label, {})
+
 
     results = table_data  # work on the (possibly augmented) copy
 
@@ -257,9 +271,14 @@ def plot_table(results: dict[str, dict], ref_label: str, title: str, output_path
             v = results[label].get(metric, np.nan)
             raw[i, j] = v
             if label != ref_label:
-                ref_v = ref_row.get(metric, np.nan)
-                if np.isfinite(v) and np.isfinite(ref_v):
-                    diffs[i, j] = v - ref_v
+                # Per-row baseline (same dataset) takes priority; fall back to
+                # the global ref_row when no per-row entry exists.
+                if per_row_baseline and label in per_row_baseline:
+                    baseline_v = per_row_baseline[label].get(metric, np.nan)
+                else:
+                    baseline_v = ref_row.get(metric, np.nan)
+                if np.isfinite(v) and np.isfinite(baseline_v):
+                    diffs[i, j] = v - baseline_v
 
     # ── Color norms ─────────────────────────────────────────────────────────
     finite_diffs = diffs[np.isfinite(diffs)]
@@ -315,7 +334,7 @@ def plot_table(results: dict[str, dict], ref_label: str, title: str, output_path
                         fontsize=11, fontweight="bold",
                         color=txt_color, fontfamily="monospace")
             else:
-                # Top: raw score   Bottom: ± diff
+                # Top: raw score   Bottom: ± diff vs same-dataset baseline
                 top_txt = f"{val:.3f}"  if np.isfinite(val)  else "N/A"
                 bot_txt = (f"{diff:+.3f}" if np.isfinite(diff) else "")
                 ax.text(x + CELL_W/2, y + CELL_H*0.63, top_txt,
@@ -328,9 +347,13 @@ def plot_table(results: dict[str, dict], ref_label: str, title: str, output_path
 
     _draw_chrome(ax, row_labels, title, n_rows, n_cols)
 
-    # Two colorbars: diff (main) and reference (blue)
-    _add_colorbar(fig, CMAP_DIFF, diff_norm,
-                  "absolute diff vs tf2k_dataset   (green = higher  /  red = lower)")
+    # Colorbar label differs between baseline and FT tables
+    diff_label = (
+        "absolute diff vs same-dataset baseline   (green = higher  /  red = lower)"
+        if per_row_baseline else
+        "absolute diff vs tf2k_dataset   (green = higher  /  red = lower)"
+    )
+    _add_colorbar(fig, CMAP_DIFF, diff_norm, diff_label)
 
     _save(fig, output_path)
 
@@ -341,7 +364,7 @@ def plot_table(results: dict[str, dict], ref_label: str, title: str, output_path
 def main():
 
     parser = argparse.ArgumentParser(description='Plotting test-run tables for one detector.')
-    parser.add_argument('--model', type = str,  default = 'R50_nodown', help = 'Model run name, i.e. R50_nodown or CLIP-D')
+    parser.add_argument('--model', type=str, default='R50_nodown', help='Model run name, i.e. R50_nodown or CLIP-D')
     args = parser.parse_args()
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -349,11 +372,9 @@ def main():
     print(f"model: {args.model}")
 
     BASELINE_SUBDIR = args.model + '_pretrained'
-    FT_SUBDIR = args.model + '_ft'
+    FT_SUBDIR       = args.model + '_ft'
     print(f"BASELINE_SUBDIR: {BASELINE_SUBDIR}")
     print(f"FT_SUBDIR: {FT_SUBDIR}")
-    # breakpoint()
-
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -373,6 +394,8 @@ def main():
 
     # 3. Plot
     print("\n── Plotting ─────────────────────────────────────────────────────")
+
+    # Baseline table: diffs vs tf2k_dataset (ref_scores), no per_row_baseline
     plot_table(
         baseline,
         ref_label   = REF_LABEL,
@@ -380,13 +403,18 @@ def main():
         title       = f"{args.model}_baseline results",
         output_path = OUTPUT_DIR / f"{args.model}_baseline_{timestamp}.png",
     )
+
+    # FT table: first row = tf2k_dataset baseline (ref_scores);
+    #           other rows = FT raw score + diff vs SAME DATASET's baseline model.
     plot_table(
         ft,
-        ref_label   = REF_LABEL,
-        ref_scores  = ref_scores,
-        title       = f"{args.model}_FT results",
-        output_path = OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png",
+        ref_label        = REF_LABEL,
+        ref_scores       = ref_scores,
+        # per_row_baseline = baseline,   # <── key change: diff against own baseline
+        title            = f"{args.model}_FT vs baseline results",
+        output_path      = OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png",
     )
+
     print(f"\nDone — tables saved to {OUTPUT_DIR.resolve()}/")
 
 
