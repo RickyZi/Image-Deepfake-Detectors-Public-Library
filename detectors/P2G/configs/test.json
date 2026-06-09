@@ -7,7 +7,7 @@
     "split_file": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/test2k_splits.json",
     "softmax" : false,
     "prototype" : "fake", 
-    "scenario": ["realFFHQ:pre"],
+    "scenario": ["realFORLAB:pre"],
     "upperbound" : false,
     "random_select" : false,
     "precision" : "fp16",
