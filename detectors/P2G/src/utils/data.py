@@ -103,6 +103,37 @@ def parse_dataset(data_keys):
     
     return dataset_list
 
+def parse_tf2k_dataset(settings):
+    gen_keys = {
+        'gan1':['StyleGAN'],
+        'gan2':['StyleGAN2'],
+        'gan3':['StyleGAN3'],
+        'sd15':['StableDiffusion1.5'],
+        'sd2':['StableDiffusion2'],
+        'sd3':['StableDiffusion3'],
+        'sdXL':['StableDiffusionXL'],
+        'flux':['FLUX.1'],
+        'realFFHQ':['FFHQ'],
+        'realFORLAB':['FORLAB']
+    }
+
+    gen_keys['all'] =   [gen_keys[key][0] for key in gen_keys.keys()]
+    gen_keys['real'] =  [gen_keys[key][0] for key in gen_keys.keys() if 'real'  in key]
+
+    need_real = (settings.split in ['train', 'val'] and not len([data for data in settings.data_keys.split('&') if 'real' in data.split(':')[0]]))
+
+    assert not need_real, 'Train task without real data, this will not get handeled automatically, terminating'
+
+    dataset_list = []
+    for data in settings.data_keys.split('&'):
+        # # gen = data.split(':')
+        # dataset_list.append({'gen':gen_keys[data]}) #, 'mod':mod_keys[mod]})
+        gen, mod = data.split(':')
+        dataset_list.append({'gen':gen_keys[gen]}) #, 'mod':mod_keys[mod]})
+        # removed mod because we have just Real/FORLAB and no social media processing (mod)
+    
+    return dataset_list
+
 class TrueFake_benchmark(object):
     use_path = True
     train_trsf = [
@@ -121,8 +152,14 @@ class TrueFake_benchmark(object):
 
     def __init__(self, args):
         self.args = args
+        print(f"self.args: {self.args}")
+        breakpoint()
         class_order = args["class_order"]
         self.class_order = class_order
+
+        self.tf2k = args["tf2k"]
+        breakpoint()
+
 
     def _in_list(self, split, elem):
         i = bisect.bisect_left(split, elem)
@@ -140,27 +177,52 @@ class TrueFake_benchmark(object):
         
 
         for id, name in enumerate(self.args["task_name"]):
-            dataset_list = parse_dataset(name)
+            if self.tf2k:
+                dataset_list = parse_tf2k_dataset(name)
 
-            for dict in dataset_list:
-                generators = dict['gen']
-                modifiers = dict['mod']
-
-                for mod in modifiers:
+                for dict in dataset_list:
+                    generators = dict['gen']
+                    
                     for dataset_root, dataset_dirs, dataset_files in os.walk(os.path.join(self.args["data_path"], mod), topdown=True, followlinks=True):
-                        if len(dataset_dirs):
-                            continue
+                            if len(dataset_dirs):
+                                continue
 
-                        (label, gen, sub)  = f'{dataset_root}/'.replace(os.path.join(self.args["data_path"], mod) + os.sep, '').split(os.sep)[:3]
-                        
-                        if gen in generators:
-                            for filename in sorted(dataset_files):
-                                if os.path.splitext(filename)[1].lower() in ['.png', '.jpg', '.jpeg']:
-                                    if self._in_list(train_split, os.path.join(gen, sub, os.path.splitext(filename)[0])):
-                                        train_dataset.append((os.path.join(dataset_root, filename), (1 if label == 'Fake' else 0) + 2 * id))
+                            (label, gen, sub)  = f'{dataset_root}/'.replace(os.path.join(self.args["data_path"], mod) + os.sep, '').split(os.sep)[:3]
+                            
+                            if gen in generators:
+                                for filename in sorted(dataset_files):
+                                    if os.path.splitext(filename)[1].lower() in ['.png', '.jpg', '.jpeg']:
+                                        if self._in_list(train_split, os.path.join(gen, sub, os.path.splitext(filename)[0])):
+                                            train_dataset.append((os.path.join(dataset_root, filename), (1 if label == 'Fake' else 0) + 2 * id))
 
-                                    if self._in_list(val_split, os.path.join(gen, sub, os.path.splitext(filename)[0])):
-                                        test_dataset.append((os.path.join(dataset_root, filename), (1 if label == 'Fake' else 0) + 2 * id))
+                                        if self._in_list(val_split, os.path.join(gen, sub, os.path.splitext(filename)[0])):
+                                            test_dataset.append((os.path.join(dataset_root, filename), (1 if label == 'Fake' else 0) + 2 * id))
+
+
+
+
+            else:
+                dataset_list = parse_dataset(name)
+
+                for dict in dataset_list:
+                    generators = dict['gen']
+                    modifiers = dict['mod']
+
+                    for mod in modifiers:
+                        for dataset_root, dataset_dirs, dataset_files in os.walk(os.path.join(self.args["data_path"], mod), topdown=True, followlinks=True):
+                            if len(dataset_dirs):
+                                continue
+
+                            (label, gen, sub)  = f'{dataset_root}/'.replace(os.path.join(self.args["data_path"], mod) + os.sep, '').split(os.sep)[:3]
+                            
+                            if gen in generators:
+                                for filename in sorted(dataset_files):
+                                    if os.path.splitext(filename)[1].lower() in ['.png', '.jpg', '.jpeg']:
+                                        if self._in_list(train_split, os.path.join(gen, sub, os.path.splitext(filename)[0])):
+                                            train_dataset.append((os.path.join(dataset_root, filename), (1 if label == 'Fake' else 0) + 2 * id))
+
+                                        if self._in_list(val_split, os.path.join(gen, sub, os.path.splitext(filename)[0])):
+                                            test_dataset.append((os.path.join(dataset_root, filename), (1 if label == 'Fake' else 0) + 2 * id))
 
         self.train_data, self.train_targets = split_images_labels(train_dataset)
         self.test_data, self.test_targets = split_images_labels(test_dataset)

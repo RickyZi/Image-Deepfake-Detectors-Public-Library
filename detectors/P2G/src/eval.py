@@ -56,8 +56,34 @@ def parse_dataset(data_keys):
     
     return dataset_list
 
+def parse_tf2k_dataset(data_keys):
+    gen_keys = {
+        'gan1':['StyleGAN'],
+        'gan2':['StyleGAN2'],
+        'gan3':['StyleGAN3'],
+        'sd15':['StableDiffusion1.5'],
+        'sd2':['StableDiffusion2'],
+        'sd3':['StableDiffusion3'],
+        'sdXL':['StableDiffusionXL'],
+        'flux':['FLUX.1'],
+        'realFFHQ':['FFHQ'],
+        'realFORLAB':['FORLAB']
+    }
+
+    gen_keys['all'] =   [gen_keys[key][0] for key in gen_keys.keys()]
+    # gen_keys['gan'] =   [gen_keys[key][0] for key in gen_keys.keys() if 'gan'   in key]
+    # gen_keys['sd'] =    [gen_keys[key][0] for key in gen_keys.keys() if 'sd'    in key]
+    gen_keys['real'] =  [gen_keys[key][0] for key in gen_keys.keys() if 'real'  in key]
+
+    dataset_list = []
+    for data in data_keys.split('&'):
+        gen, mod = data.split(':')
+        dataset_list.append({'gen':gen_keys[gen]}) #, 'mod':mod_keys[mod]})
+    
+    return dataset_list
+
 class DummyDataset(Dataset):
-    def __init__(self, data_path, data_type, data_scenario, data_compression, split_file=None):
+    def __init__(self, data_path, data_type, data_scenario, data_compression, tf2k, split_file=None):
         self.do_compress = [
             data_compression[0],
             data_compression[1],
@@ -114,7 +140,6 @@ class DummyDataset(Dataset):
         elif data_type == "TrueFake":
             print(f"--- Test on {data_scenario} ---")
 
-            
             """
             Check this
             --- Test on sd15:tw ---
@@ -124,42 +149,123 @@ class DummyDataset(Dataset):
                 /media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/IDFD_VENV/lib/python3.10/site-packages/numpy/_core/_methods.py:145: RuntimeWarning: invalid value encountered in scalar divide
                 ret = ret.dtype.type(ret / rcount)
             """
-            # added check on spit_file to avoid error 'mean of empty slice' (sometimes imgs are not found? -> Accuracy: nan) -> still have cases where acc: nan
-            if split_file is not None:
-                with open(split_file, "r") as f:
-                    splits = json.load(f)
-                    test_split = sorted(splits["test"])
-            else:
-                test_split = None
+            # added check on split_file to avoid error 'mean of empty slice' (sometimes imgs are not found? -> Accuracy: nan) -> still have cases where acc: nan
+            # if split_file is not None:
+            with open(split_file, "r") as f:
+                splits = json.load(f)
+                test_split = sorted(splits["test"])
+            # else:
+            #     test_split = None
 
             dataset_list = parse_dataset(data_scenario)
 
-            for dict in dataset_list:
-                generators = dict['gen']
-                modifiers = dict['mod']
+            if tf2k:
+                print(f"args.tf2k: {tf2k}")
+                # breakpoint()
+                
+                for dict in dataset_list:
+                    generators = dict['gen']
+                    print(f"generators: {generators}")
+                    # modifiers = dict['mod']
 
-                for mod in modifiers:
-                    for dataset_root, dataset_dirs, dataset_files in os.walk(os.path.join(data_path, mod), topdown=True, followlinks=True):
+                    # for mod in modifiers:
+
+                    for dataset_root, dataset_dirs, dataset_files in os.walk(data_path, topdown=True, followlinks=True):
+                        
+                        # print(f"dataset_root {dataset_root}")
+
                         if len(dataset_dirs):
                             continue
 
-                        (label, gen, sub)  = f'{dataset_root}/'.replace(os.path.join(data_path, mod) + os.sep, '').split(os.sep)[:3]
+                        # (label, gen, sub)  = f'{dataset_root}/'.replace(data_path+ os.sep, '').split(os.sep)[-3:]
+                        # ['', 'home', 'rz', 'TB_WP3', 'Image-Deepfake-Detectors-Public-Library', 'truefake_2k', 'dataset', 'Fake', 'StyleGAN', 'images-psi-0.5', '']
+                        # label = f'{dataset_root}/'.replace(data_path+ os.sep, '').split(os.sep)[-4]
+                        # gen = f'{dataset_root}/'.replace(data_path+ os.sep, '').split(os.sep)[-3]
+                        # sub = f'{dataset_root}/'.replace(data_path+ os.sep, '').split(os.sep)[-2]
+
+                        # print(f"label: {label} - gen: {gen} - sub: {sub}")
+
+                        rel = os.path.relpath(dataset_root, data_path)
+                        parts = rel.split(os.sep)
+                        # print(f"rel: {rel}")
+                        # print(f"parts: {parts}")
+                        # breakpoint()
+                        if len(parts) < 2:
+                            continue
+
+                        label, gen = parts[0], parts[1]
+                        sub = parts[2] if len(parts) > 2 else None
+
+                        # if gen not in generators:
+                        #     continue
+
+                        print(f"label: {label} - gen: {gen} - sub: {sub}")
+
+                        if gen not in generators:
+                            continue
+
+                        for filename in sorted(dataset_files):
+                            if os.path.splitext(filename)[1].lower() not in ['.png', '.jpg', '.jpeg']:
+                                continue
+                            stem = os.path.splitext(filename)[0]
+                            # Key must match with test_json_split.py:
+                            #   gen/stem for Real  (e.g. "FFHQ/00098")
+                            #   gen/sub/stem for Fake  (e.g. "StyleGAN3/conf-t-psi-0.5/00098")
+                            key = os.path.join(gen, sub, stem) if sub else os.path.join(gen, stem)
+                            if self._in_list(test_split, key):
+                                images.append(os.path.join(dataset_root, filename))
+                                # self.info.append((label, gen, sub))
+                                labels.append(1 if label == 'Fake' else 0)
                         
-                        if gen in generators:
-                            for filename in sorted(dataset_files):
-                                if os.path.splitext(filename)[1].lower() in ['.png', '.jpg', '.jpeg']:
-                                    if self._in_list(test_split, os.path.join(gen, sub, os.path.splitext(filename)[0])):
-                                        images.append(os.path.join(dataset_root, filename))
-                                        labels.append(1 if label == 'Fake' else 0)
+                        # if gen in generators:
+                        #     for filename in sorted(dataset_files):
+                        #         if os.path.splitext(filename)[1].lower() in ['.png', '.jpg', '.jpeg']:
+                        #             print(os.path.join(gen, sub, os.path.splitext(filename)[0]))
+                        #             if self._in_list(test_split, os.path.join(gen, sub, os.path.splitext(filename)[0])):
+                        #                 print("test split IN LIST")
+                        #                 print(os.path.join(dataset_root, filename))
+                        #                 breakpoint()
+                        #                 images.append(os.path.join(dataset_root, filename))
+                        #                 labels.append(1 if label == 'Fake' else 0)
+                        #             else:
+                        #                 print("test split NOT _in_list_")
+                        #                 breakpoint()
+                        #         else:
+                        #             print("no filename in ['.png', '.jpg', '.jpeg']")
+
+                        
+
+            else: 
+                for dict in dataset_list:
+                    generators = dict['gen']
+                    modifiers = dict['mod']
+
+                    for mod in modifiers:
+                        for dataset_root, dataset_dirs, dataset_files in os.walk(os.path.join(data_path, mod), topdown=True, followlinks=True):
+                            if len(dataset_dirs):
+                                continue
+
+                            (label, gen, sub)  = f'{dataset_root}/'.replace(os.path.join(data_path, mod) + os.sep, '').split(os.sep)[:3]
+                            
+                            if gen in generators:
+                                for filename in sorted(dataset_files):
+                                    if os.path.splitext(filename)[1].lower() in ['.png', '.jpg', '.jpeg']:
+                                        if self._in_list(test_split, os.path.join(gen, sub, os.path.splitext(filename)[0])):
+                                            images.append(os.path.join(dataset_root, filename))
+                                            labels.append(1 if label == 'Fake' else 0)
 
         else:
-            pass
+            pass    
+
+
+        # breakpoint()
 
         assert len(images) == len(labels), "Data size error!"
         self.images = images
         self.labels = labels
         self.dataset_path = data_path
 
+        # donwloaded again ./src/utils/classes.pkl from github repo since it was not correctly loaded
         with open("./src/utils/classes.pkl", "rb") as f:
             self.object_labels = pickle.load(f)
 
@@ -378,7 +484,9 @@ def prepare_data_loader(args):
         args["dataset"],
         args["scenario"],
         [args["compression"], args["c_quality"]],
+        args["tf2k"],
         args["split_file"],
+        
     )
     return DataLoader(
         test_dataset,
@@ -420,7 +528,8 @@ def inference_step(args, model: SliNet, test_loader, keys_dict):
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
     # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
     dataset_dir_name = args["data_path"].split('/')[-2]  # Extract dataset directory name from path
-    output_dir = f'/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{args["run_name"]}/{dataset_dir_name}/P2G/{args["scenario"]}' # change path to be outside detector folder
+    tag = 'ft' if args["ft"] else 'pretrained'
+    output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{args["run_name"]}/{dataset_dir_name}/P2G_{tag}/{args["scenario"]}' # change path to be outside detector folder
     os.makedirs(output_dir, exist_ok=True)
     # breakpoint()
     # --------------------------- #
