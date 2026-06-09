@@ -22,5 +22,16 @@ def get_parser():
 
     parser.add_argument("--batch_size", type=int, default=64, help='Dataloader batch size')
     parser.add_argument("--num_threads", type=int, default=14, help='# threads for loading data') 
+
+    # ----------------------------------- #
+    # add ft flag
+    parser.add_argument('--ft', action='store_true', help='Path to pretrained model to load')
+
+    # add tf2k flag
+    parser.add_argument('--tf2k', type = bool, default = False, help = 'Use 2k dataset and splits for training and testing')
+    
+    # add dataset flag
+    parser.add_argument('--dataset', type = str, default = 'dataset', help = 'Which dataset to use (default: dataset)') # add custom dataset for demo
+    # ----------------------------------- #
     
     return parser

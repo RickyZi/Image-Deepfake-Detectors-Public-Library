@@ -13,6 +13,7 @@ from sklearn.metrics import roc_auc_score, accuracy_score
 from networks import ImageClassifier
 from parser import get_parser
 from dataset import create_dataloader
+from tf2k_dataset import tf2k_create_dataloader
 
 from datetime import datetime
 
@@ -29,8 +30,9 @@ def test(loader, model, settings, device):
     # File paths update
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") #
     # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
-    dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name
-    output_dir = f'/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF/{settings.data_keys}' # change path to be outside detector folder
+    dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
+    tag = 'ft' if settings.ft else 'pretrained'
+    output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
     os.makedirs(output_dir, exist_ok=True)
     # --------------------------- #
     
@@ -162,7 +164,10 @@ if __name__ == "__main__":
     
     device = torch.device(settings.device if torch.cuda.is_available() else 'cpu')
 
-    test_dataloader = create_dataloader(settings, split='test')
+    if settings.tf2k:
+        test_dataloader = tf2k_create_dataloader(settings, split='test')
+    else:
+        test_dataloader = create_dataloader(settings, split='test')
 
     model = ImageClassifier(settings)
     # breakpoint()
