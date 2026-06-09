@@ -2,7 +2,7 @@ global:
   dataset_path: /home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/
   device_override: cuda:0  # null for auto-selection
   min_vram: 16000
-  split_file: ./split.json
+  split_file: ./test2k_splits.json
   num_threads: 4 # 8
   dry_run: false
   only_list: false
@@ -13,36 +13,36 @@ training:
   - data: gan2:pre&sdXL:pre&realFFHQ:pre&realFORLAB:pre
 
 testing:
-  - realFFHQ:fb
-  - realFORLAB:fb
-  - gan1:fb
-  - gan2:fb
-  - gan3:fb
-  - sd15:fb
-  - sd2:fb
-  - sd3:fb
-  - sdXL:fb
-  - flux:fb
-  - realFFHQ:tl
-  - realFORLAB:tl
-  - gan1:tl
-  - gan2:tl
-  - gan3:tl
-  - sd15:tl
-  - sd2:tl
-  - sd3:tl
-  - sdXL:tl
-  - flux:tl
-  - realFFHQ:tw
-  - realFORLAB:tw
-  - gan1:tw
-  - gan2:tw
-  - gan3:tw
-  - sd15:tw
-  - sd2:tw
-  - sd3:tw
-  - sdXL:tw
-  - flux:tw
+  # - realFFHQ:fb
+  # - realFORLAB:fb
+  # - gan1:fb
+  # - gan2:fb
+  # - gan3:fb
+  # - sd15:fb
+  # - sd2:fb
+  # - sd3:fb
+  # - sdXL:fb
+  # - flux:fb
+  # - realFFHQ:tl
+  # - realFORLAB:tl
+  # - gan1:tl
+  # - gan2:tl
+  # - gan3:tl
+  # - sd15:tl
+  # - sd2:tl
+  # - sd3:tl
+  # - sdXL:tl
+  # - flux:tl
+  # - realFFHQ:tw
+  # - realFORLAB:tw
+  # - gan1:tw
+  # - gan2:tw
+  # - gan3:tw
+  # - sd15:tw
+  # - sd2:tw
+  # - sd3:tw
+  # - sdXL:tw
+  # - flux:tw
   - realFFHQ:pre
   - realFORLAB:pre
   - gan1:pre

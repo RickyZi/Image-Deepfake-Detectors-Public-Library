@@ -13,6 +13,7 @@ import numpy as np
 import random
 from data import create_dataloader
 from sklearn.metrics import roc_auc_score, accuracy_score
+from data.tf2k_dataset import tf2k_create_dataloader
 
 from tqdm import tqdm
 import pandas as pd
@@ -53,9 +54,14 @@ opt.no_crop   = True
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
 # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
 dataset_dir_name = opt.data_root.split('/')[-1]  # Extract dataset directory name from path
-output_dir = f'/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{opt.name}/{dataset_dir_name}/NPR/{opt.data_keys}' # change path to be outside detector folder
+tag = 'ft' if opt.ft else 'pretrained'
+output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{opt.name}/{dataset_dir_name}/NPR_{tag}/{opt.data_keys}' # change path to be outside detector folder
 os.makedirs(output_dir, exist_ok=True)
 # --------------------------- #
+
+# if opt.tf2k:
+#     test_dataloader = tf2k_create_dataloader(opt, split = 'test')
+# else:
 
 test_dataloader = create_dataloader(opt, split='test')
 

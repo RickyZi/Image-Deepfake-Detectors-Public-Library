@@ -133,6 +133,7 @@ def jpeg_from_key(img, compress_val, key):
 rz_dict = {'bilinear': InterpolationMode.BILINEAR,
            'bicubic': InterpolationMode.BICUBIC,
            'lanczos': InterpolationMode.LANCZOS,
+           
            'nearest': InterpolationMode.NEAREST}
 def custom_resize(img, opt):
     interp = sample_discrete(opt.rz_interp)
