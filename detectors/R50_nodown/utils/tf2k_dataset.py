@@ -212,6 +212,87 @@ class TrueFake_dataset(datasets.DatasetFolder):
         self.transform = make_processing(settings)
         print(self.transform)
 
+        # Validate all collected images upfront. img.verify() does a cheap
+        # header-only parse without decoding pixels, so this is fast even for
+        # large splits. Corrupt files are removed before any DataLoader worker
+        # is spawned, preventing mid-epoch crashes.
+        # Any skipped file is logged to a JSON under logs/skipped_images/ for
+        # traceability across runs, models, and datasets.
+        valid_samples, valid_info = [], []
+        skipped = []
+        for path, info in zip(self.samples, self.info):
+            try:
+                with Image.open(path) as img:
+                    img.verify()
+                valid_samples.append(path)
+                valid_info.append(info)
+            except Exception as e:
+                print(f"[WARN] Skipping corrupt image: {path}  ({e})")
+                skipped.append({'path': path, 'error': str(e)})
+ 
+        if skipped:
+            print(f"[WARN] Removed {len(skipped)} corrupt file(s) "
+                  f"from dataset (split='{self.split}').")
+            self._write_skipped_log(settings, skipped)
+ 
+        self.samples = valid_samples
+        self.info    = valid_info
+ 
+    def _write_skipped_log(self, settings, skipped):
+        """Append skipped-image records to a per-run JSON log file.
+ 
+        Filename pattern:
+            logs/skipped_images/<model_name>__<dataset>__<phase>.json
+ 
+        where:
+            model_name  = settings.name   (e.g. "pretrained")
+            dataset     = last component of settings.data_root
+                          (e.g. "cinematic_CN01")
+            phase       = "ft"         if settings.ft is True
+                          "train"      if self.split == "train"
+                          "val"        if self.split == "val"
+                          "test"       otherwise
+        """
+        from datetime import datetime
+ 
+        dataset_name = os.path.basename(os.path.normpath(settings.data_root))
+        phase = 'ft' if getattr(settings, 'ft', False) else self.split
+ 
+        log_dir = os.path.join('logs', 'skipped_images')
+        os.makedirs(log_dir, exist_ok=True)
+ 
+        model_name = getattr(settings, 'name', 'unknown')
+        log_file = os.path.join(
+            log_dir,
+            f"{model_name}__{dataset_name}__{phase}.json"
+        )
+ 
+        # Load existing log if present (accumulate across re-runs)
+        if os.path.exists(log_file):
+            with open(log_file) as f:
+                existing = json.load(f)
+        else:
+            existing = []
+ 
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        for entry in skipped:
+            existing.append({
+                'timestamp':  timestamp,
+                'model':      model_name,
+                'dataset':    dataset_name,
+                'phase':      phase,
+                'split':      self.split,
+                'data_keys':  getattr(settings, 'data_keys', ''),
+                'path':       entry['path'],
+                'error':      entry['error'],
+            })
+ 
+        with open(log_file, 'w') as f:
+            json.dump(existing, f, indent=2)
+ 
+        print(f"[INFO] Skipped-image log written to: {log_file}")
+
+
     def _in_list(self, split, elem):
         i = bisect.bisect_left(split, elem)
         return i != len(split) and split[i] == elem
@@ -219,13 +300,48 @@ class TrueFake_dataset(datasets.DatasetFolder):
     def __len__(self):
         return len(self.samples)
     
+    # def __getitem__(self, index):
+    #     path = self.samples[index]
+    #     label, gen, sub = self.info[index] 
+
+    #     sample = Image.open(path).convert('RGB')
+    #     sample = self.transform(sample)
+
+    #     target = 1.0 if label == 'Fake' else 0.0
+
+    #     return {'img': sample, 'target': target, 'path': path}
+
+    # ----------------------------------------------------------- #
     def __getitem__(self, index):
         path = self.samples[index]
-        label, gen, sub = self.info[index] 
-
-        sample = Image.open(path).convert('RGB')
+        label, gen, sub = self.info[index]
+ 
+        # Retry loop: transient I/O failures under high worker concurrency can
+        # cause PIL to raise UnidentifiedImageError on valid files. A short
+        # sleep between attempts is enough for the filesystem to recover.
+        # Only treat the file as truly unreadable if all retries fail.
+        import time
+        last_exc = None
+        for attempt in range(3):
+            try:
+                sample = Image.open(path).convert('RGB')
+                last_exc = None
+                break
+            except Exception as e:
+                last_exc = e
+                if attempt < 2:
+                    print(f"[WARN] Attempt {attempt+1}/3 failed for {path}: {e} — retrying...")
+                    time.sleep(0.1 * (attempt + 1))  # 0.1 s, 0.2 s
+ 
+        if last_exc is not None:
+            # All retries exhausted — file is genuinely unreadable.
+            # Re-raise so the problem is visible rather than silently injecting
+            # a dummy sample into training.
+            raise RuntimeError(
+                f"Failed to load image after 3 attempts: {path}"
+            ) from last_exc
+ 
         sample = self.transform(sample)
-
         target = 1.0 if label == 'Fake' else 0.0
-
+ 
         return {'img': sample, 'target': target, 'path': path}
