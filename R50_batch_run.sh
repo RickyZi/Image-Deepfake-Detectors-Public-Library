@@ -73,23 +73,64 @@
 # FT model  #
 # --------- #
 # R50_nodown -> trained only classification head
-# # python3 launcher.py --detector R50_nodown --phases both --dataset seasons/autumn_TM01 --ft
+# python3 launcher.py --detector R50_nodown --phases both --dataset seasons/autumn_TM01 --ft 
 
-python3 launcher.py --detector R50_nodown --phases both --dataset seasons/spring_SP01 --ft
+# python3 launcher.py --detector R50_nodown --phases both --dataset seasons/spring_SP01 --ft
 
-python3 launcher.py --detector R50_nodown --phases both --dataset seasons/summer_SM01 --ft
+# python3 launcher.py --detector R50_nodown --phases both --dataset seasons/summer_SM01 --ft
 
-python3 launcher.py --detector R50_nodown --phases both --dataset seasons/winter_WN01 --ft
+# python3 launcher.py --detector R50_nodown --phases both --dataset seasons/winter_WN01 --ft
 
-python3 launcher.py --detector R50_nodown --phases both --dataset style/bw_BW01 --ft
+# python3 launcher.py --detector R50_nodown --phases both --dataset style/bw_BW01 --ft # check
 
-python3 launcher.py --detector R50_nodown --phases both --dataset style/cinematic_CN01 --ft
+     # check just 1 epoch (style/cinematic_CN01)
 
-python3 launcher.py --detector R50_nodown --phases both --dataset style/cinematic2_CN11 --ft
+# python3 launcher.py --detector R50_nodown --phases both --dataset style/cinematic2_CN11 --ft
 
-python3 launcher.py --detector R50_nodown --phases both --dataset style/filminspired_warmgold --ft
-
-python3 launcher.py --detector R50_nodown --phases both --dataset style/futuristic_FT01 --ft
+# python3 launcher.py --detector R50_nodown --phases both --dataset style/filminspired_warmgold --ft # check
  
-python3 launcher.py --detector R50_nodown --phases both --dataset style/vintage_VN01 --ft
+# # python3 launcher.py --detector R50_nodown --phases both --dataset style/futuristic_FT01 --ft  # check
+ 
+# python3 launcher.py --detector R50_nodown --phases both --dataset style/vintage_VN01 --ft # check
 
+
+# ----------------------------------------- #
+# --- Unfreezing layer 4 in R50 when FT --- #
+# ----------------------------------------- #
+# python3 launcher.py --detector R50_nodown --phases both --dataset seasons/autumn_TM01 --ft --r50unfreezeL4 # unfreeze L4 when FT
+
+# python3 launcher.py --detector R50_nodown --phases both --dataset seasons/spring_SP01 --ft --r50unfreezeL4 # unfreeze L4 when FT
+
+# python3 launcher.py --detector R50_nodown --phases both --dataset seasons/summer_SM01 --ft --r50unfreezeL4 # unfreeze L4 when FT
+
+# python3 launcher.py --detector R50_nodown --phases both --dataset seasons/winter_WN01 --ft --r50unfreezeL4 # unfreeze L4 when FT
+
+# python3 launcher.py --detector R50_nodown --phases both --dataset style/bw_BW01 --ft  --r50unfreezeL4 # unfreeze L4 when FT
+
+# python3 launcher.py --detector R50_nodown --phases both --dataset style/cinematic2_CN11 --ft --r50unfreezeL4 # unfreeze L4 when FT
+
+# python3 launcher.py --detector R50_nodown --phases both --dataset style/filminspired_warmgold --ft --r50unfreezeL4 # unfreeze L4 when FT
+ 
+# python3 launcher.py --detector R50_nodown --phases both --dataset style/futuristic_FT01 --ft  --r50unfreezeL4 # unfreeze L4 when FT
+ 
+# python3 launcher.py --detector R50_nodown --phases both --dataset style/vintage_VN01 --ft --r50unfreezeL4 # unfreeze L4 when FT
+
+# ---------------------------------------------------- #
+
+python3 launcher.py --detector R50_nodown --phases test --dataset seasons/autumn_TM01 --ft --r50unfreezeL4 # unfreeze L4 when FT
+
+python3 launcher.py --detector R50_nodown --phases test --dataset seasons/spring_SP01 --ft --r50unfreezeL4 # unfreeze L4 when FT
+
+python3 launcher.py --detector R50_nodown --phases test --dataset seasons/summer_SM01 --ft --r50unfreezeL4 # unfreeze L4 when FT
+
+python3 launcher.py --detector R50_nodown --phases test --dataset seasons/winter_WN01 --ft --r50unfreezeL4 # unfreeze L4 when FT
+
+python3 launcher.py --detector R50_nodown --phases test --dataset style/bw_BW01 --ft  --r50unfreezeL4 # unfreeze L4 when FT
+
+python3 launcher.py --detector R50_nodown --phases test --dataset style/cinematic2_CN11 --ft --r50unfreezeL4 # unfreeze L4 when FT
+
+python3 launcher.py --detector R50_nodown --phases test --dataset style/filminspired_warmgold --ft --r50unfreezeL4 # unfreeze L4 when FT
+ 
+python3 launcher.py --detector R50_nodown --phases test --dataset style/futuristic_FT01 --ft  --r50unfreezeL4 # unfreeze L4 when FT
+ 
+python3 launcher.py --detector R50_nodown --phases test --dataset style/vintage_VN01 --ft --r50unfreezeL4 # unfreeze L4 when FT
