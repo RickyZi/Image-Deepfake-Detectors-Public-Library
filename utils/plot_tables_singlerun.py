@@ -365,6 +365,8 @@ def main():
 
     parser = argparse.ArgumentParser(description='Plotting test-run tables for one detector.')
     parser.add_argument('--model', type=str, default='R50_nodown', help='Model run name, i.e. R50_nodown or CLIP-D')
+    parser.add_argument("--unfreezeL4", action = "store_true")
+    parser.add_argument("--skipbase", action = "store_true")
     args = parser.parse_args()
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -372,18 +374,21 @@ def main():
     print(f"model: {args.model}")
 
     BASELINE_SUBDIR = args.model + '_pretrained'
-    FT_SUBDIR       = args.model + '_ft'
+    FT_SUBDIR       = (args.model + '_ft') if not args.unfreezeL4 else (args.model + '_ft_unfreezeL4')
     print(f"BASELINE_SUBDIR: {BASELINE_SUBDIR}")
     print(f"FT_SUBDIR: {FT_SUBDIR}")
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     # 1. Load reference scores once from results/pretrained/dataset/
+    # if not args.skipbase:
     print(f"\n── Loading reference scores ({REF_FOLDER} → displayed as {REF_LABEL}) ──")
     ref_scores = load_ref_scores(BASELINE_SUBDIR)
     if ref_scores is None:
         print("  [error] Cannot continue without reference scores.")
         return
+    # else:
+    #     print("skipping plot baseline table")
 
     # 2. Collect comparison rows (all folders except reference)
     print(f"\n── Collecting baseline results ({BASELINE_SUBDIR}) ──────────")
@@ -395,14 +400,16 @@ def main():
     # 3. Plot
     print("\n── Plotting ─────────────────────────────────────────────────────")
 
-    # Baseline table: diffs vs tf2k_dataset (ref_scores), no per_row_baseline
-    plot_table(
-        baseline,
-        ref_label   = REF_LABEL,
-        ref_scores  = ref_scores,
-        title       = f"{args.model}_baseline results",
-        output_path = OUTPUT_DIR / f"{args.model}_baseline_{timestamp}.png",
-    )
+    if not args.skipbase:
+        # Baseline table: diffs vs tf2k_dataset (ref_scores), no per_row_baseline
+        plot_table(
+            baseline,
+            ref_label   = REF_LABEL,
+            ref_scores  = ref_scores,
+            title       = f"{args.model}_baseline results",
+            output_path = OUTPUT_DIR / f"{args.model}_baseline_{timestamp}.png",
+        )
+    
 
     # FT table: first row = tf2k_dataset baseline (ref_scores);
     #           other rows = FT raw score + diff vs SAME DATASET's baseline model.
@@ -411,8 +418,8 @@ def main():
         ref_label        = REF_LABEL,
         ref_scores       = ref_scores,
         per_row_baseline = baseline,   # <── key change: diff against own baseline
-        title            = f"{args.model}_FT vs baseline results",
-        output_path      = OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png",
+        title            = f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
+        output_path      = (OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png") if not args.unfreezeL4 else (OUTPUT_DIR / f"{args.model}_FT_unfreezeL4_{timestamp}.png"),
     )
 
     print(f"\nDone — tables saved to {OUTPUT_DIR.resolve()}/")

@@ -191,10 +191,11 @@ def plot_f1(scores: dict[str, float], title: str, out_path: Path):
 def main():
     parser = argparse.ArgumentParser(description="Plot F1 scores per dataset for one detector model.")
     parser.add_argument("--model", type=str, default="R50_nodown", help="Model name prefix, e.g. R50_nodown or CLIP-D")
+    parser.add_argument("--unfreezeL4", action = "store_true")
     args = parser.parse_args()
  
     baseline_subdir = f"{args.model}_pretrained"
-    ft_subdir       = f"{args.model}_ft"
+    ft_subdir       = f"{args.model}_ft_unfreezeL4" if args.unfreezeL4 else f"{args.model}_ft"
     timestamp       = datetime.now().strftime("%Y%m%d_%H%M%S")
  
     print(f"\nModel    : {args.model}")
@@ -214,7 +215,7 @@ def main():
         ft_scores[REF_LABEL] = baseline_scores[REF_LABEL]
         print(f"  [ref] injected '{REF_LABEL}' from baseline into FT scores")
 
-    breakpoint()
+    # breakpoint()
     # Print summary
     print("\n── Baseline F1 summary ──────────────────────────────────────────")
     for d, v in sorted(baseline_scores.items()):
@@ -235,7 +236,7 @@ def main():
     )
     plot_f1(
         scores   = ft_scores,
-        title    = f"{args.model} FT",
+        title    = f"{args.model} FT" if not args.unfreezeL4 else f"{args.model} FT_unfreezeL4",
         out_path = OUTPUT_DIR / f"{ft_subdir}_f1_{timestamp}.png",
     )
  
