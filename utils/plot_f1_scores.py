@@ -104,6 +104,10 @@ def plot_f1(scores: dict[str, float], title: str, out_path: Path):
     if not scores:
         print(f"  [skip] no data for: {title}")
         return
+
+    if len(scores) == 1 and 'tf2k_dataset' in scores:
+        print(f" [skip] NO FT DATA, only 'tf2k_dataset' in f1 ft_scores")
+        return
  
     # Reference bar first, then remaining datasets sorted alphabetically
     datasets = (
@@ -200,7 +204,7 @@ def main():
     # Collect F1 scores
     print(f"── Collecting baseline F1 scores ({baseline_subdir}) ─────────────")
     baseline_scores = collect_f1(baseline_subdir)
- 
+    
     print(f"\n── Collecting FT F1 scores ({ft_subdir}) ─────────────────────────")
     ft_scores = collect_f1(ft_subdir)
 
@@ -210,7 +214,7 @@ def main():
         ft_scores[REF_LABEL] = baseline_scores[REF_LABEL]
         print(f"  [ref] injected '{REF_LABEL}' from baseline into FT scores")
 
- 
+    breakpoint()
     # Print summary
     print("\n── Baseline F1 summary ──────────────────────────────────────────")
     for d, v in sorted(baseline_scores.items()):

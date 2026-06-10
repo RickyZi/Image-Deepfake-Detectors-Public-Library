@@ -410,7 +410,7 @@ def main():
         ft,
         ref_label        = REF_LABEL,
         ref_scores       = ref_scores,
-        # per_row_baseline = baseline,   # <── key change: diff against own baseline
+        per_row_baseline = baseline,   # <── key change: diff against own baseline
         title            = f"{args.model}_FT vs baseline results",
         output_path      = OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png",
     )
