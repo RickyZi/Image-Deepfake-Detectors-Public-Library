@@ -82,7 +82,7 @@ class FTModel(torch.nn.Module):
         for param_group in self.optimizer.param_groups:
             return param_group["lr"]
 
-    def load_networks(self, checkpoint_path):
+    def load_networks(self, checkpoint_path, r50unfreezeL4):
         """Load model (and optionally optimizer) from a checkpoint."""
         if not os.path.exists(checkpoint_path):
             raise FileNotFoundError(f"Checkpoint not found: {checkpoint_path}")
@@ -91,6 +91,8 @@ class FTModel(torch.nn.Module):
 
         self.model.load_state_dict(state_dict['model'])
         print(f"Loaded model weights from {checkpoint_path}")
+
+        breakpoint()
 
         # # Optionally restore optimizer and step count
         # if 'optimizer' in state_dict:

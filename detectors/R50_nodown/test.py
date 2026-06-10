@@ -27,6 +27,9 @@ def test(loader, model, settings, device, timestamp):
     # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
     dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
     tag = 'ft' if settings.ft else 'pretrained'
+    tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''
+    print(f"test_tag: {tag}")
+    # breakpoint()
     output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}' # change path to be outside detector folder
     os.makedirs(output_dir, exist_ok=True)
     # --------------------------- #
@@ -170,7 +173,14 @@ if __name__ == '__main__':
     model = create_architecture(settings.arch, pretrained=True, num_classes=1).to(device)
     num_parameters = count_parameters(model)
     print(f"Arch: {settings.arch} with #parameters {num_parameters}")
-    load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+    # fix load path!!!!
+    if settings.ft and settings.r50unfreezeL4:
+        load_path = f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}_unfreezeL4/best.pt'
+    elif settings.ft:
+        load_path = f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+    else:
+        load_path = f'./checkpoint/{settings.name}/weights/best.pt'
+    # load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
     print('loading the model from %s' % load_path)
     # breakpoint()
     model.load_state_dict(torch.load(load_path, map_location=device)['model'])
