@@ -19,5 +19,6 @@ truefake_2k/*
 detectors/*/checkpoint/
 detectors/*/__pycache__/*
 detectors/*/*/__pycache__/*
+detectors/*/*/*/__pycache__/* 
 detectors/*/*/*/*/__pycache__/* 
 */__pycache__/*
