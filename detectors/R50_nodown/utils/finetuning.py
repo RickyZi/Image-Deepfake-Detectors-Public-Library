@@ -13,7 +13,9 @@ class FTModel(torch.nn.Module):
         super(FTModel, self).__init__()
         self.opt = opt
         self.total_steps = 0
+        # tag = 'unfreezeL4' if opt.R50unfreeL4 else None
         dataset = opt.dataset.replace(os.sep, '_')
+        dataset += '_unfreezeL4' if opt.r50unfreezeL4 else ''
         print(dataset)
         # breakpoint()
         
@@ -45,12 +47,13 @@ class FTModel(torch.nn.Module):
         trainable_count = sum(p.numel() for p in self.model.parameters() if p.requires_grad)
         print(f"Optimizer reinitialized — trainable params: {trainable_count}")
 
-    def freeze_backbone(self, unfreeze_layer4 = False):
+    def freeze_backbone(self, r50unfreezeL4):
         """Freeze all layers except the final fc head."""
         for param in self.model.parameters():
             param.requires_grad = False
 
-        if unfreeze_layer4:
+        if r50unfreezeL4:
+            print("\n\tUnfreezing Layer 4 in FT R50 model\n")
             # may consided to unfreeze layer4 to give feature extractor some capacity to adapt
             for param in self.model.layer4.parameters():
                 param.requires_grad = True
@@ -63,7 +66,10 @@ class FTModel(torch.nn.Module):
         # Sanity check
         trainable = [n for n, p in self.model.named_parameters() if p.requires_grad]
         print(f"Trainable layers: {trainable}")
-        assert all("fc" in n for n in trainable), "Unexpected trainable params outside fc!"
+        if r50unfreezeL4:
+            assert all("fc" in n or "layer4" in n for n in trainable), "Unexpected trainable params outside fc and layer4!"
+        else:
+            assert all("fc" in n for n in trainable), "Unexpected trainable params outside fc!"
 
     def adjust_learning_rate(self, min_lr=1e-6):
         for param_group in self.optimizer.param_groups:

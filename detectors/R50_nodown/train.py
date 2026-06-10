@@ -17,6 +17,7 @@ if __name__ == "__main__":
     # print(f"opt: {opt}")
     # breakpoint()
     # if opt.ft:
+
     weights_name = 'ft_weights' if opt.ft else 'weights'
     os.makedirs(os.path.join('checkpoint', opt.name, weights_name), exist_ok=True)
     # breakpoint()
@@ -33,7 +34,7 @@ if __name__ == "__main__":
     if opt.ft:
         load_path = f'./checkpoint/{opt.name}/weights/best.pt' # load best pretrained weights from TB
         model.load_networks(load_path)
-        model.freeze_backbone()   # freeze backbone layers, only train the final fc head
+        model.freeze_backbone(opt.r50unfreezeL4)   # freeze backbones' layer 4 or only train the final fc head
      
     # model = TrainingModel(opt)
     early_stopping = None
@@ -69,7 +70,7 @@ if __name__ == "__main__":
                 delta=0.001, # increase it to 0.005?
                 verbose=True,
             )
-            print(f"early_stopping: {early_stopping}")
+            # print(f"early_stopping: {early_stopping}")
             # breakpoint()
             print('Save best model', flush=True)
             model.save_networks('best')
