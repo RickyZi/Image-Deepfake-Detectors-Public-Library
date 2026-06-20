@@ -15,7 +15,10 @@ class FTModel(torch.nn.Module):
         self.total_steps = 0
         # tag = 'unfreezeL4' if opt.R50unfreeL4 else None
         dataset = opt.dataset.replace(os.sep, '_')
-        dataset += '_unfreezeL4' if opt.r50unfreezeL4 else ''
+        # dataset += '_unfreezeL4' if opt.r50unfreezeL4 else ''
+        if opt.r50unfreezeL4:
+            dataset += '_r50unfreezeL4'
+
         print(dataset)
         # breakpoint()
         
@@ -47,7 +50,7 @@ class FTModel(torch.nn.Module):
         trainable_count = sum(p.numel() for p in self.model.parameters() if p.requires_grad)
         print(f"Optimizer reinitialized — trainable params: {trainable_count}")
 
-    def freeze_backbone(self, r50unfreezeL4):
+    def freeze_backbone(self, r50unfreezeL4 = False):
         """Freeze all layers except the final fc head."""
         for param in self.model.parameters():
             param.requires_grad = False
@@ -82,7 +85,7 @@ class FTModel(torch.nn.Module):
         for param_group in self.optimizer.param_groups:
             return param_group["lr"]
 
-    def load_networks(self, checkpoint_path, r50unfreezeL4):
+    def load_networks(self, checkpoint_path): #, r50unfreezeL4):
         """Load model (and optionally optimizer) from a checkpoint."""
         if not os.path.exists(checkpoint_path):
             raise FileNotFoundError(f"Checkpoint not found: {checkpoint_path}")
@@ -92,7 +95,7 @@ class FTModel(torch.nn.Module):
         self.model.load_state_dict(state_dict['model'])
         print(f"Loaded model weights from {checkpoint_path}")
 
-        breakpoint()
+        # breakpoint()
 
         # # Optionally restore optimizer and step count
         # if 'optimizer' in state_dict:

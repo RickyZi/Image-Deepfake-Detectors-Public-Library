@@ -44,9 +44,9 @@
 
 # python3 launcher.py --detector R50_nodown --phases test --dataset seasons/autumn_TM01
 
-# ---------------------------- #
-# test baseline #
-# ---------------------------- #
+# ------------------------------------------ #
+# ---------------- BASELINE ---------------- #
+# ------------------------------------------ #
 # # R50_nodown
 # python3 launcher.py --detector R50_nodown --phases test --dataset seasons/autumn_TM01
 
@@ -69,9 +69,9 @@
 # python3 launcher.py --detector R50_nodown --phases test --dataset style/vintage_VN01
 
 
-# --------- # 
-# FT model  #
-# --------- #
+# ------------------------------------------ #
+# --------------- FT model ----------------- #
+# ------------------------------------------ #
 # R50_nodown -> trained only classification head
 # python3 launcher.py --detector R50_nodown --phases both --dataset seasons/autumn_TM01 --ft 
 
@@ -94,9 +94,9 @@
 # python3 launcher.py --detector R50_nodown --phases both --dataset style/vintage_VN01 --ft # check
 
 
-# ----------------------------------------- #
-# --- Unfreezing layer 4 in R50 when FT --- #
-# ----------------------------------------- #
+# ------------------------------------------- #
+# ---- Unfreezing layer 4 in R50 when FT ---- #
+# ------------------------------------------- #
 # python3 launcher.py --detector R50_nodown --phases both --dataset seasons/autumn_TM01 --ft --r50unfreezeL4 # unfreeze L4 when FT
 
 # python3 launcher.py --detector R50_nodown --phases both --dataset seasons/spring_SP01 --ft --r50unfreezeL4 # unfreeze L4 when FT
@@ -115,7 +115,7 @@
  
 # python3 launcher.py --detector R50_nodown --phases both --dataset style/vintage_VN01 --ft --r50unfreezeL4 # unfreeze L4 when FT
 
-# ---------------------------------------------------- #
+# ------------------------------------------- #
 
 python3 launcher.py --detector R50_nodown --phases test --dataset seasons/autumn_TM01 --ft --r50unfreezeL4 # unfreeze L4 when FT
 

@@ -8,6 +8,8 @@ from utils.tf2k_dataset import tf2k_create_dataloader
 from sklearn.metrics import balanced_accuracy_score, roc_auc_score
 from utils.processing import add_processing_arguments
 from parser import get_parser
+import json
+import sys
 
 if __name__ == "__main__":
     parser = get_parser()
@@ -17,6 +19,9 @@ if __name__ == "__main__":
     # print(f"opt: {opt}")
     # breakpoint()
     # if opt.ft:
+    
+    print(json.dumps(vars(opt), indent=2, default=str))
+    sys.exit(0)
 
     weights_name = 'ft_weights' if opt.ft else 'weights'
     os.makedirs(os.path.join('checkpoint', opt.name, weights_name), exist_ok=True)

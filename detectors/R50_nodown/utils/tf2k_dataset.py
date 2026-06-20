@@ -65,12 +65,28 @@ def tf2k_create_dataloader(opt, split=None):
 
     dataset = TrueFake_dataset(opt)
 
+    # data_loader = torch.utils.data.DataLoader(
+    #     dataset,
+    #     batch_size=opt.batch_size,
+    #     shuffle=is_train,
+    #     num_workers=int(opt.num_threads),
+    # )
+
+    # ------------------------------------ #
+    # add persistent workers to dataloader #
+    # ------------------------------------ #
+    num_workers = int(opt.num_threads)
+    # persistent_workers requires num_workers > 0; pin_memory speeds host->GPU
+    # transfers and is a free win when a CUDA device is in use.
     data_loader = torch.utils.data.DataLoader(
         dataset,
         batch_size=opt.batch_size,
         shuffle=is_train,
-        num_workers=int(opt.num_threads),
+        num_workers=num_workers,
+        persistent_workers=(num_workers > 0),
+        pin_memory=torch.cuda.is_available(),
     )
+
     return data_loader
 
 # def parse_dataset(settings):
