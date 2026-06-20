@@ -208,6 +208,9 @@ def main():
     parser.add_argument('--demo', action='store_true', help='Run demo on demo_images across detectors')
     # --------------------------- #
     parser.add_argument('--dataset', type = str, default = 'dataset', help = 'Which dataset to use (default: dataset)') # add custom dataset for demo
+    parser.add_argument('--mlp', action = 'store_true', help = 'If true add MLP head to CLIP-D')
+    parser.add_argument('--mlp_hidden',  type=int,   default=256)
+    parser.add_argument('--mlp_dropout', type=float, default=0.3)
     # --------------------------- #
     parser.add_argument('--demo-detector', type=str, default='all', choices=['all', 'R50_TF', 'R50_nodown', 'CLIP-D', 'P2G', 'NPR'], help='Which detector to demo (default: all)')
     
@@ -352,7 +355,9 @@ def main():
         if args.r50unfreezeL4:
             cmd_args.append(f'--r50unfreezeL4')
 
-        
+        if args.mlp:
+            cmd_args.append(f'--mlp')
+
         device = None
         if device_override is not None:
             device = device_override
