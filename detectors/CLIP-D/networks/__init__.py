@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 
-def create_architecture(name_arch, pretrained=False, num_classes=1):
+def create_architecture(name_arch, pretrained=False, num_classes=1, head_type='linear', mlp_hidden=256, mlp_dropout=0.3):
     if name_arch == "res50nodown":
         from .resnet_mod import resnet50
 
@@ -31,11 +31,13 @@ def create_architecture(name_arch, pretrained=False, num_classes=1):
         else:
             model = resnet50(num_classes=num_classes, stride0=2)
     elif name_arch.startswith('opencliplinear_'):
+        print("\n\topencliplinear")
         from .openclipnet import OpenClipLinear
         model = OpenClipLinear(num_classes=num_classes, pretrain=name_arch[15:], normalize=True)
     elif name_arch.startswith('opencliplinearnext_'):
+        print("\n\topencliplinearnext_")
         from .openclipnet import OpenClipLinear
-        model = OpenClipLinear(num_classes=num_classes, pretrain=name_arch[19:], normalize=True, next_to_last=True)
+        model = OpenClipLinear(num_classes=num_classes, pretrain=name_arch[19:], normalize=True, next_to_last=True) #, head_type = head_type, mlp_hidden = mlp_hidden, mlp_dropout=mlp_dropout)
     else:
         assert False
     return model

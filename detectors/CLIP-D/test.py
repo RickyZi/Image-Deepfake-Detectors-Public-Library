@@ -12,6 +12,7 @@ from utils.dataset import create_dataloader
 from utils.tf2k_dataset import tf2k_create_dataloader
 from utils.processing import add_processing_arguments
 from parser import get_parser
+from networks.openclipnet import MLPHead
 
 def test(loader, model, settings, device):
     model.eval()
@@ -22,7 +23,13 @@ def test(loader, model, settings, device):
     # File paths update
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
     # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
-    tag = 'ft' if settings.ft else 'pretrained'
+    # tag = 'ft' if settings.ft else 'pretrained'
+    if settings.ft and settings.mlp:
+        tag = 'ft_MLP'
+    elif settings.ft:
+        tag = 'ft'
+    else:
+        tag = 'pretrained'
     dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
     output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/CLIP-D_{tag}/{settings.data_keys}' # change path to be outside detector folder
     os.makedirs(output_dir, exist_ok=True)
@@ -167,11 +174,32 @@ if __name__ == '__main__':
         test_dataloader = create_dataloader(settings, split='test')
 
     model = create_architecture(settings.arch, pretrained=True, num_classes=1).to(device)
+
+    if settings.ft and settings.mlp:
+        in_features = model.num_features
+        hidden_dim  = settings.mlp_hidden # 256
+        dropout     = settings.mlp_dropout # 0.3
+        print(f"[test] Replacing fc with MLPHead (in={in_features}, hidden={hidden_dim}, dropout={dropout})")
+        model.fc = MLPHead(
+            in_features=in_features,
+            hidden_dim=hidden_dim,
+            dropout=dropout,
+            num_classes=1,
+        ).to(device)
+
     num_parameters = count_parameters(model)
     print(f"Arch: {settings.arch} with #parameters {num_parameters}")
+
+    # breakpoint()
     
     # load_path = f'./checkpoint/{settings.name}/weights/best.pt'
-    load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+    # load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+    if settings.ft and settings.mlp:
+        load_path = f'./checkpoint/{settings.name}/ft_MLP_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+    elif settings.ft:
+       load_path = f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+    else:
+       load_path = f'./checkpoint/{settings.name}/weights/best.pt'
     
     print('loading the model from %s' % load_path)
     # breakpoint()

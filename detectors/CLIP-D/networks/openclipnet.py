@@ -34,9 +34,26 @@ dict_pretrain = {
     'clipB16laion2B'    : ('ViT-B-16', 'laion2b_s34b_b88k'),
 }
 
+class MLPHead(nn.Module):
+    '''2-layer MLP replacement for ChannelLinear when more capacity is needed.'''
+    def __init__(self, in_features, hidden_dim=256, dropout=0.3, num_classes=1):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(in_features, hidden_dim),
+            nn.ReLU(inplace=True),
+            nn.Dropout(dropout),
+            nn.Linear(hidden_dim, num_classes),
+        )
+        nn.init.normal_(self.net[0].weight, 0.0, 0.02)
+        nn.init.zeros_(self.net[0].bias)
+        nn.init.normal_(self.net[-1].weight, 0.0, 0.02)
+        nn.init.zeros_(self.net[-1].bias)
+
+    def forward(self, x):
+        return self.net(x)
 
 class OpenClipLinear(nn.Module):
-    def __init__(self, num_classes=1, pretrain='clipL14commonpool', normalize=True, next_to_last=False):
+    def __init__(self, num_classes=1, pretrain='clipL14commonpool', normalize=True, next_to_last=False): #, head_type='linear', mlp_hidden=256, mlp_dropout=0.3):
         super(OpenClipLinear, self).__init__()
         
         if len(dict_pretrain[pretrain])==2:
@@ -53,9 +70,28 @@ class OpenClipLinear(nn.Module):
         
         self.bb = [backbone, ]
         self.normalize = normalize
-        
+
+        # ------------------------------------------------------------------
+        # Head selection
+        # ------------------------------------------------------------------
         self.fc = ChannelLinear(self.num_features, num_classes)
         torch.nn.init.normal_(self.fc.weight.data, 0.0, 0.02)
+        # self.head_type = head_type
+
+        # if head_type == 'linear':
+        #     self.fc = ChannelLinear(self.num_features, num_classes)
+        #     nn.init.normal_(self.fc.weight.data, 0.0, 0.02)
+
+        # elif head_type == 'mlp':
+        #     self.fc = MLPHead(
+        #         in_features=self.num_features,
+        #         hidden_dim=mlp_hidden,
+        #         dropout=mlp_dropout,
+        #         num_classes=num_classes,
+        #     )
+
+        # else:
+        #     raise ValueError(f"Unknown head_type: {head_type}")
 
     def to(self, *args, **kwargs):
         self.bb[0].to(*args, **kwargs)

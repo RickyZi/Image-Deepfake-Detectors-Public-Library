@@ -31,6 +31,11 @@ def get_parser():
     
     # add dataset flag
     parser.add_argument('--dataset', type = str, default = 'dataset', help = 'Which dataset to use (default: dataset)') # add custom dataset for demo
+
+    # add MLP flag
+    parser.add_argument('--mlp', action = 'store_true', help = 'If true add MLP head to CLIP-D')
+    parser.add_argument('--mlp_hidden',  type=int,   default=256)
+    parser.add_argument('--mlp_dropout', type=float, default=0.3)
     # ----------------------------------- #
     
     return parser

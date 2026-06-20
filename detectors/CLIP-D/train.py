@@ -20,7 +20,9 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------
     # Checkpoint directory
     # ------------------------------------------------------------------
-    if opt.ft:
+    if opt.ft and opt.mlp:
+        ckpt_dir = os.path.join('checkpoint', opt.name, 'ft_MLP_weights')
+    elif opt.ft:
         ckpt_dir = os.path.join('checkpoint', opt.name, 'ft_weights')
     else:
         ckpt_dir = os.path.join('checkpoint', opt.name, 'weights')
