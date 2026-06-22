@@ -192,10 +192,18 @@ def main():
     parser = argparse.ArgumentParser(description="Plot F1 scores per dataset for one detector model.")
     parser.add_argument("--model", type=str, default="R50_nodown", help="Model name prefix, e.g. R50_nodown or CLIP-D")
     parser.add_argument("--unfreezeL4", action = "store_true")
+    parser.add_argument("--mlp", action = "store_true")
+    parser.add_argument("--skipbase", action = "store_true")
     args = parser.parse_args()
  
     baseline_subdir = f"{args.model}_pretrained"
-    ft_subdir       = f"{args.model}_ft_unfreezeL4" if args.unfreezeL4 else f"{args.model}_ft"
+    # ft_subdir       = f"{args.model}_ft_unfreezeL4" if args.unfreezeL4 else f"{args.model}_ft"
+    if args.unfreezeL4:
+        ft_subdir       = f"{args.model}_ft_unfreezeL4"
+    elif args.mlp:
+        ft_subdir       = f"{args.model}_ft_MLP"
+    else:
+        ft_subdir       = f"{args.model}_ft"
     timestamp       = datetime.now().strftime("%Y%m%d_%H%M%S")
  
     print(f"\nModel    : {args.model}")
@@ -229,14 +237,15 @@ def main():
  
     # Plot
     print("\n── Plotting ─────────────────────────────────────────────────────")
-    plot_f1(
-        scores   = baseline_scores,
-        title    = f"{args.model} baseline",
-        out_path = OUTPUT_DIR / f"{baseline_subdir}_f1_{timestamp}.png",
-    )
+    if not args.skipbase:
+        plot_f1(
+            scores   = baseline_scores,
+            title    = f"{args.model} baseline",
+            out_path = OUTPUT_DIR / f"{baseline_subdir}_f1_{timestamp}.png",
+        )
     plot_f1(
         scores   = ft_scores,
-        title    = f"{args.model} FT" if not args.unfreezeL4 else f"{args.model} FT_unfreezeL4",
+        title    =  ft_subdir, # f"{args.model} FT" if not args.unfreezeL4 else f"{args.model} FT_unfreezeL4",
         out_path = OUTPUT_DIR / f"{ft_subdir}_f1_{timestamp}.png",
     )
  

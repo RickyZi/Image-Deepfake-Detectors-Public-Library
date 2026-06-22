@@ -287,16 +287,23 @@ def save_agg_scores(output, out_path):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Aggregate test-run scores for one detector.')
 
-    parser.add_argument('--results-dir', type=Path, default = './results/pretrained/', help='Path to the detector run folder, e.g. results/pretrained/season_TM01/R50_nodown')
+    # parser.add_argument('--results-dir', type=Path, default = './results/pretrained/', help='Path to the detector run folder, e.g. results/pretrained/season_TM01/R50_nodown')
 
-    parser.add_argument('--model', type = str,  default = 'R50_nodown_pretrained', help = 'Model run name, i.e. R50_nodown_pretrained or R50_nodown_ft')
+    # parser.add_argument('--model', type = str,  default = 'R50_nodown_pretrained', help = 'Model run name, i.e. R50_nodown_pretrained or R50_nodown_ft')
     
-    args = parser.parse_args()
+    # args = parser.parse_args()
+
+    model = sys.argv[1] if len(sys.argv) > 2 else 'R50_nodown_pretrained'
+    results_dir = Path(sys.argv[2]) if len(sys.argv) > 2 else Path('./results/pretrained/')
+    
 
     # example run: python3 utils/single_score_agg.py --model CLIP-D_ft 
-    
-    run_dir = args.results_dir.resolve()
+    print(f"Model: {model}")
+    # run_dir = args.results_dir.resolve()
+    run_dir = results_dir.resolve()
     print(f"\nRun dir : {run_dir}")
+    
+    # breakpoint()
 
     if not run_dir.is_dir():
         print(f"[ERROR] Not a directory: {run_dir}")
@@ -311,15 +318,15 @@ if __name__ == '__main__':
         # check if single run folder (model name instead dataset_dir)
         # single folder run -> i.e. results/pretrained/filminspired_warmgold/
         # dataset_dir = model name instead of filminspired_warmgold
-        if dataset_dir.name == args.model:
+        if dataset_dir.name == model:
             print(f"\n Aggregating SINGLE run scores for \n\t model: {dataset_dir.name}\n\t dataset: {run_dir.name}")
-            breakpoint()
+            # breakpoint()
             agg_scores(dataset_dir)
         else:
             # check the models name inside dataset dir
             for model_dir in sorted(dataset_dir.iterdir()):
                 # print(f"model_dir: {model_dir.name}")
-                if model_dir.name == args.model:
+                if model_dir.name == model:
                     print(f"\nAggregating scores for\n\t model: {model_dir.name}\n\t dataset: {dataset_dir.name}")
                     agg_scores(model_dir)
     

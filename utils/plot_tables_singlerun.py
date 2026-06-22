@@ -366,6 +366,7 @@ def main():
     parser = argparse.ArgumentParser(description='Plotting test-run tables for one detector.')
     parser.add_argument('--model', type=str, default='R50_nodown', help='Model run name, i.e. R50_nodown or CLIP-D')
     parser.add_argument("--unfreezeL4", action = "store_true")
+    parser.add_argument("--mlp", action = "store_true")
     parser.add_argument("--skipbase", action = "store_true")
     args = parser.parse_args()
 
@@ -374,7 +375,15 @@ def main():
     print(f"model: {args.model}")
 
     BASELINE_SUBDIR = args.model + '_pretrained'
-    FT_SUBDIR       = (args.model + '_ft') if not args.unfreezeL4 else (args.model + '_ft_unfreezeL4')
+    # FT_SUBDIR       = (args.model + '_ft') if not args.unfreezeL4 else (args.model + '_ft_unfreezeL4')
+
+    if args.unfreezeL4:
+        FT_SUBDIR = args.model + "_ft_unfreezeL4"
+    elif args.mlp:
+        FT_SUBDIR = args.model + "_ft_MLP"
+    else:
+        FT_SUBDIR = args.model + "_ft"
+
     print(f"BASELINE_SUBDIR: {BASELINE_SUBDIR}")
     print(f"FT_SUBDIR: {FT_SUBDIR}")
 
@@ -418,8 +427,9 @@ def main():
         ref_label        = REF_LABEL,
         ref_scores       = ref_scores,
         per_row_baseline = baseline,   # <── key change: diff against own baseline
-        title            = f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
-        output_path      = (OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png") if not args.unfreezeL4 else (OUTPUT_DIR / f"{args.model}_FT_unfreezeL4_{timestamp}.png"),
+        title            = f"str(FT_SUBDIR)_vs_baseline", #f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
+        output_path      = OUTPUT_DIR / f"{str(FT_SUBDIR)}_{timestamp}.png"
+        # (OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png") if not args.unfreezeL4 else (OUTPUT_DIR / f"{args.model}_FT_unfreezeL4_{timestamp}.png"),
     )
 
     print(f"\nDone — tables saved to {OUTPUT_DIR.resolve()}/")
