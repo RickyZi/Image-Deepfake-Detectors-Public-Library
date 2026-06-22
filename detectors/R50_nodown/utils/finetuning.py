@@ -21,8 +21,13 @@ class FTModel(torch.nn.Module):
 
         print(dataset)
         # breakpoint()
-        
-        self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights', dataset)
+        if opt.ft and opt.r50unfreezeL4:
+            self.save_dir = os.path.join('checkpoint', opt.name, 'ft_unfreezeL4_weights')
+        else:
+            self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights')
+        # else:
+            # print("no valid option for saving FT model")
+        # self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights', dataset)
         os.makedirs(self.save_dir, exist_ok=True)
         self.device = torch.device(opt.device if torch.cuda.is_available() else 'cpu')
 

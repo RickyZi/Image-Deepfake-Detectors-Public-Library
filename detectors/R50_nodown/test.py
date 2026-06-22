@@ -175,7 +175,7 @@ if __name__ == '__main__':
     print(f"Arch: {settings.arch} with #parameters {num_parameters}")
     # fix load path!!!!
     if settings.ft and settings.r50unfreezeL4:
-        load_path = f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}_unfreezeL4/best.pt'
+        load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{settings.dataset.replace(os.sep, '_')}_unfreezeL4/best.pt'
     elif settings.ft:
         load_path = f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
     else:

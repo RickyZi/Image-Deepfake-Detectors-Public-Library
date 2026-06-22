@@ -20,11 +20,19 @@ if __name__ == "__main__":
     # breakpoint()
     # if opt.ft:
     
-    print(json.dumps(vars(opt), indent=2, default=str))
-    sys.exit(0)
+    # print(json.dumps(vars(opt), indent=2, default=str))
+    # sys.exit(0)
 
-    weights_name = 'ft_weights' if opt.ft else 'weights'
-    os.makedirs(os.path.join('checkpoint', opt.name, weights_name), exist_ok=True)
+    # weights_name = 'ft_weights' if opt.ft else 'weights'
+    # if opt.ft and opt.r50unfreezeL4:
+    #     ckpt_dir = os.path.join('checkpoint', opt.name, 'ft_unfreezeL4_weights')
+    # elif opt.ft:
+    #     ckpt_dir = os.path.join('checkpoint', opt.name, 'ft_weights')
+    # else:
+    #     ckpt_dir = os.path.join('checkpoint', opt.name, 'weights')
+    # os.makedirs(ckpt_dir, exist_ok=True)
+
+    # os.makedirs(os.path.join('checkpoint', opt.name, weights_name), exist_ok=True)
     # breakpoint()
     # else:
     #     os.makedirs(os.path.join('checkpoint', opt.name,'weights'), exist_ok=True)
