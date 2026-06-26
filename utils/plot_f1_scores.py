@@ -56,7 +56,7 @@ def find_json(folder: Path):
     return json_files[0] if json_files else None
 
 
-def collect_f1(subdir_name: str) -> dict[str, float]:
+def collect_f1(subdir_name: str, metric: str) -> dict[str, float]:
     """
     Walk results/pretrained/<dataset>/<subdir_name>/
     Returns {dataset_label: f1_value} including the reference entry.
@@ -83,20 +83,20 @@ def collect_f1(subdir_name: str) -> dict[str, float]:
             payload = json.load(f)
  
         try:
-            f1 = payload["overall"]["F1"]
+            f1 = payload["overall"][metric]
         except KeyError:
-            print(f"  [skip] 'overall.F1' missing in {json_path}")
+            print(f"  [skip] 'overall.{metric}' missing in {json_path}")
             continue
  
         label = REF_LABEL if dataset_dir.name == REF_FOLDER else dataset_dir.name
         scores[label] = f1
-        print(f"  [ok] model={model_dir.name!r:35s}  dataset={dataset_dir.name!r:25s}  F1={f1:.4f}")
+        print(f"  [ok] model={model_dir.name!r:35s}  dataset={dataset_dir.name!r:25s}  {metric}={f1:.4f}")
  
     return scores
 
 
 
-def plot_f1(scores: dict[str, float], title: str, out_path: Path):
+def plot_f1(scores: dict[str, float], title: str, metric: str, out_path: Path):
     """
     Bar chart for one model variant (baseline or FT).
     Reference bar is always first and coloured distinctly.
@@ -158,7 +158,7 @@ def plot_f1(scores: dict[str, float], title: str, out_path: Path):
  
     # Axes styling
     ax.set_ylim(0, min(1.15, max(f1_vals) + 0.18))
-    ax.set_ylabel("F1 Score", fontsize=11, labelpad=8)
+    ax.set_ylabel(f"{metric} Score", fontsize=11, labelpad=8)
     ax.set_xlabel("Dataset", fontsize=11, labelpad=8)
     ax.tick_params(axis="x", rotation=35, labelsize=9)
     ax.tick_params(axis="y", labelsize=9)
@@ -173,7 +173,7 @@ def plot_f1(scores: dict[str, float], title: str, out_path: Path):
     # ax.legend(handles=legend_elements, fontsize=8.5, loc="lower right", framealpha=0.7)
  
     fig.suptitle(title, fontsize=14, fontweight="bold", color="#222222", y=1.02)
-    ax.set_title("Overall F1 Score per Dataset", fontsize=10, color="#555555", pad=6)
+    ax.set_title(f"Overall {metric} Score per Dataset", fontsize=10, color="#555555", pad=6)
  
     plt.tight_layout()
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -191,6 +191,7 @@ def plot_f1(scores: dict[str, float], title: str, out_path: Path):
 def main():
     parser = argparse.ArgumentParser(description="Plot F1 scores per dataset for one detector model.")
     parser.add_argument("--model", type=str, default="R50_nodown", help="Model name prefix, e.g. R50_nodown or CLIP-D")
+    parser.add_argument("--metric", type=str, default="F1", help="Metric to plot default F1")
     parser.add_argument("--unfreezeL4", action = "store_true")
     parser.add_argument("--mlp", action = "store_true")
     parser.add_argument("--skipbase", action = "store_true")
@@ -205,17 +206,23 @@ def main():
     else:
         ft_subdir       = f"{args.model}_ft"
     timestamp       = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+    if args.metric == 'b-acc' or args.metric == 'bacc':
+        metric = "Balanced Acc"
+    else:
+        metric = "F1"
  
     print(f"\nModel    : {args.model}")
     print(f"Baseline : {baseline_subdir}")
     print(f"FT       : {ft_subdir}\n")
+    print(f"Metric: {metric}\n")
  
     # Collect F1 scores
     print(f"── Collecting baseline F1 scores ({baseline_subdir}) ─────────────")
-    baseline_scores = collect_f1(baseline_subdir)
+    baseline_scores = collect_f1(baseline_subdir, metric)
     
     print(f"\n── Collecting FT F1 scores ({ft_subdir}) ─────────────────────────")
-    ft_scores = collect_f1(ft_subdir)
+    ft_scores = collect_f1(ft_subdir, metric)
 
     # Inject reference into FT scores if missing (dataset/ folder only has
     # the pretrained subfolder, so collect_f1 for ft_subdir won't find it)
@@ -241,12 +248,14 @@ def main():
         plot_f1(
             scores   = baseline_scores,
             title    = f"{args.model} baseline",
-            out_path = OUTPUT_DIR / f"{baseline_subdir}_f1_{timestamp}.png",
+            metric   = metric,
+            out_path = OUTPUT_DIR / f"{baseline_subdir}_{metric}_{timestamp}.png",
         )
     plot_f1(
         scores   = ft_scores,
         title    =  ft_subdir, # f"{args.model} FT" if not args.unfreezeL4 else f"{args.model} FT_unfreezeL4",
-        out_path = OUTPUT_DIR / f"{ft_subdir}_f1_{timestamp}.png",
+        metric   = metric,
+        out_path = OUTPUT_DIR / f"{ft_subdir}_{metric}_{timestamp}.png",
     )
  
     print(f"\nDone — plots saved to {OUTPUT_DIR.resolve()}/")
