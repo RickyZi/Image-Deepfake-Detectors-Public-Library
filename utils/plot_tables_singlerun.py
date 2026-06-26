@@ -427,7 +427,7 @@ def main():
         ref_label        = REF_LABEL,
         ref_scores       = ref_scores,
         per_row_baseline = baseline,   # <── key change: diff against own baseline
-        title            = f"str(FT_SUBDIR)_vs_baseline", #f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
+        title            = f"{str(FT_SUBDIR)}_vs_baseline", #f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
         output_path      = OUTPUT_DIR / f"{str(FT_SUBDIR)}_{timestamp}.png"
         # (OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png") if not args.unfreezeL4 else (OUTPUT_DIR / f"{args.model}_FT_unfreezeL4_{timestamp}.png"),
     )
