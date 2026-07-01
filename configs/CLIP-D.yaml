@@ -27,19 +27,28 @@ detector_args:
 
 training:
   # - data: gan2:pre&sdXL:pre&realFFHQ:pre&realFORLAB:pre
-  - data: realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre
+  # PRESOCIAL
+  # - data: realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre
+  # FACEBOOK
+  - data: realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb
+  # # TELEGRAM
+  # - data: realFFHQ:tl&realFORLAB:tl&gan1:tl&gan2:tl&gan3:tl&sd15:tl&sd2:tl&sd3:tl&sdXL:tl&flux:tl
+  # # TWITTER
+  # - data: realFFHQ:tw&realFORLAB:tw&gan1:tw&gan2:tw&gan3:tw&sd15:tw&sd2:tw&sd3:tw&sdXL:tw&flux:tw
 
 testing:
-  # - realFFHQ:fb
-  # - realFORLAB:fb
-  # - gan1:fb
-  # - gan2:fb
-  # - gan3:fb
-  # - sd15:fb
-  # - sd2:fb
-  # - sd3:fb
-  # - sdXL:fb
-  # - flux:fb
+  # FACEBOOK
+  - realFFHQ:fb
+  - realFORLAB:fb
+  - gan1:fb
+  - gan2:fb
+  - gan3:fb
+  - sd15:fb
+  - sd2:fb
+  - sd3:fb
+  - sdXL:fb
+  - flux:fb
+  # TELGRAM
   # - realFFHQ:tl
   # - realFORLAB:tl
   # - gan1:tl
@@ -50,6 +59,7 @@ testing:
   # - sd3:tl
   # - sdXL:tl
   # - flux:tl
+  # TWITTER
   # - realFFHQ:tw
   # - realFORLAB:tw
   # - gan1:tw
@@ -60,14 +70,15 @@ testing:
   # - sd3:tw
   # - sdXL:tw
   # - flux:tw
-  - realFFHQ:pre
-  - realFORLAB:pre
-  - gan1:pre
-  - gan2:pre
-  - gan3:pre
-  - sd15:pre
-  - sd2:pre
-  - sd3:pre
-  - sdXL:pre
-  - flux:pre
+  # PRESOCIAL
+  # - realFFHQ:pre
+  # - realFORLAB:pre
+  # - gan1:pre
+  # - gan2:pre
+  # - gan3:pre
+  # - sd15:pre
+  # - sd2:pre
+  # - sd3:pre
+  # - sdXL:pre
+  # - flux:pre
 

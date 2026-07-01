@@ -90,7 +90,8 @@ def parse_dataset(data_keys):
         'pre':  ['PreSocial'],
         'fb':   ['Facebook'],
         'tl':   ['Telegram'],
-        'tw':   ['X'],
+        # 'tw':   ['X'],
+        'tw': ['Twitter']
     }
 
     mod_keys['all'] = [mod_keys[key][0] for key in mod_keys.keys()]

@@ -23,6 +23,9 @@ def get_parser():
     parser.add_argument("--earlystop_epoch", type=int, default=5, help="Number of epochs without loss reduction before lowering the learning rate")
     
     # ----------------------------------- #
+    # add split
+    # parser.add_argument('--split', type=str, default='./test2k_splits.json', 
+    #                     help='Path to trn-val-tst split file')
     # add ft flag
     parser.add_argument('--ft', action='store_true', help='Path to pretrained model to load')
 

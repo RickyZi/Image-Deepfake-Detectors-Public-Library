@@ -7,7 +7,7 @@ import numpy as np
 from sklearn.metrics import roc_auc_score, accuracy_score
 from datetime import datetime
 from scipy.special import expit as sigmoid  # float64-safe sigmoid, no torch dependency
-from sklearn.metrics import roc_auc_score, accuracy_score, f1_score
+from sklearn.metrics import roc_auc_score, accuracy_score, f1_score,  balanced_accuracy_score
 from datetime import datetime
 
 
@@ -82,15 +82,15 @@ def aggregate_scores(results_dir):
     return all_scores, all_labels, image_results
 
 
-def calculate_metrics(all_scores, all_labels):
+def calculate_metrics(scores, labels):
     """
     Replicates test.py metric computation exactly.
     AUC uses sigmoid on raw scores, matching:
         probabilities = torch.sigmoid(torch.tensor(all_scores)).numpy()
         auc = roc_auc_score(all_labels, probabilities)
     """
-    all_scores = np.array(all_scores, dtype=np.float64)
-    all_labels = np.array(all_labels, dtype=np.int32)  # labels are 1.0/0.0 floats from JSON
+    all_scores = np.array(scores, dtype=np.float64)
+    all_labels = np.array(labels, dtype=np.int32)  # labels are 1.0/0.0 floats from JSON
  
     # P2G score_mix values are in [0,1]; threshold at 0.5
     predictions = (all_scores > 0).astype(int)
@@ -109,23 +109,41 @@ def calculate_metrics(all_scores, all_labels):
     else:
         auc = 0.0
  
-    # Standard precision-recall F1
-    f1 = f1_score(all_labels, predictions, zero_division=0.0)
+    # # Standard precision-recall F1
+    # f1 = f1_score(all_labels, predictions, zero_division=0.0)
  
-    balanced_accuracy = (tpr + tnr) / 2
+    # balanced_accuracy = (tpr + tnr) / 2
+ 
+    # return tpr, tnr, total_accuracy, auc, f1, balanced_accuracy
+    # Standard precision-recall F1
+    # f1 = f1_score(all_labels, predictions, zero_division=0.0)
+    f1 = f1_score(all_labels, predictions, labels=[0, 1], zero_division=0.0)
+ 
+    # balanced_accuracy = (tpr + tnr) / 2
+    balanced_accuracy = balanced_accuracy_score(all_labels, predictions)  # adjusted=False by default
  
     return tpr, tnr, total_accuracy, auc, f1, balanced_accuracy
+
+    # return {
+    #     'TPR':          float(tpr),
+    #     'TNR':          float(tnr),
+    #     'Acc':          float(total_accuracy),
+    #     'Balanced Acc': float(balanced_accuracy),
+    #     'F1':           float(f1),
+    #     'AUC':          float(auc),
+    #     'num_images':   int(len(labels)),
+    # }
  
  
-def p2g_calculate_metrics(all_scores, all_labels):
+def p2g_calculate_metrics(scores, labels):
     """
     P2G variant. score_mix values are raw continuous scores (not binarized),
     so AUC uses sigmoid on them — same pipeline as calculate_metrics.
     Threshold for TPR/TNR/Acc remains at 0.5 (P2G scores are in [0,1] range
     after mix_top_mean aggregation; adjust if your scores use a different scale).
     """
-    all_scores = np.array(all_scores)
-    all_labels = np.array(all_labels)
+    all_scores = np.array(scores)
+    all_labels = np.array(labels)
  
     # P2G score_mix values are in [0,1]; threshold at 0.5
     predictions = (all_scores > 0.5).astype(int)
@@ -145,11 +163,23 @@ def p2g_calculate_metrics(all_scores, all_labels):
         auc = 0.0
  
     # Standard precision-recall F1
-    f1 = f1_score(all_labels, predictions, zero_division=0.0)
+    # f1 = f1_score(all_labels, predictions, zero_division=0.0)
+    f1 = f1_score(all_labels, predictions, labels=[0, 1], zero_division=0.0)
  
-    balanced_accuracy = (tpr + tnr) / 2
+    # balanced_accuracy = (tpr + tnr) / 2
+    balanced_accuracy = balanced_accuracy_score(all_labels, predictions)  # adjusted=False by default
  
     return tpr, tnr, total_accuracy, auc, f1, balanced_accuracy
+
+    # return {
+    #     'TPR':          float(tpr),
+    #     'TNR':          float(tnr),
+    #     'Acc':          float(total_accuracy),
+    #     'Balanced Acc': float(balanced_accuracy),
+    #     'F1':           float(f1),
+    #     'AUC':          float(auc),
+    #     'num_images':   int(len(labels)),
+    # }
 
 
 

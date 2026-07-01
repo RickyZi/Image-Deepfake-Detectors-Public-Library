@@ -14,6 +14,7 @@ from networks import ImageClassifier
 from parser import get_parser
 from dataset import create_dataloader
 from sklearn.metrics import balanced_accuracy_score
+from tf2k_dataset import tf2k_create_dataloader
 
 def check_accuracy(val_dataloader, model, settings):
     model.eval()
@@ -39,7 +40,7 @@ def check_accuracy(val_dataloader, model, settings):
     return accuracy
 
 
-def train(train_dataloader, val_dataloader, model, settings):
+def train(train_dataloader, val_dataloader, model, dataset, settings):
     best_accuracy = 0
     lr_decay_counter = 0
     for epoch in range(0, settings.num_epoches):
@@ -65,7 +66,17 @@ def train(train_dataloader, val_dataloader, model, settings):
 
         if accuracy > best_accuracy:
             best_accuracy = accuracy
-            torch.save(model.state_dict(), f'./checkpoint/{settings.name}/weights/best.pt')
+            if settings.freeze and settings.r50unfreezeL4:
+                save_dir = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{dataset}'
+                # torch.save(model.state_dict(), f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/best.pt')
+            elif settings.freeze:
+                save_dir = f'./checkpoint/{settings.name}/ft_weights/{dataset}'
+                # torch.save(model.state_dict(), f'./checkpoint/{settings.name}/ft_weights/best.pt')
+            else:
+                save_dir = f'./checkpoint/{settings.name}/weights'
+            
+            os.makedirs(save_dir, exist_ok=True)
+            torch.save(model.state_dict(), os.path.join(save_dir, 'best.pt'))
 
             print(f'New best model saved with accuracy {best_accuracy:.4f} \n')
             lr_decay_counter = 0
@@ -85,22 +96,36 @@ def train(train_dataloader, val_dataloader, model, settings):
 if __name__ == "__main__":
     parser = get_parser()
     settings = parser.parse_args()
-    print(settings)
+    print(f"settings: {settings}")
 
+    if settings.ft:
+        settings.freeze = True
+    
+    print(f"settings.freeze: {settings.freeze}")
+    print(f"r50unfreezeL4", settings.r50unfreezeL4)
+    dataset = settings.dataset.replace(os.sep, '_')
+    # dataset += '_unfreezeL4' if opt.r50unfreezeL4 else ''
+    if settings.r50unfreezeL4:
+        dataset += '_r50unfreezeL4'
+    # breakpoint()
     device = torch.device(settings.device if torch.cuda.is_available() else 'cpu')
 
     model = ImageClassifier(settings)
+    
     model.to(device)
     os.makedirs(f'./checkpoint/{settings.name}/weights/', exist_ok=True)
     
     with open(f'./checkpoint/settings.txt', 'w') as f:
         f.write(str(settings))
-
-    train_dataloader = create_dataloader(settings, split='train')
-    val_dataloader = create_dataloader(settings, split='val')
+    if settings.tf2k:
+        train_dataloader = tf2k_create_dataloader(settings, split='train')
+        val_dataloader = tf2k_create_dataloader(settings, split='val')
+    else:
+        train_dataloader = create_dataloader(settings, split='train')
+        val_dataloader = create_dataloader(settings, split='val')
 
     optimizer = optim.Adam((p for p in model.parameters() if p.requires_grad), lr=settings.lr)
 
     criterion = nn.BCEWithLogitsLoss(reduction='none')
 
-    train(train_dataloader, val_dataloader, model, settings)
+    train(train_dataloader, val_dataloader, model, dataset, settings)

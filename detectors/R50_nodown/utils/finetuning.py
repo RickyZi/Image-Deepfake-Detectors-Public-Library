@@ -19,7 +19,8 @@ class FTModel(torch.nn.Module):
         if opt.r50unfreezeL4:
             dataset += '_r50unfreezeL4'
 
-        print(dataset)
+        print(f"opt: {self.opt}")
+        print(f"dataset: {dataset}")
         # breakpoint()
         if opt.ft and opt.r50unfreezeL4:
             self.save_dir = os.path.join('checkpoint', opt.name, 'ft_unfreezeL4_weights')

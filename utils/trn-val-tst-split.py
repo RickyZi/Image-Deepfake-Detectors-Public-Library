@@ -8,7 +8,8 @@ import json
 # extract rand split (60-20-20) from each subfolder and save to json #
 # ------------------------------------------------------------------ #
 
-dataset_path = 'truefake_2k/dataset/'
+# dataset_path = 'truefake_2k/dataset/' # TF_preSocial
+dataset_path = 'truefake_2k/tf2k_social/Facebook' # TF_social
 
 SEED = 42 # fix seed for reproducibility
 
@@ -49,7 +50,16 @@ for dataset_root, dataset_dirs, dataset_files in os.walk(Path(dataset_path)):
     # sub: e.g. images-psi-0.5 (only for Fake)
     # ----------------------------------------- #
 
-    mod = 'pre' # fixed for tf2k
+    # mod = 'pre' # fixed for tf2k
+    # mod = 
+    if 'Facebook' in dataset_path:
+        mod = 'fb'
+    elif 'Telegram' in dataset_path:
+        mod = 'tl'
+    elif 'Twitter' in dataset_path:
+        mod = 'tw'
+    else:
+        mod = 'pre'
     label, gen = parts[:2]
     sub = parts[2] if len(parts) > 2 else None
     group_id = os.path.join(gen, sub) if sub else gen # for fake subset
@@ -107,7 +117,7 @@ train_set = sorted(train_set)
 val_set   = sorted(val_set)
 test_set  = sorted(test_set)
 
-output_file = 'test2k_splits.json'
+output_file = 'tf2k_SOCIAL_splits.json'
 #'tf2k_dataset_splits.json'
 
 with open(output_file, "w") as f:
@@ -154,3 +164,43 @@ print(f"\nWrote {output_file}")
 
 # Wrote test2k_splits.json
 # --------------------------------------------------------------------------------------------------- #
+# SOCIAL SPLIT #
+# ------------ #
+# - FACEBOOK - #
+# fb         | Real       | FFHQ                                     | 300 / 100 / 100 | 500 files
+# fb         | Real       | FORLAB                                   | 300 / 100 / 100 | 500 files
+# fb         | Fake       | StableDiffusionXL/general                | 23 /  8 /  7 |  38 files
+# fb         | Fake       | StableDiffusionXL/landscapes             | 23 /  8 /  7 |  38 files
+# fb         | Fake       | StableDiffusionXL/animals                | 23 /  8 /  7 |  38 files
+# fb         | Fake       | StableDiffusionXL/faces                  | 23 /  8 /  7 |  38 files
+# fb         | Fake       | StyleGAN3/conf-t-psi-0.5                 | 23 /  8 /  7 |  38 files
+# fb         | Fake       | StyleGAN3/conf-t-psi-0.7                 | 23 /  8 /  7 |  38 files
+# fb         | Fake       | StableDiffusion3/general                 | 23 /  8 /  7 |  38 files
+# fb         | Fake       | StableDiffusion3/landscapes              | 23 /  8 /  7 |  38 files
+# fb         | Fake       | StableDiffusion3/animals                 | 23 /  8 /  7 |  38 files
+# fb         | Fake       | StableDiffusion3/faces                   | 23 /  8 /  7 |  38 files
+# fb         | Fake       | StyleGAN2/conf-f-psi-1                   | 23 /  8 /  7 |  38 files
+# fb         | Fake       | StyleGAN2/conf-f-psi-0.5                 | 23 /  8 /  7 |  38 files
+# fb         | Fake       | StableDiffusion2/general                 | 24 /  8 /  7 |  39 files
+# fb         | Fake       | StableDiffusion2/landscapes              | 24 /  8 /  7 |  39 files
+# fb         | Fake       | StableDiffusion2/animals                 | 24 /  8 /  7 |  39 files
+# fb         | Fake       | StableDiffusion2/faces                   | 24 /  8 /  7 |  39 files
+# fb         | Fake       | StableDiffusion1.5/general               | 24 /  8 /  7 |  39 files
+# fb         | Fake       | StableDiffusion1.5/landscapes            | 24 /  8 /  7 |  39 files
+# fb         | Fake       | StableDiffusion1.5/animals               | 24 /  8 /  7 |  39 files
+# fb         | Fake       | StableDiffusion1.5/faces                 | 24 /  8 /  7 |  39 files
+# fb         | Fake       | FLUX.1/general                           | 24 /  8 /  7 |  39 files
+# fb         | Fake       | FLUX.1/landscapes                        | 24 /  8 /  7 |  39 files
+# fb         | Fake       | FLUX.1/animals                           | 24 /  8 /  7 |  39 files
+# fb         | Fake       | FLUX.1/faces                             | 24 /  8 /  7 |  39 files
+# fb         | Fake       | StyleGAN/images-psi-0.7                  | 23 /  8 /  7 |  38 files
+# fb         | Fake       | StyleGAN/images-psi-0.5                  | 23 /  8 /  7 |  38 files
+
+# Total train: 1210
+# Total val: 408
+# Total test: 382
+
+# Total dataset groups: 28
+# total datasets: 2000
+
+# Wrote tf2k_SOCIAL_splits.json

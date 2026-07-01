@@ -51,14 +51,26 @@ opt.no_crop   = True
 
 # --------------------------- #
 # File paths update
-timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
+# timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
 # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
-dataset_dir_name = opt.data_root.split('/')[-1]  # Extract dataset directory name from path
-tag = 'ft' if opt.ft else 'pretrained'
-output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{opt.name}/{dataset_dir_name}/NPR_{tag}/{opt.data_keys}' # change path to be outside detector folder
-os.makedirs(output_dir, exist_ok=True)
+# dataset_dir_name = opt.data_root.split('/')[-1]  # Extract dataset directory name from path
+# tag = 'ft' if opt.ft else 'pretrained'
+# output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{opt.name}/{dataset_dir_name}/NPR_{tag}/{opt.data_keys}' # change path to be outside detector folder
+# os.makedirs(output_dir, exist_ok=True)
 # --------------------------- #
-
+dataset_dir_name = opt.data_root.split('/')[-1]  # Extract dataset directory name from path
+print(f"dataset_name: {dataset_dir_name}")
+tag = 'ft' if opt.ft else 'pretrained'
+# tag += '_unfreezeL4' if opt.r50unfreezeL4 else ''
+print(f"test_tag: {tag}")
+# breakpoint()
+# if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
+if any(sub in str(opt.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
+    output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{opt.name}_social/{dataset_dir_name}/NPR_{tag}/{opt.data_keys}' # change path to be outside detector folder
+else:
+    output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{opt.name}/{dataset_dir_name}/NPR_{tag}/{opt.data_keys}' # change path to be outside detector folder
+os.makedirs(output_dir, exist_ok=True)
+    # --------------------------- #
 # if opt.tf2k:
 #     test_dataloader = tf2k_create_dataloader(opt, split = 'test')
 # else:

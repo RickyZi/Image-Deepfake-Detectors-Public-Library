@@ -44,8 +44,8 @@ METRICS      = ["TPR", "TNR", "Acc", "Balanced Acc", "F1", "AUC"]
 REF_FOLDER   = "dataset"          # folder name that is the reference run
 REF_LABEL    = "tf2k_dataset"     # how to display it in the table
 
-RESULTS_ROOT = Path("./results/pretrained")
-OUTPUT_DIR   = Path("./results/metric_tables")
+# RESULTS_ROOT = Path("./results/pretrained")
+# OUTPUT_DIR   = Path("./results/metric_tables")
 
 # Colormaps
 CMAP_DIFF = mcolors.LinearSegmentedColormap.from_list(
@@ -75,7 +75,7 @@ def find_json(folder: Path) -> Path | None:
     return hits[0] if hits else None
 
 
-def load_ref_scores(BASELINE_SUBDIR) -> dict | None:
+def load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, social = False) -> dict | None:
     """
     Load overall metrics from the reference folder (results/pretrained/dataset/).
     Returns {metric: value} or None if not found.
@@ -83,11 +83,13 @@ def load_ref_scores(BASELINE_SUBDIR) -> dict | None:
     if not RESULTS_ROOT.exists():
         print(f"[error] Results root not found: {RESULTS_ROOT.resolve()}")
         return None
-
-    ref_dir = RESULTS_ROOT / REF_FOLDER
+    # if social:
+    #     ref_dir = RESULTS_ROOT / 
+    # ref_dir = RESULTS_ROOT / REF_FOLDER
+    ref_dir = Path("./results/pretrained/dataset")
     for subdir in [BASELINE_SUBDIR]:
-        model_dir = ref_dir / subdir
-        print(model_dir)
+        model_dir = ref_dir / Path(str(subdir) + '_pretrained')
+        print(f"model_dir: {model_dir}")
         if model_dir.is_dir():
             json_path = find_json(model_dir)
             if json_path:
@@ -100,7 +102,7 @@ def load_ref_scores(BASELINE_SUBDIR) -> dict | None:
     return None
 
 
-def collect_results(subdir_name: str) -> dict[str, dict]:
+def collect_results(RESULTS_ROOT, subdir_name: str) -> dict[str, dict]:
     """
     Walk results/pretrained/<dataset>/<subdir_name>/ skipping the reference folder.
     Return {dataset_label: {metric: value, ...}}
@@ -368,13 +370,15 @@ def main():
     parser.add_argument("--unfreezeL4", action = "store_true")
     parser.add_argument("--mlp", action = "store_true")
     parser.add_argument("--skipbase", action = "store_true")
+    parser.add_argument("--onlybase", action = "store_true")
+    parser.add_argument("--social", action = "store_true")
     args = parser.parse_args()
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
     print(f"model: {args.model}")
 
-    BASELINE_SUBDIR = args.model + '_pretrained'
+    BASELINE_SUBDIR = args.model #+ '_pretrained'
     # FT_SUBDIR       = (args.model + '_ft') if not args.unfreezeL4 else (args.model + '_ft_unfreezeL4')
 
     if args.unfreezeL4:
@@ -387,12 +391,24 @@ def main():
     print(f"BASELINE_SUBDIR: {BASELINE_SUBDIR}")
     print(f"FT_SUBDIR: {FT_SUBDIR}")
 
+    if args.social:
+        out_dir = Path("./results/metric_tables/social")
+        OUTPUT_DIR= out_dir
+        # out_dir.mkdir(parents=True, exist_ok=True)
+        results = Path("./results/pretrained_social")
+        RESULTS_ROOT = results
+    else:
+        RESULTS_ROOT = Path("./results/pretrained")
+        OUTPUT_DIR   = Path("./results/metric_tables")
+    
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    print(f"results_root: {RESULTS_ROOT}")
 
     # 1. Load reference scores once from results/pretrained/dataset/
     # if not args.skipbase:
     print(f"\n── Loading reference scores ({REF_FOLDER} → displayed as {REF_LABEL}) ──")
-    ref_scores = load_ref_scores(BASELINE_SUBDIR)
+    ref_scores = load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR)
     if ref_scores is None:
         print("  [error] Cannot continue without reference scores.")
         return
@@ -401,10 +417,10 @@ def main():
 
     # 2. Collect comparison rows (all folders except reference)
     print(f"\n── Collecting baseline results ({BASELINE_SUBDIR}) ──────────")
-    baseline = collect_results(BASELINE_SUBDIR)
+    baseline = collect_results(RESULTS_ROOT, BASELINE_SUBDIR)
 
     print(f"\n── Collecting FT results ({FT_SUBDIR}) ────────────────────────")
-    ft = collect_results(FT_SUBDIR)
+    ft = collect_results(RESULTS_ROOT, FT_SUBDIR)
 
     # 3. Plot
     print("\n── Plotting ─────────────────────────────────────────────────────")
@@ -415,24 +431,25 @@ def main():
             baseline,
             ref_label   = REF_LABEL,
             ref_scores  = ref_scores,
-            title       = f"{args.model}_baseline results",
+            title       = f"{args.model}_baseline results" if not args.social else f"{str(FT_SUBDIR)}_baseline_social results",
             output_path = OUTPUT_DIR / f"{args.model}_baseline_{timestamp}.png",
         )
     
 
     # FT table: first row = tf2k_dataset baseline (ref_scores);
     #           other rows = FT raw score + diff vs SAME DATASET's baseline model.
-    plot_table(
-        ft,
-        ref_label        = REF_LABEL,
-        ref_scores       = ref_scores,
-        per_row_baseline = baseline,   # <── key change: diff against own baseline
-        title            = f"{str(FT_SUBDIR)}_vs_baseline", #f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
-        output_path      = OUTPUT_DIR / f"{str(FT_SUBDIR)}_{timestamp}.png"
-        # (OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png") if not args.unfreezeL4 else (OUTPUT_DIR / f"{args.model}_FT_unfreezeL4_{timestamp}.png"),
-    )
+    if not args.onlybase:
+        plot_table(
+            ft,
+            ref_label        = REF_LABEL,
+            ref_scores       = ref_scores,
+            per_row_baseline = baseline,   # <── key change: diff against own baseline
+            title            = f"{str(FT_SUBDIR)}_vs_baseline" , #f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
+            output_path      = OUTPUT_DIR / f"{str(FT_SUBDIR)}_{timestamp}.png"
+            # (OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png") if not args.unfreezeL4 else (OUTPUT_DIR / f"{args.model}_FT_unfreezeL4_{timestamp}.png"),
+        )
 
-    print(f"\nDone — tables saved to {OUTPUT_DIR.resolve()}/")
+        print(f"\nDone — tables saved to {OUTPUT_DIR.resolve()}/")
 
 
 if __name__ == "__main__":

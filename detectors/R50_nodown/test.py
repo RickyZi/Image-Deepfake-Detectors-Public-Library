@@ -26,11 +26,16 @@ def test(loader, model, settings, device, timestamp):
     # File paths update
     # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
     dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
+    print(f"dataset_name: {dataset_dir_name}")
     tag = 'ft' if settings.ft else 'pretrained'
     tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''
     print(f"test_tag: {tag}")
     # breakpoint()
-    output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}' # change path to be outside detector folder
+    # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
+    if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
+        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}' # change path to be outside detector folder
+    else:
+        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}' # change path to be outside detector folder
     os.makedirs(output_dir, exist_ok=True)
     # --------------------------- #
     

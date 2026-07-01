@@ -298,7 +298,13 @@ if __name__ == '__main__':
     
 
     # example run: python3 utils/single_score_agg.py --model CLIP-D_ft 
+    # python3 utils/single_score_agg.py R50_TF ./results/pretrained/ (to compute all results in one-shot, 
+    # otherwise specify the desired folder)
+    
+    # if not '_pretrained' in model: model += '_pretrained' 
     print(f"Model: {model}")
+    # breakpoint()
+
     # run_dir = args.results_dir.resolve()
     run_dir = results_dir.resolve()
     print(f"\nRun dir : {run_dir}")

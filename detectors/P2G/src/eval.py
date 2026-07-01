@@ -42,8 +42,8 @@ def parse_dataset(data_keys):
         'pre':  ['PreSocial'],
         'fb':   ['Facebook'],
         'tl':   ['Telegram'],
-        # 'tw':   ['Twitter'],
-        "tw":   ['X'],
+        'tw':   ['Twitter'],
+        # "tw":   ['X'],
     }
 
     mod_keys['all'] = [mod_keys[key][0] for key in mod_keys.keys()]
@@ -524,17 +524,18 @@ def inference_step(args, model: SliNet, test_loader, keys_dict):
     # output_dir = f'./results/{args["run_name"]}/data/{args["scenario"]}'
     # os.makedirs(output_dir, exist_ok=True)
     # --------------------------- #
-    # File paths update
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
+    # # File paths update
+    # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
     # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
     dataset_dir_name = args["data_path"].split('/')[-2]  # Extract dataset directory name from path
     tag = 'ft' if args["ft"] else 'pretrained'
-    output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{args["run_name"]}/{dataset_dir_name}/P2G_{tag}/{args["scenario"]}' # change path to be outside detector folder
+    if any(sub in str(args['data_path']) for sub in ['Facebook', 'Telegram', 'Twitter']):
+        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{args["run_name"]}_social/{dataset_dir_name}/P2G_{tag}/{args["scenario"]}' # change path to be outside detector folder
+    else:
+        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{args["run_name"]}/{dataset_dir_name}/P2G_{tag}/{args["scenario"]}'
     os.makedirs(output_dir, exist_ok=True)
     # breakpoint()
     # --------------------------- #
-
-
     csv_filename = os.path.join(output_dir, 'results.csv')
     metrics_filename = os.path.join(output_dir, 'metrics.json')
     image_results_filename = os.path.join(output_dir, 'image_results.json')

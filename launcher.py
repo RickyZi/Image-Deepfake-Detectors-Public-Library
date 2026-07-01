@@ -201,6 +201,9 @@ def main():
     parser.add_argument('--weights-name', type=str, default='pretrained', 
                         help='Name of the weights directory')
     # --------------------------- #
+    # parser.add_argument('--split', type=str, default='./test2k_splits.json', 
+    #                     help='Path to trn-val-tst split file')
+    # --------------------------- #
     parser.add_argument('--ft', action = 'store_true', help = 'Path to pretrained model to load') ## for FT model (os just --ft flag?)
     parser.add_argument('--tf2k', type = bool, default = False, help = 'Use 2k dataset and splits for training and testing') ## for FT model (os just --ft flag?)
     parser.add_argument('--r50unfreezeL4', action='store_true', help='Unfreeze layer 4 when FT ResNet models')
@@ -254,29 +257,51 @@ def main():
     # Extract configuration values
     global_config = config.get('global', {})
 
+    
+
     # get tf dataset path
 
     config_dataset_path = global_config.get('dataset_path')
     if 'truefake_2k' in config_dataset_path:
         args.tf2k = True # used to remove mod from dataset preprocessing
         print(f"Dataset TF2K: setting --tf2k flag to True")
-        if 'seasons' in args.dataset or 'style' in args.dataset:
+        # print(args.dataset)
+        # dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_lr_org', args.dataset)
+        # LIGHTROOM data
+        if 'seasons' in args.dataset or 'style' in args.dataset or 'adaptive' in args.dataset or 'subject' in args.dataset:
+            print(args.dataset)
+            dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_lr_org', args.dataset)
             # i.e. seasons/autumn_01 -> truefake_2k/tf2k_lr_org/seasons/autumn_01
             # dataset_path = './truefake_2k'
             # join dataset with datset_path from config
-            print(args.dataset)
-            dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_lr_org', args.dataset)
+            
             # print(f"Using dataset path: {dataset_path}")
             # args.tf2k = True # used to remove mod from dataset preprocessing
             # breakpoint()
+            split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
         else:
-            dataset_path = os.path.join(config_dataset_path, args.dataset)
+            print("loading social data")
+            print(args.dataset)
+            dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_social', args.dataset)
+
+            split_file = '/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/tf2k_SOCIAL_splits.json'
+
+    # elif 'tf2k_social' in config_dataset_path:
+    #     args.tf2k = True # used to remove mod from dataset preprocessing
+    #     print(f"Dataset TF2K: setting --tf2k flag to True")
+    #     print(args.dataset)
+    #     dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_social', args.dataset)
+    else:
+        dataset_path = os.path.join(config_dataset_path, args.dataset)
+        split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
             #global_config.get('dataset_path', args.dataset) # default to --dataset argument if not specified in config
     print(f"Using dataset path: {dataset_path}")
+    # breakpoint()
+    
     device_override = global_config.get('device_override')  # Can be None
     if args.weights_name is not None:
         global_config['name'] = args.weights_name
-    else:
+    else: 
         global_config['name'] = config.get('training', [])[0]['data']
     model_name = global_config.get('name')
     # Handle string "null" as None
@@ -296,8 +321,12 @@ def main():
     # --------------------------- #
     # Baseline test and FT on 2k data -> fix new splits
     # split_file = '/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/tf2k_dataset_splits.json'
-    split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
-    # print(f"split_file: {split_file}")
+    # if args.split:
+    #     split_file = args.split
+    #     print(f"split: {split_file}")
+    # else:
+    #     split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
+    # # print(f"split_file: {split_file}")
     # breakpoint()
     
     num_threads = global_config.get('num_threads', 8) # check if ok for TeslaT4, might need to decrease it to 4

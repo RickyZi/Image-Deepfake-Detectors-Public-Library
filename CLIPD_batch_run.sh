@@ -66,12 +66,12 @@
 
 # python3 launcher.py --detector CLIP-D --phases both --dataset style/bw_BW01 --ft --mlp
 
-python3 launcher.py --detector CLIP-D --phases both --dataset style/cinematic_CN01 --ft --mlp
+# python3 launcher.py --detector CLIP-D --phases both --dataset style/cinematic_CN01 --ft --mlp
 
-python3 launcher.py --detector CLIP-D --phases both --dataset style/cinematic2_CN11 --ft --mlp
+# python3 launcher.py --detector CLIP-D --phases both --dataset style/cinematic2_CN11 --ft --mlp
 
-python3 launcher.py --detector CLIP-D --phases both --dataset style/filminspired_warmgold --ft --mlp 
+# python3 launcher.py --detector CLIP-D --phases both --dataset style/filminspired_warmgold --ft --mlp 
 
-python3 launcher.py --detector CLIP-D --phases both --dataset style/futuristic_FT01 --ft --mlp
+# python3 launcher.py --detector CLIP-D --phases both --dataset style/futuristic_FT01 --ft --mlp
  
 python3 launcher.py --detector CLIP-D --phases both --dataset style/vintage_VN01 --ft --mlp

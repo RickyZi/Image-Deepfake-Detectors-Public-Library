@@ -54,14 +54,39 @@ class ImageClassifier(nn.Module):
         else:
             raise NotImplementedError('Model not recognized')
         
-        if settings.freeze:
+        # freeze all layers except last one
+        if settings.r50unfreezeL4 and settings.freeze:
+            print("FT with ufrozenL4 and unfrozen fc")
+            for param in self.backbone.parameters():
+                param.requires_grad = False
+
+            for param in self.backbone.layer4.parameters():
+                param.requires_grad = True
+            
+            for param in self.backbone.fc.parameters():
+                param.requires_grad = True
+        
+        elif settings.freeze:
+            print("freeze all layers except last one")
             for param in self.backbone.parameters():
                 param.requires_grad = False
             for param in self.backbone.fc.parameters():
                 param.requires_grad = True
+
         else:
             for param in self.backbone.parameters():
                 param.requires_grad = True
+
+
+        # Sanity check
+        trainable = [n for n, p in self.backbone.named_parameters() if p.requires_grad]
+        print(f"Trainable layers: {trainable}")
+        if settings.r50unfreezeL4:
+            assert all("fc" in n or "layer4" in n for n in trainable), "Unexpected trainable params outside fc and layer4!"
+        else:
+            assert all("fc" in n for n in trainable), "Unexpected trainable params outside fc!"
+
+        # breakpoint()
 
         self.prototype = settings.prototype
 
