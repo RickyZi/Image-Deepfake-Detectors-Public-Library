@@ -23,4 +23,4 @@ detectors/*/*/*/__pycache__/*
 detectors/*/*/*/*/__pycache__/* 
 */__pycache__/*
 optuna_studies/
-detectors/MSILNet/*
+detectors/MISLNet/*
