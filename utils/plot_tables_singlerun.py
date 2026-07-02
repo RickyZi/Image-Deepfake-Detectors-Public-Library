@@ -385,11 +385,14 @@ def main():
         FT_SUBDIR = args.model + "_ft_unfreezeL4"
     elif args.mlp:
         FT_SUBDIR = args.model + "_ft_MLP"
+    # elif args.onlybase:
+    #     FT_SUBDIR = args.model+"_baseline"
     else:
         FT_SUBDIR = args.model + "_ft"
 
     print(f"BASELINE_SUBDIR: {BASELINE_SUBDIR}")
     print(f"FT_SUBDIR: {FT_SUBDIR}")
+    # breakpoint()
 
     if args.social:
         out_dir = Path("./results/metric_tables/social")
@@ -425,7 +428,16 @@ def main():
     # 3. Plot
     print("\n── Plotting ─────────────────────────────────────────────────────")
 
-    if not args.skipbase:
+    if not args.skipbase and args.social:
+        # Baseline table: diffs vs tf2k_dataset (ref_scores), no per_row_baseline
+        plot_table(
+            baseline,
+            ref_label   = REF_LABEL,
+            # ref_scores  = ref_scores,
+            title       = f"{args.model}_baseline SOCIALS results", #if not args.social else f"{str(FT_SUBDIR)}_baseline_social results",
+            output_path = OUTPUT_DIR / f"{args.model}_baseline_{timestamp}.png",
+        )
+    elif not args.skipbase:
         # Baseline table: diffs vs tf2k_dataset (ref_scores), no per_row_baseline
         plot_table(
             baseline,
