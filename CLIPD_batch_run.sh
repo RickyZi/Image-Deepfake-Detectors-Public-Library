@@ -53,6 +53,28 @@
  
 # python3 launcher.py --detector CLIP-D --phases both --dataset style/vintage_VN01 --ft 
 
+# -------------------------- #
+# FT on LR-dataset extension #
+# -------------------------- #
+
+python3 launcher.py --detector CLIP-D --phases both --dataset style/film_inspired_boldbw --ft 
+
+python3 launcher.py --detector CLIP-D --phases both --dataset style/film_inspired_coolbw --ft 
+
+python3 launcher.py --detector CLIP-D --phases both --dataset adaptive/blurbg_strong --ft 
+
+python3 launcher.py --detector CLIP-D --phases both --dataset adaptive/enhance_portrait --ft 
+
+python3 launcher.py --detector CLIP-D --phases both --dataset adaptive/sky_bluedrama --ft 
+
+python3 launcher.py --detector CLIP-D --phases both --dataset adaptive/subject_pop --ft
+
+python3 launcher.py --detector CLIP-D --phases both --dataset subject/landscape_LN01 --ft 
+
+python3 launcher.py --detector CLIP-D --phases both --dataset subject/travel_TR01 --ft 
+
+python3 launcher.py --detector CLIP-D --phases both --dataset subject/travel2_TR11 --ft 
+
 # ----------------- #
 # add & FT MLP head #
 # ----------------- #
@@ -74,4 +96,4 @@
 
 # python3 launcher.py --detector CLIP-D --phases both --dataset style/futuristic_FT01 --ft --mlp
  
-python3 launcher.py --detector CLIP-D --phases both --dataset style/vintage_VN01 --ft --mlp
+# python3 launcher.py --detector CLIP-D --phases both --dataset style/vintage_VN01 --ft --mlp

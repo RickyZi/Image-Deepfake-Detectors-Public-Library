@@ -164,7 +164,7 @@
  
 # python3 launcher.py --detector R50_TF --phases both --dataset style/futuristic_FT01 --ft  
  
-python3 launcher.py --detector R50_TF --phases both --dataset style/vintage_VN01 --ft 
+# python3 launcher.py --detector R50_TF --phases both --dataset style/vintage_VN01 --ft 
 
 # python3 launcher.py --detector R50_TF --phases both --dataset adaptive/blurbg_strong --ft 
 # python3 launcher.py --detector R50_TF --phases both --dataset adaptive/enhance_portrait --ft 
@@ -177,10 +177,38 @@ python3 launcher.py --detector R50_TF --phases both --dataset style/vintage_VN01
 # python3 launcher.py --detector R50_TF --phases both --dataset subject/travel2_TR11 --ft 
 
 
+# ------------------------------------------- #
+# ---- Unfreezing layer 4 in R50 when FT ---- #
+# ------------------------------------------- #
+
+
+# ---------------------------- #
+# -------- R50_nodonw -------- #
+# ---------------------------- #
+
+python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/blurbg_strong --ft --r50unfreezeL4
+
+python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/enhance_portrait --ft --r50unfreezeL4
+
+python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/sky_bluedrama --ft --r50unfreezeL4
+
+python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/subject_pop --ft --r50unfreezeL4
+
+python3 launcher.py --detector R50_nodown --phases both --dataset style/film_inspired_boldbw --ft --r50unfreezeL4
+
+python3 launcher.py --detector R50_nodown --phases both --dataset style/film_inspired_coolbw --ft --r50unfreezeL4
+
+python3 launcher.py --detector R50_nodown --phases both --dataset subject/landscape_LN01 --ft --r50unfreezeL4
+
+python3 launcher.py --detector R50_nodown --phases both --dataset subject/travel_TR01 --ft --r50unfreezeL4
+
+python3 launcher.py --detector R50_nodown --phases both --dataset subject/travel2_TR11 --ft --r50unfreezeL4
 
 
 
-# --------------------------- #
+# ---------------------------- #
+# ---------- R50_TF ---------- #
+# ---------------------------- #
 
 python3 launcher.py --detector R50_TF --phases both --dataset seasons/autumn_TM01 --ft --r50unfreezeL4 # unfreeze L4 when FT
 
@@ -203,11 +231,19 @@ python3 launcher.py --detector R50_TF --phases both --dataset style/futuristic_F
 python3 launcher.py --detector R50_TF --phases both --dataset style/vintage_VN01 --ft --r50unfreezeL4 # unfreeze L4 when FT
 
 python3 launcher.py --detector R50_TF --phases both --dataset adaptive/blurbg_strong --ft --r50unfreezeL4
+
 python3 launcher.py --detector R50_TF --phases both --dataset adaptive/enhance_portrait --ft --r50unfreezeL4
+
 python3 launcher.py --detector R50_TF --phases both --dataset adaptive/sky_bluedrama --ft --r50unfreezeL4
+
 python3 launcher.py --detector R50_TF --phases both --dataset adaptive/subject_pop --ft --r50unfreezeL4
+
 python3 launcher.py --detector R50_TF --phases both --dataset style/film_inspired_boldbw --ft --r50unfreezeL4
+
 python3 launcher.py --detector R50_TF --phases both --dataset style/film_inspired_coolbw --ft --r50unfreezeL4
+
 python3 launcher.py --detector R50_TF --phases both --dataset subject/landscape_LN01 --ft --r50unfreezeL4
+
 python3 launcher.py --detector R50_TF --phases both --dataset subject/travel_TR01 --ft --r50unfreezeL4
+
 python3 launcher.py --detector R50_TF --phases both --dataset subject/travel2_TR11 --ft --r50unfreezeL4
