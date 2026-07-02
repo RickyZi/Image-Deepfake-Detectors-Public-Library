@@ -23,9 +23,9 @@ class FTModel(torch.nn.Module):
         print(f"dataset: {dataset}")
         # breakpoint()
         if opt.ft and opt.r50unfreezeL4:
-            self.save_dir = os.path.join('checkpoint', opt.name, 'ft_unfreezeL4_weights')
+            self.save_dir = os.path.join('checkpoint', opt.name, 'ft_unfreezeL4_weights', dataset)
         else:
-            self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights')
+            self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights', dataset)
         # else:
             # print("no valid option for saving FT model")
         # self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights', dataset)

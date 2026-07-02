@@ -11,6 +11,8 @@ from utils.processing import add_processing_arguments
 from parser import get_parser
 import torch
 
+from utils.logger import create_logger
+
 if __name__ == "__main__":
     parser = get_parser()
     parser = add_processing_arguments(parser)
@@ -20,12 +22,16 @@ if __name__ == "__main__":
     # ------------------------------------------------------------------
     # Checkpoint directory
     # ------------------------------------------------------------------
+    dataset = opt.dataset.replace(os.sep, '_')
     if opt.ft and opt.mlp:
-        ckpt_dir = os.path.join('checkpoint', opt.name, 'ft_MLP_weights')
+        training_strategy = 'ft_MLP'
+        ckpt_dir = os.path.join('checkpoint', opt.name, 'ft_MLP_weights', dataset)
     elif opt.ft:
-        ckpt_dir = os.path.join('checkpoint', opt.name, 'ft_weights')
+        training_strategy = 'ft'
+        ckpt_dir = os.path.join('checkpoint', opt.name, 'ft_weights', dataset)
     else:
-        ckpt_dir = os.path.join('checkpoint', opt.name, 'weights')
+        training_strategy = 'pretrained'
+        ckpt_dir = os.path.join('checkpoint', opt.name, 'weights', dataset)
     os.makedirs(ckpt_dir, exist_ok=True)
  
     # ------------------------------------------------------------------
@@ -110,6 +116,23 @@ if __name__ == "__main__":
     start_epoch = model_wrapper.total_steps // len(train_data_loader)
     # print()
 
+
+    # log training info
+    logger = create_logger(os.path.join(ckpt_dir, 'train.log'))
+    logger.info(f"Model name: {opt.name}")
+    logger.info(f"Training strategy: {training_strategy}")
+    logger.info(f"Training dataset: {opt.data_keys}")
+    logger.info(f"Training dataset keys: {opt.data_keys.split('&')}")
+    logger.info(f"Number of training batches: {len(train_data_loader)}")
+    logger.info(f"Number of validation batches: {len(valid_data_loader)}")
+    logger.info(f"Starting training from epoch {start_epoch} (total_steps={model_wrapper.total_steps})")
+    logger.info(f"Checkpoint directory: {ckpt_dir}")
+    # learning rate, optimizer, early stopping
+    logger.info(f"Initial learning rate: {model_wrapper.get_learning_rate()}")
+    logger.info(f"Optimizer: {model_wrapper.optimizer.__class__.__name__}")
+    logger.info(f"Early stopping patience: {opt.earlystop_epoch} epochs")
+    logger.info(f"Learning rate {model_wrapper.get_learning_rate()} will be reduced by 10 if early stopping is triggered and training will continue until learning rate < 1e-6")
+
     for epoch in range(start_epoch, opt.num_epoches+1):
         if epoch > start_epoch:
             # Training
@@ -129,6 +152,7 @@ if __name__ == "__main__":
         auc = roc_auc_score(y_true, y_pred)
         lr = model_wrapper.get_learning_rate()
         print("After {} epoches: val acc = {}; val auc = {}".format(epoch, acc, auc), flush=True)
+        logger.info(f"After {epoch} epoches: val acc = {acc}; val auc = {auc}; learning rate = {lr}")
 
         # Early Stopping
         if early_stopping is None:
@@ -137,20 +161,27 @@ if __name__ == "__main__":
                 patience=opt.earlystop_epoch,
                 delta=0.001, 
                 verbose=True,
+                logger=logger
             )
             # print(f"early_stopping: {early_stopping}")
             # breakpoint()
             print('Save best model', flush=True)
             model_wrapper.save_networks('best')
+            logger.info(f"Save best model at epoch {epoch} with val acc = {acc}; val auc = {auc}; learning rate = {lr} - early stopping initialized with patience = {opt.earlystop_epoch} and delta = 0.001")
         else:
             if early_stopping(acc):
                 print('Save best model', flush=True)
                 model_wrapper.save_networks('best')
+                logger.info(f"Save best model at epoch {epoch} with val acc = {acc}; val auc = {auc}; learning rate = {lr}") # - early stop {early_stopping.count_down}/{opt.earlystop_epoch}")
+                # breakpoint()
             if early_stopping.early_stop:
                 cont_train = model_wrapper.adjust_learning_rate()
                 if cont_train:
                     print("Learning rate dropped by 10, continue training ...", flush=True)
                     early_stopping.reset_counter()
+                    logger.info(f"Learning rate dropped by 10, reset early stopping counter and continue training ...")
                 else:
                     print("Early stopping.", flush=True)
+                    logger.info(f"Early stopping at epoch {epoch} with val acc = {acc}; val auc = {auc}; learning rate = {lr}")
+                    logger.info(f"Best model was saved at epoch {early_stopping.best_epoch} with val acc = {early_stopping.best_score}; val auc = {early_stopping.best_auc}; learning rate = {early_stopping.best_lr}")
                     break

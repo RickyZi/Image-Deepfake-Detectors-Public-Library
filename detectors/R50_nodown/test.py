@@ -14,7 +14,9 @@ from parser import get_parser
 
 from datetime import datetime
 
-def test(loader, model, settings, device, timestamp):
+from utils.logger import create_logger
+
+def test(loader, model, settings, device):
     model.eval()
     
     start_time = time.time()
@@ -34,10 +36,15 @@ def test(loader, model, settings, device, timestamp):
     # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
     if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
         output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
     else:
         output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
     os.makedirs(output_dir, exist_ok=True)
     # --------------------------- #
+
+    # logger = create_logger(os.path.join(output_dir, 'test.log'))
+
     
     csv_filename = os.path.join(output_dir, 'results.csv')
     metrics_filename = os.path.join(output_dir, 'metrics.json')
@@ -67,6 +74,12 @@ def test(loader, model, settings, device, timestamp):
     # Write CSV header
     with open(csv_filename, 'w') as f:
         f.write(f"{','.join(['name', 'pro', 'flag'])}\n")
+
+
+    # log test settings info
+    logger.info(f"Testing model {settings.name} on dataset {settings.dataset} with data keys {settings.data_keys}")
+    logger.info(f"Testing settings: {json.dumps(vars(settings), indent=2, default=str)}")
+    logger.info(f"Training dataset keys used for model: {training_dataset_keys}")
     
     with torch.no_grad():
         with tqdm(loader, unit='batch', mininterval=0.5) as tbatch:
@@ -159,6 +172,11 @@ def test(loader, model, settings, device, timestamp):
     print(f'  AUC: {auc:.4f}')
     print(f'  Execution time: {execution_time:.2f} seconds')
 
+    logger.info(f"Metrics: {json.dumps(metrics, indent=2)}")
+    logger.info(f"Image results saved to {image_results_filename}")
+    logger.info(f"Metrics saved to {metrics_filename}")
+    logger.info(f"Execution time: {execution_time:.2f} seconds")
+
 if __name__ == '__main__':
     parser = get_parser()
     parser = add_processing_arguments(parser)
@@ -175,6 +193,20 @@ if __name__ == '__main__':
         test_dataloader = create_dataloader(settings, split='test')
     # breakpoint()
     
+    # create logger
+    # dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
+    # tag = 'ft' if settings.ft else 'pretrained'
+    # tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''
+    # print(f"test_tag: {tag}")
+    # # breakpoint()
+    # # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
+    # if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
+    #     output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_nodown_{tag}/' # change path to be outside detector folder
+    # else:
+    #     output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/' # change path to be outside detector folder
+
+    # logger = create_logger(os.path.join(output_dir, 'test.log'))
+
     model = create_architecture(settings.arch, pretrained=True, num_classes=1).to(device)
     num_parameters = count_parameters(model)
     print(f"Arch: {settings.arch} with #parameters {num_parameters}")
@@ -191,4 +223,4 @@ if __name__ == '__main__':
     model.load_state_dict(torch.load(load_path, map_location=device)['model'])
     model.to(device)
 
-    test(test_dataloader, model, settings, device, timestamp)
+    test(test_dataloader, model, settings, device)

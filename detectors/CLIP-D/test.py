@@ -14,6 +14,8 @@ from utils.processing import add_processing_arguments
 from parser import get_parser
 from networks.openclipnet import MLPHead
 
+from utils.logger import create_logger
+
 def test(loader, model, settings, device):
     model.eval()
     
@@ -35,10 +37,15 @@ def test(loader, model, settings, device):
 
     if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
         output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/CLIP-D_{tag}/{settings.data_keys}'
+        logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/CLIP-D_{tag}/', 'test.log'))
     else:
         output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/CLIP-D_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/CLIP-D_{tag}/', 'test.log'))
+    
     os.makedirs(output_dir, exist_ok=True)
     # --------------------------- #
+
+    # logger = create_logger(os.path.join(output_dir, 'test.log'))
     
     csv_filename = os.path.join(output_dir, 'results.csv')
     metrics_filename = os.path.join(output_dir, 'metrics.json')
@@ -66,6 +73,12 @@ def test(loader, model, settings, device):
     with open(csv_filename, 'w') as f:
         f.write(f"{','.join(['name', 'pro', 'flag'])}\n")
     
+
+    # log info on the test run
+    logger.info(f"Model name: {settings.name}")
+    logger.info(f"Test dataset: {settings.data_keys}")
+    logger.info(f"Test dataset keys: {settings.data_keys.split('&')}")
+
     with torch.no_grad():
         with tqdm(loader, unit='batch', mininterval=0.5) as tbatch:
             tbatch.set_description(f'Validation')
@@ -165,6 +178,16 @@ def test(loader, model, settings, device):
     print(f'  AUC: {auc:.4f}')
     print(f'  Execution time: {execution_time:.2f} seconds')
     # breakpoint()
+
+    # log results
+    logger.info(f"Metrics saved to {metrics_filename}")
+    logger.info(f"Image results saved to {image_results_filename}")
+    logger.info(f"Metrics:")
+    logger.info(f"  TPR: {tpr:.4f}")
+    logger.info(f"  TNR: {tnr:.4f}")
+    logger.info(f"  Accuracy: {total_accuracy:.4f}")
+    logger.info(f"  AUC: {auc:.4f}")
+    logger.info(f"  Execution time: {execution_time:.2f} seconds")
 
 if __name__ == '__main__':
     parser = get_parser()

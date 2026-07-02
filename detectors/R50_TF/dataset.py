@@ -142,19 +142,53 @@ class TrueFake_dataset(datasets.DatasetFolder):
     def __len__(self):
         return len(self.samples)
     
+    # def __getitem__(self, index):
+    #     path = self.samples[index]
+    #     mod, label, gen, sub = self.info[index]
+
+    #     image = Image.open(path).convert('RGB')
+    #     sample = self.transform_start(image)
+    #     if self.transform_aug:
+    #         sample = self.transform_aug['heavy' if mod == 'PreSocial' else 'light'](sample)
+    #     sample = self.transform_end(sample)
+
+    #     target = 1.0 if label == 'Fake' else 0.0
+        
+    #     return sample, target, path
+
     def __getitem__(self, index):
         path = self.samples[index]
-        mod, label, gen, sub = self.info[index]
-
-        image = Image.open(path).convert('RGB')
-        sample = self.transform_start(image)
-        if self.transform_aug:
-            sample = self.transform_aug['heavy' if mod == 'PreSocial' else 'light'](sample)
-        sample = self.transform_end(sample)
-
+        label, gen, sub = self.info[index]
+ 
+        # Retry loop: transient I/O failures under high worker concurrency can
+        # cause PIL to raise UnidentifiedImageError on valid files. A short
+        # sleep between attempts is enough for the filesystem to recover.
+        # Only treat the file as truly unreadable if all retries fail.
+        import time
+        last_exc = None
+        for attempt in range(3):
+            try:
+                sample = Image.open(path).convert('RGB')
+                last_exc = None
+                break
+            except Exception as e:
+                last_exc = e
+                if attempt < 2:
+                    print(f"[WARN] Attempt {attempt+1}/3 failed for {path}: {e} — retrying...")
+                    time.sleep(0.1 * (attempt + 1)) 
+ 
+        if last_exc is not None:
+            # All retries exhausted — file is genuinely unreadable.
+            # Re-raise so the problem is visible rather than silently injecting
+            # a dummy sample into training.
+            raise RuntimeError(
+                f"Failed to load image after 3 attempts: {path}"
+            ) from last_exc
+ 
+        sample = self.transform(sample)
         target = 1.0 if label == 'Fake' else 0.0
-        
-        return sample, target, path
+ 
+        return {'img': sample, 'target': target, 'path': path}
 
 def create_dataloader(settings, split=None):
     if split == "train":

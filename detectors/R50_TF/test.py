@@ -17,6 +17,8 @@ from tf2k_dataset import tf2k_create_dataloader
 
 from datetime import datetime
 
+from logger import create_logger
+
 def test(loader, model, settings, device):
     model.eval()
     
@@ -43,10 +45,14 @@ def test(loader, model, settings, device):
     # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
     if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
         output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.txt')
     else:
         output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.txt')
     os.makedirs(output_dir, exist_ok=True)
     # --------------------------- #
+
+    logger = create_logger(logger_path)
     
     csv_filename = os.path.join(output_dir, 'results.csv')
     metrics_filename = os.path.join(output_dir, 'metrics.json')
@@ -80,6 +86,15 @@ def test(loader, model, settings, device):
     with open(csv_filename, 'w') as f:
         f.write(f"{','.join(['name', 'pro', 'flag'])}\n")
     
+
+    # add info on the testing set
+    logger.info("=== Test settings ===")
+    
+    logger.info(f"Model name: {settings.name}_{tag}")
+    logger.info(f"Dataset: {dataset_dir_name}")
+    logger.info(f"Dataset keys: {dataset_keys}")
+    logger.info(f"Training dataset keys: {training_dataset_keys}")
+
     with torch.no_grad():
         with tqdm(loader, unit='batch', mininterval=0.5) as tbatch:
             tbatch.set_description(f'Validation')
@@ -169,6 +184,15 @@ def test(loader, model, settings, device):
     print(f'  Accuracy: {total_accuracy:.4f}')
     print(f'  AUC: {auc:.4f}')
     print(f'  Execution time: {execution_time:.2f} seconds')
+
+    logger.info(f'\nMetrics saved to {metrics_filename}')
+    logger.info(f'Image results saved to {image_results_filename}')
+    logger.info(f'\nMetrics:')
+    logger.info(f'  TPR: {tpr:.4f}')
+    logger.info(f'  TNR: {tnr:.4f}')
+    logger.info(f'  Accuracy: {total_accuracy:.4f}')
+    logger.info(f'  AUC: {auc:.4f}')
+    logger.info(f'  Execution time: {execution_time:.2f} seconds')
 
 if __name__ == "__main__":
     parser = get_parser()

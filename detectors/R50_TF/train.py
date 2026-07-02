@@ -15,6 +15,8 @@ from parser import get_parser
 from dataset import create_dataloader
 from sklearn.metrics import balanced_accuracy_score
 from tf2k_dataset import tf2k_create_dataloader
+from logger import create_logger
+import json
 
 def check_accuracy(val_dataloader, model, settings):
     model.eval()
@@ -43,6 +45,47 @@ def check_accuracy(val_dataloader, model, settings):
 def train(train_dataloader, val_dataloader, model, dataset, settings):
     best_accuracy = 0
     lr_decay_counter = 0
+
+    # ----------------------------------
+    # Logger
+    # ----------------------------------
+    print(f"logging results ")
+    if settings.freeze and settings.r50unfreezeL4:
+        save_dir = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{dataset}'
+        # torch.save(model.state_dict(), f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/best.pt')
+    elif settings.freeze:
+        save_dir = f'./checkpoint/{settings.name}/ft_weights/{dataset}'
+        # torch.save(model.state_dict(), f'./checkpoint/{settings.name}/ft_weights/best.pt')
+    else:
+        save_dir = f'./checkpoint/{settings.name}/weights'
+    # set up logger
+    log_path = save_dir + '/exp_log/output.log'
+    log = create_logger(log_path)
+    log.info(f"Training the R50_tf model on the {dataset} dataset - FT: {settings.freeze} - unfreezeL4: {settings.r50unfreezeL4}")
+    log.info(f"Training settings: {json.dumps(vars(settings), indent=2, default=str)}")
+    # breakpoint()
+    # # print some info on the model architecture
+    # log.info("Model informations:")
+    # log.info(f"Model Name: R50_TF")
+    # # log.info(f"Pretrained model weights: {pretrained_model_path if pretrained_model_path != '' else 'ImageNet pre-trained model weights'}")
+    # log.info(f"Optimizer: {optimizer}")
+    # log.info(f"Loss function: {criterion}")
+    # log.info(f"Learning rate: {settings.lr}")
+    # log.info(f"Learning rate decay epochs: {settings.lr_decay_epochs}")
+    # log.info(f"Learning rate minimum: {settings.lr_min}")
+    # log.info(f"Batch size: {settings.batch_size}")
+    # log.info(f"Number of epochs: {settings.num_epochs}")
+
+    # log.info(f"Resume training from epoch: ", checkpoint['epoch']+1) if args.resume else print("training model from scratch")
+    # log.info(f"Early Stopping-Patience: {patience}")
+    # log.info(f"Dataset: {dataset}")
+    # log.info(f"Dataset path: {settings.data_root}")
+    # log.info(f"Split file: {settings.split_file}")
+    # log.info(f"{train_transform}")
+    # log.info(f"Model path: {model_path}")
+    log.info(f"Training the model...")
+
+
     for epoch in range(0, settings.num_epoches):
         model.train()
         with tqdm(train_dataloader, unit='batch', mininterval=0.5) as tepoch:
@@ -63,23 +106,18 @@ def train(train_dataloader, val_dataloader, model, dataset, settings):
                     tepoch.set_postfix(loss=loss.item())
 
         accuracy = check_accuracy(val_dataloader, model, settings)
-
+        log.info(f"Epoch {epoch} - Validation accuracy: {accuracy:.4f}")
         if accuracy > best_accuracy:
             best_accuracy = accuracy
-            if settings.freeze and settings.r50unfreezeL4:
-                save_dir = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{dataset}'
-                # torch.save(model.state_dict(), f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/best.pt')
-            elif settings.freeze:
-                save_dir = f'./checkpoint/{settings.name}/ft_weights/{dataset}'
-                # torch.save(model.state_dict(), f'./checkpoint/{settings.name}/ft_weights/best.pt')
-            else:
-                save_dir = f'./checkpoint/{settings.name}/weights'
+            
             
             os.makedirs(save_dir, exist_ok=True)
             torch.save(model.state_dict(), os.path.join(save_dir, 'best.pt'))
 
             print(f'New best model saved with accuracy {best_accuracy:.4f} \n')
             lr_decay_counter = 0
+            log.info(f"Epoch {epoch} - New best model saved with accuracy {best_accuracy:.4f} - lr_decay_counter: {lr_decay_counter}")
+            
 
         elif settings.lr_decay_epochs > 0:
             lr_decay_counter += 1
@@ -88,10 +126,14 @@ def train(train_dataloader, val_dataloader, model, dataset, settings):
                     for param_group in optimizer.param_groups:
                         param_group['lr'] *= 0.1
                     print('Learning rate decayed \n')
+                    log.info(f"Epoch {epoch} - Learning rate decayed - lr_decay_counter: {lr_decay_counter}")
                     lr_decay_counter = 0
                 else:
                     print('Learning rate already at minimum \n')
+                    log.info(f"Epoch {epoch} - Learning rate already at minimum - lr_decay_counter: {lr_decay_counter}")
                     break
+    
+    log.info(f"Training completed. Best accuracy: {best_accuracy:.4f} - number of Epochs: {epoch+1}")
 
 if __name__ == "__main__":
     parser = get_parser()
