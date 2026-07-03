@@ -39,14 +39,16 @@ class EarlyStopping:
             self.count_down -= 1
             if self.verbose:
                 print(f'EarlyStopping count_down: {self.count_down} on {self.patience}')
-                self.logger.info(f'EarlyStopping count_down: {self.count_down} on {self.patience}')
+                if self.logger:
+                    self.logger.info(f'EarlyStopping count_down: {self.count_down} on {self.patience}')
             if self.count_down <= 0:
                 self.early_stop = True
             return False
         else:
             if self.verbose:
                 print(f'Score increased from ({self.best_score:.6f} to {score:.6f}).')
-                self.logger.info(f'Score increased from ({self.best_score:.6f} to {score:.6f}).')
+                if self.logger:
+                    self.logger.info(f'Score increased from ({self.best_score:.6f} to {score:.6f}).')
             self.best_score = score
             self.count_down = self.patience
             return True

@@ -15,8 +15,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ''' 
 
-from .dataset import create_dataloader
-from .training import TrainingModel
+# from .dataset import create_dataloader
+# from .training import TrainingModel
 class EarlyStopping:
     def __init__(self, init_score=None, patience=1, verbose=False, delta=0, logger=None):
         self.best_score = init_score
@@ -47,7 +47,7 @@ class EarlyStopping:
         else:
             if self.verbose:
                 print(f'Score increased from ({self.best_score:.6f} to {score:.6f}).')
-                if self.logger:
+                if self.logger:    
                     self.logger.info(f'Score increased from ({self.best_score:.6f} to {score:.6f}).')
             self.best_score = score
             self.count_down = self.patience

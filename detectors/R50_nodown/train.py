@@ -102,6 +102,7 @@ if __name__ == "__main__":
                 patience=opt.earlystop_epoch, # set to 5 -> try to increase it to 10/15
                 delta=0.001, # increase it to 0.005?
                 verbose=True,
+                logger = logger
             )
             # print(f"early_stopping: {early_stopping}")
             # breakpoint()

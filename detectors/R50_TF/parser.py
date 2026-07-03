@@ -24,6 +24,8 @@ def get_parser():
     parser.add_argument("--num_threads", type=int, default=14, help='# threads for loading data') 
 
     # ----------------------------------- #
+    # early stopping epochs flag
+    parser.add_argument("--earlystop_epoch", type=int, default=5, help="Number of epochs without loss reduction before lowering the learning rate")
     # add ft flag
     parser.add_argument('--ft', action='store_true', help='Path to pretrained model to load')
 

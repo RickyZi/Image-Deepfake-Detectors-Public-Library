@@ -1,5 +1,6 @@
 # ----------------------------------------------------------------------------
 # IMPORTS
+# Added EarlyStopping for FT the model on 2k dataset
 # ----------------------------------------------------------------------------
 import os
 os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
@@ -12,11 +13,12 @@ import torch.optim as optim
 
 from networks import ImageClassifier
 from parser import get_parser
-from dataset import create_dataloader
+from utils.dataset import create_dataloader
 from sklearn.metrics import balanced_accuracy_score
-from tf2k_dataset import tf2k_create_dataloader
-from logger import create_logger
+from utils.tf2k_dataset import tf2k_create_dataloader
+from utils.logger import create_logger
 import json
+from utils import EarlyStopping
 
 def check_accuracy(val_dataloader, model, settings):
     model.eval()
@@ -42,10 +44,7 @@ def check_accuracy(val_dataloader, model, settings):
     return accuracy
 
 
-def train(train_dataloader, val_dataloader, model, dataset, settings):
-    best_accuracy = 0
-    lr_decay_counter = 0
-
+def train(train_dataloader, val_dataloader, model, optimizer, dataset, settings):
     # ----------------------------------
     # Logger
     # ----------------------------------
@@ -83,6 +82,10 @@ def train(train_dataloader, val_dataloader, model, dataset, settings):
     # log.info(f"Split file: {settings.split_file}")
     # log.info(f"{train_transform}")
     # log.info(f"Model path: {model_path}")
+
+    early_stopping = None
+    log.info(f"Early stopping enabled - patience: {settings.earlystop_epoch} epochs")
+
     log.info(f"Training the model...")
 
 
@@ -107,33 +110,42 @@ def train(train_dataloader, val_dataloader, model, dataset, settings):
 
         accuracy = check_accuracy(val_dataloader, model, settings)
         log.info(f"Epoch {epoch} - Validation accuracy: {accuracy:.4f}")
-        if accuracy > best_accuracy:
-            best_accuracy = accuracy
-            
-            
+
+        if early_stopping is None:
+            # First validation pass: initialize EarlyStopping with this score as
+            # the baseline and always save it as the current best.
+            early_stopping = EarlyStopping(
+                init_score=accuracy,
+                patience=settings.earlystop_epoch,
+                delta=0.001, 
+                verbose=True,
+                logger=log,
+            )
             os.makedirs(save_dir, exist_ok=True)
             torch.save(model.state_dict(), os.path.join(save_dir, 'best.pt'))
+            print(f'Save best model at epoch {epoch} with val accuracy = {accuracy:.4f} \n')
+            # log.info(f"Epoch {epoch} - Save best model - early stopping initialized with patience={settings.patience}, min_delta={settings.min_delta}")
+            log.info(f"Save best model at epoch {epoch} with val acc = {accuracy} - early stopping initialized with patience = {settings.earlystop_epoch} and delta = 0.001")
+        else:
+            if early_stopping(accuracy):
+                os.makedirs(save_dir, exist_ok=True)
+                torch.save(model.state_dict(), os.path.join(save_dir, 'best.pt'))
+                print(f'New best model saved with accuracy {accuracy:.4f} \n')
+                log.info(f"Epoch {epoch} - New best model saved with accuracy {accuracy:.4f} - EarlyStopping count_down: {early_stopping.count_down} on {early_stopping.patience}")
 
-            print(f'New best model saved with accuracy {best_accuracy:.4f} \n')
-            lr_decay_counter = 0
-            log.info(f"Epoch {epoch} - New best model saved with accuracy {best_accuracy:.4f} - lr_decay_counter: {lr_decay_counter}")
-            
-
-        elif settings.lr_decay_epochs > 0:
-            lr_decay_counter += 1
-            if lr_decay_counter == settings.lr_decay_epochs:
+            if early_stopping.early_stop:
                 if optimizer.param_groups[0]['lr'] > settings.lr_min:
                     for param_group in optimizer.param_groups:
                         param_group['lr'] *= 0.1
-                    print('Learning rate decayed \n')
-                    log.info(f"Epoch {epoch} - Learning rate decayed - lr_decay_counter: {lr_decay_counter}")
-                    lr_decay_counter = 0
+                    print('Learning rate decayed, resetting early-stopping counter and continuing \n')
+                    log.info(f"Epoch {epoch} - Learning rate decayed to {optimizer.param_groups[0]['lr']:.2e} - reset early stopping counter and continue training")
+                    early_stopping.reset_counter()
                 else:
-                    print('Learning rate already at minimum \n')
-                    log.info(f"Epoch {epoch} - Learning rate already at minimum - lr_decay_counter: {lr_decay_counter}")
+                    print(f'Early stopping triggered at epoch {epoch} - learning rate already at minimum, no improvement for {early_stopping.patience} epochs \n')
+                    log.info(f"Epoch {epoch} - Early stopping - learning rate already at minimum, no improvement for {early_stopping.patience} epochs")
                     break
-    
-    log.info(f"Training completed. Best accuracy: {best_accuracy:.4f} - number of Epochs: {epoch+1}")
+
+    log.info(f"Training completed. Best accuracy: {early_stopping.best_score:.4f} - number of Epochs: {epoch+1}")
 
 if __name__ == "__main__":
     parser = get_parser()
@@ -170,4 +182,4 @@ if __name__ == "__main__":
 
     criterion = nn.BCEWithLogitsLoss(reduction='none')
 
-    train(train_dataloader, val_dataloader, model, dataset, settings)
+    train(train_dataloader, val_dataloader, model, optimizer, dataset, settings)

@@ -1,0 +1,52 @@
+[
+  {
+    "timestamp": "2026-07-02 00:26:06",
+    "model": "pretrained",
+    "dataset": "landscape_LN01",
+    "phase": "ft",
+    "split": "val",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/tf2k_lr_org/subject/landscape_LN01/Fake/StableDiffusion1.5/animals/00409.jpg",
+    "error": "cannot identify image file '/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/tf2k_lr_org/subject/landscape_LN01/Fake/StableDiffusion1.5/animals/00409.jpg'"
+  },
+  {
+    "timestamp": "2026-07-02 09:25:19",
+    "model": "pretrained",
+    "dataset": "landscape_LN01",
+    "phase": "ft",
+    "split": "val",
+    "data_keys": "realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre",
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/tf2k_lr_org/subject/landscape_LN01/Fake/StableDiffusion1.5/animals/00409.jpg",
+    "error": "cannot identify image file '/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/tf2k_lr_org/subject/landscape_LN01/Fake/StableDiffusion1.5/animals/00409.jpg'"
+  },
+  {
+    "timestamp": "2026-07-02 09:39:20",
+    "model": "pretrained",
+    "dataset": "landscape_LN01",
+    "phase": "ft",
+    "split": "val",
+    "data_keys": "realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre",
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/tf2k_lr_org/subject/landscape_LN01/Fake/StableDiffusion1.5/animals/00409.jpg",
+    "error": "cannot identify image file '/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/tf2k_lr_org/subject/landscape_LN01/Fake/StableDiffusion1.5/animals/00409.jpg'"
+  },
+  {
+    "timestamp": "2026-07-02 09:44:51",
+    "model": "pretrained",
+    "dataset": "landscape_LN01",
+    "phase": "ft",
+    "split": "val",
+    "data_keys": "realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre",
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/tf2k_lr_org/subject/landscape_LN01/Fake/StableDiffusion1.5/animals/00409.jpg",
+    "error": "cannot identify image file '/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/tf2k_lr_org/subject/landscape_LN01/Fake/StableDiffusion1.5/animals/00409.jpg'"
+  },
+  {
+    "timestamp": "2026-07-02 10:01:47",
+    "model": "pretrained",
+    "dataset": "landscape_LN01",
+    "phase": "ft",
+    "split": "val",
+    "data_keys": "realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre",
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/tf2k_lr_org/subject/landscape_LN01/Fake/StableDiffusion1.5/animals/00409.jpg",
+    "error": "cannot identify image file '/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/tf2k_lr_org/subject/landscape_LN01/Fake/StableDiffusion1.5/animals/00409.jpg'"
+  }
+]

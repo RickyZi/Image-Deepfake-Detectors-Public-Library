@@ -12,12 +12,12 @@ from sklearn.metrics import roc_auc_score, accuracy_score
 
 from networks import ImageClassifier
 from parser import get_parser
-from dataset import create_dataloader
-from tf2k_dataset import tf2k_create_dataloader
+from utils.dataset import create_dataloader
+from utils.tf2k_dataset import tf2k_create_dataloader
 
 from datetime import datetime
 
-from logger import create_logger
+from utils.logger import create_logger
 
 def test(loader, model, settings, device):
     model.eval()
