@@ -20,6 +20,22 @@ from utils.logger import create_logger
 import json
 from utils import EarlyStopping
 
+def find_last_checkpoint(save_dir):
+    """Look for the highest-numbered '{epoch}.pt' checkpoint in save_dir.
+    Returns (epoch, path) or None if no per-epoch checkpoint exists."""
+    if not os.path.isdir(save_dir):
+        return None
+    candidates = []
+    for fname in os.listdir(save_dir):
+        name, ext = os.path.splitext(fname)
+        if ext == '.pt' and name.isdigit():
+            candidates.append(int(name))
+    if not candidates:
+        return None
+    last_epoch = max(candidates)
+    return last_epoch, os.path.join(save_dir, f'{last_epoch}.pt')
+
+
 def check_accuracy(val_dataloader, model, settings):
     model.eval()
     
@@ -58,38 +74,68 @@ def train(train_dataloader, val_dataloader, model, optimizer, dataset, settings)
     else:
         save_dir = f'./checkpoint/{settings.name}/weights'
     # set up logger
-    log_path = save_dir + '/exp_log/output.log'
+    log_path = save_dir + '/train.log'
     log = create_logger(log_path)
     log.info(f"Training the R50_tf model on the {dataset} dataset - FT: {settings.freeze} - unfreezeL4: {settings.r50unfreezeL4}")
     log.info(f"Training settings: {json.dumps(vars(settings), indent=2, default=str)}")
     # breakpoint()
-    # # print some info on the model architecture
-    # log.info("Model informations:")
-    # log.info(f"Model Name: R50_TF")
-    # # log.info(f"Pretrained model weights: {pretrained_model_path if pretrained_model_path != '' else 'ImageNet pre-trained model weights'}")
-    # log.info(f"Optimizer: {optimizer}")
-    # log.info(f"Loss function: {criterion}")
-    # log.info(f"Learning rate: {settings.lr}")
-    # log.info(f"Learning rate decay epochs: {settings.lr_decay_epochs}")
-    # log.info(f"Learning rate minimum: {settings.lr_min}")
-    # log.info(f"Batch size: {settings.batch_size}")
-    # log.info(f"Number of epochs: {settings.num_epochs}")
-
-    # log.info(f"Resume training from epoch: ", checkpoint['epoch']+1) if args.resume else print("training model from scratch")
-    # log.info(f"Early Stopping-Patience: {patience}")
-    # log.info(f"Dataset: {dataset}")
-    # log.info(f"Dataset path: {settings.data_root}")
-    # log.info(f"Split file: {settings.split_file}")
-    # log.info(f"{train_transform}")
-    # log.info(f"Model path: {model_path}")
+    
 
     early_stopping = None
+    start_epoch = 1
+
     log.info(f"Early stopping enabled - patience: {settings.earlystop_epoch} epochs")
+
+    if settings.resume:
+        found = find_last_checkpoint(save_dir)
+        if found is not None:
+            last_epoch, ckpt_path = found
+            checkpoint = torch.load(ckpt_path, map_location=device, weights_only=False)
+
+            if isinstance(checkpoint, dict) and 'model_state_dict' in checkpoint:
+                # Full resume checkpoint written by this script.
+                model.load_state_dict(checkpoint['model_state_dict'])
+                if 'optimizer_state_dict' in checkpoint:
+                    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+                es_best_score = checkpoint.get('early_stopping_best_score')
+                es_count_down = checkpoint.get('early_stopping_count_down')
+            else:
+                # Fallback: file at this path is a plain model state_dict (e.g.
+                # left behind by an interrupted run before the full checkpoint
+                # got written - see the note about the mid-loop save below).
+                # We can still recover the weights and the epoch number (from
+                # the filename), but optimizer momentum and early-stopping
+                # counters can't be reconstructed, so they restart clean.
+                model.load_state_dict(checkpoint)
+                es_best_score = None
+                es_count_down = None
+                print(f'Warning: {ckpt_path} is not a full resume checkpoint - loaded model weights only; '
+                      f'optimizer and early-stopping state were reset \n')
+                log.info(f"Checkpoint {ckpt_path} missing 'model_state_dict' key - loaded as a raw state_dict; "
+                         f"optimizer and early-stopping state could not be restored")
+
+            start_epoch = last_epoch + 1
+
+            if es_best_score is not None:
+                early_stopping = EarlyStopping(
+                    init_score=es_best_score,
+                    patience=settings.earlystop_epoch,
+                    delta=0.001,
+                    verbose=True,
+                    logger=log,
+                )
+                early_stopping.count_down = es_count_down if es_count_down is not None else settings.earlystop_epoch
+            print(f'Resuming training from epoch {start_epoch} (loaded {ckpt_path}) \n')
+            log.info(f"Resumed from checkpoint {ckpt_path} - starting at epoch {start_epoch}, early_stopping best_score={getattr(early_stopping, 'best_score', None)}, count_down={getattr(early_stopping, 'count_down', None)}")
+
+        else:
+            print(f'--resume set but no checkpoint found in {save_dir} - starting fresh \n')
+            log.info(f"--resume set but no checkpoint found in {save_dir} - starting fresh")
 
     log.info(f"Training the model...")
 
 
-    for epoch in range(0, settings.num_epoches):
+    for epoch in range(start_epoch, settings.num_epoches+1):
         model.train()
         with tqdm(train_dataloader, unit='batch', mininterval=0.5) as tepoch:
             tepoch.set_description(f'Epoch {epoch}', refresh=False)
@@ -133,19 +179,39 @@ def train(train_dataloader, val_dataloader, model, optimizer, dataset, settings)
                 print(f'New best model saved with accuracy {accuracy:.4f} \n')
                 log.info(f"Epoch {epoch} - New best model saved with accuracy {accuracy:.4f} - EarlyStopping count_down: {early_stopping.count_down} on {early_stopping.patience}")
 
-            if early_stopping.early_stop:
-                if optimizer.param_groups[0]['lr'] > settings.lr_min:
-                    for param_group in optimizer.param_groups:
-                        param_group['lr'] *= 0.1
-                    print('Learning rate decayed, resetting early-stopping counter and continuing \n')
-                    log.info(f"Epoch {epoch} - Learning rate decayed to {optimizer.param_groups[0]['lr']:.2e} - reset early stopping counter and continue training")
-                    early_stopping.reset_counter()
-                else:
-                    print(f'Early stopping triggered at epoch {epoch} - learning rate already at minimum, no improvement for {early_stopping.patience} epochs \n')
-                    log.info(f"Epoch {epoch} - Early stopping - learning rate already at minimum, no improvement for {early_stopping.patience} epochs")
-                    break
+        # Save a full per-epoch checkpoint (model + optimizer + early-stopping
+        # state) so training can be resumed exactly where it left off. This is
+        # separate from best.pt, which stays a plain state_dict for test.py.
+        os.makedirs(save_dir, exist_ok=True)
+        epoch_checkpoint = {
+            'epoch': epoch,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'early_stopping_best_score': early_stopping.best_score,
+            'early_stopping_count_down': early_stopping.count_down,
+        }
+        torch.save(epoch_checkpoint, os.path.join(save_dir, f'{epoch}.pt'))
+        log.info(f"Epoch {epoch} - Saved resume checkpoint to {epoch}.pt")
+
+        if early_stopping.early_stop:
+            print(f'Early stopping triggered at epoch {epoch} - no improvement for {settings.earlystop_epoch} epochs \n')
+            log.info(f"Epoch {epoch} - Early stopping - no improvement for {settings.earlystop_epoch} epochs")
+            break
 
     log.info(f"Training completed. Best accuracy: {early_stopping.best_score:.4f} - number of Epochs: {epoch+1}")
+
+    # Training finished (either ran all epochs or early-stopped for good) -
+    # the per-epoch checkpoints were only needed to support --resume, so
+    # clean them up now and keep just best.pt.
+    removed = 0
+    for fname in os.listdir(save_dir):
+        name, ext = os.path.splitext(fname)
+        if ext == '.pt' and name.isdigit():
+            os.remove(os.path.join(save_dir, fname))
+            removed += 1
+    print(f'Removed {removed} intermediate epoch checkpoint(s), kept best.pt \n')
+    log.info(f"Removed {removed} intermediate epoch checkpoint(s) from {save_dir} - kept best.pt")
+
 
 if __name__ == "__main__":
     parser = get_parser()

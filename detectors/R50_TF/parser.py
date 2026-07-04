@@ -15,6 +15,7 @@ def get_parser():
     parser.add_argument("--lr", type=float, default=0.0001, help="initial learning rate")
     parser.add_argument("--lr_decay_epochs",type=int, default=5, help="Number of epochs without loss reduction before lowering the learning rate by 10x")
     parser.add_argument("--lr_min",type=float, default=1e-7, help="Number of epochs without loss reduction before lowering the learning rate by 10x")
+    # parser.add_argument("--max_lr_decays", type=int, default=1, help="Max number of LR decay-and-reset cycles before stopping for good, regardless of lr_min")
 
     parser.add_argument("--split_file", type=str, help="Path to split json")
     parser.add_argument("--data_root", type=str, help="Path to dataset")
@@ -36,6 +37,7 @@ def get_parser():
     parser.add_argument('--dataset', type = str, default = 'dataset', help = 'Which dataset to use (default: dataset)') # add custom dataset for demo
 
     parser.add_argument('--r50unfreezeL4', action='store_true', help='Unfreeze layer 4 when FT ResNet models')
+    parser.add_argument('--resume', action='store_true', help='Resume training from the last saved per-epoch checkpoint in the run\'s checkpoint dir')
     # ----------------------------------- #
     
     return parser
