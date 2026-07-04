@@ -207,6 +207,7 @@ def main():
     parser.add_argument('--ft', action = 'store_true', help = 'Path to pretrained model to load') ## for FT model (os just --ft flag?)
     parser.add_argument('--tf2k', type = bool, default = False, help = 'Use 2k dataset and splits for training and testing') ## for FT model (os just --ft flag?)
     parser.add_argument('--r50unfreezeL4', action='store_true', help='Unfreeze layer 4 when FT ResNet models')
+    parser.add_argument('--resume', action='store_true', help='Resume training from the last saved per-epoch checkpoint in the run\'s checkpoint dir')
     # --------------------------- #
     parser.add_argument('--demo', action='store_true', help='Run demo on demo_images across detectors')
     # --------------------------- #
@@ -386,6 +387,9 @@ def main():
 
         if args.mlp:
             cmd_args.append(f'--mlp')
+
+        if args.resume:
+            cmd_args.append(f'--resume')
 
         device = None
         if device_override is not None:
