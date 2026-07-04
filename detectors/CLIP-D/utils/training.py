@@ -133,18 +133,21 @@ class TrainingModel(torch.nn.Module):
         self.optimizer.step()
         return loss.cpu()
 
-    def save_networks(self, epoch):
+    def save_networks(self, epoch, extra=None):
         save_filename = f'{epoch}.pt'
         save_path = os.path.join(self.save_dir, save_filename)
-
+ 
         # serialize model and optimizer to dict
         state_dict = {
             'model': self.model.state_dict(),
             'optimizer': self.optimizer.state_dict(),
             'total_steps': self.total_steps,
         }
-
+        if extra:
+            state_dict.update(extra)
+ 
         torch.save(state_dict, save_path)
+
 
     def predict(self, data_loader):
         model = self.model.eval()

@@ -13,6 +13,22 @@ import torch
 
 from utils.logger import create_logger
 
+def find_last_checkpoint(save_dir):
+    """Look for the highest-numbered '{epoch}.pt' checkpoint in save_dir.
+    Returns (epoch, path) or None if no per-epoch checkpoint exists."""
+    if not os.path.isdir(save_dir):
+        return None
+    candidates = []
+    for fname in os.listdir(save_dir):
+        name, ext = os.path.splitext(fname)
+        if ext == '.pt' and name.isdigit():
+            candidates.append(int(name))
+    if not candidates:
+        return None
+    last_epoch = max(candidates)
+    return last_epoch, os.path.join(save_dir, f'{last_epoch}.pt')
+
+
 if __name__ == "__main__":
     parser = get_parser()
     parser = add_processing_arguments(parser)
@@ -133,6 +149,31 @@ if __name__ == "__main__":
     logger.info(f"Early stopping patience: {opt.earlystop_epoch} epochs")
     logger.info(f"Learning rate {model_wrapper.get_learning_rate()} will be reduced by 10 if early stopping is triggered and training will continue until learning rate < 1e-6")
 
+
+    if opt.resume:
+        found = find_last_checkpoint(ckpt_dir)
+        if found is not None:
+            last_epoch, ckpt_path = found
+            checkpoint = model_wrapper.load_checkpoint(ckpt_path)
+ 
+            es_best_score = checkpoint.get('early_stopping_best_score')
+            es_count_down = checkpoint.get('early_stopping_count_down')
+            if es_best_score is not None:
+                early_stopping = EarlyStopping(
+                    init_score=es_best_score,
+                    patience=opt.earlystop_epoch,
+                    delta=0.001,
+                    verbose=True,
+                    logger = logger
+                )
+                early_stopping.count_down = es_count_down if es_count_down is not None else opt.earlystop_epoch
+ 
+            start_epoch = last_epoch + 1
+            print(f'Resuming training from epoch {start_epoch} (loaded {ckpt_path})', flush=True)
+        else:
+            print(f'--resume set but no checkpoint found in {ckpt_dir} - starting fresh', flush=True)
+ 
+
     for epoch in range(start_epoch, opt.num_epoches+1):
         if epoch > start_epoch:
             # Training
@@ -154,34 +195,77 @@ if __name__ == "__main__":
         print("After {} epoches: val acc = {}; val auc = {}".format(epoch, acc, auc), flush=True)
         logger.info(f"After {epoch} epoches: val acc = {acc}; val auc = {auc}; learning rate = {lr}")
 
+
         # Early Stopping
         if early_stopping is None:
             early_stopping = EarlyStopping(
-                init_score=acc, 
-                patience=opt.earlystop_epoch,
-                delta=0.001, 
-                verbose=True,
-                logger=logger
+                init_score=acc, patience=opt.earlystop_epoch,
+                delta=0.001, verbose=True,
             )
-            # print(f"early_stopping: {early_stopping}")
-            # breakpoint()
             print('Save best model', flush=True)
             model_wrapper.save_networks('best')
-            logger.info(f"Save best model at epoch {epoch} with val acc = {acc}; val auc = {auc}; learning rate = {lr} - early stopping initialized with patience = {opt.earlystop_epoch} and delta = 0.001")
         else:
             if early_stopping(acc):
                 print('Save best model', flush=True)
                 model_wrapper.save_networks('best')
-                logger.info(f"Save best model at epoch {epoch} with val acc = {acc}; val auc = {auc}; learning rate = {lr}") # - early stop {early_stopping.count_down}/{opt.earlystop_epoch}")
-                # breakpoint()
-            if early_stopping.early_stop:
-                cont_train = model_wrapper.adjust_learning_rate()
-                if cont_train:
-                    print("Learning rate dropped by 10, continue training ...", flush=True)
-                    early_stopping.reset_counter()
-                    logger.info(f"Learning rate dropped by 10, reset early stopping counter and continue training ...")
-                else:
-                    print("Early stopping.", flush=True)
-                    logger.info(f"Early stopping at epoch {epoch} with val acc = {acc}; val auc = {auc}; learning rate = {lr}")
-                    logger.info(f"Best model was saved at epoch {early_stopping.best_epoch} with val acc = {early_stopping.best_score}; val auc = {early_stopping.best_auc}; learning rate = {early_stopping.best_lr}")
-                    break
+ 
+        # Save a full per-epoch checkpoint (model + optimizer + total_steps +
+        # early-stopping state) so training can be resumed exactly where it
+        # left off. Separate from 'best.pt', which stays weights-only.
+        model_wrapper.save_networks(epoch, extra={
+            'early_stopping_best_score': early_stopping.best_score,
+            'early_stopping_count_down': early_stopping.count_down,
+        })
+ 
+        if early_stopping.early_stop:
+            cont_train = model_wrapper.adjust_learning_rate()
+            if cont_train:
+                print("Learning rate dropped by 10, continue training ...", flush=True)
+                early_stopping.reset_counter()
+            else:
+                print("Early stopping.", flush=True)
+                break
+
+
+    # training finished ->  clean them up now and keep just best.pt.
+    removed = 0
+    for fname in os.listdir(model_wrapper.save_dir):
+        name, ext = os.path.splitext(fname)
+        if ext == '.pt' and name.isdigit():
+            os.remove(os.path.join(model_wrapper.save_dir, fname))
+            removed += 1
+    print(f'Removed {removed} intermediate epoch checkpoint(s), kept best.pt', flush=True)
+
+
+
+        # # Early Stopping
+        # if early_stopping is None:
+        #     early_stopping = EarlyStopping(
+        #         init_score=acc, 
+        #         patience=opt.earlystop_epoch,
+        #         delta=0.001, 
+        #         verbose=True,
+        #         logger=logger
+        #     )
+        #     # print(f"early_stopping: {early_stopping}")
+        #     # breakpoint()
+        #     print('Save best model', flush=True)
+        #     model_wrapper.save_networks('best')
+        #     logger.info(f"Save best model at epoch {epoch} with val acc = {acc}; val auc = {auc}; learning rate = {lr} - early stopping initialized with patience = {opt.earlystop_epoch} and delta = 0.001")
+        # else:
+        #     if early_stopping(acc):
+        #         print('Save best model', flush=True)
+        #         model_wrapper.save_networks('best')
+        #         logger.info(f"Save best model at epoch {epoch} with val acc = {acc}; val auc = {auc}; learning rate = {lr}") # - early stop {early_stopping.count_down}/{opt.earlystop_epoch}")
+        #         # breakpoint()
+        #     if early_stopping.early_stop:
+        #         cont_train = model_wrapper.adjust_learning_rate()
+        #         if cont_train:
+        #             print("Learning rate dropped by 10, continue training ...", flush=True)
+        #             early_stopping.reset_counter()
+        #             logger.info(f"Learning rate dropped by 10, reset early stopping counter and continue training ...")
+        #         else:
+        #             print("Early stopping.", flush=True)
+        #             logger.info(f"Early stopping at epoch {epoch} with val acc = {acc}; val auc = {auc}; learning rate = {lr}")
+        #             logger.info(f"Best model was saved at epoch {early_stopping.best_epoch} with val acc = {early_stopping.best_score}; val auc = {early_stopping.best_auc}; learning rate = {early_stopping.best_lr}")
+        #             break

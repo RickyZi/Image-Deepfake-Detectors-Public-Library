@@ -36,6 +36,7 @@ def get_parser():
     parser.add_argument('--mlp', action = 'store_true', help = 'If true add MLP head to CLIP-D')
     parser.add_argument('--mlp_hidden',  type=int,   default=256)
     parser.add_argument('--mlp_dropout', type=float, default=0.3)
+    parser.add_argument('--resume', action='store_true', help='Resume training from the last saved per-epoch checkpoint in the run\'s checkpoint dir')
     # ----------------------------------- #
     
     return parser
