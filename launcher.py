@@ -224,6 +224,7 @@ def main():
     detect_group.add_argument('--weights', type=str, default='pretrained', help='Path to model weights for detection')
     detect_group.add_argument('--output', type=str, help='Path to save detection results')
     detect_group.add_argument('--dry-run', action='store_true', help='Print commands without executing')
+    parser.add_argument('--resume', action='store_true', help='Resume training from the last saved per-epoch checkpoint in the run\'s checkpoint dir')
 
     #  python launcher.py --detect --detector model_name --image path/to/img.jpg --weights pretrained or demo
     #  python3 launcher.py --detector R50_nodown --phases train --weights-name pretrained --ft # FT test 
@@ -262,15 +263,19 @@ def main():
     # get tf dataset path
 
     config_dataset_path = global_config.get('dataset_path')
-    if 'truefake_2k' in config_dataset_path:
-        args.tf2k = True # used to remove mod from dataset preprocessing
-        print(f"Dataset TF2K: setting --tf2k flag to True")
+    # if 'truefake_2k' in config_dataset_path:
+    #     args.tf2k = True # used to remove mod from dataset preprocessing
+    #     print(f"Dataset TF2K: setting --tf2k flag to True")
         # print(args.dataset)
         # dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_lr_org', args.dataset)
         # LIGHTROOM data
-        if 'seasons' in args.dataset or 'style' in args.dataset or 'adaptive' in args.dataset or 'subject' in args.dataset:
+    if 'seasons' in args.dataset or 'style' in args.dataset or 'adaptive' in args.dataset or 'subject' in args.dataset:
+            args.tf2k = True # used to remove mod from dataset preprocessing
+            print(f"Dataset TF2K: setting --tf2k flag to True")
             print(args.dataset)
-            dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_lr_org', args.dataset)
+            dataset_path = os.path.join(global_config.get('dataset_path', ''), args.dataset)
+            # dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_lr_org', args.dataset)
+
             # i.e. seasons/autumn_01 -> truefake_2k/tf2k_lr_org/seasons/autumn_01
             # dataset_path = './truefake_2k'
             # join dataset with datset_path from config
@@ -279,7 +284,9 @@ def main():
             # args.tf2k = True # used to remove mod from dataset preprocessing
             # breakpoint()
             split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
-        else:
+    elif 'Facebook' in args.dataset or 'Telegram' in args.dataset or 'Twitter' in args.dataset:
+            args.tf2k = True # used to remove mod from dataset preprocessing
+            print(f"Dataset TF2K: setting --tf2k flag to True")
             print("loading social data")
             print(args.dataset)
             dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_social', args.dataset)
@@ -386,6 +393,9 @@ def main():
 
         if args.mlp:
             cmd_args.append(f'--mlp')
+
+        if args.resume:
+            cmd_args.append(f'--resume')
 
         device = None
         if device_override is not None:

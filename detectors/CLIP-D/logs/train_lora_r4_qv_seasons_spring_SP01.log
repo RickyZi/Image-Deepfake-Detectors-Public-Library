@@ -1,0 +1,62 @@
+2026-07-03 14:44:37  INFO     Logger 'train' writing to: /home/rz/Image-Deepfake-Detectors-Public-Library/detectors/CLIP-D/logs/train_lora_r4_qv_seasons_spring_SP01.log
+2026-07-03 14:44:37  INFO     training batches   = 38
+2026-07-03 14:44:37  INFO     validation batches = 13
+2026-07-03 14:45:08  INFO     ======================================================================
+2026-07-03 14:45:08  INFO     RUN START  2026-07-03 14:45:08
+2026-07-03 14:45:08  INFO     name       = lora_r4_qv
+2026-07-03 14:45:08  INFO     arch       = opencliplinearnext_clipL14commonpool
+2026-07-03 14:45:08  INFO     fine-tune  = True
+2026-07-03 14:45:08  INFO     lr         = 0.0001
+2026-07-03 14:45:08  INFO     weight_dec = 0.0001
+2026-07-03 14:45:08  INFO     batch_size = 32
+2026-07-03 14:45:08  INFO     data_keys  = realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre
+2026-07-03 14:45:08  INFO     data_root  = /datasets-disk/tb_dataset/tf2k_lr/seasons/spring_SP01
+2026-07-03 14:45:08  INFO     split_file = /home/rz/Image-Deepfake-Detectors-Public-Library/test2k_splits.json
+2026-07-03 14:45:08  INFO     start_epoch= 0
+2026-07-03 14:45:08  INFO     ======================================================================
+2026-07-03 14:45:08  INFO      epoch  train_loss   val_acc   val_auc          lr  saved  note
+2026-07-03 14:45:08  INFO     ----------------------------------------------------------------------
+2026-07-03 14:45:32  INFO          0         nan    0.5539    0.5669    1.00e-04   True  init_best
+2026-07-03 14:47:33  INFO     Logger 'train' writing to: /home/rz/Image-Deepfake-Detectors-Public-Library/detectors/CLIP-D/logs/train_lora_r4_qv_seasons_spring_SP01.log
+2026-07-03 14:47:33  INFO     training batches   = 38
+2026-07-03 14:47:33  INFO     validation batches = 13
+2026-07-03 14:48:13  INFO     Logger 'train' writing to: /home/rz/Image-Deepfake-Detectors-Public-Library/detectors/CLIP-D/logs/train_lora_r4_qv_seasons_spring_SP01.log
+2026-07-03 14:48:13  INFO     training batches   = 38
+2026-07-03 14:48:13  INFO     validation batches = 13
+2026-07-03 14:48:30  INFO     Logger 'train' writing to: /home/rz/Image-Deepfake-Detectors-Public-Library/detectors/CLIP-D/logs/train_lora_r4_qv_seasons_spring_SP01.log
+2026-07-03 14:48:30  INFO     training batches   = 38
+2026-07-03 14:48:30  INFO     validation batches = 13
+2026-07-03 14:48:36  INFO     ======================================================================
+2026-07-03 14:48:36  INFO     RUN START  2026-07-03 14:48:36
+2026-07-03 14:48:36  INFO     name       = lora_r4_qv
+2026-07-03 14:48:36  INFO     arch       = opencliplinearnext_clipL14commonpool
+2026-07-03 14:48:36  INFO     fine-tune  = True
+2026-07-03 14:48:36  INFO     lr         = 0.0001
+2026-07-03 14:48:36  INFO     weight_dec = 0.0001
+2026-07-03 14:48:36  INFO     batch_size = 32
+2026-07-03 14:48:36  INFO     data_keys  = realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre
+2026-07-03 14:48:36  INFO     data_root  = /datasets-disk/tb_dataset/tf2k_lr/seasons/spring_SP01
+2026-07-03 14:48:36  INFO     split_file = /home/rz/Image-Deepfake-Detectors-Public-Library/test2k_splits.json
+2026-07-03 14:48:36  INFO     start_epoch= 0
+2026-07-03 14:48:36  INFO     ======================================================================
+2026-07-03 14:48:36  INFO      epoch  train_loss   val_acc   val_auc          lr  saved  note
+2026-07-03 14:48:36  INFO     ----------------------------------------------------------------------
+2026-07-03 16:57:12  INFO     Logger 'train' writing to: /home/rz/Image-Deepfake-Detectors-Public-Library/detectors/CLIP-D/logs/train_lora_r4_qv_seasons_spring_SP01.log
+2026-07-03 16:57:12  INFO     training batches   = 38
+2026-07-03 16:57:12  INFO     validation batches = 13
+2026-07-03 16:58:07  INFO     ======================================================================
+2026-07-03 16:58:07  INFO     RUN START  2026-07-03 16:58:07
+2026-07-03 16:58:07  INFO     name       = lora_r4_qv
+2026-07-03 16:58:07  INFO     arch       = opencliplinearnext_clipL14commonpool
+2026-07-03 16:58:07  INFO     fine-tune  = True
+2026-07-03 16:58:07  INFO     lr         = 0.0001
+2026-07-03 16:58:07  INFO     weight_dec = 0.0001
+2026-07-03 16:58:07  INFO     batch_size = 32
+2026-07-03 16:58:07  INFO     data_keys  = realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre
+2026-07-03 16:58:07  INFO     data_root  = /datasets-disk/tb_dataset/tf2k_lr/seasons/spring_SP01
+2026-07-03 16:58:07  INFO     split_file = /home/rz/Image-Deepfake-Detectors-Public-Library/test2k_splits.json
+2026-07-03 16:58:07  INFO     start_epoch= 0
+2026-07-03 16:58:07  INFO     ======================================================================
+2026-07-03 16:58:07  INFO      epoch  train_loss   val_acc   val_auc          lr  saved  note
+2026-07-03 16:58:07  INFO     ----------------------------------------------------------------------
+2026-07-03 16:58:30  INFO          0         nan    0.5670    0.6134    1.00e-04   True  init_best

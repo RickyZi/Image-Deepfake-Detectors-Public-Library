@@ -1,0 +1,55 @@
+2026-07-03 07:36:53  INFO     Logger 'train' writing to: /home/rz/Image-Deepfake-Detectors-Public-Library/detectors/CLIP-D/logs/train_lora_r4_qv_seasons_autumn_TM01.log
+2026-07-03 07:36:53  INFO     training batches   = 38
+2026-07-03 07:36:53  INFO     validation batches = 13
+2026-07-03 07:36:59  INFO     ======================================================================
+2026-07-03 07:36:59  INFO     RUN START  2026-07-03 07:36:59
+2026-07-03 07:36:59  INFO     name       = lora_r4_qv
+2026-07-03 07:36:59  INFO     arch       = opencliplinearnext_clipL14commonpool
+2026-07-03 07:36:59  INFO     fine-tune  = True
+2026-07-03 07:36:59  INFO     lr         = 0.0001
+2026-07-03 07:36:59  INFO     weight_dec = 0.0001
+2026-07-03 07:36:59  INFO     batch_size = 32
+2026-07-03 07:36:59  INFO     data_keys  = realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre
+2026-07-03 07:36:59  INFO     data_root  = /home/rz/Image-Deepfake-Detectors-Public-Library/truefake_2k/tf2k_lr_org/seasons/autumn_TM01
+2026-07-03 07:36:59  INFO     split_file = /home/rz/Image-Deepfake-Detectors-Public-Library/test2k_splits.json
+2026-07-03 07:36:59  INFO     start_epoch= 0
+2026-07-03 07:36:59  INFO     ======================================================================
+2026-07-03 07:36:59  INFO      epoch  train_loss   val_acc   val_auc          lr  saved  note
+2026-07-03 07:36:59  INFO     ----------------------------------------------------------------------
+2026-07-03 07:37:24  INFO          0         nan    0.5299    0.5782    1.00e-04   True  init_best
+2026-07-03 07:38:45  INFO          1      0.6898    0.6602    0.7978    1.00e-04   True  new_best
+2026-07-03 07:40:07  INFO          2      0.6853    0.7004    0.8439    1.00e-04   True  new_best
+2026-07-03 07:41:31  INFO          3      0.6810    0.7550    0.8776    1.00e-04   True  new_best
+2026-07-03 07:42:55  INFO          4      0.6768    0.7738    0.8815    1.00e-04   True  new_best
+2026-07-03 07:44:19  INFO          5      0.6726    0.7710    0.8856    1.00e-04  False  
+2026-07-03 07:45:41  INFO          6      0.6682    0.8083    0.9081    1.00e-04   True  new_best
+2026-07-03 07:47:02  INFO          7      0.6640    0.8159    0.9093    1.00e-04   True  new_best
+2026-07-03 07:48:22  INFO          8      0.6604    0.7963    0.9043    1.00e-04  False  
+2026-07-03 07:49:43  INFO          9      0.6566    0.8234    0.9140    1.00e-04   True  new_best
+2026-07-03 07:51:03  INFO         10      0.6520    0.8086    0.9161    1.00e-04  False  
+2026-07-03 07:52:25  INFO         11      0.6491    0.8114    0.9147    1.00e-04  False  
+2026-07-03 07:53:45  INFO         12      0.6444    0.8461    0.9194    1.00e-04   True  new_best
+2026-07-03 07:55:06  INFO         13      0.6407    0.8407    0.9213    1.00e-04  False  
+2026-07-03 07:56:28  INFO         14      0.6377    0.8338    0.9255    1.00e-04  False  
+2026-07-03 07:57:48  INFO         15      0.6335    0.8413    0.9268    1.00e-04  False  
+2026-07-03 07:59:09  INFO         16      0.6296    0.8460    0.9173    1.00e-04  False  
+2026-07-03 08:00:29  INFO         17      0.6261    0.8459    0.9290    1.00e-04  False  lr_drop→1.00e-05
+2026-07-03 08:01:50  INFO         18      0.6234    0.8263    0.9219    1.00e-05  False  
+2026-07-03 08:03:11  INFO         19      0.6241    0.8387    0.9223    1.00e-05  False  
+2026-07-03 08:04:36  INFO         20      0.6236    0.8508    0.9248    1.00e-05   True  new_best
+2026-07-03 08:05:59  INFO         21      0.6228    0.8484    0.9289    1.00e-05  False  
+2026-07-03 08:07:22  INFO         22      0.6232    0.8413    0.9279    1.00e-05  False  
+2026-07-03 08:08:45  INFO         23      0.6227    0.8482    0.9287    1.00e-05  False  
+2026-07-03 08:10:06  INFO         24      0.6214    0.8314    0.9237    1.00e-05  False  
+2026-07-03 08:11:28  INFO         25      0.6221    0.8512    0.9309    1.00e-05  False  lr_drop→1.00e-06
+2026-07-03 08:12:48  INFO         26      0.6221    0.8584    0.9254    1.00e-06   True  new_best
+2026-07-03 08:14:09  INFO         27      0.6208    0.8488    0.9322    1.00e-06  False  
+2026-07-03 08:15:29  INFO         28      0.6208    0.8533    0.9250    1.00e-06  False  
+2026-07-03 08:16:50  INFO         29      0.6220    0.8534    0.9334    1.00e-06  False  
+2026-07-03 08:18:10  INFO         30      0.6215    0.8460    0.9326    1.00e-06  False  
+2026-07-03 08:19:31  INFO         31      0.6212    0.8363    0.9178    1.00e-06  False  early_stop
+2026-07-03 08:19:31  INFO     ======================================================================
+2026-07-03 08:19:31  INFO     RUN END  elapsed=2552s  best_val_acc=0.8584
+2026-07-03 08:19:31  INFO     Checkpoint dir : checkpoint/lora_r4_qv/
+2026-07-03 08:19:31  INFO     Log file       : /home/rz/Image-Deepfake-Detectors-Public-Library/detectors/CLIP-D/logs/train_lora_r4_qv_seasons_autumn_TM01.log
+2026-07-03 08:19:31  INFO     ======================================================================

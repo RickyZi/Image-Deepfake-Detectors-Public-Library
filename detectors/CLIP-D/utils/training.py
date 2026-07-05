@@ -20,7 +20,7 @@ import torch
 import numpy as np
 import tqdm
 from networks import create_architecture, count_parameters
-from networks.openclipnet import MLPHead
+# from networks.openclipnet import MLPHead
 
 class TrainingModel(torch.nn.Module):
 
@@ -65,30 +65,30 @@ class TrainingModel(torch.nn.Module):
             else:
                 print(f'[FT] WARNING: no checkpoint at {load_path}, starting from random fc init.')
 
-        # Replace fc with MLP (fresh random init)
-        if opt.ft and opt.mlp:
-            in_features = self.model.num_features # 1024 for ViT-L/14
-            hidden_dim  = 256
-            dropout     = 0.3
-            print(f"\n\t[FT] Replacing fc with MLPHead: (in={in_features}, hidden={hidden_dim}, dropout={dropout})")
-            self.model.fc = MLPHead(
-                in_features=in_features,
-                hidden_dim=hidden_dim,
-                dropout=dropout,
-                num_classes=1,
-            )
-            print(f'Arch: {opt.arch}  trainable params (MLP head): {count_parameters(self.model)}') # 262657
-            # OpenClipLinear(
-            #     (fc): MLPHead(
-            #         (net): Sequential(
-            #         (0): Linear(in_features=1024, out_features=256, bias=True)
-            #         (1): ReLU(inplace=True)
-            #         (2): Dropout(p=0.3, inplace=False)
-            #         (3): Linear(in_features=256, out_features=1, bias=True)
-            #         )
-            #     )
-            # )
-            # breakpoint()
+        # # Replace fc with MLP (fresh random init)
+        # if opt.ft and opt.mlp:
+        #     in_features = self.model.num_features # 1024 for ViT-L/14
+        #     hidden_dim  = 256
+        #     dropout     = 0.3
+        #     print(f"\n\t[FT] Replacing fc with MLPHead: (in={in_features}, hidden={hidden_dim}, dropout={dropout})")
+        #     self.model.fc = MLPHead(
+        #         in_features=in_features,
+        #         hidden_dim=hidden_dim,
+        #         dropout=dropout,
+        #         num_classes=1,
+        #     )
+        #     print(f'Arch: {opt.arch}  trainable params (MLP head): {count_parameters(self.model)}') # 262657
+        #     # OpenClipLinear(
+        #     #     (fc): MLPHead(
+        #     #         (net): Sequential(
+        #     #         (0): Linear(in_features=1024, out_features=256, bias=True)
+        #     #         (1): ReLU(inplace=True)
+        #     #         (2): Dropout(p=0.3, inplace=False)
+        #     #         (3): Linear(in_features=256, out_features=1, bias=True)
+        #     #         )
+        #     #     )
+        #     # )
+        #     # breakpoint()
 
         self.loss_fn  = torch.nn.BCEWithLogitsLoss().to(self.device)
         self.optimizer = torch.optim.Adam(

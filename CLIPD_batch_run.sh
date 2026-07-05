@@ -74,4 +74,21 @@
 
 # python3 launcher.py --detector CLIP-D --phases both --dataset style/futuristic_FT01 --ft --mlp
  
-python3 launcher.py --detector CLIP-D --phases both --dataset style/vintage_VN01 --ft --mlp
+# python3 launcher.py --detector CLIP-D --phases both --dataset style/vintage_VN01 --ft --mlp
+
+# CLIP-D LoRA
+# python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset seasons/autumn_TM01
+# python launcher.py --detector CLIP-D --phases test  --weights-name lora_r4_qv --tf2k True --ft --dataset seasons/spring_SP01
+# python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset seasons/summer_SM01 --resume
+# python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset seasons/winter_WN01
+
+# python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset style/bw_BW01
+# python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset style/cinematic_CN01
+# python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset style/cinematic2_CN11
+# python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset style/cinematic2_CN11
+# python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset style/filminspired_warmgold
+python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset style/futuristic_FT01 --resume
+python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset style/vintage_VN01
+python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset style/filminspired_coolbw
+python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset style/filminspired_boldbw
+

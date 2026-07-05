@@ -1,0 +1,50 @@
+2026-07-03 19:13:10  INFO     Logger 'test' writing to: /home/rz/Image-Deepfake-Detectors-Public-Library/detectors/CLIP-D/logs/test_lora_r4_qv_spring_SP01.log
+2026-07-03 19:13:10  INFO     ============================================================
+2026-07-03 19:13:10  INFO     TEST START  2026-07-03 19:13:10
+2026-07-03 19:13:10  INFO     name       = lora_r4_qv
+2026-07-03 19:13:10  INFO     arch       = opencliplinearnext_clipL14commonpool
+2026-07-03 19:13:10  INFO     fine-tune  = True
+2026-07-03 19:13:10  INFO     data_keys  = realFFHQ:pre
+2026-07-03 19:13:10  INFO     data_root  = /datasets-disk/tb_dataset/tf2k_lr/seasons/spring_SP01
+2026-07-03 19:13:10  INFO     split_file = /home/rz/Image-Deepfake-Detectors-Public-Library/test2k_splits.json
+2026-07-03 19:13:10  INFO     device     = cuda:0
+2026-07-03 19:13:10  INFO     test batches = 50
+2026-07-03 19:21:00  INFO     Logger 'test' writing to: /home/rz/Image-Deepfake-Detectors-Public-Library/detectors/CLIP-D/logs/test_lora_r4_qv_spring_SP01.log
+2026-07-03 19:21:00  INFO     ============================================================
+2026-07-03 19:21:00  INFO     TEST START  2026-07-03 19:21:00
+2026-07-03 19:21:00  INFO     name       = lora_r4_qv
+2026-07-03 19:21:00  INFO     arch       = opencliplinearnext_clipL14commonpool
+2026-07-03 19:21:00  INFO     fine-tune  = True
+2026-07-03 19:21:00  INFO     data_keys  = realFFHQ:pre
+2026-07-03 19:21:00  INFO     data_root  = /datasets-disk/tb_dataset/tf2k_lr/seasons/spring_SP01
+2026-07-03 19:21:00  INFO     split_file = /home/rz/Image-Deepfake-Detectors-Public-Library/test2k_splits.json
+2026-07-03 19:21:00  INFO     device     = cuda:0
+2026-07-03 19:21:00  INFO     test batches = 50
+2026-07-03 19:21:05  INFO     arch trainable params = 1,025
+2026-07-03 19:21:05  INFO     Loading weights from: checkpoint/lora_r4_qv/ft_weights/best.pt
+2026-07-03 19:21:22  INFO     Logger 'test' writing to: /home/rz/Image-Deepfake-Detectors-Public-Library/detectors/CLIP-D/logs/test_lora_r4_qv_spring_SP01.log
+2026-07-03 19:21:22  INFO     ============================================================
+2026-07-03 19:21:22  INFO     TEST START  2026-07-03 19:21:22
+2026-07-03 19:21:22  INFO     name       = lora_r4_qv
+2026-07-03 19:21:22  INFO     arch       = opencliplinearnext_clipL14commonpool
+2026-07-03 19:21:22  INFO     fine-tune  = True
+2026-07-03 19:21:22  INFO     data_keys  = realFFHQ:pre
+2026-07-03 19:21:22  INFO     data_root  = /datasets-disk/tb_dataset/tf2k_lr/seasons/spring_SP01
+2026-07-03 19:21:22  INFO     split_file = /home/rz/Image-Deepfake-Detectors-Public-Library/test2k_splits.json
+2026-07-03 19:21:22  INFO     device     = cuda:0
+2026-07-03 19:21:22  INFO     test batches = 50
+2026-07-03 19:21:28  INFO     arch trainable params = 1,025
+2026-07-03 19:21:28  INFO     Loading weights from: checkpoint/lora_r4_qv/ft_weights/best.pt
+2026-07-03 19:21:32  INFO     Logger 'test' writing to: /home/rz/Image-Deepfake-Detectors-Public-Library/detectors/CLIP-D/logs/test_lora_r4_qv_spring_SP01.log
+2026-07-03 19:21:32  INFO     ============================================================
+2026-07-03 19:21:32  INFO     TEST START  2026-07-03 19:21:32
+2026-07-03 19:21:32  INFO     name       = lora_r4_qv
+2026-07-03 19:21:32  INFO     arch       = opencliplinearnext_clipL14commonpool
+2026-07-03 19:21:32  INFO     fine-tune  = True
+2026-07-03 19:21:32  INFO     data_keys  = realFORLAB:pre
+2026-07-03 19:21:32  INFO     data_root  = /datasets-disk/tb_dataset/tf2k_lr/seasons/spring_SP01
+2026-07-03 19:21:32  INFO     split_file = /home/rz/Image-Deepfake-Detectors-Public-Library/test2k_splits.json
+2026-07-03 19:21:32  INFO     device     = cuda:0
+2026-07-03 19:21:32  INFO     test batches = 50
+2026-07-03 19:21:37  INFO     arch trainable params = 1,025
+2026-07-03 19:21:37  INFO     Loading weights from: checkpoint/lora_r4_qv/ft_weights/best.pt

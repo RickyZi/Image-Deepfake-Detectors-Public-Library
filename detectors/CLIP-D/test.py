@@ -1,29 +1,53 @@
+"""
+test.py — inference / evaluation entry point for CLIP-D.
+
+Called by launcher.py via:
+    python -u test.py --name <name> --arch <arch> --task test [args...]
+
+Checkpoint lookup:
+  --ft not set: checkpoint/<name>/weights/best.pt
+  --ft set:     checkpoint/<name>/ft_weights/best.pt
+
+Log file
+────────
+  logs/test_<name>_<dataset_dir>.log     (appended on each run)
+
+Log content:
+  • Run config (arch, weights path, data_root, data_keys)
+  • Per-class breakdown (real count, fake count)
+  • Final metrics: TPR, TNR, Accuracy, AUC, elapsed time
+"""
+
 import os
-from tqdm import tqdm
-import torch
-import pandas as pd
-import json
 import time
+import json
 from datetime import datetime
+
+import torch
 import numpy as np
+from tqdm import tqdm
 from sklearn.metrics import roc_auc_score, accuracy_score
+
 from networks import create_architecture, count_parameters
-from utils.dataset import create_dataloader
-from utils.tf2k_dataset import tf2k_create_dataloader
+from utils.logger import create_logger
 from utils.processing import add_processing_arguments
 from parser import get_parser
-from networks.openclipnet import MLPHead
 
-def test(loader, model, settings, device):
+
+def test(loader, model, settings, device, logger):
     model.eval()
-    
     start_time = time.time()
 
-    # --------------------------- #
-    # File paths update
-    # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # add timestamp to test run
-    # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
-    # tag = 'ft' if settings.ft else 'pretrained'
+    # ── Output directory ──────────────────────────────────────────────────
+    # dataset_dir_name = settings.data_root.rstrip("/").split("/")[-1]
+    # output_dir = os.path.join(
+    #     # "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results",
+    #     "./Image-Deepfake-Detectors-Public-Library/results",
+    #     settings.name,
+    #     dataset_dir_name,
+    #     "CLIP-D",
+    #     settings.data_keys,
+    # )
     if settings.ft and settings.mlp:
         tag = 'ft_MLP'
     elif settings.ft:
@@ -34,183 +58,181 @@ def test(loader, model, settings, device):
     dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
 
     if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
-        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/CLIP-D_{tag}/{settings.data_keys}'
+        output_dir = f'/home/rz/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/CLIP-D_{tag}/{settings.data_keys}'
+        # logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/CLIP-D_{tag}/', 'test.log'))
     else:
-        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/CLIP-D_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        output_dir = f'/home/rz/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/CLIP-D_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        # logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/CLIP-D_{tag}/', 'test.log'))
+    
     os.makedirs(output_dir, exist_ok=True)
-    # --------------------------- #
-    
-    csv_filename = os.path.join(output_dir, 'results.csv')
-    metrics_filename = os.path.join(output_dir, 'metrics.json')
-    image_results_filename = os.path.join(output_dir, 'image_results.json')
-    
-    # Collect all results
-    all_scores = []
-    all_labels = []
-    all_paths = []
-    image_results = []
-    
-    # Extract training dataset keys from model name (format: "training_keys_freeze_down" or "training_keys")
-    training_dataset_keys = []
-    model_name = settings.name
-    if '_freeze_down' in model_name:
-        training_name = model_name.replace('_freeze_down', '')
-    else:
-        training_name = model_name
-    if '&' in training_name:
-        training_dataset_keys = training_name.split('&')
-    else:
-        training_dataset_keys = [training_name]
-    
-    # Write CSV header
-    with open(csv_filename, 'w') as f:
-        f.write(f"{','.join(['name', 'pro', 'flag'])}\n")
-    
-    with torch.no_grad():
-        with tqdm(loader, unit='batch', mininterval=0.5) as tbatch:
-            tbatch.set_description(f'Validation')
-            for data_dict in tbatch:
-                data = data_dict['img'].to(device)
-                labels = data_dict['target'].to(device)
-                paths = data_dict['path']
-
-                scores = model(data).squeeze(1)
-
-                # Collect results
-                for score, label, path in zip(scores, labels, paths):
-                    score_val = score.item()
-                    label_val = label.item()
-                    
-                    all_scores.append(score_val)
-                    all_labels.append(label_val)
-                    all_paths.append(path)
-                    
-                    image_results.append({
-                        'path': path,
-                        'score': score_val,
-                        'label': label_val
-                    })
-                
-                # Write to CSV (maintain backward compatibility)
-                with open(csv_filename, 'a') as f:
-                    for score, label, path in zip(scores, labels, paths):
-                        f.write(f"{path}, {score.item()}, {label.item()}\n")
-
-    # Calculate metrics
-    all_scores = np.array(all_scores)
-    all_labels = np.array(all_labels)
-    
-    # Convert scores to predictions (threshold at 0, as used in train.py: y_pred > 0.0)
-    predictions = (all_scores > 0).astype(int)
-    
-    # Calculate overall metrics
-    total_accuracy = accuracy_score(all_labels, predictions)
-    
-    # TPR (True Positive Rate) = TP / (TP + FN) = accuracy on fake images (label==1)
-    fake_mask = all_labels == 1
-    if fake_mask.sum() > 0:
-        tpr = accuracy_score(all_labels[fake_mask], predictions[fake_mask])
-    else:
-        tpr = 0.0
-    
-    # TNR per dataset key (True Negative Rate) = TN / (TN + FP) = accuracy on real images (label==0)
-    tnr_per_dataset = {}
-    
-    # Calculate TNR on real images (label==0) in the test set
-    real_mask = all_labels == 0
-    if real_mask.sum() > 0:
-        # Overall TNR calculated on all real images in the test set
-        tnr = accuracy_score(all_labels[real_mask], predictions[real_mask])
-    else:
-        tnr = 0.0
-        
-        # Map TNR to training dataset keys (as shown in the example JSON structure)
-        # The TNR is calculated on the test set, but organized by training dataset keys
-        #for training_key in training_dataset_keys:
-        #    tnr_per_dataset[training_key] = overall_tnr
-    
-    # AUC calculation (needs probabilities, so we'll use sigmoid on scores)
-    if len(np.unique(all_labels)) > 1:  # Need both classes for AUC
-        # Apply sigmoid to convert scores to probabilities
-        probabilities = torch.sigmoid(torch.tensor(all_scores)).numpy()
-        auc = roc_auc_score(all_labels, probabilities)
-    else:
-        auc = 0.0
-    
-    execution_time = time.time() - start_time
-    
-    # Prepare metrics JSON
-    metrics = {
-        'TPR': float(tpr),
-        'TNR': float(tnr),
-        'Acc total': float(total_accuracy),
-        'AUC': float(auc),
-        'execution time': float(execution_time)
-    }
-    
-    # Write metrics JSON
-    with open(metrics_filename, 'w') as f:
-        json.dump(metrics, f, indent=2)
-    
-    # Write individual image results JSON
-    with open(image_results_filename, 'w') as f:
-        json.dump(image_results, f, indent=2)
-    
-    print(f'\nMetrics saved to {metrics_filename}')
-    print(f'Image results saved to {image_results_filename}')
-    print(f'\nMetrics:')
-    print(f'  TPR: {tpr:.4f}')
-    print(f'  TNR: {tnr:.4f}')
-    print(f'  Accuracy: {total_accuracy:.4f}')
-    print(f'  AUC: {auc:.4f}')
-    print(f'  Execution time: {execution_time:.2f} seconds')
     # breakpoint()
 
-if __name__ == '__main__':
+    csv_filename           = os.path.join(output_dir, "results.csv")
+    metrics_filename       = os.path.join(output_dir, "metrics.json")
+    image_results_filename = os.path.join(output_dir, "image_results.json")
+
+    logger.info(f"Results directory: {output_dir}")
+
+    all_scores, all_labels, all_paths = [], [], []
+    image_results = []
+
+    with open(csv_filename, "w") as f:
+        f.write("name,pro,flag\n")
+
+    # ── Inference loop ────────────────────────────────────────────────────
+    with torch.no_grad():
+        with tqdm(loader, unit="batch", mininterval=0.5) as tbatch:
+            tbatch.set_description("Test")
+            for data_dict in tbatch:
+                imgs   = data_dict["img"].to(device)
+                labels = data_dict["target"].to(device)
+                paths  = data_dict["path"]
+
+                scores = model(imgs).squeeze(1)
+
+                for score, label, path in zip(scores, labels, paths):
+                    sv, lv = score.item(), label.item()
+                    all_scores.append(sv)
+                    all_labels.append(lv)
+                    all_paths.append(path)
+                    image_results.append({"path": path, "score": sv, "label": lv})
+
+                with open(csv_filename, "a") as f:
+                    for score, label, path in zip(scores, labels, paths):
+                        f.write(f"{path},{score.item()},{label.item()}\n")
+
+    # ── Metrics ───────────────────────────────────────────────────────────
+    all_scores  = np.array(all_scores)
+    all_labels  = np.array(all_labels)
+    predictions = (all_scores > 0).astype(int)
+
+    total_accuracy = accuracy_score(all_labels, predictions)
+
+    fake_mask = all_labels == 1
+    tpr = (accuracy_score(all_labels[fake_mask], predictions[fake_mask])
+           if fake_mask.sum() > 0 else 0.0)
+
+    real_mask = all_labels == 0
+    tnr = (accuracy_score(all_labels[real_mask], predictions[real_mask])
+           if real_mask.sum() > 0 else 0.0)
+
+    if len(np.unique(all_labels)) > 1:
+        probs = torch.sigmoid(torch.tensor(all_scores)).numpy()
+        auc   = roc_auc_score(all_labels, probs)
+    else:
+        auc = 0.0
+
+    elapsed = time.time() - start_time
+
+    metrics = {
+        "TPR":            float(tpr),
+        "TNR":            float(tnr),
+        "Acc total":      float(total_accuracy),
+        "AUC":            float(auc),
+        "execution time": float(elapsed),
+    }
+
+    # ── Write output files ────────────────────────────────────────────────
+    with open(metrics_filename, "w") as f:
+        json.dump(metrics, f, indent=2)
+    with open(image_results_filename, "w") as f:
+        json.dump(image_results, f, indent=2)
+
+    # ── Log results ───────────────────────────────────────────────────────
+    n_real = int(real_mask.sum())
+    n_fake = int(fake_mask.sum())
+    n_tot  = len(all_labels)
+
+    logger.info("-" * 60)
+    logger.info(f"Dataset breakdown: total={n_tot}  real={n_real}  fake={n_fake}")
+    logger.info(f"TPR  (acc on fake)  : {tpr:.4f}   ({int(tpr*n_fake)}/{n_fake} correct)")
+    logger.info(f"TNR  (acc on real)  : {tnr:.4f}   ({int(tnr*n_real)}/{n_real} correct)")
+    logger.info(f"Accuracy (overall)  : {total_accuracy:.4f}")
+    logger.info(f"AUC                 : {auc:.4f}")
+    logger.info(f"Elapsed             : {elapsed:.1f}s")
+    logger.info(f"CSV                 : {csv_filename}")
+    logger.info(f"Metrics JSON        : {metrics_filename}")
+    logger.info("-" * 60)
+
+    return metrics
+
+
+if __name__ == "__main__":
     parser = get_parser()
     parser = add_processing_arguments(parser)
     settings = parser.parse_args()
-    
-    device = torch.device(settings.device if torch.cuda.is_available() else 'cpu')
-    
-    if settings.tf2k:
-        test_dataloader = tf2k_create_dataloader(settings, split = 'test')
-    else:
-        test_dataloader = create_dataloader(settings, split='test')
+    settings.task = "test"
 
-    model = create_architecture(settings.arch, pretrained=True, num_classes=1).to(device)
-
+    # ── Logger ────────────────────────────────────────────────────────────
+    os.makedirs("logs", exist_ok=True)
+    dataset_name = settings.dataset.replace(os.sep, '_')
+    print(f"dataset_name: {dataset_name}")
     if settings.ft and settings.mlp:
-        in_features = model.num_features
-        hidden_dim  = settings.mlp_hidden # 256
-        dropout     = settings.mlp_dropout # 0.3
-        print(f"[test] Replacing fc with MLPHead (in={in_features}, hidden={hidden_dim}, dropout={dropout})")
-        model.fc = MLPHead(
-            in_features=in_features,
-            hidden_dim=hidden_dim,
-            dropout=dropout,
-            num_classes=1,
-        ).to(device)
-
-    num_parameters = count_parameters(model)
-    print(f"Arch: {settings.arch} with #parameters {num_parameters}")
-
-    # breakpoint()
-    
-    # load_path = f'./checkpoint/{settings.name}/weights/best.pt'
-    # load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
-    if settings.ft and settings.mlp:
-        load_path = f'./checkpoint/{settings.name}/ft_MLP_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+        tag = 'ft_MLP'
     elif settings.ft:
-       load_path = f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+        tag = 'ft'
     else:
-       load_path = f'./checkpoint/{settings.name}/weights/best.pt'
-    
-    print('loading the model from %s' % load_path)
-    # breakpoint()
-    model.load_state_dict(torch.load(load_path, map_location=device)['model'])
-    model.to(device)
-    
-    # breakpoint()
+        tag = 'pretrained'
+    result_folder = f'/home/rz/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_name}/CLIP-D_{tag}/'
+    log_path = os.path.join(result_folder,"logs")
+    logger   = create_logger(os.path.join(log_path, f"test_{settings.name}_{dataset_name}_{settings.data_keys}.log"))
 
-    test(test_dataloader, model, settings, device)
+    # ── Log test header ───────────────────────────────────────────────────
+    logger.info("=" * 60)
+    logger.info(f"TEST START  {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    logger.info(f"name       = {settings.name}")
+    logger.info(f"arch       = {settings.arch}")
+    logger.info(f"fine-tune  = {settings.ft}")
+    logger.info(f"data_keys  = {settings.data_keys}")
+    logger.info(f"data_root  = {settings.data_root}")
+    logger.info(f"split_file = {settings.split_file}")
+    logger.info(f"device     = {settings.device}")
+
+    device = torch.device(settings.device if torch.cuda.is_available() else "cpu")
+
+    # ── Dataset ───────────────────────────────────────────────────────────
+    if settings.tf2k:
+        from utils.tf2k_dataset import tf2k_create_dataloader
+        test_dataloader = tf2k_create_dataloader(settings, split="test")
+    else:
+        from utils.dataset import create_dataloader
+        test_dataloader = create_dataloader(settings, split="test")
+
+    logger.info(f"test batches = {len(test_dataloader)}")
+
+    # ── Model ─────────────────────────────────────────────────────────────
+    model = create_architecture(settings.arch, pretrained=True, num_classes=1)
+    n_params = count_parameters(model)
+    logger.info(f"arch trainable params = {n_params:,}")
+
+    # ── Load checkpoint ───────────────────────────────────────────────────
+    load_path = (
+        os.path.join("checkpoint", settings.name, "ft_weights",dataset_name, "best.pt")
+        if settings.ft
+        else os.path.join("checkpoint", settings.name, "weights", dataset_name, "best.pt")
+    )
+    logger.info(f"Loading weights from: {load_path}")
+
+    state = torch.load(load_path, map_location=device)
+    sd    = state["model"] if "model" in state else state
+
+    try:
+        model.load_state_dict(sd, strict=True)
+        logger.info("Weights loaded (strict=True)")
+    except RuntimeError as e:
+        logger.warning(f"strict=True failed: {e}")
+        missing, unexpected = model.load_state_dict(sd, strict=False)
+        logger.warning(
+            f"Loaded with strict=False — missing={len(missing)}, "
+            f"unexpected={len(unexpected)}"
+        )
+
+    model.to(device)
+
+    # ── Run test ──────────────────────────────────────────────────────────
+    metrics = test(test_dataloader, model, settings, device, logger)
+
+    # ── Footer ────────────────────────────────────────────────────────────
+    logger.info(f"TEST END  {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    logger.info(f"Log file : {os.path.abspath(log_path)}")
+    logger.info("=" * 60)
