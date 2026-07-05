@@ -208,8 +208,18 @@ if __name__ == "__main__":
     model = ImageClassifier(settings)
     # breakpoint()
     model.to(device)
-    path_weight = f'./checkpoint/{settings.name}/weights/best.pt' 
-    state_dict = torch.load(path_weight, map_location=device)
+    # fix load path!!!!
+    if settings.ft and settings.r50unfreezeL4:
+        load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{settings.dataset.replace(os.sep, '_')}_r50unfreezeL4/best.pt'
+    elif settings.ft:
+        load_path = f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+    else:
+        load_path = f'./checkpoint/{settings.name}/weights/best.pt'
+    # load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+    print('loading the model from %s' % load_path)
+    # breakpoint()
+    # path_weight = f'./checkpoint/{settings.name}/weights/best.pt' 
+    state_dict = torch.load(load_path, map_location=device)
     # breakpoint()
     # RuntimeError: Attempting to deserialize object on CUDA device 1 but torch.cuda.device_count() is 1. 
     # Please use torch.load with map_location to map your storages to an existing device.

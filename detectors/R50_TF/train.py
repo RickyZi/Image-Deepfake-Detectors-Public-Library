@@ -226,7 +226,7 @@ if __name__ == "__main__":
     dataset = settings.dataset.replace(os.sep, '_')
     # dataset += '_unfreezeL4' if opt.r50unfreezeL4 else ''
     if settings.r50unfreezeL4:
-        dataset += '_r50unfreezeL4'
+        dataset += '_unfreezeL4'
     # breakpoint()
     device = torch.device(settings.device if torch.cuda.is_available() else 'cpu')
 
