@@ -15,9 +15,8 @@ class FTModel(torch.nn.Module):
         self.total_steps = 0
         # tag = 'unfreezeL4' if opt.R50unfreeL4 else None
         dataset = opt.dataset.replace(os.sep, '_')
-        # dataset += '_unfreezeL4' if opt.r50unfreezeL4 else ''
-        if opt.r50unfreezeL4:
-            dataset += '_r50unfreezeL4'
+        dataset += '_unfreezeL4' if opt.r50unfreezeL4 else ''
+        
 
         print(f"opt: {self.opt}")
         print(f"dataset: {dataset}")

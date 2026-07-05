@@ -42,9 +42,8 @@ if __name__ == "__main__":
     # print(json.dumps(vars(opt), indent=2, default=str))
     # sys.exit(0)
     dataset = opt.dataset.replace(os.sep, '_')
-    # dataset += '_unfreezeL4' if opt.r50unfreezeL4 else ''
-    if opt.r50unfreezeL4:
-        dataset += '_r50unfreezeL4'
+    dataset += '_unfreezeL4' if opt.r50unfreezeL4 else ''
+    
     weights_name = 'ft_weights' if opt.ft else 'weights'
     if opt.ft and opt.r50unfreezeL4:
         ckpt_dir = os.path.join('checkpoint', opt.name, 'ft_unfreezeL4_weights', dataset)

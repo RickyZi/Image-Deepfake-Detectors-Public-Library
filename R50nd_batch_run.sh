@@ -186,21 +186,21 @@
 # -------- R50_nodonw -------- #
 # ---------------------------- #
 
-python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/blurbg_strong --ft --r50unfreezeL4
+python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/blurbg_strong --ft --r50unfreezeL4
 
-python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/enhance_portrait --ft --r50unfreezeL4
+python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/enhance_portrait --ft --r50unfreezeL4
 
-python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/sky_bluedrama --ft --r50unfreezeL4
+python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/sky_bluedrama --ft --r50unfreezeL4
 
-python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/subject_pop --ft --r50unfreezeL4
+python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/subject_pop --ft --r50unfreezeL4
 
-python3 launcher.py --detector R50_nodown --phases both --dataset style/film_inspired_boldbw --ft --r50unfreezeL4
+python3 launcher.py --detector R50_nodown --phases test --dataset style/film_inspired_boldbw --ft --r50unfreezeL4
 
-python3 launcher.py --detector R50_nodown --phases both --dataset style/film_inspired_coolbw --ft --r50unfreezeL4
+python3 launcher.py --detector R50_nodown --phases test --dataset style/film_inspired_coolbw --ft --r50unfreezeL4
 
-python3 launcher.py --detector R50_nodown --phases both --dataset subject/landscape_LN01 --ft --r50unfreezeL4
+python3 launcher.py --detector R50_nodown --phases test --dataset subject/landscape_LN01 --ft --r50unfreezeL4
 
-python3 launcher.py --detector R50_nodown --phases both --dataset subject/travel_TR01 --ft --r50unfreezeL4
+python3 launcher.py --detector R50_nodown --phases test --dataset subject/travel_TR01 --ft --r50unfreezeL4
 
-python3 launcher.py --detector R50_nodown --phases both --dataset subject/travel2_TR11 --ft --r50unfreezeL4
+python3 launcher.py --detector R50_nodown --phases test --dataset subject/travel2_TR11 --ft --r50unfreezeL4
 
