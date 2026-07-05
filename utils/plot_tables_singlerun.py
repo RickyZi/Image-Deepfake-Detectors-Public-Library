@@ -88,7 +88,7 @@ def load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, social = False) -> dict | Non
     # ref_dir = RESULTS_ROOT / REF_FOLDER
     ref_dir = Path("./results/pretrained/dataset")
     for subdir in [BASELINE_SUBDIR]:
-        model_dir = ref_dir / Path(str(subdir) + '_pretrained')
+        model_dir = ref_dir / Path(str(subdir))
         print(f"model_dir: {model_dir}")
         if model_dir.is_dir():
             json_path = find_json(model_dir)
@@ -108,21 +108,28 @@ def collect_results(RESULTS_ROOT, subdir_name: str) -> dict[str, dict]:
     Return {dataset_label: {metric: value, ...}}
     """
     results = {}
+
+    print(f"results_root: {RESULTS_ROOT} - subdir_name: {subdir_name}")
+
     if not RESULTS_ROOT.exists():
         print(f"[error] Results root not found: {RESULTS_ROOT.resolve()}")
         return results
 
     for dataset_dir in sorted(RESULTS_ROOT.iterdir()):
+        # print(f"dataset_dir: {dataset_dir}")
         if not dataset_dir.is_dir():
             continue
         if dataset_dir.name == REF_FOLDER:          # skip — loaded separately
             continue
 
         model_dir = dataset_dir / subdir_name
+        # print(f"model_dir: {model_dir}")
         if not model_dir.is_dir():
             continue
 
         json_path = find_json(model_dir)
+        print(f"json_path: {json_path}")
+        # breakpoint()
         if json_path is None:
             print(f"  [skip] no aggregated_metrics.json in {model_dir}")
             continue
@@ -378,7 +385,7 @@ def main():
 
     print(f"model: {args.model}")
 
-    BASELINE_SUBDIR = args.model #+ '_pretrained'
+    BASELINE_SUBDIR = args.model + "_pretrained"
     # FT_SUBDIR       = (args.model + '_ft') if not args.unfreezeL4 else (args.model + '_ft_unfreezeL4')
 
     if args.unfreezeL4:
@@ -435,7 +442,7 @@ def main():
             ref_label   = REF_LABEL,
             # ref_scores  = ref_scores,
             title       = f"{args.model}_baseline SOCIALS results", #if not args.social else f"{str(FT_SUBDIR)}_baseline_social results",
-            output_path = OUTPUT_DIR / f"{args.model}_baseline_{timestamp}.png",
+            output_path = OUTPUT_DIR / f"{args.model}_baseline.png" #{timestamp}.png",
         )
     elif not args.skipbase:
         # Baseline table: diffs vs tf2k_dataset (ref_scores), no per_row_baseline
@@ -444,7 +451,7 @@ def main():
             ref_label   = REF_LABEL,
             ref_scores  = ref_scores,
             title       = f"{args.model}_baseline results" if not args.social else f"{str(FT_SUBDIR)}_baseline_social results",
-            output_path = OUTPUT_DIR / f"{args.model}_baseline_{timestamp}.png",
+            output_path = OUTPUT_DIR / f"{args.model}_baseline.png" # _{timestamp}.png",
         )
     
 
@@ -457,7 +464,7 @@ def main():
             ref_scores       = ref_scores,
             per_row_baseline = baseline,   # <── key change: diff against own baseline
             title            = f"{str(FT_SUBDIR)}_vs_baseline" , #f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
-            output_path      = OUTPUT_DIR / f"{str(FT_SUBDIR)}_{timestamp}.png"
+            output_path      = OUTPUT_DIR / f"{str(FT_SUBDIR)}.png" #_{timestamp}.png"
             # (OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png") if not args.unfreezeL4 else (OUTPUT_DIR / f"{args.model}_FT_unfreezeL4_{timestamp}.png"),
         )
 
