@@ -1,0 +1,32 @@
+[
+  {
+    "timestamp": "2026-07-07 12:22:11",
+    "model": "pretrained",
+    "dataset": "blurbg-subtle",
+    "phase": "ft",
+    "split": "test",
+    "data_keys": "flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/adaptive/blurbg-subtle/Fake/FLUX.1/faces/01025.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/adaptive/blurbg-subtle/Fake/FLUX.1/faces/01025.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 12:22:11",
+    "model": "pretrained",
+    "dataset": "blurbg-subtle",
+    "phase": "ft",
+    "split": "test",
+    "data_keys": "flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/adaptive/blurbg-subtle/Fake/FLUX.1/faces/01200.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/adaptive/blurbg-subtle/Fake/FLUX.1/faces/01200.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 12:22:11",
+    "model": "pretrained",
+    "dataset": "blurbg-subtle",
+    "phase": "ft",
+    "split": "test",
+    "data_keys": "flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/adaptive/blurbg-subtle/Fake/FLUX.1/general/00126.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/adaptive/blurbg-subtle/Fake/FLUX.1/general/00126.jpg'"
+  }
+]

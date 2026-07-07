@@ -14,17 +14,32 @@ class FTModel(torch.nn.Module):
         self.opt = opt
         self.total_steps = 0
         # tag = 'unfreezeL4' if opt.R50unfreeL4 else None
-        dataset = opt.dataset.replace(os.sep, '_')
-        dataset += '_unfreezeL4' if opt.r50unfreezeL4 else ''
+        # dataset = opt.dataset.replace(os.sep, '_')
+        # dataset += '_unfreezeL4' if opt.r50unfreezeL4 else ''
         
 
-        print(f"opt: {self.opt}")
+        # print(f"opt: {self.opt}")
+        # print(f"dataset: {dataset}")
+        # # breakpoint()
+        # if opt.ft and opt.r50unfreezeL4:
+        #     self.save_dir = os.path.join('checkpoint', opt.name, 'ft_unfreezeL4_weights', dataset)
+        # else:
+        #     self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights', dataset)
+
+
+        dataset = opt.dataset.replace(os.sep, '_')
+        dataset += '_unfreezeL4' if opt.r50unfreezeL4 else ''
         print(f"dataset: {dataset}")
-        # breakpoint()
-        if opt.ft and opt.r50unfreezeL4:
+        # weights_name = 'ft_weights' if opt.ft else 'weights'
+        if opt.ft and opt.r50unfreezeL4 and opt.social:
+            self.save_dir = os.path.join('checkpoint', opt.name, 'social', opt.social, 'ft_unfreezeL4_weights', dataset)
+            # checkpoint/pretrained/social/facebook/ft_unfreezeL4_weights/seasons_autumn-TM01
+        elif opt.ft and opt.r50unfreezeL4:
             self.save_dir = os.path.join('checkpoint', opt.name, 'ft_unfreezeL4_weights', dataset)
-        else:
+        elif opt.ft:
             self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights', dataset)
+        else:
+            self.save_dir = os.path.join('checkpoint', opt.name, 'weights', dataset)
         # else:
             # print("no valid option for saving FT model")
         # self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights', dataset)

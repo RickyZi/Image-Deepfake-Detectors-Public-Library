@@ -65,7 +65,9 @@ def train(train_dataloader, val_dataloader, model, optimizer, dataset, settings)
     # Logger
     # ----------------------------------
     print(f"logging results ")
-    if settings.freeze and settings.r50unfreezeL4:
+    if settings.freeze and settings.r50unfreezeL4 and settings.social:
+        save_dir = f'./checkpoint/{settings.name}/social/{settings.social}/ft_unfreezeL4_weights/{dataset}'
+    elif settings.freeze and settings.r50unfreezeL4:
         save_dir = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{dataset}'
         # torch.save(model.state_dict(), f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/best.pt')
     elif settings.freeze:
@@ -128,9 +130,9 @@ def train(train_dataloader, val_dataloader, model, optimizer, dataset, settings)
             print(f'Resuming training from epoch {start_epoch} (loaded {ckpt_path}) \n')
             log.info(f"Resumed from checkpoint {ckpt_path} - starting at epoch {start_epoch}, early_stopping best_score={getattr(early_stopping, 'best_score', None)}, count_down={getattr(early_stopping, 'count_down', None)}")
 
-        else:
-            print(f'--resume set but no checkpoint found in {save_dir} - starting fresh \n')
-            log.info(f"--resume set but no checkpoint found in {save_dir} - starting fresh")
+        # else:
+        #     print(f'--resume set but no checkpoint found in {save_dir} - starting fresh \n')
+        #     log.info(f"--resume set but no checkpoint found in {save_dir} - starting fresh")
 
     log.info(f"Training the model...")
 
@@ -218,22 +220,41 @@ if __name__ == "__main__":
     settings = parser.parse_args()
     print(f"settings: {settings}")
 
-    if settings.ft:
-        settings.freeze = True
+    
     
     print(f"settings.freeze: {settings.freeze}")
     print(f"r50unfreezeL4", settings.r50unfreezeL4)
     dataset = settings.dataset.replace(os.sep, '_')
     # dataset += '_unfreezeL4' if opt.r50unfreezeL4 else ''
-    if settings.r50unfreezeL4:
-        dataset += '_unfreezeL4'
+    if settings.ft and settings.r50unfreezeL4:
+        dataset += '_ft_unfreezeL4'
     # breakpoint()
     device = torch.device(settings.device if torch.cuda.is_available() else 'cpu')
 
     model = ImageClassifier(settings)
+
+    # if ft load the best model and ft it
+    if settings.ft:
+        settings.freeze = True
+        # Bootstrap fine-tuning from the previously-trained baseline model
+        # for this --name (produced by a prior non-ft run). Loading after
+        # model.to(device) but the freeze decisions made inside
+        # ImageClassifier.__init__ (based on settings.freeze/r50unfreezeL4)
+        # are unaffected - freezing only sets requires_grad, it doesn't
+        # depend on parameter values, so loading weights afterward is safe.
+        load_path = f'./checkpoint/{settings.name}/weights/best.pt'
+        if os.path.isfile(load_path):
+            print(f'[FT] Loading pretrained weights from {load_path}')
+            state_dict = torch.load(load_path, map_location=device)
+            model.load_state_dict(state_dict)
+        else:
+            print(f'[FT] WARNING: no checkpoint found at {load_path} - '
+                  f'fine-tuning from ImageNet-pretrained weights only.')
     
     model.to(device)
     os.makedirs(f'./checkpoint/{settings.name}/weights/', exist_ok=True)
+
+    # breakpoint()
     
     with open(f'./checkpoint/settings.txt', 'w') as f:
         f.write(str(settings))

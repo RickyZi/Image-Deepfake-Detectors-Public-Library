@@ -1,5 +1,7 @@
 global:
-  dataset_path: /home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/
+  dataset_path: /dataset-disk/tb_dataset/tf2k_lr/
+  # /home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/
+
   #/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/demo_images/season_TM01
   device_override: cuda:0  # null for auto-selection
   min_vram: 16000
@@ -43,9 +45,9 @@ training:
   # - data: gan2:pre&sdXL:pre&realFFHQ:pre&realFORLAB:pre # fixed training data
   # - data: realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre # trn all over trn set
   # trn all over trn set - tf2k - PRESOCIAL
-  - data: realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre
+  # - data: realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre
   # FACEBOOK
-  # - data: realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb
+  - data: realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb
   # TELEGRAM
   # - data: realFFHQ:tl&realFORLAB:tl&gan1:tl&gan2:tl&gan3:tl&sd15:tl&sd2:tl&sd3:tl&sdXL:tl&flux:tl
   # # TWITTER
@@ -56,17 +58,17 @@ training:
 
 testing:
 # for FT with demo images, removed trn subset to avoid duplicate (we do not have enough data)
-# # FACEBOOK
-#   - realFFHQ:fb
-#   - realFORLAB:fb
-#   - gan1:fb
-#   - gan2:fb
-#   - gan3:fb
-#   - sd15:fb
-#   - sd2:fb
-#   - sd3:fb
-#   - sdXL:fb
-#   - flux:fb
+# FACEBOOK
+  - realFFHQ:fb
+  - realFORLAB:fb
+  - gan1:fb
+  - gan2:fb
+  - gan3:fb
+  - sd15:fb
+  - sd2:fb
+  - sd3:fb
+  - sdXL:fb
+  - flux:fb
   # TELEGRAM
   # - realFFHQ:tl
   # - realFORLAB:tl
@@ -101,17 +103,17 @@ testing:
   # - sdXL:pre
   # - flux:pre
 
-  # ---------- #
-  # test tf 2k #
-  # ---------- #
-  - realFFHQ:pre
-  - realFORLAB:pre
-  - gan1:pre
-  - gan2:pre
-  - gan3:pre
-  - sd15:pre
-  - sd2:pre
-  - sd3:pre
-  - sdXL:pre
-  - flux:pre
+  # # ---------- #
+  # # test tf 2k #
+  # # ---------- #
+  # - realFFHQ:pre
+  # - realFORLAB:pre
+  # - gan1:pre
+  # - gan2:pre
+  # - gan3:pre
+  # - sd15:pre
+  # - sd2:pre
+  # - sd3:pre
+  # - sdXL:pre
+  # - flux:pre
 

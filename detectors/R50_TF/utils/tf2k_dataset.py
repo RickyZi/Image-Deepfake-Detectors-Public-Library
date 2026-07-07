@@ -76,13 +76,14 @@ def tf2k_create_dataloader(opt, split=None):
 
 
 def parse_tf2k_dataset(settings):
+    
     gen_keys = {
-        'gan1':['StyleGAN'],
+        'gan1':['StyleGAN'], # check this
         'gan2':['StyleGAN2'],
         'gan3':['StyleGAN3'],
         'sd15':['StableDiffusion1.5'],
         'sd2':['StableDiffusion2'],
-        'sd3':['StableDiffusion3'],
+        'sd3':['StableDiffusion3'], # check this
         'sdXL':['StableDiffusionXL'],
         'flux':['FLUX.1'],
         'realFFHQ':['FFHQ'],

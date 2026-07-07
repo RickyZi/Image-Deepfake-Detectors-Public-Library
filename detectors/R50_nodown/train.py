@@ -41,11 +41,15 @@ if __name__ == "__main__":
     
     # print(json.dumps(vars(opt), indent=2, default=str))
     # sys.exit(0)
+    # dataset = (opt.social + '_' + opt.dataset.replace(os.sep, '_')) if opt.social else opt.dataset.replace(os.sep, '_')
     dataset = opt.dataset.replace(os.sep, '_')
     dataset += '_unfreezeL4' if opt.r50unfreezeL4 else ''
-    
+    print(f"dataset: {dataset}")
     weights_name = 'ft_weights' if opt.ft else 'weights'
-    if opt.ft and opt.r50unfreezeL4:
+    if opt.ft and opt.r50unfreezeL4 and opt.social:
+        ckpt_dir = os.path.join('checkpoint', opt.name, 'social', opt.social, 'ft_unfreezeL4_weights', dataset)
+        # checkpoint/pretrained/social/facebook/ft_unfreezeL4_weights/seasons_autumn-TM01
+    elif opt.ft and opt.r50unfreezeL4:
         ckpt_dir = os.path.join('checkpoint', opt.name, 'ft_unfreezeL4_weights', dataset)
     elif opt.ft:
         ckpt_dir = os.path.join('checkpoint', opt.name, 'ft_weights', dataset)

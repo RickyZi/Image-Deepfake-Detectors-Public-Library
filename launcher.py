@@ -215,6 +215,7 @@ def main():
     parser.add_argument('--mlp', action = 'store_true', help = 'If true add MLP head to CLIP-D')
     parser.add_argument('--mlp_hidden',  type=int,   default=256)
     parser.add_argument('--mlp_dropout', type=float, default=0.3)
+    parser.add_argument('--social', type = str, help = 'Which dataset from a social to load (default: niet)') # add custom dataset for demo
     # --------------------------- #
     parser.add_argument('--demo-detector', type=str, default='all', choices=['all', 'R50_TF', 'R50_nodown', 'CLIP-D', 'P2G', 'NPR'], help='Which detector to demo (default: all)')
     
@@ -263,29 +264,26 @@ def main():
     # get tf dataset path
 
     config_dataset_path = global_config.get('dataset_path')
-    if 'truefake_2k' in config_dataset_path:
-        args.tf2k = True # used to remove mod from dataset preprocessing
-        print(f"Dataset TF2K: setting --tf2k flag to True")
-        # print(args.dataset)
-        # dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_lr_org', args.dataset)
-        # LIGHTROOM data
-        if 'seasons' in args.dataset or 'style' in args.dataset or 'adaptive' in args.dataset or 'subject' in args.dataset:
+    
+    if  args.social:
+    # if 'facebook' in args.dataset or 'telegram' in args.dataset or 'twitter' in args.dataset:
+            args.tf2k = True # used to remove mod from dataset preprocessing
+            print(f"Dataset TF2K: setting --tf2k flag to True")
+            print(f"loading social data - {args.social} - {args.dataset}")
             print(args.dataset)
-            dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_lr_org', args.dataset)
-            # i.e. seasons/autumn_01 -> truefake_2k/tf2k_lr_org/seasons/autumn_01
-            # dataset_path = './truefake_2k'
-            # join dataset with datset_path from config
-            
-            # print(f"Using dataset path: {dataset_path}")
-            # args.tf2k = True # used to remove mod from dataset preprocessing
-            # breakpoint()
-            split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
-        else:
-            print("loading social data")
-            print(args.dataset)
-            dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_social', args.dataset)
-
+            dataset_path = os.path.join(global_config.get('dataset_path', ''), 'social', args.social, args.dataset)
             split_file = '/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/tf2k_SOCIAL_splits.json'
+
+    elif 'seasons' in args.dataset or 'style' in args.dataset or 'adaptive' in args.dataset or 'subject' in args.dataset:
+            args.tf2k = True # used to remove mod from dataset preprocessing
+            print(f"Dataset TF2K: setting --tf2k flag to True")
+            print(args.dataset)
+            # /datasets-disk/tb_dataset/tf2k_lr
+            dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf_dataset', args.dataset)
+            # dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_lr_org', args.dataset)
+            split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
+
+    # elif 'Facebook' in args.dataset or 'Telegram' in args.dataset or 'Twitter' in args.dataset:
 
     # elif 'tf2k_social' in config_dataset_path:
     #     args.tf2k = True # used to remove mod from dataset preprocessing
@@ -298,6 +296,7 @@ def main():
             #global_config.get('dataset_path', args.dataset) # default to --dataset argument if not specified in config
     print(f"Using dataset path: {dataset_path}")
     # breakpoint()
+
     
     device_override = global_config.get('device_override')  # Can be None
     if args.weights_name is not None:
@@ -390,6 +389,9 @@ def main():
 
         if args.resume:
             cmd_args.append(f'--resume')
+
+        if args.social:
+            cmd_args.append(f'--social {args.social}')
 
         device = None
         if device_override is not None:

@@ -35,6 +35,7 @@ def get_parser():
     
     # add dataset flag
     parser.add_argument('--dataset', type = str, default = 'dataset', help = 'Which dataset to use (default: dataset)') # add custom dataset for demo
+    parser.add_argument('--social', type = str, help = 'Which dataset from a social to load (default: niet)') # add custom dataset for demo
 
     parser.add_argument('--r50unfreezeL4', action='store_true', help='Unfreeze layer 4 when FT ResNet models')
     parser.add_argument('--resume', action='store_true', help='Resume training from the last saved per-epoch checkpoint in the run\'s checkpoint dir')

@@ -39,13 +39,13 @@ def test(loader, model, settings, device):
     dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
     print(f"dataset_name: {dataset_dir_name}")
     tag = 'ft' if settings.ft else 'pretrained'
-    # tag += '_unfreezeL4' if settings.r50unfreezeL4 else 'pretrained'
+    tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''
     print(f"test_tag: {tag}")
     # breakpoint()
     # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
-    if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
-        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
-        logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.txt')
+    if settings.social:
+        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.social}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}'
+        logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.social}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.log')
     else:
         output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
         logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.txt')
@@ -209,8 +209,10 @@ if __name__ == "__main__":
     # breakpoint()
     model.to(device)
     # fix load path!!!!
-    if settings.ft and settings.r50unfreezeL4:
-        load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{settings.dataset.replace(os.sep, '_')}_r50unfreezeL4/best.pt'
+    if settings.ft and settings.r50unfreezeL4 and settings.social:
+        load_path = f'./checkpoint/{settings.name}/social/{settings.social}/ft_unfreezeL4_weights/{settings.dataset.replace(os.sep, '_')}_ft_unfreezeL4/best.pt'
+    elif settings.ft and settings.r50unfreezeL4:
+        load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{settings.dataset.replace(os.sep, '_')}_ft_unfreezeL4/best.pt'
     elif settings.ft:
         load_path = f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
     else:

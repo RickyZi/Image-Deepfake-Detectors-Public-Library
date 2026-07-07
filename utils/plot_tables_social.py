@@ -58,22 +58,82 @@ CMAP_REF = mcolors.LinearSegmentedColormap.from_list(
 
 CANONICAL_DATASETS = [
     # seasons
-    "autumn_TM01", "spring_SP01", "summer_SM01", "winter_WN01",
+    "autumn-TM01", "spring-SP01", "summer-SM01", "winter-WN01",
     # style
-    "bw_BW01", "cinematic_CN01", "cinematic2_CN11",
-    "filminspired_warmgold",          # NB: no underscore in "filminspired" — check this is not a typo
-    "film_inspired_boldbw", "film_inspired_coolbw",
-    "futuristic_FT01", "vintage_VN01",
+    "bw-BW01", "cinematic-CN01", "cinematic2-CN11",
+    "film-inspired-boldbw", "film-inspired-coolbw", "film-inspired-warmgold",
+    "futuristic-FT01", "vintage-VN01",
     # adaptive
-    "blurbg_strong", "blurbg_subtle", "enhance_portrait",
-    "sky_bluedrama", "subject_pop",
+    "blurbg-strong", "blurbg-subtle", "enhance-portait",
+    "sky-bluedrama", "subject-pop",
     # subject
-    "landscape_LN01", "travel_TR01", "travel2_TR11",
+    "landscape-LN01", "travel-TR01", "travel2-TR11",
 ]
 DATASET_ORDER = CANONICAL_DATASETS
 
+# Only entries that DIFFER from the canonical name need to be listed.
+# facebook already matches CANONICAL_DATASETS, so no entries needed there.
+PLATFORM_ALIASES = {
+    "facebook": {},
+    "telegram": {
+        "bw01":             "bw-BW01",
+        "cinematic_CN01":   "cinematic-CN01",
+        "cinemantic2_CN11": "cinematic2-CN11",   # note: also misspelled "cinemantic"
+    },
+    "twitter": {
+        "bw01":             "bw-BW01",
+        "cinematic_CN01":   "cinematic-CN01",
+        "cinemantic2_CN11": "cinematic2-CN11",
+        "autumn_TM01":      "autumn-TM01",
+        "spring_SP01":      "spring-SP01",
+        "summer_SM01":      "summer-SM01",
+        "winter_WN01":      "winter-WN01",
+    },
+}
+
+# General cross-platform typo aliases (from earlier — kept as an extra safety net)
+DATASET_ALIASES = {
+    "autumt_TM01": "autumn-TM01",
+    "autum-TM01":  "autumn-TM01",
+}
+
+import difflib
+
+def _normalize_key(s: str) -> str:
+    return s.lower().replace("-", "").replace("_", "")
+
+_CANON_BY_NORM = {_normalize_key(c): c for c in CANONICAL_DATASETS}
+
+def canonicalize_label(raw_label: str, platform: str) -> str:
+    """
+    Map a raw folder name to its canonical dataset label, given the active platform.
+    Order: platform-specific alias -> general alias -> exact canonical ->
+           normalized match -> fuzzy match (warns) -> unchanged (warns).
+    """
+    platform_map = PLATFORM_ALIASES.get(platform, {})
+
+    if raw_label in platform_map:
+        return platform_map[raw_label]
+    if raw_label in DATASET_ALIASES:
+        return DATASET_ALIASES[raw_label]
+    if raw_label in CANONICAL_DATASETS:
+        return raw_label
+
+    norm = _normalize_key(raw_label)
+    if norm in _CANON_BY_NORM:
+        return _CANON_BY_NORM[norm]
+
+    close = difflib.get_close_matches(norm, _CANON_BY_NORM.keys(), n=1, cutoff=0.75)
+    if close:
+        canon = _CANON_BY_NORM[close[0]]
+        print(f"  [warn] '{raw_label}' (platform={platform}) fuzzy-matched to '{canon}' "
+              f"— consider adding it to PLATFORM_ALIASES['{platform}']")
+        return canon
+
+    print(f"  [warn] '{raw_label}' (platform={platform}) did not match any known dataset")
+    return raw_label
+
 def _dataset_sort_key(label: str):
-    """Sort by DATASET_ORDER position; unknown labels go to the end, alphabetically."""
     try:
         return (0, DATASET_ORDER.index(label))
     except ValueError:
@@ -126,34 +186,21 @@ def load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, social = False) -> dict | Non
     return None
 
 
-def collect_results(RESULTS_ROOT, subdir_name: str) -> dict[str, dict]:
-    """
-    Walk results/pretrained/<dataset>/<subdir_name>/ skipping the reference folder.
-    Return {dataset_label: {metric: value, ...}}
-    """
+def collect_results(RESULTS_ROOT, subdir_name: str, platform: str = "facebook") -> dict[str, dict]:
     results = {}
-
-    print(f"results_root: {RESULTS_ROOT} - subdir_name: {subdir_name}")
-
     if not RESULTS_ROOT.exists():
         print(f"[error] Results root not found: {RESULTS_ROOT.resolve()}")
         return results
 
     for dataset_dir in sorted(RESULTS_ROOT.iterdir()):
-        # print(f"dataset_dir: {dataset_dir}")
-        if not dataset_dir.is_dir():
-            continue
-        if dataset_dir.name == REF_FOLDER:          # skip — loaded separately
+        if not dataset_dir.is_dir() or dataset_dir.name == REF_FOLDER:
             continue
 
         model_dir = dataset_dir / subdir_name
-        # print(f"model_dir: {model_dir}")
         if not model_dir.is_dir():
             continue
 
         json_path = find_json(model_dir)
-        print(f"json_path: {json_path}")
-        # breakpoint()
         if json_path is None:
             print(f"  [skip] no aggregated_metrics.json in {model_dir}")
             continue
@@ -162,9 +209,14 @@ def collect_results(RESULTS_ROOT, subdir_name: str) -> dict[str, dict]:
         if overall is None:
             continue
 
-        label = dataset_dir.name
+        label = canonicalize_label(dataset_dir.name, platform)
+        if label in results:
+            print(f"  [warn] duplicate results for '{label}' "
+                  f"(raw folder '{dataset_dir.name}') — keeping first")
+            continue
+
         results[label] = {m: overall.get(m, np.nan) for m in METRICS}
-        print(f"  [ok] {label:<30s}  F1={overall.get('F1', float('nan')):.4f}")
+        print(f"  [ok] {label:<30s} (raw: {dataset_dir.name})  F1={overall.get('F1', float('nan')):.4f}")
 
     return results
 
@@ -412,7 +464,8 @@ def main():
     parser.add_argument("--mlp", action = "store_true")
     parser.add_argument("--skipbase", action = "store_true")
     parser.add_argument("--onlybase", action = "store_true")
-    parser.add_argument("--social", action = "store_true")
+    # parser.add_argument("--social", action = "store_true")
+    parser.add_argument("--social", type=str, choices=["facebook", "telegram", "twitter"], default="facebook", help="Which social platform's naming variant to expect (only relevant with --social).")
     args = parser.parse_args()
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -461,10 +514,13 @@ def main():
 
     # 2. Collect comparison rows (all folders except reference)
     print(f"\n── Collecting baseline results ({BASELINE_SUBDIR}) ──────────")
-    baseline = collect_results(RESULTS_ROOT, BASELINE_SUBDIR)
+    # baseline = collect_results(RESULTS_ROOT, BASELINE_SUBDIR)
+    baseline = collect_results(RESULTS_ROOT, BASELINE_SUBDIR, platform=args.social_platform)
+    
 
     print(f"\n── Collecting FT results ({FT_SUBDIR}) ────────────────────────")
-    ft = collect_results(RESULTS_ROOT, FT_SUBDIR)
+    # ft = collect_results(RESULTS_ROOT, FT_SUBDIR)
+    ft  = collect_results(RESULTS_ROOT,  FT_SUBDIR, platform=args.social_platform)
 
     # 3. Plot
     print("\n── Plotting ─────────────────────────────────────────────────────")

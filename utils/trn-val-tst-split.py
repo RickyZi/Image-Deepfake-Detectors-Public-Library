@@ -9,7 +9,8 @@ import json
 # ------------------------------------------------------------------ #
 
 # dataset_path = 'truefake_2k/dataset/' # TF_preSocial
-dataset_path = 'truefake_2k/tf2k_social/Facebook' # TF_social
+# dataset_path = 'truefake_2k/tf2k_social/Facebook' # TF_social#
+dataset_path = '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/seasons/autumn-TM01'
 
 SEED = 42 # fix seed for reproducibility
 
@@ -117,7 +118,7 @@ train_set = sorted(train_set)
 val_set   = sorted(val_set)
 test_set  = sorted(test_set)
 
-output_file = 'tf2k_SOCIAL_splits.json'
+output_file = 'tf2k_SOCIAL_splits_NEW.json'
 #'tf2k_dataset_splits.json'
 
 with open(output_file, "w") as f:
