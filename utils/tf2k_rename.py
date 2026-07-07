@@ -245,14 +245,15 @@ if __name__ == "__main__":
 
     # copy imgs into out folder original folder structure as name
     
-    input_path = Path('/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/adaptive/blurbg_subtle')
+    input_path = Path('test_split_social/Twitter')
     #'../truefake_2k/'
     # # fixed
-    output_path = Path('/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/adaptive/blurbg_subtle_renamed')
+    output_path = Path('test_split_social/Twitter_renamed')
     #'../truefake_2k/tf_renamed' # fixed
-    # os.makedirs(out_path, exist_ok = True)
+    os.makedirs(output_path, exist_ok = True)
 
-    json_path = './test_sample_2000.json'
+    # json_path = './test_sample_2000.json'
+    json_path = '/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/full_social_split.json'
     # json_path = './test2k_splits.json'
 
     expected = load_expected(json_path)
