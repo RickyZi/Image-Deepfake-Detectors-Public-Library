@@ -1,5 +1,5 @@
 global:
-  dataset_path: /datasets-disk/tb_dataset/tf2k_lr
+  dataset_path: /datasets-disk/tb_dataset/tf2k_lr/
   # /home/rz/Image-Deepfake-Detectors-Public-Library/truefake_2k
   # vm intern -> /home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/
   device_override: cuda:0  # null for auto-selection
@@ -9,9 +9,10 @@ global:
   dry_run: false
   only_list: false
 
+ # - "opencliplinearnext_clipL14commonpool
 detector_args:
   - "--arch"
-  - "opencliplinearnext_clipL14commonpool"
+  - 'opencliplinearloranext_clipL14commonpool_r4_qv' # lora version of CLIP
   - "--norm_type"
   - "clip"
   - "--resize_size"

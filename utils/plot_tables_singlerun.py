@@ -252,7 +252,7 @@ def plot_table(results: dict[str, dict], ref_label: str, title: str, output_path
     # ---------------------------------------------------------------------------------- #
     table_data = dict(results)
  
-    if per_row_baseline:
+    if per_row_baseline is not None:
         # FT table: no reference row — just the FT datasets sorted
         row_labels = sorted(table_data.keys())
     else:
@@ -282,7 +282,7 @@ def plot_table(results: dict[str, dict], ref_label: str, title: str, output_path
             if label != ref_label:
                 # Per-row baseline (same dataset) takes priority; fall back to
                 # the global ref_row when no per-row entry exists.
-                if per_row_baseline and label in per_row_baseline:
+                if per_row_baseline is not None and label in per_row_baseline:
                     baseline_v = per_row_baseline[label].get(metric, np.nan)
                 else:
                     baseline_v = ref_row.get(metric, np.nan)
@@ -396,7 +396,7 @@ def main():
     # elif args.onlybase:
     #     FT_SUBDIR = args.model+"_baseline"
     elif args.lora:
-        FT_SUBDIR = args.model + "lora_r4_qv"
+        FT_SUBDIR = args.model + "_ft"
     else:
         FT_SUBDIR = args.model + "_ft"
 
@@ -411,6 +411,7 @@ def main():
         results = Path("./results/pretrained_social")
         RESULTS_ROOT = results
     else:
+        BASELINE_ROOT = Path("./results/pretrained")
         RESULTS_ROOT = Path("./results/lora_r4_qv")
         OUTPUT_DIR   = Path("./results/metric_tables")
     
@@ -421,7 +422,7 @@ def main():
     # 1. Load reference scores once from results/pretrained/dataset/
     # if not args.skipbase:
     print(f"\n── Loading reference scores ({REF_FOLDER} → displayed as {REF_LABEL}) ──")
-    ref_scores = load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR)
+    ref_scores = load_ref_scores(BASELINE_ROOT, BASELINE_SUBDIR)
     if ref_scores is None:
         print("  [error] Cannot continue without reference scores.")
         return
@@ -430,7 +431,7 @@ def main():
 
     # 2. Collect comparison rows (all folders except reference)
     print(f"\n── Collecting baseline results ({BASELINE_SUBDIR}) ──────────")
-    baseline = collect_results(RESULTS_ROOT, BASELINE_SUBDIR)
+    baseline = collect_results(BASELINE_ROOT, BASELINE_SUBDIR)
 
     print(f"\n── Collecting FT results ({FT_SUBDIR}) ────────────────────────")
     ft = collect_results(RESULTS_ROOT, FT_SUBDIR)
@@ -466,7 +467,7 @@ def main():
             ref_label        = REF_LABEL,
             ref_scores       = ref_scores,
             per_row_baseline = baseline,   # <── key change: diff against own baseline
-            title            = f"{str(FT_SUBDIR)}_vs_baseline" , #f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
+            title            = f"{str(FT_SUBDIR)}_lora_vs_baseline" if args.lora else f"{str(FT_SUBDIR)}_vs_baseline", #f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
             output_path      = OUTPUT_DIR / f"{str(FT_SUBDIR)}.png" #_{timestamp}.png"
             # (OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png") if not args.unfreezeL4 else (OUTPUT_DIR / f"{args.model}_FT_unfreezeL4_{timestamp}.png"),
         )

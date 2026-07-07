@@ -302,9 +302,14 @@ def save_agg_scores(output, out_path):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Aggregate test-run scores for one detector.')
 
-    model = sys.argv[1] if len(sys.argv) > 2 else 'R50_nodown_pretrained'
-    results_dir = Path(sys.argv[2]) if len(sys.argv) > 2 else Path('./results/lora_r4_qv/')
+    model = sys.argv[1] if len(sys.argv) > 1 else 'R50_nodown_pretrained'
+    results_dir = Path('./results/lora_r4_qv/')
+    # Path(sys.argv[2]) if len(sys.argv) > 2 else Path('./results/lora_r4_qv/')
 
+    # ------------------------------------------------ #
+    # run: python3 utils/single_score_agg.py CLIP-D_ft #
+    # ------------------------------------------------ #
+    
     print(f"Model: {model}")
 
     run_dir = results_dir.resolve()
@@ -330,3 +335,4 @@ if __name__ == '__main__':
                 if model_dir.name == model:
                     print(f"\nAggregating scores for\n\t model: {model_dir.name}\n\t dataset: {dataset_dir.name}")
                     agg_scores(model_dir)
+    print("done!")

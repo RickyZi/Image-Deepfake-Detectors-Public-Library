@@ -55,13 +55,14 @@ def test(loader, model, settings, device, logger):
     else:
         tag = 'pretrained'
 
-    dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
-
+    # dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
+    dataset_name = settings.dataset.replace(os.sep, '_')
     if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
-        output_dir = f'/home/rz/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/CLIP-D_{tag}/{settings.data_keys}'
+        
+        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
         # logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/CLIP-D_{tag}/', 'test.log'))
     else:
-        output_dir = f'/home/rz/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/CLIP-D_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}' # change path to be outside detector folder
         # logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/CLIP-D_{tag}/', 'test.log'))
     
     os.makedirs(output_dir, exist_ok=True)
@@ -173,7 +174,7 @@ if __name__ == "__main__":
         tag = 'ft'
     else:
         tag = 'pretrained'
-    result_folder = f'/home/rz/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_name}/CLIP-D_{tag}/'
+    result_folder = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_name}/CLIP-D_{tag}/'
     log_path = os.path.join(result_folder,"logs")
     logger   = create_logger(os.path.join(log_path, f"test_{settings.name}_{dataset_name}_{settings.data_keys}.log"))
 
@@ -209,24 +210,27 @@ if __name__ == "__main__":
     load_path = (
         os.path.join("checkpoint", settings.name, "ft_weights",dataset_name, "best.pt")
         if settings.ft
-        else os.path.join("checkpoint", settings.name, "weights", dataset_name, "best.pt")
+        else os.path.join("checkpoint", settings.name, "weights",  "best.pt")
     )
-    logger.info(f"Loading weights from: {load_path}")
 
-    state = torch.load(load_path, map_location=device)
-    sd    = state["model"] if "model" in state else state
+    # logger.info(f"Loading weights from: {load_path}")
 
-    try:
-        model.load_state_dict(sd, strict=True)
-        logger.info("Weights loaded (strict=True)")
-    except RuntimeError as e:
-        logger.warning(f"strict=True failed: {e}")
-        missing, unexpected = model.load_state_dict(sd, strict=False)
-        logger.warning(
-            f"Loaded with strict=False — missing={len(missing)}, "
-            f"unexpected={len(unexpected)}"
-        )
+    # state = torch.load(load_path, map_location=device)
+    # sd    = state["model"] if "model" in state else state
+    
+    # try:
+    #     model.load_state_dict(sd, strict=True)
+    #     logger.info("Weights loaded (strict=True)")
+    # except RuntimeError as e:
+    #     logger.warning(f"strict=True failed: {e}")
+    #     missing, unexpected = model.load_state_dict(sd, strict=False)
+    #     logger.warning(
+    #         f"Loaded with strict=False — missing={len(missing)}, "
+    #         f"unexpected={len(unexpected)}"
+    #     )
 
+    print('loading the model from %s' % load_path)
+    model.load_state_dict(torch.load(load_path, map_location=device, weights_only=True)['model'])
     model.to(device)
 
     # ── Run test ──────────────────────────────────────────────────────────

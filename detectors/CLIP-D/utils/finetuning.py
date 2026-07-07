@@ -181,10 +181,11 @@ class FTModel(torch.nn.Module):
 
         # ── 2. Load checkpoint (BEFORE freezing for classic mode) ─────────
         if opt.ft:
-            load_path = os.path.join("checkpoint", opt.name, "weights", "best.pt")
+            load_path = os.path.join("checkpoint", "pretrained", "weights", "best.pt")
             if os.path.isfile(load_path):
                 print(f"[FTModel] Loading from {load_path}")
-                state = torch.load(load_path, map_location=self.device)
+                # state = torch.load(load_path, map_location=self.device)
+                state = torch.load(load_path, map_location=self.device, weights_only=True)
                 sd    = state["model"] if "model" in state else state
 
                 # For LoRA: an old fc-only checkpoint has only 2 keys;
@@ -207,6 +208,12 @@ class FTModel(torch.nn.Module):
             else:
                 print(f"[FTModel] No checkpoint at {load_path}. "
                       "Starting from CLIP pretrained weights.")
+
+        fc_norm_after = self.model.fc.weight.norm().item()
+        print(f"[FTModel] fc weight norm after load: {fc_norm_after:.4f}") # 41,9804
+        # If this prints a very small value (near 0.02 from the init),
+        # the checkpoint fc did not load and the model is starting from a random head.
+        # breakpoint()
 
         # ── 3. Classic mode: unfreeze selected blocks ─────────────────────
         if opt.ft and not self._is_lora:

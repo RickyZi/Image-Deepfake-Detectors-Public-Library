@@ -273,23 +273,18 @@ def main():
             args.tf2k = True # used to remove mod from dataset preprocessing
             print(f"Dataset TF2K: setting --tf2k flag to True")
             print(args.dataset)
-            dataset_path = os.path.join(global_config.get('dataset_path', ''), args.dataset)
+            # /datasets-disk/tb_dataset/tf2k_lr
+            dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf_dataset', args.dataset)
             # dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_lr_org', args.dataset)
 
-            # i.e. seasons/autumn_01 -> truefake_2k/tf2k_lr_org/seasons/autumn_01
-            # dataset_path = './truefake_2k'
-            # join dataset with datset_path from config
-            
-            # print(f"Using dataset path: {dataset_path}")
-            # args.tf2k = True # used to remove mod from dataset preprocessing
-            # breakpoint()
+           
             split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
     elif 'Facebook' in args.dataset or 'Telegram' in args.dataset or 'Twitter' in args.dataset:
             args.tf2k = True # used to remove mod from dataset preprocessing
             print(f"Dataset TF2K: setting --tf2k flag to True")
             print("loading social data")
             print(args.dataset)
-            dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_social', args.dataset)
+            dataset_path = os.path.join(global_config.get('dataset_path', ''), 'social', args.dataset)
 
             split_file = '/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/tf2k_SOCIAL_splits.json'
 

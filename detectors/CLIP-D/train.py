@@ -33,12 +33,15 @@ from sklearn.metrics import balanced_accuracy_score, roc_auc_score
 from utils.logger import create_logger
 from utils.processing import add_processing_arguments
 from parser import get_parser
+import json
 
 
 if __name__ == "__main__":
     parser = get_parser()
     parser = add_processing_arguments(parser)
     opt    = parser.parse_args()
+    # print(opt)
+    # breakpoint()
     opt.task = "train"   # tell make_processing() to apply augmentation
     dataset_name = opt.dataset.replace(os.sep, '_')
     # print(f"dataset: {dataset}")
@@ -78,6 +81,8 @@ if __name__ == "__main__":
         
         model = TrainingModel(opt)
     
+    # breakpoint()
+
     os.makedirs(save_dir,  exist_ok=True)
 
     save_log = os.path.join(save_dir, "logs")
@@ -86,6 +91,9 @@ if __name__ == "__main__":
     # log_path = os.path.join(save_log,  f"train_{opt.name}_{dataset_name}.log")
     
     logger   = create_logger(os.path.join(save_dir, 'train.log'))
+
+    logger.info(f"Training the R50_tf model on the {dataset_name} dataset - FT: {opt.ft} - unfreezeL4: {opt.r50unfreezeL4}")
+    logger.info(f"Training settings: {json.dumps(vars(opt), indent=2, default=str)}")
     
     logger.info(f"training batches   = {len(train_loader)}")
     logger.info(f"validation batches = {len(val_loader)}")

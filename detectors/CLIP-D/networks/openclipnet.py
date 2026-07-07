@@ -157,8 +157,7 @@ class LoRAMultiheadAttention(nn.Module):
                        any subset of ('q', 'k', 'v', 'o')
     """
 
-    def __init__(self, mha: nn.MultiheadAttention, r: int = 4,
-                 lora_alpha: float = 1.0, lora_targets: tuple = ('q', 'v')):
+    def __init__(self, mha: nn.MultiheadAttention, r: int = 4, lora_alpha: float = 1.0, lora_targets: tuple = ('q', 'v')):
         super().__init__()
         self.embed_dim = mha.embed_dim
         self.num_heads = mha.num_heads
@@ -193,8 +192,7 @@ class LoRAMultiheadAttention(nn.Module):
         self.v_proj = _proj("v")
         self.o_proj = _proj("o")
 
-    def forward(self, q_x, k_x=None, v_x=None,
-                need_weights=False, attn_mask=None):
+    def forward(self, q_x, k_x=None, v_x=None, need_weights=False, attn_mask=None):
         if k_x is None: k_x = q_x
         if v_x is None: v_x = q_x
 
