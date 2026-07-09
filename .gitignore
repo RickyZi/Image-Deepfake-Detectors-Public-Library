@@ -24,3 +24,6 @@ detectors/*/*/*/*/__pycache__/*
 */__pycache__/*
 optuna_studies/
 detectors/MISLNet/*
+utils/test_split_social/
+utils/tf_social_renamed/
+utils/utils/*
