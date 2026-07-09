@@ -73,8 +73,8 @@
 # python3 launcher.py --detector R50_TF --phases both --dataset style/film-inspired-coolbw --ft --r50unfreezeL4 --social facebook 
 # check on telegram and twitter to see if also them have problems
 # ------------------------------------------------------------------ #
-python3 launcher.py --detector R50_TF --phases both --dataset style/futuristic-FT01 --ft  --r50unfreezeL4 --social facebook
-python3 launcher.py --detector R50_TF --phases both --dataset style/vintage-VN01 --ft --r50unfreezeL4 --social facebook
+# python3 launcher.py --detector R50_TF --phases both --dataset style/futuristic-FT01 --ft  --r50unfreezeL4 --social facebook
+# python3 launcher.py --detector R50_TF --phases both --dataset style/vintage-VN01 --ft --r50unfreezeL4 --social facebook
 
 # adaptive 
 # blurbg-strong  blurbg-subtle  enhance-portait  sky-bluedrama  subject-pop

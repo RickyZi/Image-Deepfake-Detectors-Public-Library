@@ -65,9 +65,9 @@
 # # python3 launcher.py --detector NPR --phases test --dataset subject/travel2_TR11
 
 # # test TF_social
-# python3 launcher.py --detector NPR --phases test --dataset Facebook 
-# python3 launcher.py --detector NPR --phases test --dataset Telegram
-# python3 launcher.py --detector NPR --phases test --dataset Twitter
+python3 launcher.py --detector NPR --phases test --dataset Facebook 
+python3 launcher.py --detector NPR --phases test --dataset Telegram
+python3 launcher.py --detector NPR --phases test --dataset Twitter
 # # --------------------------------------------------- #
 # # ----------------------- P2G ----------------------- #
 # # --------------------------------------------------- #
@@ -93,9 +93,9 @@
 # # python3 launcher.py --detector P2G --phases test --dataset subject/travel2_TR11
 
 # # test TF_social
-# python3 launcher.py --detector P2G --phases test --dataset Facebook 
-# python3 launcher.py --detector P2G --phases test --dataset Telegram
-# python3 launcher.py --detector P2G --phases test --dataset Twitter
+python3 launcher.py --detector P2G --phases test --dataset Facebook 
+python3 launcher.py --detector P2G --phases test --dataset Telegram
+python3 launcher.py --detector P2G --phases test --dataset Twitter
 
 # # -------------------------------------------------- #
 # # --------------------- R50_nd --------------------- #
@@ -124,9 +124,9 @@
 # # # python3 launcher.py --detector R50_nodown --phases test --dataset style/vintage_VN01
 
 # # test TF_social
-# python3 launcher.py --detector R50_nodown --phases test --dataset Facebook 
-# python3 launcher.py --detector R50_nodown --phases test --dataset Telegram
-# python3 launcher.py --detector R50_nodown --phases test --dataset Twitter 
+python3 launcher.py --detector R50_nodown --phases test --dataset Facebook 
+python3 launcher.py --detector R50_nodown --phases test --dataset Telegram
+python3 launcher.py --detector R50_nodown --phases test --dataset Twitter 
 
 # # -------------------------------------------------- #
 # # --------------------- CLIP-D --------------------- #
@@ -155,77 +155,77 @@
 # # # python3 launcher.py --detector CLIP-D --phases test --dataset style/vintage_VN01
 
 # # test TF_social
-# python3 launcher.py --detector CLIP-D --phases test --dataset Facebook 
-# python3 launcher.py --detector CLIP-D --phases test --dataset Telegram
-# python3 launcher.py --detector CLIP-D --phases test --dataset Twitter
+python3 launcher.py --detector CLIP-D --phases test --dataset Facebook 
+python3 launcher.py --detector CLIP-D --phases test --dataset Telegram
+python3 launcher.py --detector CLIP-D --phases test --dataset Twitter
 
 
 # ------------------------------------------ #
 # R50 nodown #
 # ------------------------------------------ #
-python3 launcher.py --detector R50_nodown --phases test --dataset seasons/autumn-TM01 --social facebook
-python3 launcher.py --detector R50_nodown --phases test --dataset seasons/spring-SP01 --social facebook
-python3 launcher.py --detector R50_nodown --phases test --dataset seasons/summer-SM01  --social facebook
-python3 launcher.py --detector R50_nodown --phases test --dataset seasons/winter-WN01  --social facebook
+# python3 launcher.py --detector R50_nodown --phases test --dataset seasons/autumn-TM01 --social facebook
+# python3 launcher.py --detector R50_nodown --phases test --dataset seasons/spring-SP01 --social facebook
+# python3 launcher.py --detector R50_nodown --phases test --dataset seasons/summer-SM01  --social facebook
+# python3 launcher.py --detector R50_nodown --phases test --dataset seasons/winter-WN01  --social facebook
 
-# style
-# bw-BW01  cinematic-CN01  cinematic2-CN11  film-inspired-boldbw  film-inspired-coolbw  film-inspired-warmgold  futuristic-FT01  vintage-VN01
-python3 launcher.py --detector R50_nodown --phases test --dataset style/bw-BW01  --social facebook
-python3 launcher.py --detector R50_nodown --phases test --dataset style/cinematic-CN01 --social facebook
-python3 launcher.py --detector R50_nodown --phases test --dataset style/cinematic2-CN11 --social facebook
-python3 launcher.py --detector R50_nodown --phases test --dataset style/film-inspired-warmgold --social facebook
-python3 launcher.py --detector R50_nodown --phases test --dataset style/film-inspired-boldbw --social facebook
-python3 launcher.py --detector R50_nodown --phases test --dataset style/film-inspired-coolbw --social facebook
-python3 launcher.py --detector R50_nodown --phases test --dataset style/futuristic-FT01  --social facebook
-python3 launcher.py --detector R50_nodown --phases test --dataset style/vintage-VN01 --social facebook
+# # style
+# # bw-BW01  cinematic-CN01  cinematic2-CN11  film-inspired-boldbw  film-inspired-coolbw  film-inspired-warmgold  futuristic-FT01  vintage-VN01
+# python3 launcher.py --detector R50_nodown --phases test --dataset style/bw-BW01  --social facebook
+# python3 launcher.py --detector R50_nodown --phases test --dataset style/cinematic-CN01 --social facebook
+# python3 launcher.py --detector R50_nodown --phases test --dataset style/cinematic2-CN11 --social facebook
+# python3 launcher.py --detector R50_nodown --phases test --dataset style/film-inspired-warmgold --social facebook
+# python3 launcher.py --detector R50_nodown --phases test --dataset style/film-inspired-boldbw --social facebook
+# python3 launcher.py --detector R50_nodown --phases test --dataset style/film-inspired-coolbw --social facebook
+# python3 launcher.py --detector R50_nodown --phases test --dataset style/futuristic-FT01  --social facebook
+# python3 launcher.py --detector R50_nodown --phases test --dataset style/vintage-VN01 --social facebook
 
-# adaptive 
-# blurbg-strong  blurbg-subtle  enhance-portait  sky-bluedrama  subject-pop
-python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/blurbg-strong  --social facebook
-python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/blurbg-subtle --social facebook
-python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/enhance-portait --social facebook
-python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/sky-bluedrama --social facebook
-python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/subject-pop --social facebook
+# # adaptive 
+# # blurbg-strong  blurbg-subtle  enhance-portait  sky-bluedrama  subject-pop
+# # python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/blurbg-strong  --social facebook
+# python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/blurbg-subtle --social facebook
+# # python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/enhance-portait --social facebook
+# # python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/sky-bluedrama --social facebook
+# # python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/subject-pop --social facebook
 
 
-# subject
-# landscape-LN01  travel-TR01  travel2-TR11
-python3 launcher.py --detector R50_nodown --phases test --dataset subject/landscape-LN01 --social facebook
-python3 launcher.py --detector R50_nodown --phases test --dataset subject/travel-TR01  --social facebook
-python3 launcher.py --detector R50_nodown --phases test --dataset subject/travel2-TR11 --social facebook
+# # subject
+# # landscape-LN01  travel-TR01  travel2-TR11
+# python3 launcher.py --detector R50_nodown --phases test --dataset subject/landscape-LN01 --social facebook
+# python3 launcher.py --detector R50_nodown --phases test --dataset subject/travel-TR01  --social facebook
+# python3 launcher.py --detector R50_nodown --phases test --dataset subject/travel2-TR11 --social facebook
 
 
 # ------------------------------------------ #
 # R50 TF #
 # ------------------------------------------ #
 
-python3 launcher.py --detector R50_TF --phases test --dataset seasons/autumn-TM01 --social facebook
-python3 launcher.py --detector R50_TF --phases test --dataset seasons/spring-SP01 --social facebook
-python3 launcher.py --detector R50_TF --phases test --dataset seasons/summer-SM01  --social facebook
-python3 launcher.py --detector R50_TF --phases test --dataset seasons/winter-WN01  --social facebook
+# python3 launcher.py --detector R50_TF --phases test --dataset seasons/autumn-TM01 --social facebook
+# python3 launcher.py --detector R50_TF --phases test --dataset seasons/spring-SP01 --social facebook
+# python3 launcher.py --detector R50_TF --phases test --dataset seasons/summer-SM01  --social facebook
+# python3 launcher.py --detector R50_TF --phases test --dataset seasons/winter-WN01  --social facebook
 
-# style
-# bw-BW01  cinematic-CN01  cinematic2-CN11  film-inspired-boldbw  film-inspired-coolbw  film-inspired-warmgold  futuristic-FT01  vintage-VN01
-python3 launcher.py --detector R50_TF --phases test --dataset style/bw-BW01  --social facebook
-python3 launcher.py --detector R50_TF --phases test --dataset style/cinematic-CN01 --social facebook
-python3 launcher.py --detector R50_TF --phases test --dataset style/cinematic2-CN11 --social facebook
-python3 launcher.py --detector R50_TF --phases test --dataset style/film-inspired-warmgold --social facebook
-python3 launcher.py --detector R50_TF --phases test --dataset style/film-inspired-boldbw --social facebook
-python3 launcher.py --detector R50_TF --phases test --dataset style/film-inspired-coolbw --social facebook
-python3 launcher.py --detector R50_TF --phases test --dataset style/futuristic-FT01  --social facebook
-python3 launcher.py --detector R50_TF --phases test --dataset style/vintage-VN01 --social facebook
+# # style
+# # bw-BW01  cinematic-CN01  cinematic2-CN11  film-inspired-boldbw  film-inspired-coolbw  film-inspired-warmgold  futuristic-FT01  vintage-VN01
+# python3 launcher.py --detector R50_TF --phases test --dataset style/bw-BW01  --social facebook
+# python3 launcher.py --detector R50_TF --phases test --dataset style/cinematic-CN01 --social facebook
+# python3 launcher.py --detector R50_TF --phases test --dataset style/cinematic2-CN11 --social facebook
+# python3 launcher.py --detector R50_TF --phases test --dataset style/film-inspired-warmgold --social facebook
+# python3 launcher.py --detector R50_TF --phases test --dataset style/film-inspired-boldbw --social facebook
+# python3 launcher.py --detector R50_TF --phases test --dataset style/film-inspired-coolbw --social facebook
+# python3 launcher.py --detector R50_TF --phases test --dataset style/futuristic-FT01  --social facebook
+# python3 launcher.py --detector R50_TF --phases test --dataset style/vintage-VN01 --social facebook
 
 # adaptive 
 # blurbg-strong  blurbg-subtle  enhance-portait  sky-bluedrama  subject-pop
-python3 launcher.py --detector R50_TF --phases test --dataset adaptive/blurbg-strong  --social facebook
-python3 launcher.py --detector R50_TF --phases test --dataset adaptive/blurbg-subtle --social facebook
-python3 launcher.py --detector R50_TF --phases test --dataset adaptive/enhance-portait --social facebook
-python3 launcher.py --detector R50_TF --phases test --dataset adaptive/sky-bluedrama --social facebook
-python3 launcher.py --detector R50_TF --phases test --dataset adaptive/subject-pop --social facebook
+# python3 launcher.py --detector R50_TF --phases test --dataset adaptive/blurbg-strong  --social facebook
+# python3 launcher.py --detector R50_TF --phases test --dataset adaptive/blurbg-subtle --social facebook
+# # python3 launcher.py --detector R50_TF --phases test --dataset adaptive/enhance-portait --social facebook
+# # python3 launcher.py --detector R50_TF --phases test --dataset adaptive/sky-bluedrama --social facebook
+# # python3 launcher.py --detector R50_TF --phases test --dataset adaptive/subject-pop --social facebook
 
 
-# subject
-# landscape-LN01  travel-TR01  travel2-TR11
-python3 launcher.py --detector R50_TF --phases test --dataset subject/landscape-LN01 --social facebook
-python3 launcher.py --detector R50_TF --phases test --dataset subject/travel-TR01  --social facebook
-python3 launcher.py --detector R50_TF --phases test --dataset subject/travel2-TR11 --social facebook
+# # subject
+# # landscape-LN01  travel-TR01  travel2-TR11
+# python3 launcher.py --detector R50_TF --phases test --dataset subject/landscape-LN01 --social facebook
+# python3 launcher.py --detector R50_TF --phases test --dataset subject/travel-TR01  --social facebook
+# python3 launcher.py --detector R50_TF --phases test --dataset subject/travel2-TR11 --social facebook

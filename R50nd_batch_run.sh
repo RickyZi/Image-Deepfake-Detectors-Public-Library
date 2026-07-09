@@ -106,8 +106,8 @@ python3 launcher.py --detector R50_nodown --phases both --dataset seasons/spring
 python3 launcher.py --detector R50_nodown --phases both --dataset seasons/summer-SM01 --ft --r50unfreezeL4 --social facebook
 python3 launcher.py --detector R50_nodown --phases both --dataset seasons/winter-WN01 --ft --r50unfreezeL4 --social facebook
 
-# style
-# bw-BW01  cinematic-CN01  cinematic2-CN11  film-inspired-boldbw  film-inspired-coolbw  film-inspired-warmgold  futuristic-FT01  vintage-VN01
+# # style
+# # bw-BW01  cinematic-CN01  cinematic2-CN11  film-inspired-boldbw  film-inspired-coolbw  film-inspired-warmgold  futuristic-FT01  vintage-VN01
 python3 launcher.py --detector R50_nodown --phases both --dataset style/bw-BW01 --ft  --r50unfreezeL4 --social facebook
 python3 launcher.py --detector R50_nodown --phases both --dataset style/cinematic-CN01 --ft --r50unfreezeL4 --social facebook
 python3 launcher.py --detector R50_nodown --phases both --dataset style/cinematic2-CN11 --ft --r50unfreezeL4 --social facebook
@@ -117,17 +117,17 @@ python3 launcher.py --detector R50_nodown --phases both --dataset style/film-ins
 python3 launcher.py --detector R50_nodown --phases both --dataset style/futuristic-FT01 --ft  --r50unfreezeL4 --social facebook
 python3 launcher.py --detector R50_nodown --phases both --dataset style/vintage-VN01 --ft --r50unfreezeL4 --social facebook
 
-# adaptive 
-# blurbg-strong  blurbg-subtle  enhance-portait  sky-bluedrama  subject-pop
-# python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/blurbg-strong --ft  --r50unfreezeL4 --social facebook
+# # adaptive 
+# # blurbg-strong  blurbg-subtle  enhance-portait  sky-bluedrama  subject-pop
+python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/blurbg-strong --ft  --r50unfreezeL4 --social facebook
 python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/blurbg-subtle --ft --r50unfreezeL4 --social facebook
-# python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/enhance-portait --ft --r50unfreezeL4 --social facebook
-# python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/sky-bluedrama --ft --r50unfreezeL4 --social facebook
-# python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/subject-pop --ft --r50unfreezeL4 --social facebook
+python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/enhance-portait --ft --r50unfreezeL4 --social facebook
+python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/sky-bluedrama --ft --r50unfreezeL4 --social facebook
+python3 launcher.py --detector R50_nodown --phases both --dataset adaptive/subject-pop --ft --r50unfreezeL4 --social facebook
 
 
-# subject
-# landscape-LN01  travel-TR01  travel2-TR11
+# # subject
+# # landscape-LN01  travel-TR01  travel2-TR11
 python3 launcher.py --detector R50_nodown --phases both --dataset subject/landscape-LN01 --ft --r50unfreezeL4 --social facebook
 python3 launcher.py --detector R50_nodown --phases both --dataset subject/travel-TR01 --ft  --r50unfreezeL4 --social facebook
 python3 launcher.py --detector R50_nodown --phases both --dataset subject/travel2-TR11 --ft --r50unfreezeL4 --social facebook
@@ -138,13 +138,32 @@ python3 launcher.py --detector R50_nodown --phases both --dataset subject/travel
 # python3 launcher.py --detector R50_TF --phases both --dataset style/futuristic-FT01 --ft  --r50unfreezeL4 --social facebook
 # python3 launcher.py --detector R50_TF --phases both --dataset style/vintage-VN01 --ft --r50unfreezeL4 --social facebook
 
+# facebook
+# seasons
+# autumn-TM01  spring-SP01  summer-SM01  winter-WN01
+python3 launcher.py --detector R50_TF --phases both --dataset seasons/autumn-TM01 --ft --r50unfreezeL4 --social facebook
+python3 launcher.py --detector R50_TF --phases both --dataset seasons/spring-SP01 --ft --r50unfreezeL4 --social facebook
+python3 launcher.py --detector R50_TF --phases both --dataset seasons/summer-SM01 --ft --r50unfreezeL4 --social facebook
+python3 launcher.py --detector R50_TF --phases both --dataset seasons/winter-WN01 --ft --r50unfreezeL4 --social facebook
+
+# # style
+# # bw-BW01  cinematic-CN01  cinematic2-CN11  film-inspired-boldbw  film-inspired-coolbw  film-inspired-warmgold  futuristic-FT01  vintage-VN01
+python3 launcher.py --detector R50_TF --phases both --dataset style/bw-BW01 --ft  --r50unfreezeL4 --social facebook
+python3 launcher.py --detector R50_TF --phases both --dataset style/cinematic-CN01 --ft --r50unfreezeL4 --social facebook
+python3 launcher.py --detector R50_TF --phases both --dataset style/cinematic2-CN11 --ft --r50unfreezeL4 --social facebook
+python3 launcher.py --detector R50_TF --phases both --dataset style/film-inspired-warmgold --ft --r50unfreezeL4 --social facebook
+python3 launcher.py --detector R50_TF --phases both --dataset style/film-inspired-boldbw --ft --r50unfreezeL4 --social facebook
+python3 launcher.py --detector R50_TF --phases both --dataset style/film-inspired-coolbw --ft --r50unfreezeL4 --social facebook # check this!!!
+python3 launcher.py --detector R50_TF --phases both --dataset style/futuristic-FT01 --ft  --r50unfreezeL4 --social facebook
+python3 launcher.py --detector R50_TF --phases both --dataset style/vintage-VN01 --ft --r50unfreezeL4 --social facebook
+
 # adaptive 
 # blurbg-strong  blurbg-subtle  enhance-portait  sky-bluedrama  subject-pop
-# python3 launcher.py --detector R50_TF --phases both --dataset adaptive/blurbg-strong --ft  --r50unfreezeL4 --social facebook
-python3 launcher.py --detector R50_TF --phases both --dataset adaptive/blurbg-subtle --ft --r50unfreezeL4 --social facebook
-# python3 launcher.py --detector R50_TF --phases both --dataset adaptive/enhance-portait --ft --r50unfreezeL4 --social facebook
-# python3 launcher.py --detector R50_TF --phases both --dataset adaptive/sky-bluedrama --ft --r50unfreezeL4 --social facebook
-# python3 launcher.py --detector R50_TF --phases both --dataset adaptive/subject-pop --ft --r50unfreezeL4 --social facebook
+python3 launcher.py --detector R50_TF --phases both --dataset adaptive/blurbg-strong --ft  --r50unfreezeL4 --social facebook
+python3 launcher.py --detector R50_TF --phases both --dataset adaptive/blurbg-subtle --ft --r50unfreezeL4 --social facebook # check!!
+python3 launcher.py --detector R50_TF --phases both --dataset adaptive/enhance-portait --ft --r50unfreezeL4 --social facebook
+python3 launcher.py --detector R50_TF --phases both --dataset adaptive/sky-bluedrama --ft --r50unfreezeL4 --social facebook
+python3 launcher.py --detector R50_TF --phases both --dataset adaptive/subject-pop --ft --r50unfreezeL4 --social facebook
 
 
 # subject
