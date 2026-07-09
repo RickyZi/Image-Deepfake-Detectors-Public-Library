@@ -4,7 +4,7 @@ from .base_options import BaseOptions
 class TrainOptions(BaseOptions):
     def initialize(self, parser):
         parser = BaseOptions.initialize(self, parser)
-        parser.add_argument('--earlystop_epoch', type=int, default=15)
+        parser.add_argument('--earlystop_epoch', type=int, default = 5) # default=15) # bump down earlystop patience to 5 as R50nd and R50TF
         parser.add_argument('--data_aug', action='store_true', help='if specified, perform additional data augmentation (photometric, blurring, jpegging)')
         parser.add_argument('--optim', type=str, default='adam', help='optim to use [sgd, adam]')
         parser.add_argument('--new_optim', action='store_true', help='new optimizer instead of loading the optim state')

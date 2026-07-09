@@ -65,37 +65,37 @@
 # # python3 launcher.py --detector NPR --phases test --dataset subject/travel2_TR11
 
 # # test TF_social
-python3 launcher.py --detector NPR --phases test --dataset Facebook 
-python3 launcher.py --detector NPR --phases test --dataset Telegram
-python3 launcher.py --detector NPR --phases test --dataset Twitter
-# # --------------------------------------------------- #
-# # ----------------------- P2G ----------------------- #
-# # --------------------------------------------------- #
+# python3 launcher.py --detector NPR --phases test --dataset Facebook 
+# python3 launcher.py --detector NPR --phases test --dataset Telegram
+# python3 launcher.py --detector NPR --phases test --dataset Twitter
+# # # --------------------------------------------------- #
+# # # ----------------------- P2G ----------------------- #
+# # # --------------------------------------------------- #
 
-# # python3 launcher.py --detector P2G --phases test  # still some trouble loading dataset
+# # # python3 launcher.py --detector P2G --phases test  # still some trouble loading dataset
 
-# # python3 launcher.py --detector P2G --phases test --dataset adaptive/blurbg_strong
+# # # python3 launcher.py --detector P2G --phases test --dataset adaptive/blurbg_strong
 
-# # python3 launcher.py --detector P2G --phases test --dataset adaptive/enhance_portrait
+# # # python3 launcher.py --detector P2G --phases test --dataset adaptive/enhance_portrait
 
-# # python3 launcher.py --detector P2G --phases test --dataset adaptive/sky_bluedrama
+# # # python3 launcher.py --detector P2G --phases test --dataset adaptive/sky_bluedrama
 
-# # python3 launcher.py --detector P2G --phases test --dataset adaptive/subject_pop
+# # # python3 launcher.py --detector P2G --phases test --dataset adaptive/subject_pop
 
-# # python3 launcher.py --detector P2G --phases test --dataset style/film_inspired_boldbw
+# # # python3 launcher.py --detector P2G --phases test --dataset style/film_inspired_boldbw
 
-# # python3 launcher.py --detector P2G --phases test --dataset style/film_inspired_coolbw
+# # # python3 launcher.py --detector P2G --phases test --dataset style/film_inspired_coolbw
 
-# # python3 launcher.py --detector P2G --phases test --dataset subject/landscape_LN01
+# # # python3 launcher.py --detector P2G --phases test --dataset subject/landscape_LN01
 
-# # python3 launcher.py --detector P2G --phases test --dataset subject/travel_TR01
+# # # python3 launcher.py --detector P2G --phases test --dataset subject/travel_TR01
 
-# # python3 launcher.py --detector P2G --phases test --dataset subject/travel2_TR11
+# # # python3 launcher.py --detector P2G --phases test --dataset subject/travel2_TR11
 
-# # test TF_social
-python3 launcher.py --detector P2G --phases test --dataset Facebook 
-python3 launcher.py --detector P2G --phases test --dataset Telegram
-python3 launcher.py --detector P2G --phases test --dataset Twitter
+# # # test TF_social
+# python3 launcher.py --detector P2G --phases test --dataset Facebook 
+# python3 launcher.py --detector P2G --phases test --dataset Telegram
+# python3 launcher.py --detector P2G --phases test --dataset Twitter
 
 # # -------------------------------------------------- #
 # # --------------------- R50_nd --------------------- #
@@ -123,10 +123,10 @@ python3 launcher.py --detector P2G --phases test --dataset Twitter
 
 # # # python3 launcher.py --detector R50_nodown --phases test --dataset style/vintage_VN01
 
-# # test TF_social
-python3 launcher.py --detector R50_nodown --phases test --dataset Facebook 
-python3 launcher.py --detector R50_nodown --phases test --dataset Telegram
-python3 launcher.py --detector R50_nodown --phases test --dataset Twitter 
+# # # test TF_social
+# python3 launcher.py --detector R50_nodown --phases test --dataset Facebook 
+# python3 launcher.py --detector R50_nodown --phases test --dataset Telegram
+# python3 launcher.py --detector R50_nodown --phases test --dataset Twitter 
 
 # # -------------------------------------------------- #
 # # --------------------- CLIP-D --------------------- #
@@ -154,10 +154,10 @@ python3 launcher.py --detector R50_nodown --phases test --dataset Twitter
 
 # # # python3 launcher.py --detector CLIP-D --phases test --dataset style/vintage_VN01
 
-# # test TF_social
-python3 launcher.py --detector CLIP-D --phases test --dataset Facebook 
-python3 launcher.py --detector CLIP-D --phases test --dataset Telegram
-python3 launcher.py --detector CLIP-D --phases test --dataset Twitter
+# # # test TF_social
+# python3 launcher.py --detector CLIP-D --phases test --dataset Facebook 
+# python3 launcher.py --detector CLIP-D --phases test --dataset Telegram
+# python3 launcher.py --detector CLIP-D --phases test --dataset Twitter
 
 
 # ------------------------------------------ #
@@ -186,6 +186,12 @@ python3 launcher.py --detector CLIP-D --phases test --dataset Twitter
 # # python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/enhance-portait --social facebook
 # # python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/sky-bluedrama --social facebook
 # # python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/subject-pop --social facebook
+
+# baseline to test
+python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/blurbg-strong --social facebook
+python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/enhance-portait  --social facebook
+python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/sky-bluedrama  --social facebook
+python3 launcher.py --detector R50_nodown --phases test --dataset adaptive/subject-pop  --social facebook
 
 
 # # subject
@@ -222,6 +228,10 @@ python3 launcher.py --detector CLIP-D --phases test --dataset Twitter
 # # python3 launcher.py --detector R50_TF --phases test --dataset adaptive/enhance-portait --social facebook
 # # python3 launcher.py --detector R50_TF --phases test --dataset adaptive/sky-bluedrama --social facebook
 # # python3 launcher.py --detector R50_TF --phases test --dataset adaptive/subject-pop --social facebook
+python3 launcher.py --detector R50_TF --phases test --dataset adaptive/blurbg-strong --social facebook
+python3 launcher.py --detector R50_TF --phases test --dataset adaptive/enhance-portait  --social facebook
+python3 launcher.py --detector R50_TF --phases test --dataset adaptive/sky-bluedrama  --social facebook
+python3 launcher.py --detector R50_TF --phases test --dataset adaptive/subject-pop  --social facebook
 
 
 # # subject

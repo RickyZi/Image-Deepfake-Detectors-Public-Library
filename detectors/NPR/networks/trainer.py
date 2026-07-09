@@ -64,7 +64,8 @@ class Trainer(BaseModel):
 
     def adjust_learning_rate(self, min_lr=1e-6):
         for param_group in self.optimizer.param_groups:
-            param_group['lr'] *= 0.9
+            # param_group['lr'] *= 0.9
+            param_group['lr'] /= 10 # same as r50nd
             if param_group['lr'] < min_lr:
                 return False
         self.lr = param_group['lr']
@@ -72,6 +73,14 @@ class Trainer(BaseModel):
         print(f'Changing lr from {param_group["lr"]/0.9} to {param_group["lr"]}')
         print('*'*25)
         return True
+    
+    # R50nd adjust learning rate
+    # def adjust_learning_rate(self, min_lr=1e-6):
+    #     for param_group in self.optimizer.param_groups:
+    #         param_group["lr"] /= 10.0
+    #         if param_group["lr"] < min_lr:
+    #             return False
+    #     return True
 
     def set_input(self, input):
         # self.input = input[0].to(self.device)

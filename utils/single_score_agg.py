@@ -662,6 +662,8 @@ def save_agg_scores(output, out_path):
 # ------------------------------------------------------------------ #
 
 if __name__ == '__main__':
+
+    # python3 utils/single_score_agg.py R50_nodown_ft_unfreezeL4 ./results/facebook/
     parser = argparse.ArgumentParser(description='Aggregate test-run scores for one detector.')
 
     model = sys.argv[1] if len(sys.argv) > 2 else 'R50_nodown_pretrained'

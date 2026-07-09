@@ -59,8 +59,12 @@ if __name__ == '__main__':
     print('  '.join(list(sys.argv)) )
     opt_val = get_val_opt()
 
-    train_loader = create_dataloader(opt_train, split='train')
-    val_loader = create_dataloader(opt_val, split='val')
+    if opt_train.tf2k:
+        train_loader = create_dataloader(opt_train, split='train')
+        val_loader = create_dataloader(opt_val, split='val')
+    else:
+        train_loader = create_dataloader(opt_train, split='train')
+        val_loader = create_dataloader(opt_val, split='val')
 
     model = Trainer(opt_train)
 
@@ -96,12 +100,16 @@ if __name__ == '__main__':
             es_best_score = checkpoint.get('early_stopping_best_score')
             es_count_down = checkpoint.get('early_stopping_count_down')
             if es_best_score is not None:
+                # same early stopping definition as in R50nd and R50TF
                 early_stopping = EarlyStopping(
                     init_score=es_best_score,
-                    patience=opt_train.earlystop_epoch,
-                    delta=opt_train.min_delta,
+                    patience=opt_train.earlystop_epoch, # test with 8/10 instead of 5 as in R50nd
+                    # delta=opt_train.min_delta,
+                    delta = 0.001, # try to increase it to 0.005 (as for R50nd and R50TF)
                     verbose=True,
+                    logger = logger
                 )
+
                 early_stopping.count_down = es_count_down if es_count_down is not None else opt_train.earlystop_epoch
 
             start_epoch = last_epoch + 1

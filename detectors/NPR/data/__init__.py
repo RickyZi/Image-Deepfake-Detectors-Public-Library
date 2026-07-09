@@ -57,7 +57,7 @@ import os
 
 def parse_tf2k_dataset(settings):
 
-    # print("parsing TF2K dataset")
+    print("parsing TF2K dataset")
     # breakpoint()
 
     gen_keys = {
@@ -238,7 +238,11 @@ class TrueFake_dataset(DatasetFolder):
                             Tv2.ToTensor(),
                             Tv2.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
                         ])
-    
+
+
+        print(f"Applying transformations: {self.transform}")
+        # breakpoint()
+
                     
     def _in_list(self, split, elem):
         i = bisect.bisect_left(split, elem)
