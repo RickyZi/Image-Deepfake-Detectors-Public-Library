@@ -3,6 +3,7 @@ import torch
 import torch.nn as nn
 from networks.resnet import resnet50
 from networks.base_model import BaseModel, init_weights
+import os
 
 
 class Trainer(BaseModel):
@@ -12,11 +13,29 @@ class Trainer(BaseModel):
     def __init__(self, opt):
         super(Trainer, self).__init__(opt)
 
-        if self.isTrain and not opt.continue_train:
-            self.model = resnet50(pretrained=False, num_classes=1)
+        if not hasattr(self, 'device'):
+            self.device = torch.device(opt.device if torch.cuda.is_available() else 'cpu')
 
-        if not self.isTrain or opt.continue_train:
-            self.model = resnet50(num_classes=1)
+
+        # if self.isTrain and not opt.continue_train:
+        #     self.model = resnet50(pretrained=False, num_classes=1)
+
+        # if not self.isTrain or opt.continue_train:
+        #     self.model = resnet50(num_classes=1)
+        self.model = resnet50(num_classes=1)
+
+        if self.isTrain and getattr(opt, 'ft', False):
+            # Bootstrap from pretrained model
+            base_path = os.path.join('checkpoint', opt.name, 'weights', 'best.pt')
+            if os.path.isfile(base_path):
+                print(f"[FT] Loading base-trained weights from {base_path}")
+                state = torch.load(base_path, map_location=opt.device)
+                sd = state['model'] if isinstance(state, dict) and 'model' in state else state
+                self.model.load_state_dict(sd, strict=True)
+            else:
+                print(f"[FT] WARNING: no checkpoint found at {base_path}. "
+                      f"Training from random init instead.")
+
 
         if self.isTrain:
             self.loss_fn = nn.BCEWithLogitsLoss()
@@ -33,6 +52,13 @@ class Trainer(BaseModel):
         # if not self.isTrain or opt.continue_train:
         #     self.load_networks(opt.epoch)
         # self.model.to(opt.gpu_ids[0])
+
+        # check numbers of trainable parameters
+        self.trainable_params = sum(p.numel() for p in self.model.parameters() if p.requires_grad)
+        self.total_params = sum(p.numel() for p in self.model.parameters())
+        pct = 100 * self.trainable_params / self.total_params if self.total_params else 0.0
+        print(f"Trainable parameters: {self.trainable_params:,} / {self.total_params:,} ({pct:.2f}%)")
+
         self.model.to(opt.device)
  
 
@@ -48,6 +74,8 @@ class Trainer(BaseModel):
         return True
 
     def set_input(self, input):
+        # self.input = input[0].to(self.device)
+        # self.label = input[1].to(self.device).float()
         self.input = input[0].to(self.device)
         self.label = input[1].to(self.device).float()
 

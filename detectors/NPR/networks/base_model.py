@@ -15,12 +15,23 @@ class BaseModel(nn.Module):
         self.lr = opt.lr
         # self.save_dir = os.path.join(opt.checkpoints_dir, opt.name)
         # self.save_dir = os.path.join(opt.checkpoints_dir, opt.name)
-        self.save_dir = os.path.join(f'./checkpoint/{opt.name}/weights/')
+        # self.save_dir = os.path.join(f'./checkpoint/{opt.name}/weights/')
+        # os.makedirs(self.save_dir, exist_ok=True)
+        # #self.device = torch.device('cuda:{}'.format(opt.gpu_ids[0])) if opt.gpu_ids else torch.device('cpu')
+        # self.device = torch.device(opt.device if torch.cuda.is_available() else 'cpu')
+
+        if getattr(opt, 'ft', False):
+            dataset_name = opt.dataset.replace(os.sep, '_') if getattr(opt, 'dataset', None) else 'dataset'
+            self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights', dataset_name)
+        else:
+            self.save_dir = os.path.join(f'./checkpoint/{opt.name}/weights/')
         os.makedirs(self.save_dir, exist_ok=True)
-        #self.device = torch.device('cuda:{}'.format(opt.gpu_ids[0])) if opt.gpu_ids else torch.device('cpu')
+ 
         self.device = torch.device(opt.device if torch.cuda.is_available() else 'cpu')
 
-    def save_networks(self, epoch):
+
+
+    def save_networks(self, epoch, extra = None):
         # save_filename = 'model_epoch_%s.pth' % epoch
         save_filename = f'{epoch}.pt'
         save_path = os.path.join(self.save_dir, save_filename)
@@ -32,35 +43,69 @@ class BaseModel(nn.Module):
         #     'total_steps' : self.total_steps,
         # }
 
-        torch.save(self.model.state_dict(), save_path)
+        if epoch == 'best':
+            # best model checkpoint
+            torch.save(self.model.state_dict(), save_path)
+        else:
+            # per-epoch resume checkpoint
+            state = {
+                'model': self.model.state_dict(),
+                'optimizer': self.optimizer.state_dict(),
+                'total_steps': self.total_steps,
+            }
+            if extra:
+                state.update(extra)
+            torch.save(state, save_path)
+
+
+        # torch.save(self.model.state_dict(), save_path)
         print(f'Saving model {save_path}')
 
-    # load models from the disk
-    def load_networks(self, epoch):
-        # load_filename = 'model_epoch_%s.pth' % epoch
-        load_filename = f'{epoch}.pt'
-        load_path = os.path.join(self.save_dir, load_filename)
+    # # load models from the disk
+    # def load_networks(self, epoch):
+    #     # load_filename = 'model_epoch_%s.pth' % epoch
+    #     load_filename = f'{epoch}.pt'
+    #     load_path = os.path.join(self.save_dir, load_filename)
 
-        print('loading the model from %s' % load_path)
-        # if you are using PyTorch newer than 0.4 (e.g., built from
-        # GitHub source), you can remove str() on self.device
-        state_dict = torch.load(load_path, map_location=self.device)
-        if hasattr(state_dict, '_metadata'):
-            del state_dict._metadata
+    #     print('loading the model from %s' % load_path)
+    #     # if you are using PyTorch newer than 0.4 (e.g., built from
+    #     # GitHub source), you can remove str() on self.device
+    #     state_dict = torch.load(load_path, map_location=self.device)
+    #     if hasattr(state_dict, '_metadata'):
+    #         del state_dict._metadata
 
-        self.model.load_state_dict(state_dict['model'])
-        self.total_steps = state_dict['total_steps']
+    #     self.model.load_state_dict(state_dict['model'])
+    #     self.total_steps = state_dict['total_steps']
 
-        if self.isTrain and not self.opt.new_optim:
-            self.optimizer.load_state_dict(state_dict['optimizer'])
-            ### move optimizer state to GPU
-            for state in self.optimizer.state.values():
-                for k, v in state.items():
-                    if torch.is_tensor(v):
-                        state[k] = v.to(self.device)
+    #     if self.isTrain and not self.opt.new_optim:
+    #         self.optimizer.load_state_dict(state_dict['optimizer'])
+    #         ### move optimizer state to GPU
+    #         for state in self.optimizer.state.values():
+    #             for k, v in state.items():
+    #                 if torch.is_tensor(v):
+    #                     state[k] = v.to(self.device)
 
-            for g in self.optimizer.param_groups:
-                g['lr'] = self.opt.lr
+    #         for g in self.optimizer.param_groups:
+    #             g['lr'] = self.opt.lr
+
+    def load_checkpoint(self, checkpoint_path):
+        if not os.path.exists(checkpoint_path):
+            raise FileNotFoundError(f"Checkpoint not found: {checkpoint_path}")
+ 
+        checkpoint = torch.load(checkpoint_path, map_location=self.device, weights_only=False)
+        if not isinstance(checkpoint, dict) or 'model' not in checkpoint:
+            raise ValueError(
+                f"{checkpoint_path} doesn't look like a checkpoint written by save_networks "
+                f"(expected a dict with a 'model' key) - refusing to resume from it."
+            )
+        self.model.load_state_dict(checkpoint['model'])
+        if 'optimizer' in checkpoint and self.isTrain:
+            self.optimizer.load_state_dict(checkpoint['optimizer'])
+        if 'total_steps' in checkpoint:
+            self.total_steps = checkpoint['total_steps']
+        print(f"Resumed model, optimizer, and total_steps from {checkpoint_path}")
+        return checkpoint
+
 
     def eval(self):
         self.model.eval()
@@ -95,3 +140,4 @@ def init_weights(net, init_type='normal', gain=0.02):
 
     print('initialize network with %s' % init_type)
     net.apply(init_func)
+    
