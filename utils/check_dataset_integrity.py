@@ -160,7 +160,7 @@ def check_image(path, transform=None):
 def main():
     parser = argparse.ArgumentParser(description='Dataset integrity checker')
     parser.add_argument('--data_root', default = 'truefake_2k/tf2k_lr_org/style/cinematic_CN01')
-    parser.add_argument('--split_file', default = 'test2k_splits.json')
+    parser.add_argument('--split_file', default = 'tf2k_SOCIAL_splits.json')
     parser.add_argument('--data_keys', default = 'realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre', help='e.g. "realFFHQ:pre&gan1:pre&flux:pre"')
     parser.add_argument('--split',       default='train', choices=['train', 'val', 'test'])
     parser.add_argument('--with_transform', action='store_true', help='Also run the torchvision transform pipeline (requires processing.py to be importable)')

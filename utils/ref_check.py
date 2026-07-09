@@ -118,9 +118,9 @@ def main():
         "total_images": len(ref_ids),
         "images": sorted(ref_ids),
     }
-    out_path = args.output or f"{social_name}_reference.json"
-    with open(out_path, "w") as f:
-        json.dump(output, f, indent=2)
+    # out_path = args.output or f"{social_name}_reference.json"
+    # with open(out_path, "w") as f:
+    #     json.dump(output, f, indent=2)
 
     # ---- Console report ----
     print(f"Dataset path : {dataset_path}")
@@ -198,7 +198,7 @@ def main():
     print(f"Total numerosity mismatches (algorithm/subfolder level): {grand_numerosity_mismatches}")
     all_match = all(match_status.values())
     print(f"All subfolders match reference '{reference_group}': {'YES' if all_match else 'NO'}")
-    print(f"Reference JSON written to: {out_path}")
+    # print(f"Reference JSON written to: {out_path}")
 
 
 if __name__ == "__main__":
