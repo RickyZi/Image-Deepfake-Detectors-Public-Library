@@ -36,7 +36,8 @@ def test(loader, model, settings, device):
     # tag = 'ft' if settings.ft else 'pretrained'
     # output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
     # os.makedirs(output_dir, exist_ok=True)
-    dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
+    dataset_dir_name = settings.dataset.replace(os.sep, '_')
+    # settings.data_root.split('/')[-1]  # Extract dataset directory name from path
     print(f"dataset_name: {dataset_dir_name}")
     tag = 'ft' if settings.ft else 'pretrained'
     tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''

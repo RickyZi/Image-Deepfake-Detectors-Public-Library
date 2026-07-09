@@ -27,7 +27,9 @@ def test(loader, model, settings, device):
     # --------------------------- #
     # File paths update
     # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
-    dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
+    # dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
+    # dataset_dir_name = settings.dataset.replace(os.sep, '_')
+    dataset_dir_name = settings.dataset.replace(os.sep, '_')
     print(f"dataset_name: {dataset_dir_name}")
     tag = 'ft' if settings.ft else 'pretrained'
     tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''
