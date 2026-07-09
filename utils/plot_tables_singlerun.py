@@ -412,7 +412,7 @@ def main():
     parser.add_argument("--mlp", action = "store_true")
     parser.add_argument("--skipbase", action = "store_true")
     parser.add_argument("--onlybase", action = "store_true")
-    parser.add_argument("--social", action = "store_true")
+    parser.add_argument("--social", type = str, ) #action = "store_true")
     args = parser.parse_args()
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -436,10 +436,12 @@ def main():
     # breakpoint()
 
     if args.social:
-        out_dir = Path("./results/metric_tables/social")
+        out_dir = Path(f"./results/metric_tables/social/{args.social}")
+        # out_dir = Path(f"./results/metric_tables/social/baseline/")
         OUTPUT_DIR= out_dir
         # out_dir.mkdir(parents=True, exist_ok=True)
-        results = Path("./results/pretrained_social")
+        # results = Path("./results/pretrained_social")
+        results = Path(f"./results/{args.social}")
         RESULTS_ROOT = results
     else:
         RESULTS_ROOT = Path("./results/pretrained")
@@ -475,8 +477,8 @@ def main():
             baseline,
             ref_label   = REF_LABEL,
             # ref_scores  = ref_scores,
-            title       = f"{args.model}_baseline SOCIALS results", #if not args.social else f"{str(FT_SUBDIR)}_baseline_social results",
-            output_path = OUTPUT_DIR / f"{args.model}_baseline.png" #{timestamp}.png",
+            title       = f"{args.model}_baseline results" if not args.social else f"{str(FT_SUBDIR)}_baseline_{args.social} results",
+            output_path = OUTPUT_DIR / f"{args.model}_baseline_{args.social}.png" if args.social else OUTPUT_DIR / f"{args.model}_baseline.png"  #{timestamp}.png",
         )
     elif not args.skipbase:
         # Baseline table: diffs vs tf2k_dataset (ref_scores), no per_row_baseline
@@ -484,8 +486,8 @@ def main():
             baseline,
             ref_label   = REF_LABEL,
             ref_scores  = ref_scores,
-            title       = f"{args.model}_baseline results" if not args.social else f"{str(FT_SUBDIR)}_baseline_social results",
-            output_path = OUTPUT_DIR / f"{args.model}_baseline.png" # _{timestamp}.png",
+            title       = f"{args.model}_baseline results" if not args.social else f"{str(FT_SUBDIR)}_baseline_{args.social} results",
+            output_path = (OUTPUT_DIR / f"{args.model}_baseline_{args.social}.png") if args.social else (OUTPUT_DIR / f"{args.model}_baseline.png")
         )
     
 
@@ -497,8 +499,8 @@ def main():
             ref_label        = REF_LABEL,
             ref_scores       = ref_scores,
             per_row_baseline = baseline,   # <── key change: diff against own baseline
-            title            = f"{str(FT_SUBDIR)}_vs_baseline" , #f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
-            output_path      = OUTPUT_DIR / f"{str(FT_SUBDIR)}.png" #_{timestamp}.png"
+            title            = f"{str(FT_SUBDIR)}_vs_baseline" if not args.social else f"{str(FT_SUBDIR)}_{args.social}_vs_baseline" , #f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
+            output_path      = (OUTPUT_DIR / f"{str(FT_SUBDIR)}.png") if not args.social else (OUTPUT_DIR / f"{str(FT_SUBDIR)}_{args.social}.png") #_{timestamp}.png"
             # (OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png") if not args.unfreezeL4 else (OUTPUT_DIR / f"{args.model}_FT_unfreezeL4_{timestamp}.png"),
         )
 
