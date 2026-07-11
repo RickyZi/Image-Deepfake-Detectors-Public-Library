@@ -75,7 +75,7 @@ def run_demo(args):
     demo_root = os.path.join(project_root, 'demo_images', args.demo_dataset) #'tb_preset', 'style_BW01') # path to the dataset folder (socials subfolder structure)
     assert os.path.isdir(demo_root), f"Demo folder not found: {demo_root}"
     print(f"[demo] Using demo dataset at: {demo_root}")
-    # breakpoint()
+    # 
     # Build split file from demo_images
     def build_demo_split_json(root_path, out_path):
         test_entries = []
@@ -178,7 +178,7 @@ def run_demo(args):
                 os.chdir(det_dir)
                 try:
                     print(f"[demo] Running {method} test with args: {cmd_args}")
-                    # breakpoint()
+                    # 
                     runner = 'test.py'
                     subprocess.run(f'python -u {runner} {cmd_args}', shell=True)#, stdout=f, stderr=f)
                 finally:
@@ -200,6 +200,7 @@ def main():
                         help='Path to configs directory (default: configs/)'),
     parser.add_argument('--weights-name', type=str, default='pretrained', 
                         help='Name of the weights directory')
+    parser.add_argument('--arch', type=str, help = 'Detector architecture (used for apply LoRA on CLIP-D)')
     # --------------------------- #
     # parser.add_argument('--split', type=str, default='./test2k_splits.json', 
     #                     help='Path to trn-val-tst split file')
@@ -225,6 +226,7 @@ def main():
     detect_group.add_argument('--output', type=str, help='Path to save detection results')
     detect_group.add_argument('--dry-run', action='store_true', help='Print commands without executing')
     parser.add_argument('--resume', action='store_true', help='Resume training from the last saved per-epoch checkpoint in the run\'s checkpoint dir')
+    parser.add_argument('--social', type = str, default= "", help = 'Which dataset from a social to load (default: niet)') # add custom dataset for demo
 
     #  python launcher.py --detect --detector model_name --image path/to/img.jpg --weights pretrained or demo
     #  python3 launcher.py --detector R50_nodown --phases train --weights-name pretrained --ft # FT test 
@@ -232,7 +234,7 @@ def main():
     args = parser.parse_args()
 
     # print(f"args: {args}")
-    # breakpoint()
+    # 
 
     if args.demo:
         return run_demo(args)
@@ -259,35 +261,46 @@ def main():
     global_config = config.get('global', {})
 
     
-
+    
+    # set architecture for lora
+    if args.detector == 'CLIP-D' and args.weights_name == 'lora_r4_qv':
+        args.arch = 'opencliplinearloranext_clipL14commonpool_r4_qv'
+    # else:
+    #     args.arch = config.get('')
+    
+    print(f"model arch: {args.arch}")
+    # 
     # get tf dataset path
 
     config_dataset_path = global_config.get('dataset_path')
-    # if 'truefake_2k' in config_dataset_path:
-    #     args.tf2k = True # used to remove mod from dataset preprocessing
-    #     print(f"Dataset TF2K: setting --tf2k flag to True")
-        # print(args.dataset)
-        # dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_lr_org', args.dataset)
-        # LIGHTROOM data
-    if 'seasons' in args.dataset or 'style' in args.dataset or 'adaptive' in args.dataset or 'subject' in args.dataset:
+    
+    if  args.social:
+    # if 'facebook' in args.dataset or 'telegram' in args.dataset or 'twitter' in args.dataset:
+            args.tf2k = True # used to remove mod from dataset preprocessing
+            print(f"Dataset TF2K: setting --tf2k flag to True")
+            print(f"loading social data - {args.social} - {args.dataset}")
+            print(args.dataset)
+            # /dataset-disk/tb_dataset/tf2k_lr/social
+            dataset_path = os.path.join(global_config.get('dataset_path', ''), 'social', args.social, args.dataset)
+            split_file = '/second-disk/Image-Deepfake-Detectors-Public-Library/tf2k_SOCIAL_splits.json'
+
+    elif 'seasons' in args.dataset or 'style' in args.dataset or 'adaptive' in args.dataset or 'subject' in args.dataset:
             args.tf2k = True # used to remove mod from dataset preprocessing
             print(f"Dataset TF2K: setting --tf2k flag to True")
             print(args.dataset)
-            # /datasets-disk/tb_dataset/tf2k_lr
+            # /dataset-disk/tb_dataset/tf2k_lr/tf_dataset
             dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf_dataset', args.dataset)
             # dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_lr_org', args.dataset)
-
-           
             split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
+
     elif 'Facebook' in args.dataset or 'Telegram' in args.dataset or 'Twitter' in args.dataset:
             args.tf2k = True # used to remove mod from dataset preprocessing
             print(f"Dataset TF2K: setting --tf2k flag to True")
-            print("loading social data")
+            print(f"loading social data - {args.social} - {args.dataset}")
             print(args.dataset)
-            dataset_path = os.path.join(global_config.get('dataset_path', ''), 'social', args.dataset)
-
-            split_file = '/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/tf2k_SOCIAL_splits.json'
-
+            # /dataset-disk/tb_dataset/test_split_social
+            dataset_path = os.path.join('/dataset-disk/tb_dataset/test_split_social', args.dataset)
+            split_file = '/second-disk/Image-Deepfake-Detectors-Public-Library/tf2k_SOCIAL_splits.json'
     # elif 'tf2k_social' in config_dataset_path:
     #     args.tf2k = True # used to remove mod from dataset preprocessing
     #     print(f"Dataset TF2K: setting --tf2k flag to True")
@@ -298,7 +311,7 @@ def main():
         split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
             #global_config.get('dataset_path', args.dataset) # default to --dataset argument if not specified in config
     print(f"Using dataset path: {dataset_path}")
-    # breakpoint()
+    # 
     
     device_override = global_config.get('device_override')  # Can be None
     if args.weights_name is not None:
@@ -329,7 +342,7 @@ def main():
     # else:
     #     split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
     # # print(f"split_file: {split_file}")
-    # breakpoint()
+    # 
     
     num_threads = global_config.get('num_threads', 8) # check if ok for TeslaT4, might need to decrease it to 4
     dry_run = global_config.get('dry_run', False)
@@ -342,7 +355,7 @@ def main():
 
     print(f"training_configs: {training_configs}")
     print(f"test_list: {test_list}")
-    # breakpoint()
+    # 
     
     os.makedirs('logs', exist_ok=True)
     
@@ -391,6 +404,12 @@ def main():
 
         if args.resume:
             cmd_args.append(f'--resume')
+        
+        if args.arch:
+            cmd_args.append(f'--arch {args.arch}')
+
+        if args.social:
+            cmd_args.append(f'--social {args.social}')
 
         device = None
         if device_override is not None:
@@ -410,7 +429,7 @@ def main():
         cmd_args.append(f'--device {device}')
         
         print(f"cmd_args: {cmd_args}")
-        # breakpoint()
+        # 
 
         # Add detector-specific arguments
         for arg in detector_args:
@@ -423,7 +442,7 @@ def main():
             #log_file = f'logs/{task["type"]}_{task["details"]["detector"]}_{task["details"]["model"]}_{task["details"]["data"]}.log'
             log_file = f'logs/{task["type"]}_{task["details"]["detector"]}_{model_name}_{task["details"]["data"]}.log'
             if args.ft:
-                log_file = f'logs/FT_{task["details"]["detector"]}_{model_name}_seasonTM01.log'
+                log_file = f'logs/FT_{task["details"]["detector"]}_{model_name}_{task["details"]["data"]}.log'
             else:
                 log_file = f'logs/{task["type"]}_{task["details"]["detector"]}_{model_name}_{task["details"]["data"]}.log'
             with open(log_file, 'w') as f:

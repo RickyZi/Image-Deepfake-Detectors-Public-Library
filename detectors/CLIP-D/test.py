@@ -34,7 +34,11 @@ from utils.processing import add_processing_arguments
 from parser import get_parser
 
 
-def test(loader, model, settings, device, logger):
+def test(loader, model, output_dir, device, logger):
+
+    # print("TESTING MODEL")
+    # 
+
     model.eval()
     start_time = time.time()
 
@@ -48,25 +52,7 @@ def test(loader, model, settings, device, logger):
     #     "CLIP-D",
     #     settings.data_keys,
     # )
-    if settings.ft and settings.mlp:
-        tag = 'ft_MLP'
-    elif settings.ft:
-        tag = 'ft'
-    else:
-        tag = 'pretrained'
-
-    # dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
-    dataset_name = settings.dataset.replace(os.sep, '_')
-    if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
-        
-        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
-        # logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/CLIP-D_{tag}/', 'test.log'))
-    else:
-        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}' # change path to be outside detector folder
-        # logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/CLIP-D_{tag}/', 'test.log'))
     
-    os.makedirs(output_dir, exist_ok=True)
-    # breakpoint()
 
     csv_filename           = os.path.join(output_dir, "results.csv")
     metrics_filename       = os.path.join(output_dir, "metrics.json")
@@ -166,17 +152,47 @@ if __name__ == "__main__":
 
     # ── Logger ────────────────────────────────────────────────────────────
     os.makedirs("logs", exist_ok=True)
-    dataset_name = settings.dataset.replace(os.sep, '_')
+    dataset_name = settings.dataset.replace(os.sep, '_').replace('-', '_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
     print(f"dataset_name: {dataset_name}")
+    # if settings.ft and settings.mlp:
+    #     tag = 'ft_MLP'
+    # elif settings.ft:
+    #     tag = 'ft'
+    # else:
+    #     tag = 'pretrained'
+    # result_folder = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_name}/CLIP-D_{tag}/'
+    # log_path = os.path.join(result_folder,"logs")
+    # logger   = create_logger(os.path.join(log_path, f"test_{settings.name}_{dataset_name}_{settings.data_keys}.log"))
+
+    if settings.name == 'lora_r4_qv':
+        settings.arch = 'opencliplinearloranext_clipL14commonpool_r4_qv'
+    else:
+        settings.arch = 'opencliplinearnext_clipL14commonpool'
+
+    print(f'arch: {settings.arch}')
+    # breakpoint()
+
+    # ── Create output folder ──────────────────────────────────────────────────────────
     if settings.ft and settings.mlp:
         tag = 'ft_MLP'
     elif settings.ft:
         tag = 'ft'
     else:
         tag = 'pretrained'
-    result_folder = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_name}/CLIP-D_{tag}/'
-    log_path = os.path.join(result_folder,"logs")
-    logger   = create_logger(os.path.join(log_path, f"test_{settings.name}_{dataset_name}_{settings.data_keys}.log"))
+
+    # dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
+    if settings.social:
+        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
+        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/', 'test_log.log')
+    else:
+        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_name}/CLIP-D_{tag}/', 'test_log.txt')
+
+    print(f"output_dir: {output_dir}")
+    # 
+    
+    os.makedirs(output_dir, exist_ok=True)
+    logger = create_logger(logger_path)
 
     # ── Log test header ───────────────────────────────────────────────────
     logger.info("=" * 60)
@@ -202,16 +218,34 @@ if __name__ == "__main__":
     logger.info(f"test batches = {len(test_dataloader)}")
 
     # ── Model ─────────────────────────────────────────────────────────────
+    # print(f"settings.arch: {settings.arch}")
+    # 
+    if settings.name == 'lora_r4_qv':
+            settings.arch = 'opencliplinearloranext_clipL14commonpool_r4_qv'
     model = create_architecture(settings.arch, pretrained=True, num_classes=1)
     n_params = count_parameters(model)
     logger.info(f"arch trainable params = {n_params:,}")
 
     # ── Load checkpoint ───────────────────────────────────────────────────
-    load_path = (
-        os.path.join("checkpoint", settings.name, "ft_weights",dataset_name, "best.pt")
-        if settings.ft
-        else os.path.join("checkpoint", settings.name, "weights",  "best.pt")
-    )
+    # load_path = (
+    #     os.path.join("checkpoint", settings.name, "ft_weights",dataset_name, "best.pt")
+    #     if settings.ft
+    #     else os.path.join("checkpoint", settings.name, "weights",  "best.pt")
+    # )
+
+    # for testing model on the social dataset used for FT
+    # if settings.ft and settings.social:
+    #     load_path =  os.path.join("checkpoint", settings.name, "social", settings.social,"ft_weights", dataset_name, "best.pt")
+    
+    
+    if settings.ft:
+        load_path = os.path.join("checkpoint", settings.name, "ft_weights", dataset_name, "best.pt")
+    else:
+        load_path = os.path.join("checkpoint", settings.name, "weights",  "best.pt")
+    # load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+    print('loading the model from %s' % load_path)
+
+    # breakpoint()
 
     # logger.info(f"Loading weights from: {load_path}")
 
@@ -229,14 +263,16 @@ if __name__ == "__main__":
     #         f"unexpected={len(unexpected)}"
     #     )
 
-    print('loading the model from %s' % load_path)
+    # print('loading the model from %s' % load_path)
     model.load_state_dict(torch.load(load_path, map_location=device, weights_only=True)['model'])
     model.to(device)
 
+    
+
     # ── Run test ──────────────────────────────────────────────────────────
-    metrics = test(test_dataloader, model, settings, device, logger)
+    metrics = test(test_dataloader, model, output_dir, device, logger)
 
     # ── Footer ────────────────────────────────────────────────────────────
     logger.info(f"TEST END  {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    logger.info(f"Log file : {os.path.abspath(log_path)}")
+    logger.info(f"Log file : {os.path.abspath(logger_path)}")
     logger.info("=" * 60)

@@ -62,7 +62,7 @@ def get_parser():
     # ── Dataset variant ──────────────────────────────────────────────────
     parser.add_argument("--tf2k", type=bool, default=False,
                         help="Use TF2K dataset loader (tf2k_dataset.py) instead of dataset.py")
-
+    parser.add_argument('--social', type = str, default="", help = 'Which dataset from a social to load (default: niet)') 
     # ── ResNet-specific fine-tuning flag (passed by launcher, ignored in CLIP-D) ──
     parser.add_argument("--r50unfreezeL4", action="store_true",
                         help="Unfreeze ResNet layer4 during fine-tuning (ResNet detectors only)")

@@ -67,7 +67,15 @@ if __name__ == "__main__":
     #logger.info(f"validation batches = {len(val_loader)}")
 
     # ── Model ─────────────────────────────────────────────────────────────
-    if opt.ft:
+    if opt.ft and opt.social:
+        from utils.finetuning import FTModel
+        from utils import EarlyStopping
+        save_dir = os.path.join("checkpoint", opt.name, "social", opt.social , "ft_weights", dataset_name)
+        
+        # os.makedirs(os.path.join("checkpoint", opt.name, "ft_weights", dataset_name), exist_ok=True)
+        model = FTModel(opt)
+    
+    elif opt.ft:
         from utils.finetuning import FTModel
         from utils import EarlyStopping
         save_dir = os.path.join("checkpoint", opt.name, "ft_weights", dataset_name)
@@ -81,9 +89,8 @@ if __name__ == "__main__":
         
         model = TrainingModel(opt)
     
-    # breakpoint()
-
     os.makedirs(save_dir,  exist_ok=True)
+    # breakpoint()
 
     save_log = os.path.join(save_dir, "logs")
     # logger = create_logger(os.path.join(ckpt_dir, 'train.log'))
@@ -92,7 +99,7 @@ if __name__ == "__main__":
     
     logger   = create_logger(os.path.join(save_dir, 'train.log'))
 
-    logger.info(f"Training the R50_tf model on the {dataset_name} dataset - FT: {opt.ft} - unfreezeL4: {opt.r50unfreezeL4}")
+    logger.info(f"Training the {opt.name} model on the {dataset_name} dataset - FT: {opt.ft} - unfreezeL4: {opt.r50unfreezeL4}")
     logger.info(f"Training settings: {json.dumps(vars(opt), indent=2, default=str)}")
     
     logger.info(f"training batches   = {len(train_loader)}")

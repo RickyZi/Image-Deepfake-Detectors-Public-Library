@@ -155,18 +155,29 @@ class FTModel(torch.nn.Module):
         )
 
         # ── Detect fine-tuning mode ───────────────────────────────────────
+        if opt.name == 'lora_r4_qv':
+            opt.arch = 'opencliplinearloranext_clipL14commonpool_r4_qv'
         self._is_lora = opt.arch.startswith("opencliplinearloranext_")
+
+        if self._is_lora:
+            print("/n/tUSING LORA!!/n")
+        else:
+            print("not using lora")
+        
+        # breakpoint()
 
         # ── Save directory ────────────────────────────────────────────────
         #    ft_weights when --ft is set, weights otherwise (for bare training)
         dataset_name = opt.dataset.replace(os.sep, '_')
         print(f"dataset_name: {dataset_name}")
         
-        self.save_dir = os.path.join(
-            "checkpoint", opt.name, 
-            "ft_weights" if opt.ft else "weights",
-            dataset_name
-        )
+        if opt.ft and opt.social:
+            self.save_dir = os.path.join("checkpoint", opt.name, "social", opt.social , "ft_weights", dataset_name)
+
+        elif opt.ft:
+            self.save_dir = os.path.join("checkpoint", opt.name, "ft_weights" , dataset_name)
+        else:
+            self.save_dir = os.path.join("checkpoint", opt.name, "weights" , dataset_name)
         os.makedirs(self.save_dir, exist_ok=True)
         print(f"save_dir: {self.save_dir}")
         # breakpoint()

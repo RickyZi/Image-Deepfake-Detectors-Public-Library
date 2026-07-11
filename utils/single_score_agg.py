@@ -303,7 +303,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Aggregate test-run scores for one detector.')
 
     model = sys.argv[1] if len(sys.argv) > 1 else 'R50_nodown_pretrained'
-    results_dir = Path('./results/lora_r4_qv/')
+
+    results_dir = Path(sys.argv[2]) if len(sys.argv) > 2 else Path('./results/lora_r4_qv/')
+    # Path('./results/lora_r4_qv/') if '_lora' in model else Path('./results/pretrained/')
     # Path(sys.argv[2]) if len(sys.argv) > 2 else Path('./results/lora_r4_qv/')
 
     # ------------------------------------------------ #
@@ -330,6 +332,11 @@ if __name__ == '__main__':
             print(f"\n Aggregating SINGLE run scores for \n\t model: {dataset_dir.name}\n\t dataset: {run_dir.name}")
             agg_scores(dataset_dir)
         else:
+            if dataset_dir.name == 'dataset':
+                # dataset folder has only the json file of the aggregated scores - skip it
+                print(f"skipping {dataset_dir.name} folder")
+                # breakpoint() 
+                continue
             # check the models name inside dataset dir
             for model_dir in sorted(dataset_dir.iterdir()):
                 if model_dir.name == model:

@@ -55,6 +55,30 @@ CMAP_REF = mcolors.LinearSegmentedColormap.from_list(
     "blue_seq", ["#0d1b4b", "#1a3a8a", "#4a7fd4", "#a8c8f8"]
 )
 
+
+CANONICAL_DATASETS = [
+    # seasons
+    "autumn_TM01", "spring_SP01", "summer_SM01", "winter_WN01",
+    # style
+    "bw_BW01", "cinematic_CN01", "cinematic2_CN11",
+    "filminspired_warmgold",          # NB: no underscore in "filminspired" — check this is not a typo
+    "film_inspired_boldbw", "film_inspired_coolbw",
+    "futuristic_FT01", "vintage_VN01",
+    # adaptive
+    "blurbg_strong", "blurbg_subtle", "enhance_portrait",
+    "sky_bluedrama", "subject_pop",
+    # subject
+    "landscape_LN01", "travel_TR01", "travel2_TR11",
+]
+DATASET_ORDER = CANONICAL_DATASETS
+
+def _dataset_sort_key(label: str):
+    """Sort by DATASET_ORDER position; unknown labels go to the end, alphabetically."""
+    try:
+        return (0, DATASET_ORDER.index(label))
+    except ValueError:
+        return (1, label)
+
 # ------------ # 
 # Data loading #
 # ------------ #
@@ -75,18 +99,26 @@ def find_json(folder: Path) -> Path | None:
     return hits[0] if hits else None
 
 
-def load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, social = False) -> dict | None:
+def load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, social='', ref_label: str = REF_LABEL) -> dict | None:
     """
     Load overall metrics from the reference folder (results/pretrained/dataset/).
     Returns {metric: value} or None if not found.
     """
+    display_label = ''
     if not RESULTS_ROOT.exists():
         print(f"[error] Results root not found: {RESULTS_ROOT.resolve()}")
         return None
-    # if social:
-    #     ref_dir = RESULTS_ROOT / 
-    # ref_dir = RESULTS_ROOT / REF_FOLDER
-    ref_dir = Path("./results/pretrained/dataset")
+    if social:
+        ref_dir = Path(f"./results/pretrained_social/{social}")
+        dataset_label = str(social)
+    else:
+        # ref_dir = RESULTS_ROOT / REF_FOLDER
+        ref_dir = Path("./results/pretrained/dataset")
+        dataset_label = ref_label
+
+    print(f"ref_dir: {ref_dir}")
+    print(display_label)
+
     for subdir in [BASELINE_SUBDIR]:
         model_dir = ref_dir / Path(str(subdir))
         print(f"model_dir: {model_dir}")
@@ -96,8 +128,10 @@ def load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, social = False) -> dict | Non
                 overall = load_overall(json_path)
                 if overall:
                     scores = {m: overall.get(m, np.nan) for m in METRICS}
-                    print(f"  [ref] {REF_LABEL:<30s}  F1={overall.get('F1', float('nan')):.4f}  (from {subdir})")
-                    return scores
+                    display_label = str(model_dir).split('/')[-1] + '_' + dataset_label
+                    print(f"  [ref] {display_label:<30s}  F1={overall.get('F1', float('nan')):.4f}  (from {subdir})")
+                    
+                    return scores, display_label
     print(f"  [warn] reference JSON not found under {ref_dir}")
     return None
 
@@ -252,15 +286,25 @@ def plot_table(results: dict[str, dict], ref_label: str, title: str, output_path
     # ---------------------------------------------------------------------------------- #
     table_data = dict(results)
  
-    if per_row_baseline is not None:
-        # FT table: no reference row — just the FT datasets sorted
-        row_labels = sorted(table_data.keys())
-    else:
-        # Baseline table: inject reference row first if missing, then others
-        if ref_label not in table_data and ref_scores:
-            table_data[ref_label] = ref_scores
-        other_labels = sorted(k for k in table_data if k != ref_label)
-        row_labels   = ([ref_label] if ref_label in table_data else []) + other_labels
+    # if per_row_baseline:
+    #     # FT table: no reference row — just the FT datasets sorted
+    #     row_labels = sorted(table_data.keys())
+    # else:
+    #     # Baseline table: inject reference row first if missing, then others
+    #     if ref_label not in table_data and ref_scores:
+    #         table_data[ref_label] = ref_scores
+    #     other_labels = sorted(k for k in table_data if k != ref_label)
+    #     row_labels   = ([ref_label] if ref_label in table_data else []) + other_labels
+
+    # if per_row_baseline is not None:
+    #     # FT table: no reference row — just the FT datasets, in launcher order
+    #     row_labels = sorted(table_data.keys(), key=_dataset_sort_key)
+    # else:
+    # Baseline table: inject reference row first if missing, then others in launcher order
+    if ref_label not in table_data and ref_scores:
+        table_data[ref_label] = ref_scores
+    other_labels = sorted((k for k in table_data if k != ref_label), key=_dataset_sort_key)
+    row_labels   = ([ref_label] if ref_label in table_data else []) + other_labels
  
     # ref_row is only used as a fallback diff source in the baseline table
     ref_row = ref_scores if ref_scores is not None else table_data.get(ref_label, {})
@@ -282,7 +326,7 @@ def plot_table(results: dict[str, dict], ref_label: str, title: str, output_path
             if label != ref_label:
                 # Per-row baseline (same dataset) takes priority; fall back to
                 # the global ref_row when no per-row entry exists.
-                if per_row_baseline is not None and label in per_row_baseline:
+                if per_row_baseline and label in per_row_baseline:
                     baseline_v = per_row_baseline[label].get(metric, np.nan)
                 else:
                     baseline_v = ref_row.get(metric, np.nan)
@@ -378,8 +422,7 @@ def main():
     parser.add_argument("--mlp", action = "store_true")
     parser.add_argument("--skipbase", action = "store_true")
     parser.add_argument("--onlybase", action = "store_true")
-    parser.add_argument("--lora", action = 'store_true')
-    parser.add_argument("--social",  type = str, ) #action = "store_true") # only for baseline 
+    parser.add_argument("--social",  type = str, default='') #action = "store_true") # only for baseline 
     args = parser.parse_args()
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -402,6 +445,19 @@ def main():
     print(f"FT_SUBDIR: {FT_SUBDIR}")
     # breakpoint()
 
+    # if args.social:
+    #     out_dir = Path(f"./results/metric_tables/social/pretrained_{args.social}")
+        
+    #     # out_dir = Path(f"./results/metric_tables/social/baseline/")
+    #     OUTPUT_DIR= out_dir
+    #     # out_dir.mkdir(parents=True, exist_ok=True)
+    #     results = Path(f"./results/pretrained_{args.social}/")
+    #     # results = Path(f"./results/pretrained_social") # for baselines on social split
+    #     # results = Path(f"./results/{args.social}")
+    #     RESULTS_ROOT = results
+    # else:
+    #     RESULTS_ROOT = Path("./results/pretrained")
+    #     OUTPUT_DIR   = Path("./results/metric_tables")
     if args.social:
         out_dir = Path(f"./results/metric_tables/social/lora_r4_qv_{args.social}")
         
@@ -416,6 +472,7 @@ def main():
         RESULTS_ROOT = Path("./results/pretrained")
         OUTPUT_DIR   = Path("./results/metric_tables")
     
+    
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     print(f"results_root: {RESULTS_ROOT}")
@@ -423,7 +480,7 @@ def main():
     # 1. Load reference scores once from results/pretrained/dataset/
     # if not args.skipbase:
     print(f"\n── Loading reference scores ({REF_FOLDER} → displayed as {REF_LABEL}) ──")
-    ref_scores = load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR)
+    ref_scores, display_ref_label = load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, args.social, REF_LABEL)
     if ref_scores is None:
         print("  [error] Cannot continue without reference scores.")
         return
@@ -443,37 +500,37 @@ def main():
     if not args.skipbase and args.social:
         # Baseline table: diffs vs tf2k_dataset (ref_scores), no per_row_baseline
         plot_table(
-            baseline,
-            ref_label   = REF_LABEL,
+            ft,
+            ref_label   = display_ref_label,
             ref_scores  = ref_scores,
-            title       = f"{args.model}_baseline results" if not args.social else f"{str(FT_SUBDIR)}_baseline_SOCIAL results",
-            output_path = OUTPUT_DIR / f"{args.model}_baseline_SOCIAL.png" if args.social else OUTPUT_DIR / f"{args.model}_baseline.png"  #{timestamp}.png",
+            title       = f"{str(FT_SUBDIR)}_pre vs {args.social} results", # if not args.social else f"{str(args.model)}_baseline_{args.social} results",
+            output_path = OUTPUT_DIR / f"{str(FT_SUBDIR)}_pre_vs_{args.social}.png", #if args.social else OUTPUT_DIR / f"{args.model}_baseline.png"  #{timestamp}.png",
         )
-    elif not args.skipbase:
-        # Baseline table: diffs vs tf2k_dataset (ref_scores), no per_row_baseline
-        plot_table(
-            baseline,
-            ref_label   = REF_LABEL,
-            ref_scores  = ref_scores,
-            title       = f"{args.model}_baseline results" if not args.social else f"{str(FT_SUBDIR)}_baseline_{args.social} results",
-            output_path = (OUTPUT_DIR / f"{args.model}_baseline_{args.social}.png") if args.social else (OUTPUT_DIR / f"{args.model}_baseline.png")
-        )
+    # elif not args.skipbase:
+    #     # Baseline table: diffs vs tf2k_dataset (ref_scores), no per_row_baseline
+    #     plot_table(
+    #         baseline,
+    #         ref_label   = display_ref_label,
+    #         ref_scores  = ref_scores,
+    #         title       = f"{args.model}_baseline results" if not args.social else f"{str(args.model)}_baseline_{args.social} results",
+    #         output_path = (OUTPUT_DIR / f"{args.model}_baseline_{args.social}.png") if args.social else (OUTPUT_DIR / f"{args.model}_baseline.png")
+    #     )
     
 
     # FT table: first row = tf2k_dataset baseline (ref_scores);
-    #           other rows = FT raw score + diff vs SAME DATASET's baseline model.
-    if not args.onlybase:
-        plot_table(
-            ft,
-            ref_label        = REF_LABEL,
-            ref_scores       = ref_scores,
-            per_row_baseline = baseline,   # <── key change: diff against own baseline
-            title            = f"{str(FT_SUBDIR)}_vs_baseline" if not args.social else f"{str(FT_SUBDIR)}_vs_{args.social}", #_vs_baseline" , #f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
-            output_path      = (OUTPUT_DIR / f"{str(FT_SUBDIR)}.png") if not args.social else (OUTPUT_DIR / f"{str(FT_SUBDIR)}_{args.social}.png") #_{timestamp}.png"
-            # (OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png") if not args.unfreezeL4 else (OUTPUT_DIR / f"{args.model}_FT_unfreezeL4_{timestamp}.png"),
-        )
+    # #           other rows = FT raw score + diff vs SAME DATASET's baseline model.
+    # if not args.onlybase:
+    #     plot_table(
+    #         ft,
+    #         ref_label        = display_ref_label,
+    #         ref_scores       = ref_scores,
+    #         per_row_baseline = baseline,   # <── key change: diff against own baseline
+    #         title            = f"{str(FT_SUBDIR)}_vs_baseline" if not args.social else f"{str(FT_SUBDIR)}_vs_{args.social}", #_vs_baseline" , #f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
+    #         output_path      = (OUTPUT_DIR / f"{str(FT_SUBDIR)}.png") if not args.social else (OUTPUT_DIR / f"{str(FT_SUBDIR)}_{args.social}.png") #_{timestamp}.png"
+    #         # (OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png") if not args.unfreezeL4 else (OUTPUT_DIR / f"{args.model}_FT_unfreezeL4_{timestamp}.png"),
+    #     )
 
-        print(f"\nDone — tables saved to {OUTPUT_DIR.resolve()}/")
+    #     print(f"\nDone — tables saved to {OUTPUT_DIR.resolve()}/")
 
 
 if __name__ == "__main__":
