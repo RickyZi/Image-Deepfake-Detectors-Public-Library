@@ -16,7 +16,7 @@ from datetime import datetime
 
 from utils.logger import create_logger
 
-def test(loader, model, settings, device):
+def test(loader, model, settings, device, output_dir, logger):
     model.eval()
     
     start_time = time.time()
@@ -28,27 +28,7 @@ def test(loader, model, settings, device):
     # File paths update
     # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
     # dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
-    dataset_dir_name = settings.dataset.replace(os.sep, '_')
-    # dataset_dir_name = settings.dataset.replace(os.sep, '_').replace('-','_')
-    # dataset_dir_name =settings.dataset.replace(os.sep, '_').replace('-','_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
-    print(f"dataset_name: {dataset_dir_name}")
-    tag = 'ft' if settings.ft else 'pretrained'
-    tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''
-    print(f"test_tag: {tag}")
-    # breakpoint()
-    # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
-    # if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
-    if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
-        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}'
-        logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
-
-    elif settings.social:
-        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}' # change path to be outside detector folder
-        logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
-    else:
-        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}' # change path to be outside detector folder
-        logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
-    os.makedirs(output_dir, exist_ok=True)
+    
     # --------------------------- #
 
     # logger = create_logger(os.path.join(output_dir, 'test.log'))
@@ -85,6 +65,7 @@ def test(loader, model, settings, device):
 
 
     # log test settings info
+    # logger.info("=== Test settings ===")
     logger.info(f"Testing model {settings.name} on dataset {settings.dataset} with data keys {settings.data_keys}")
     logger.info(f"Testing settings: {json.dumps(vars(settings), indent=2, default=str)}")
     logger.info(f"Training dataset keys used for model: {training_dataset_keys}")
@@ -201,19 +182,27 @@ if __name__ == '__main__':
         test_dataloader = create_dataloader(settings, split='test')
     # breakpoint()
     
-    # create logger
-    # dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
-    # tag = 'ft' if settings.ft else 'pretrained'
-    # tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''
-    # print(f"test_tag: {tag}")
-    # # breakpoint()
-    # # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
+    dataset_dir_name = settings.dataset.replace(os.sep, '_')
+    # dataset_dir_name = settings.dataset.replace(os.sep, '_').replace('-','_')
+    # dataset_dir_name =settings.dataset.replace(os.sep, '_').replace('-','_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
+    print(f"dataset_name: {dataset_dir_name}")
+    tag = 'ft' if settings.ft else 'pretrained'
+    tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''
+    print(f"test_tag: {tag}")
+    # breakpoint()
+    # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
     # if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
-    #     output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_nodown_{tag}/' # change path to be outside detector folder
-    # else:
-    #     output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/' # change path to be outside detector folder
+    if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
+        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}'
+        logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
 
-    # logger = create_logger(os.path.join(output_dir, 'test.log'))
+    elif settings.social:
+        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
+    else:
+        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
+    os.makedirs(output_dir, exist_ok=True)
 
     model = create_architecture(settings.arch, pretrained=True, num_classes=1).to(device)
     num_parameters = count_parameters(model)
@@ -231,9 +220,12 @@ if __name__ == '__main__':
     else:
         load_path = f'./checkpoint/{settings.name}/weights/best.pt'
     # load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+    
     print('loading the model from %s' % load_path)
+    logger.info("=== Test settings ===")
+    logger.info(f"loading the model from: {load_path}")
     # breakpoint()
     model.load_state_dict(torch.load(load_path, map_location=device)['model'])
     model.to(device)
 
-    test(test_dataloader, model, settings, device)
+    test(test_dataloader, model, settings, device, output_dir, logger)

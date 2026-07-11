@@ -19,50 +19,12 @@ from datetime import datetime
 
 from utils.logger import create_logger
 
-def test(loader, model, settings, device):
+def test(loader, model, settings, device, output_dir, logger):
     model.eval()
     
     start_time = time.time()
     
-    # # File paths
-    # output_dir = f'./results/{settings.name}/{settings.data_keys}/data/'
-    # os.makedirs(output_dir, exist_ok=True)
-
-    # --------------------------- #
-    # # File paths update
-    # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") #
-    # # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
-    # dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
-    # tag = 'ft' if settings.ft else 'pretrained'
-    # output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
-    # os.makedirs(output_dir, exist_ok=True)
-    dataset_dir_name = settings.dataset.replace(os.sep, '_')
-    # settings.data_root.split('/')[-1]  # Extract dataset directory name from path
-    print(f"dataset_name: {dataset_dir_name}")
-    tag = 'ft' if settings.ft else 'pretrained'
-    tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''
-    print(f"test_tag: {tag}")
-    # breakpoint()
-    # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
-    if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
-        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}'
-        logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_TF_{tag}/', 'test.log'))
-    elif settings.social:
-        # output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.social}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}'
-        # logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.social}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.log')
-        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_{settings.social}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
-        logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_{settings.social}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.txt')
-
-    else:
-        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
-        logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.txt')
-
-    print(f"output_dir: {output_dir}")
-    os.makedirs(output_dir, exist_ok=True)
-    # breakpoint()
-    # --------------------------- #
-
-    logger = create_logger(logger_path)
+    
     
     csv_filename = os.path.join(output_dir, 'results.csv')
     metrics_filename = os.path.join(output_dir, 'metrics.json')
@@ -97,11 +59,11 @@ def test(loader, model, settings, device):
         f.write(f"{','.join(['name', 'pro', 'flag'])}\n")
     
 
-    # add info on the testing set
-    logger.info("=== Test settings ===")
+    # # add info on the testing set
+    # logger.info("=== Test settings ===")
     
-    logger.info(f"Model name: {settings.name}_{tag}")
-    logger.info(f"Dataset: {dataset_dir_name}")
+    # logger.info(f"Model name: {settings.name}_{tag}")
+    # logger.info(f"Dataset: {dataset_dir_name}")
     logger.info(f"Dataset keys: {dataset_keys}")
     logger.info(f"Training dataset keys: {training_dataset_keys}")
 
@@ -222,6 +184,45 @@ if __name__ == "__main__":
     # if settings.ft and settings.r50unfreezeL4 and settings.social:
     #     load_path = f'./checkpoint/{settings.name}/social/{settings.social}/ft_unfreezeL4_weights/{settings.dataset.replace(os.sep, '_')}_ft_unfreezeL4/best.pt'
     # el
+    # # File paths
+    # output_dir = f'./results/{settings.name}/{settings.data_keys}/data/'
+    # os.makedirs(output_dir, exist_ok=True)
+
+    # --------------------------- #
+    # # File paths update
+    # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") #
+    # # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
+    # dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
+    # tag = 'ft' if settings.ft else 'pretrained'
+    # output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
+    # os.makedirs(output_dir, exist_ok=True)
+    dataset_dir_name = settings.dataset.replace(os.sep, '_')
+    # settings.data_root.split('/')[-1]  # Extract dataset directory name from path
+    print(f"dataset_name: {dataset_dir_name}")
+    tag = 'ft' if settings.ft else 'pretrained'
+    tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''
+    print(f"test_tag: {tag}")
+    # breakpoint()
+    # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
+    if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
+        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}'
+        logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_TF_{tag}/', 'test.log'))
+    elif settings.social:
+        # output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.social}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}'
+        # logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.social}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.log')
+        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_{settings.social}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_{settings.social}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.txt')
+
+    else:
+        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.txt')
+
+    print(f"output_dir: {output_dir}")
+    os.makedirs(output_dir, exist_ok=True)
+    # breakpoint()
+    # --------------------------- #
+
+    logger = create_logger(logger_path)
 
     dataset_name =settings.dataset.replace(os.sep, '_').replace('-','_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
 
@@ -233,6 +234,12 @@ if __name__ == "__main__":
         load_path = f'./checkpoint/{settings.name}/weights/best.pt'
     # load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
     print('loading the model from %s' % load_path)
+    # add info on the testing set
+    logger.info("=== Test settings ===")
+    
+    logger.info(f"Model name: {settings.name}_{tag}")
+    logger.info(f"Loading model from: {load_path}")
+    logger.info(f"Dataset: {dataset_dir_name}")
     # breakpoint()
     # path_weight = f'./checkpoint/{settings.name}/weights/best.pt' 
     state_dict = torch.load(load_path, map_location=device)
@@ -240,4 +247,4 @@ if __name__ == "__main__":
     # RuntimeError: Attempting to deserialize object on CUDA device 1 but torch.cuda.device_count() is 1. 
     # Please use torch.load with map_location to map your storages to an existing device.
     model.load_state_dict(state_dict)
-    test(test_dataloader, model, settings, device)
+    test(test_dataloader, model, settings, device, output_dir, logger)
