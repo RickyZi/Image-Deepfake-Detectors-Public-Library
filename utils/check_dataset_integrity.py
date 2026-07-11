@@ -271,23 +271,23 @@ def main():
                 print(f"    {p}")
     print(f"{'='*60}\n")
 
-    # --- key-building spot check for the known bad file ---
-    known_bad = 'StableDiffusion3/general/00374.jpg'
-    print(f"Spot-check for known bad file: '{known_bad}'")
-    stem = os.path.splitext(os.path.basename(known_bad))[0]
-    # Reconstruct key as the walker would
-    gen  = 'StableDiffusion3'
-    sub  = 'general'
-    key  = os.path.join(gen, sub, stem)
-    print(f"  Key that would be built : '{key}'")
-    print(f"  Key in split_list       : {_in_list(split_list, key)}")
-    # Check both Real and Fake directory locations
-    for label in ('Real', 'Fake'):
-        candidate = os.path.join(args.data_root, label, gen, sub,
-                                 os.path.basename(known_bad))
-        exists = os.path.exists(candidate)
-        size   = os.path.getsize(candidate) if exists else -1
-        print(f"  {label} path exists={exists}, size={size}B : {candidate}")
+    # # --- key-building spot check for the known bad file ---
+    # known_bad = 'StableDiffusion3/general/00374.jpg'
+    # print(f"Spot-check for known bad file: '{known_bad}'")
+    # stem = os.path.splitext(os.path.basename(known_bad))[0]
+    # # Reconstruct key as the walker would
+    # gen  = 'StableDiffusion3'
+    # sub  = 'general'
+    # key  = os.path.join(gen, sub, stem)
+    # print(f"  Key that would be built : '{key}'")
+    # print(f"  Key in split_list       : {_in_list(split_list, key)}")
+    # # Check both Real and Fake directory locations
+    # for label in ('Real', 'Fake'):
+    #     candidate = os.path.join(args.data_root, label, gen, sub,
+    #                              os.path.basename(known_bad))
+    #     exists = os.path.exists(candidate)
+    #     size   = os.path.getsize(candidate) if exists else -1
+    #     print(f"  {label} path exists={exists}, size={size}B : {candidate}")
 
 
 if __name__ == '__main__':

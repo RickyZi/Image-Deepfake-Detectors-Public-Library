@@ -44,13 +44,22 @@ def test(loader, model, settings, device):
     print(f"test_tag: {tag}")
     # breakpoint()
     # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
-    if settings.social:
-        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.social}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}'
-        logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.social}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.log')
+    if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
+        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}'
+        logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_TF_{tag}/', 'test.log'))
+    elif settings.social:
+        # output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.social}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}'
+        # logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.social}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.log')
+        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_{settings.social}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_{settings.social}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.txt')
+
     else:
         output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
         logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.txt')
+
+    print(f"output_dir: {output_dir}")
     os.makedirs(output_dir, exist_ok=True)
+    # breakpoint()
     # --------------------------- #
 
     logger = create_logger(logger_path)
@@ -210,12 +219,16 @@ if __name__ == "__main__":
     # breakpoint()
     model.to(device)
     # fix load path!!!!
-    if settings.ft and settings.r50unfreezeL4 and settings.social:
-        load_path = f'./checkpoint/{settings.name}/social/{settings.social}/ft_unfreezeL4_weights/{settings.dataset.replace(os.sep, '_')}_ft_unfreezeL4/best.pt'
-    elif settings.ft and settings.r50unfreezeL4:
-        load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{settings.dataset.replace(os.sep, '_')}_ft_unfreezeL4/best.pt'
+    # if settings.ft and settings.r50unfreezeL4 and settings.social:
+    #     load_path = f'./checkpoint/{settings.name}/social/{settings.social}/ft_unfreezeL4_weights/{settings.dataset.replace(os.sep, '_')}_ft_unfreezeL4/best.pt'
+    # el
+
+    dataset_name =settings.dataset.replace(os.sep, '_').replace('-','_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
+
+    if settings.ft and settings.r50unfreezeL4:
+        load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{dataset_name}_ft_unfreezeL4/best.pt'
     elif settings.ft:
-        load_path = f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+        load_path = f'./checkpoint/{settings.name}/ft_weights/{dataset_name}/best.pt'
     else:
         load_path = f'./checkpoint/{settings.name}/weights/best.pt'
     # load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'

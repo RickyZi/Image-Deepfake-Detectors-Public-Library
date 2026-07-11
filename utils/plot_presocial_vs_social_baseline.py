@@ -104,6 +104,7 @@ def load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, social='', ref_label: str = R
     Load overall metrics from the reference folder (results/pretrained/dataset/).
     Returns {metric: value} or None if not found.
     """
+    display_label = ''
     if not RESULTS_ROOT.exists():
         print(f"[error] Results root not found: {RESULTS_ROOT.resolve()}")
         return None
@@ -127,8 +128,9 @@ def load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, social='', ref_label: str = R
                 overall = load_overall(json_path)
                 if overall:
                     scores = {m: overall.get(m, np.nan) for m in METRICS}
+                    display_label = str(model_dir).split('/')[-1] + '_' + dataset_label
                     print(f"  [ref] {display_label:<30s}  F1={overall.get('F1', float('nan')):.4f}  (from {subdir})")
-                    display_label = (model_dir.split('/')[-1]).join('_', dataset_label)
+                    
                     return scores, display_label
     print(f"  [warn] reference JSON not found under {ref_dir}")
     return None
@@ -484,37 +486,37 @@ def main():
     if not args.skipbase and args.social:
         # Baseline table: diffs vs tf2k_dataset (ref_scores), no per_row_baseline
         plot_table(
-            baseline,
+            ft,
             ref_label   = display_ref_label,
             ref_scores  = ref_scores,
-            title       = f"{args.model}_baseline results" if not args.social else f"{str(args.model)}_baseline_{args.social} results",
-            output_path = OUTPUT_DIR / f"{args.model}_baseline_SOCIAL.png" if args.social else OUTPUT_DIR / f"{args.model}_baseline.png"  #{timestamp}.png",
+            title       = f"{str(FT_SUBDIR)}_pre vs {args.social} results", # if not args.social else f"{str(args.model)}_baseline_{args.social} results",
+            output_path = OUTPUT_DIR / f"{str(FT_SUBDIR)}_pre_vs_{args.social}.png", #if args.social else OUTPUT_DIR / f"{args.model}_baseline.png"  #{timestamp}.png",
         )
-    elif not args.skipbase:
-        # Baseline table: diffs vs tf2k_dataset (ref_scores), no per_row_baseline
-        plot_table(
-            baseline,
-            ref_label   = display_ref_label,
-            ref_scores  = ref_scores,
-            title       = f"{args.model}_baseline results" if not args.social else f"{str(args.model)}_baseline_{args.social} results",
-            output_path = (OUTPUT_DIR / f"{args.model}_baseline_{args.social}.png") if args.social else (OUTPUT_DIR / f"{args.model}_baseline.png")
-        )
+    # elif not args.skipbase:
+    #     # Baseline table: diffs vs tf2k_dataset (ref_scores), no per_row_baseline
+    #     plot_table(
+    #         baseline,
+    #         ref_label   = display_ref_label,
+    #         ref_scores  = ref_scores,
+    #         title       = f"{args.model}_baseline results" if not args.social else f"{str(args.model)}_baseline_{args.social} results",
+    #         output_path = (OUTPUT_DIR / f"{args.model}_baseline_{args.social}.png") if args.social else (OUTPUT_DIR / f"{args.model}_baseline.png")
+    #     )
     
 
     # FT table: first row = tf2k_dataset baseline (ref_scores);
-    #           other rows = FT raw score + diff vs SAME DATASET's baseline model.
-    if not args.onlybase:
-        plot_table(
-            ft,
-            ref_label        = display_ref_label,
-            ref_scores       = ref_scores,
-            per_row_baseline = baseline,   # <── key change: diff against own baseline
-            title            = f"{str(FT_SUBDIR)}_vs_baseline" if not args.social else f"{str(FT_SUBDIR)}_vs_{args.social}", #_vs_baseline" , #f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
-            output_path      = (OUTPUT_DIR / f"{str(FT_SUBDIR)}.png") if not args.social else (OUTPUT_DIR / f"{str(FT_SUBDIR)}_{args.social}.png") #_{timestamp}.png"
-            # (OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png") if not args.unfreezeL4 else (OUTPUT_DIR / f"{args.model}_FT_unfreezeL4_{timestamp}.png"),
-        )
+    # #           other rows = FT raw score + diff vs SAME DATASET's baseline model.
+    # if not args.onlybase:
+    #     plot_table(
+    #         ft,
+    #         ref_label        = display_ref_label,
+    #         ref_scores       = ref_scores,
+    #         per_row_baseline = baseline,   # <── key change: diff against own baseline
+    #         title            = f"{str(FT_SUBDIR)}_vs_baseline" if not args.social else f"{str(FT_SUBDIR)}_vs_{args.social}", #_vs_baseline" , #f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
+    #         output_path      = (OUTPUT_DIR / f"{str(FT_SUBDIR)}.png") if not args.social else (OUTPUT_DIR / f"{str(FT_SUBDIR)}_{args.social}.png") #_{timestamp}.png"
+    #         # (OUTPUT_DIR / f"{args.model}_FT_{timestamp}.png") if not args.unfreezeL4 else (OUTPUT_DIR / f"{args.model}_FT_unfreezeL4_{timestamp}.png"),
+    #     )
 
-        print(f"\nDone — tables saved to {OUTPUT_DIR.resolve()}/")
+    #     print(f"\nDone — tables saved to {OUTPUT_DIR.resolve()}/")
 
 
 if __name__ == "__main__":

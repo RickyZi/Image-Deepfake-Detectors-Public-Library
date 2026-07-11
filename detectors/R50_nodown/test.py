@@ -28,8 +28,9 @@ def test(loader, model, settings, device):
     # File paths update
     # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
     # dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
-    # dataset_dir_name = settings.dataset.replace(os.sep, '_')
     dataset_dir_name = settings.dataset.replace(os.sep, '_')
+    # dataset_dir_name = settings.dataset.replace(os.sep, '_').replace('-','_')
+    # dataset_dir_name =settings.dataset.replace(os.sep, '_').replace('-','_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
     print(f"dataset_name: {dataset_dir_name}")
     tag = 'ft' if settings.ft else 'pretrained'
     tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''
@@ -37,9 +38,13 @@ def test(loader, model, settings, device):
     # breakpoint()
     # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
     # if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
-    if settings.social:
-        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}' # change path to be outside detector folder
-        logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
+    if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
+        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}'
+        logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
+
+    elif settings.social:
+        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
     else:
         output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}' # change path to be outside detector folder
         logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
@@ -214,13 +219,15 @@ if __name__ == '__main__':
     num_parameters = count_parameters(model)
     print(f"Arch: {settings.arch} with #parameters {num_parameters}")
     # fix load path!!!!
-    if settings.ft and settings.r50unfreezeL4 and settings.social:
-        load_path = f'./checkpoint/{settings.name}/social/{settings.social}/ft_unfreezeL4_weights/{settings.dataset.replace(os.sep, '_')}_unfreezeL4/best.pt'
-        # os.path.join('checkpoint', opt.name, 'social', opt.social, 'ft_unfreezeL4_weights', dataset)
-    elif settings.ft and settings.r50unfreezeL4:
-        load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{settings.dataset.replace(os.sep, '_')}_unfreezeL4/best.pt'
+    # if settings.ft and settings.r50unfreezeL4 and settings.social:
+    #     load_path = f'./checkpoint/{settings.name}/social/{settings.social}/ft_unfreezeL4_weights/{settings.dataset.replace(os.sep, '_')}_unfreezeL4/best.pt'
+    #     # os.path.join('checkpoint', opt.name, 'social', opt.social, 'ft_unfreezeL4_weights', dataset)
+    #
+    dataset_dir_name =settings.dataset.replace(os.sep, '_').replace('-','_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
+    if settings.ft and settings.r50unfreezeL4:
+        load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{dataset_dir_name}_unfreezeL4/best.pt'
     elif settings.ft:
-        load_path = f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+        load_path = f'./checkpoint/{settings.name}/ft_weights/{dataset_dir_name}/best.pt'
     else:
         load_path = f'./checkpoint/{settings.name}/weights/best.pt'
     # load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
