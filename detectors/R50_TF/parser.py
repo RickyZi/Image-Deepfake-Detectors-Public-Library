@@ -27,6 +27,8 @@ def get_parser():
     # add ft flag
     parser.add_argument('--ft', action='store_true', help='Path to pretrained model to load')
 
+    parser.add_argument("--earlystop_epoch", type=int, default=5, help="Number of epochs without loss reduction before lowering the learning rate")
+    parser.add_argument('--resume', action='store_true', help='Resume training from the last saved per-epoch checkpoint in the run\'s checkpoint dir')
     # add tf2k flag
     parser.add_argument('--tf2k', type = bool, default = False, help = 'Use 2k dataset and splits for training and testing')
     
@@ -34,6 +36,8 @@ def get_parser():
     parser.add_argument('--dataset', type = str, default = 'dataset', help = 'Which dataset to use (default: dataset)') # add custom dataset for demo
 
     parser.add_argument('--r50unfreezeL4', action='store_true', help='Unfreeze layer 4 when FT ResNet models')
+    parser.add_argument('--social', type = str, default="", help = 'Which dataset from a social to load (default: niet)')
+    parser.add_argument("--ensemble", action='store_true', help="Test ensemble models, save pretrained  in a different folder") 
     # ----------------------------------- #
     
     return parser

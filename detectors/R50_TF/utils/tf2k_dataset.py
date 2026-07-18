@@ -331,7 +331,28 @@ class TrueFake_dataset(datasets.DatasetFolder):
         path = self.samples[index]
         label, gen, sub = self.info[index]
 
-        image = Image.open(path).convert('RGB')
+        import time
+        last_exc = None
+        for attempt in range(3):
+            try:
+                image = Image.open(path).convert('RGB')
+                last_exc = None
+                break
+            except Exception as e:
+                last_exc = e
+                if attempt < 2:
+                    print(f"[WARN] Attempt {attempt+1}/3 failed for {path}: {e} — retrying...")
+                    time.sleep(0.1 * (attempt + 1))  # 0.1 s, 0.2 s
+ 
+        if last_exc is not None:
+            # All retries exhausted — file is genuinely unreadable.
+            # Re-raise so the problem is visible rather than silently injecting
+            # a dummy sample into training.
+            raise RuntimeError(
+                f"Failed to load image after 3 attempts: {path}"
+            ) from last_exc
+
+        # image = Image.open(path).convert('RGB')
         sample = self.transform_start(image)
         if self.transform_aug:
             # sample = self.transform_aug['heavy' if mod == 'PreSocial' else 'light'](sample)

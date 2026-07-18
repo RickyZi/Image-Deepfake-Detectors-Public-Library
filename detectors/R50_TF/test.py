@@ -8,45 +8,23 @@ from tqdm import tqdm
 import json
 import time
 import numpy as np
-from sklearn.metrics import roc_auc_score, accuracy_score
+from sklearn.metrics import roc_auc_score, accuracy_score, f1_score, balanced_accuracy_score
 
 from networks import ImageClassifier
 from parser import get_parser
-from dataset import create_dataloader
-from tf2k_dataset import tf2k_create_dataloader
+from utils.dataset import create_dataloader
+from utils.tf2k_dataset import tf2k_create_dataloader
 
 from datetime import datetime
 
-def test(loader, model, settings, device):
+from utils.logger import create_logger
+
+def test(loader, model, settings, device, output_dir, logger):
     model.eval()
     
     start_time = time.time()
     
-    # # File paths
-    # output_dir = f'./results/{settings.name}/{settings.data_keys}/data/'
-    # os.makedirs(output_dir, exist_ok=True)
-
-    # --------------------------- #
-    # # File paths update
-    # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") #
-    # # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
-    # dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
-    # tag = 'ft' if settings.ft else 'pretrained'
-    # output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
-    # os.makedirs(output_dir, exist_ok=True)
-    dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
-    print(f"dataset_name: {dataset_dir_name}")
-    tag = 'ft' if settings.ft else 'pretrained'
-    # tag += '_unfreezeL4' if settings.r50unfreezeL4 else 'pretrained'
-    print(f"test_tag: {tag}")
-    # breakpoint()
-    # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
-    if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
-        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
-    else:
-        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
-    os.makedirs(output_dir, exist_ok=True)
-    # --------------------------- #
+    
     
     csv_filename = os.path.join(output_dir, 'results.csv')
     metrics_filename = os.path.join(output_dir, 'metrics.json')
@@ -80,6 +58,15 @@ def test(loader, model, settings, device):
     with open(csv_filename, 'w') as f:
         f.write(f"{','.join(['name', 'pro', 'flag'])}\n")
     
+
+    # # add info on the testing set
+    # logger.info("=== Test settings ===")
+    
+    # logger.info(f"Model name: {settings.name}_{tag}")
+    # logger.info(f"Dataset: {dataset_dir_name}")
+    logger.info(f"Dataset keys: {dataset_keys}")
+    logger.info(f"Training dataset keys: {training_dataset_keys}")
+
     with torch.no_grad():
         with tqdm(loader, unit='batch', mininterval=0.5) as tbatch:
             tbatch.set_description(f'Validation')
@@ -141,15 +128,23 @@ def test(loader, model, settings, device):
         auc = roc_auc_score(all_labels, probabilities)
     else:
         auc = 0.0
+
+    
+    f1 = f1_score(all_labels, predictions, labels = [0,1], zero_division=0.0)
+
+    balanced_accuracy = balanced_accuracy_score(all_labels, predictions)  # adjusted=False by default
     
     execution_time = time.time() - start_time
     
     # Prepare metrics JSON
     metrics = {
-        'TPR': float(tpr),
-        'TNR': float(tnr),
-        'Acc total': float(total_accuracy),
-        'AUC': float(auc),
+        'TPR':          float(tpr),
+        'TNR':          float(tnr),
+        'Acc':          float(total_accuracy),
+        'Balanced Acc': float(balanced_accuracy),
+        'F1':           float(f1),
+        'AUC':          float(auc),
+        'num_images':   int(len(all_labels)),
         'execution time': float(execution_time)
     }
     
@@ -167,8 +162,23 @@ def test(loader, model, settings, device):
     print(f'  TPR: {tpr:.4f}')
     print(f'  TNR: {tnr:.4f}')
     print(f'  Accuracy: {total_accuracy:.4f}')
+    print(f'  Balanced Acc {balanced_accuracy:.4f}')
+    print(f'  F1: {f1:.4f}')
     print(f'  AUC: {auc:.4f}')
+    print(f'  num_immgs:  {int(len(all_labels))}')
     print(f'  Execution time: {execution_time:.2f} seconds')
+
+    logger.info(f'\nMetrics saved to {metrics_filename}')
+    logger.info(f'Image results saved to {image_results_filename}')
+    logger.info(f'\nMetrics:')
+    logger.info(f'  TPR: {tpr:.4f}')
+    logger.info(f'  TNR: {tnr:.4f}')
+    logger.info(f'  Accuracy: {total_accuracy:.4f}')
+    logger.info(f'  Balanced Acc {balanced_accuracy:.4f}')
+    logger.info(f'  F1: {f1:.4f}')
+    logger.info(f'  AUC: {auc:.4f}')
+    logger.info(f'  num_immgs:  {int(len(all_labels))}')
+    logger.info(f'  Execution time: {execution_time:.2f} seconds')
 
 if __name__ == "__main__":
     parser = get_parser()
@@ -184,10 +194,70 @@ if __name__ == "__main__":
     model = ImageClassifier(settings)
     # breakpoint()
     model.to(device)
-    path_weight = f'./checkpoint/{settings.name}/weights/best.pt' 
-    state_dict = torch.load(path_weight, map_location=device)
+   
+    dataset_dir_name = settings.dataset.replace(os.sep, '_')
+    # settings.data_root.split('/')[-1]  # Extract dataset directory name from path
+    if settings.data_root:
+        data_root_name = str(settings.data_root.split('/')[-3])+'_'+str(settings.data_root.split('/')[-2])
+        print(f"data_root_name: {data_root_name}")
+    
+    # data_tag = ''
+    # if dataset_dir_name != data_root_name:
+    #     data_tag = f'{dataset_dir_name}_vs_{data_root_name}'
+    
+    # print(f"data_tag: {data_tag}")
+
+    print(f"dataset_name: {dataset_dir_name}")
+    tag = 'ft' if settings.ft else 'pretrained'
+    tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''
+    print(f"test_tag: {tag}")
+    # breakpoint()
+    # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
+    if settings.ensemble:
+        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}'
+        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/', 'test.log')
+    
+    elif any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
+        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}/social/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}'
+        
+        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}_social/{dataset_dir_name}/R50_TF_{tag}/', 'test.log')
+    elif settings.social:
+        
+        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}_{settings.social}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}_{settings.social}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.txt')
+
+    else:
+        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.txt')
+
+    print(f"output_dir: {output_dir}")
+    os.makedirs(output_dir, exist_ok=True)
+    # breakpoint()
+    # --------------------------- #
+
+    logger = create_logger(logger_path)
+
+    dataset_name =settings.dataset.replace(os.sep, '_').replace('-','_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
+
+    if settings.ft and settings.r50unfreezeL4:
+        load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{dataset_name}_ft_unfreezeL4/best.pt'
+    elif settings.ft:
+        load_path = f'./checkpoint/{settings.name}/ft_weights/{dataset_name}/best.pt'
+    else:
+        load_path = f'./checkpoint/{settings.name}/weights/best.pt'
+    # load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+    print('loading the model from %s' % load_path)
+    # add info on the testing set
+    logger.info("=== Test settings ===")
+    
+    logger.info(f"Model name: {settings.name}_{tag}")
+    logger.info(f"Loading model from: {load_path}")
+    logger.info(f"Dataset: {dataset_dir_name}")
+    # breakpoint()
+    # path_weight = f'./checkpoint/{settings.name}/weights/best.pt' 
+    state_dict = torch.load(load_path, map_location=device)
     # breakpoint()
     # RuntimeError: Attempting to deserialize object on CUDA device 1 but torch.cuda.device_count() is 1. 
     # Please use torch.load with map_location to map your storages to an existing device.
     model.load_state_dict(state_dict)
-    test(test_dataloader, model, settings, device)
+    test(test_dataloader, model, settings, device, output_dir, logger)

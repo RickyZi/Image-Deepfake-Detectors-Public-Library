@@ -77,4 +77,6 @@ def get_parser():
     
     parser.add_argument('--resume', action='store_true', help='Resume training from the last saved per-epoch checkpoint in the run\'s checkpoint dir')
 
+    parser.add_argument("--ensemble", action='store_true', help="Test ensemble models, save pretrained  in a different folder")
+
     return parser

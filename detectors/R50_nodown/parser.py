@@ -36,6 +36,9 @@ def get_parser():
     parser.add_argument('--r50unfreezeL4', action='store_true', help='Unfreeze layer 4 when FT ResNet models')
 
     parser.add_argument('--resume', action='store_true', help='Resume training from the last saved per-epoch checkpoint in the run\'s checkpoint dir')
+    parser.add_argument('--social', type = str, default="", help = 'Which dataset from a social to load (default: niet)') 
+
+    parser.add_argument("--ensemble", action='store_true', help="Test ensemble models, save pretrained  in a different folder")
     # ----------------------------------- #
 
     return parser
