@@ -307,7 +307,9 @@ def main():
     #     print(args.dataset)
     #     dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_social', args.dataset)
     else:
-        dataset_path = os.path.join(config_dataset_path, args.dataset)
+        # dataset_path = os.path.join(config_dataset_path, args.dataset)
+        dataset_path = '/second-disk/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset'
+        args.tf2k = True
         split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
             #global_config.get('dataset_path', args.dataset) # default to --dataset argument if not specified in config
     print(f"Using dataset path: {dataset_path}")

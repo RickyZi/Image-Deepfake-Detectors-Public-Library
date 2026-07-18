@@ -63,30 +63,65 @@ def load_overall(json_path: Path) -> dict | None:
     try:
         with json_path.open() as f:
             data = json.load(f)
-        return data.get("overall")
+        # return data.get("overall")
+        return data
     except Exception as e:
         print(f"  [warn] could not read {json_path}: {e}")
         return None
 
 
 def find_json(folder: Path) -> Path | None:
-    """Return the first *_aggregated_metrics.json found in folder."""
-    hits = sorted(folder.glob("*_aggregated_metrics.json"))
+    """Return the first metrics.json found in folder."""
+    hits = sorted(folder.rglob("metrics.json"))
     return hits[0] if hits else None
 
 
-def load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, social = False) -> dict | None:
+# def load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, social = False) -> dict | None:
+#     """
+#     Load overall metrics from the reference folder (results/pretrained/dataset/).
+#     Returns {metric: value} or None if not found.
+#     """
+#     if not RESULTS_ROOT.exists():
+#         print(f"[error] Results root not found: {RESULTS_ROOT.resolve()}")
+#         return None
+#     # if social:
+#     #     ref_dir = RESULTS_ROOT / 
+#     # ref_dir = RESULTS_ROOT / REF_FOLDER
+#     ref_dir = Path("./results/pretrained/dataset")
+#     for subdir in [BASELINE_SUBDIR]:
+#         model_dir = ref_dir / Path(str(subdir))
+#         print(f"model_dir: {model_dir}")
+#         if model_dir.is_dir():
+#             json_path = find_json(model_dir)
+#             if json_path:
+#                 overall = load_overall(json_path)
+#                 if overall:
+#                     scores = {m: overall.get(m, np.nan) for m in METRICS}
+#                     print(f"  [ref] {REF_LABEL:<30s}  F1={overall.get('F1', float('nan')):.4f}  (from {subdir})")
+#                     return scores
+#     print(f"  [warn] reference JSON not found under {ref_dir}")
+#     return None
+
+def load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, model_name, social='', ref_label: str = REF_LABEL) -> dict | None:
     """
     Load overall metrics from the reference folder (results/pretrained/dataset/).
     Returns {metric: value} or None if not found.
     """
+    display_label = ''
     if not RESULTS_ROOT.exists():
         print(f"[error] Results root not found: {RESULTS_ROOT.resolve()}")
         return None
-    # if social:
-    #     ref_dir = RESULTS_ROOT / 
-    # ref_dir = RESULTS_ROOT / REF_FOLDER
-    ref_dir = Path("./results/pretrained/dataset")
+    if social:
+        ref_dir = Path(f"./results/{model_name}/pretrained_social/{social.capitalize()}")
+        dataset_label = str(social)
+    else:
+        # ref_dir = RESULTS_ROOT / REF_FOLDER
+        ref_dir = Path(f"./results/{model_name}/pretrained/dataset")
+        dataset_label = ref_label
+
+    print(f"ref_dir: {ref_dir}")
+    print(display_label)
+
     for subdir in [BASELINE_SUBDIR]:
         model_dir = ref_dir / Path(str(subdir))
         print(f"model_dir: {model_dir}")
@@ -96,10 +131,13 @@ def load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, social = False) -> dict | Non
                 overall = load_overall(json_path)
                 if overall:
                     scores = {m: overall.get(m, np.nan) for m in METRICS}
-                    print(f"  [ref] {REF_LABEL:<30s}  F1={overall.get('F1', float('nan')):.4f}  (from {subdir})")
-                    return scores
+                    display_label = str(model_dir).split('/')[-1] + '_' + dataset_label
+                    print(f"  [ref] {display_label:<30s}  F1={overall.get('F1', float('nan')):.4f}  (from {subdir})")
+                    
+                    return scores, display_label
     print(f"  [warn] reference JSON not found under {ref_dir}")
-    return None
+    return None, None
+
 
 
 def collect_results(RESULTS_ROOT, subdir_name: str) -> dict[str, dict]:
@@ -375,7 +413,7 @@ def main():
     parser = argparse.ArgumentParser(description='Plotting test-run tables for one detector.')
     parser.add_argument('--model', type=str, default='R50_nodown', help='Model run name, i.e. R50_nodown or CLIP-D')
     parser.add_argument("--unfreezeL4", action = "store_true")
-    parser.add_argument("--mlp", action = "store_true")
+    # parser.add_argument("--mlp", action = "store_true")
     parser.add_argument("--skipbase", action = "store_true")
     parser.add_argument("--onlybase", action = "store_true")
     parser.add_argument("--lora", action = 'store_true')
@@ -391,30 +429,32 @@ def main():
 
     if args.unfreezeL4:
         FT_SUBDIR = args.model + "_ft_unfreezeL4"
-    elif args.mlp:
-        FT_SUBDIR = args.model + "_ft_MLP"
+    # elif args.mlp:
+    #     FT_SUBDIR = args.model + "_ft_MLP"
     # elif args.onlybase:
     #     FT_SUBDIR = args.model+"_baseline"
+    # elif args.lora:
+    #     FT_SUBDIR = args.model 
     else:
         FT_SUBDIR = args.model + "_ft"
 
     print(f"BASELINE_SUBDIR: {BASELINE_SUBDIR}")
     print(f"FT_SUBDIR: {FT_SUBDIR}")
     # breakpoint()
-
+    
     if args.social:
-        out_dir = Path(f"./results/metric_tables/social/lora_r4_qv_{args.social}")
+        out_dir = Path(f"./results/{args.model}/metric_tables/social/lora_r4_qv_{args.social}") if args.model == 'CLIP-D' else Path(f"./results/{args.model}/metric_tables/social/pretrained_{args.social}")
         
         # out_dir = Path(f"./results/metric_tables/social/baseline/")
         OUTPUT_DIR= out_dir
         # out_dir.mkdir(parents=True, exist_ok=True)
-        results = Path(f"./results/lora_r4_qv_{args.social}/")
+        results = Path(f"./results/CLIP-D/lora_r4_qv_{args.social}/") if args.model == 'CLIP-D' else Path(Path(f"./results/{args.model}/pretrained_{args.social}/"))
         # results = Path(f"./results/pretrained_social") # for baselines on social split
         # results = Path(f"./results/{args.social}")
         RESULTS_ROOT = results
     else:
-        RESULTS_ROOT = Path("./results/pretrained")
-        OUTPUT_DIR   = Path("./results/metric_tables")
+        RESULTS_ROOT = Path(f"./results/{args.model}/pretrained") if args.model != 'CLIP-D' else Path(f"./results/{args.model}/lora_r4_qv/")
+        OUTPUT_DIR   = Path(f"./results/{args.model}/metric_tables")
     
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -423,7 +463,7 @@ def main():
     # 1. Load reference scores once from results/pretrained/dataset/
     # if not args.skipbase:
     print(f"\n── Loading reference scores ({REF_FOLDER} → displayed as {REF_LABEL}) ──")
-    ref_scores = load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR)
+    ref_scores, display_ref_label = load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, args.model, social=args.social)
     if ref_scores is None:
         print("  [error] Cannot continue without reference scores.")
         return
@@ -432,7 +472,8 @@ def main():
 
     # 2. Collect comparison rows (all folders except reference)
     print(f"\n── Collecting baseline results ({BASELINE_SUBDIR}) ──────────")
-    baseline = collect_results(RESULTS_ROOT, BASELINE_SUBDIR)
+    baseline_path = Path(f"./results/{args.model}/pretrained_{args.social}") if args.social else Path(f"./results/{args.model}/pretrained")
+    baseline = collect_results(baseline_path, BASELINE_SUBDIR)
 
     print(f"\n── Collecting FT results ({FT_SUBDIR}) ────────────────────────")
     ft = collect_results(RESULTS_ROOT, FT_SUBDIR)
@@ -444,10 +485,10 @@ def main():
         # Baseline table: diffs vs tf2k_dataset (ref_scores), no per_row_baseline
         plot_table(
             baseline,
-            ref_label   = REF_LABEL,
+            ref_label   = display_ref_label,
             ref_scores  = ref_scores,
-            title       = f"{args.model}_baseline results" if not args.social else f"{str(FT_SUBDIR)}_baseline_SOCIAL results",
-            output_path = OUTPUT_DIR / f"{args.model}_baseline_SOCIAL.png" if args.social else OUTPUT_DIR / f"{args.model}_baseline.png"  #{timestamp}.png",
+            title       = f"{args.model}_baseline results" if not args.social else f"{BASELINE_SUBDIR}_vs_{args.social} results",
+            output_path = OUTPUT_DIR / f"{args.model}_baseline_{args.social}.png" if args.social else OUTPUT_DIR / f"{args.model}_baseline.png"  #{timestamp}.png",
         )
     elif not args.skipbase:
         # Baseline table: diffs vs tf2k_dataset (ref_scores), no per_row_baseline
@@ -465,8 +506,8 @@ def main():
     if not args.onlybase:
         plot_table(
             ft,
-            ref_label        = REF_LABEL,
-            ref_scores       = ref_scores,
+            ref_label        = display_ref_label,
+            # ref_scores       = ref_scores,
             per_row_baseline = baseline,   # <── key change: diff against own baseline
             title            = f"{str(FT_SUBDIR)}_vs_baseline" if not args.social else f"{str(FT_SUBDIR)}_vs_{args.social}", #_vs_baseline" , #f"{args.model}_FT vs baseline results" if not args.unfreezeL4 else f"{args.model}_FT_unfreezeL4 vs baseline results",
             output_path      = (OUTPUT_DIR / f"{str(FT_SUBDIR)}.png") if not args.social else (OUTPUT_DIR / f"{str(FT_SUBDIR)}_{args.social}.png") #_{timestamp}.png"
