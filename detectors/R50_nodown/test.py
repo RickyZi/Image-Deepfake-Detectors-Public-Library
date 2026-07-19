@@ -233,7 +233,8 @@ if __name__ == '__main__':
         test_dataloader = create_dataloader(settings, split='test')
     # breakpoint()
     
-    dataset_dir_name = settings.dataset.replace(os.sep, '_')
+    # dataset_dir_name = settings.dataset.replace(os.sep, '_')
+    dataset_dir_name =settings.dataset.replace(os.sep, '_').replace('-','_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
     # dataset_dir_name = settings.dataset.replace(os.sep, '_').replace('-','_')
     # dataset_dir_name =settings.dataset.replace(os.sep, '_').replace('-','_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
     print(f"dataset_name: {dataset_dir_name}")
@@ -268,7 +269,7 @@ if __name__ == '__main__':
     #     load_path = f'./checkpoint/{settings.name}/social/{settings.social}/ft_unfreezeL4_weights/{settings.dataset.replace(os.sep, '_')}_unfreezeL4/best.pt'
     #     # os.path.join('checkpoint', opt.name, 'social', opt.social, 'ft_unfreezeL4_weights', dataset)
     #
-    dataset_dir_name =settings.dataset.replace(os.sep, '_').replace('-','_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
+    
     if settings.ft and settings.r50unfreezeL4:
         load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{dataset_dir_name}_unfreezeL4/best.pt'
     elif settings.ft:
