@@ -168,6 +168,9 @@ if __name__ == '__main__':
     parser.add_argument('--dataset-name', default=None,
                          help='Dataset/preset identifier used in the output filename, '
                               'e.g. adaptive_blurbg_strong')
+    parser.add_argument('--data-root', default=None,
+                         help='Dataset/preset identifier used in the output filename, '
+                              'e.g. adaptive_blurbg_strong')
     parser.add_argument('--out-dir', default='.',
                          help='Directory to write the ensemble report JSON '
                               '(default: current directory)')
@@ -275,22 +278,42 @@ if __name__ == '__main__':
     # Save report to JSON if --detector-name and --dataset-name are provided.
     # Filename: ensemble_report_{detector}_{dataset}.json
     if args.detector_name and args.dataset_name:
+        print(f"detector: {args.detector_name}")
+        print(f"dataset_name: {args.dataset_name}")
+        print(f"data_root: {args.data_root}")
+        # breakpoint()
         import os
         os.makedirs(args.out_dir, exist_ok=True)
         report_filename = f"ensemble_report_{args.detector_name}_{args.dataset_name}.json"
+        # ensemble_avg_metrics = f"ensemble_metrics.json"
         report_path = os.path.join(args.out_dir, report_filename)
+        # metrics_path = os.path.join(args.out_dir, args.detector_name, args.dataset_name, ensemble_avg_metrics)
+        # os.makedirs(os.path.dirname(metrics_path), exist_ok=True)
         report = {
             'detector':    args.detector_name,
             'dataset':     args.dataset_name,
+            'data-root':   args.data_root,
             'test_files':  test_file_map,
             'val_files':   val_file_map if args.val_files else None,
             'weights':     computed_weights if args.val_files else None,
             'baselines':   baselines,   # per-checkpoint solo performance
             'results':     results,     # ensemble combination rules
         }
+
+        # metrics = {
+        #     'detector':    args.detector_name,
+        #     'data-root':   args.data_root,
+        #     'results':     results,
+        # }
+
         with open(report_path, 'w') as f:
             json.dump(report, f, indent=2)
         print(f'\nEnsemble report saved to: {report_path}')
+
+        # with open(metrics_path, 'w') as f:
+        #         json.dump(metrics, f, indent=2)
+        # print(f'\nEnsemble report saved to: {metrics_path}')
+    
     elif args.detector_name or args.dataset_name:
         print('\n[warn] Both --detector-name and --dataset-name are needed to save a '
               'report - provide both or neither.')

@@ -210,10 +210,10 @@ if __name__ == '__main__':
 
     rules = {
         'average':  average_combine,
-        'max':      max_combine,
-        'median':   median_combine,
-        'weighted': lambda s: weighted_combine(s, computed_weights),
-        'stacked':  stacker.predict,
+        # 'max':      max_combine,
+        # 'median':   median_combine,
+        # 'weighted': lambda s: weighted_combine(s, computed_weights),
+        # 'stacked':  stacker.predict,
     }
     results = evaluate_rules(eval_records, rules)
     print(json.dumps(results, indent=2))

@@ -168,6 +168,12 @@ class TrueFake_dataset(datasets.DatasetFolder):
                         self.samples.append(os.path.join(dataset_root, filename))
                         self.info.append((label, gen, sub))
 
+
+        if len(self.samples) == 0:
+            print(f'Warning: No samples found for {self.split} split with the given settings. Please check your data_keys and split_file.')
+            breakpoint()
+        else:
+            print(f'Loaded {len(self.samples)} samples for {self.split}')
         self.transform = make_processing(settings)
         print(self.transform)
 

@@ -97,6 +97,8 @@ def run_ensemble(ensemble_cfg, project_root):
     det_dir = os.path.join(project_root, 'detectors', 'CLIP-D')
     ensemble_scripts_dir = os.path.join(project_root, 'test_ensemble')
 
+    
+
     for group_name, group in ensemble_cfg.items():
         if group_name == 'meta':
             continue
@@ -110,8 +112,13 @@ def run_ensemble(ensemble_cfg, project_root):
         group_name_arg    = group.get('name', weights_name)
         group_num_threads = str(group.get('num_threads', 4))
         group_tf2k        = group.get('tf2k', True)
-        group_ensemble    = True
-
+        # group_ensemble    = True
+        socials = ["facebook", "telegram", "twitter"]
+        group_social = ""
+        for s in socials:
+                if s in group_data_root:
+                    group_social = s
+                    break
     
         group_test_files = {}    # scores for THIS group only
 
@@ -142,6 +149,7 @@ def run_ensemble(ensemble_cfg, project_root):
                 f'--device {group_device}',
                 f'--num_threads {group_num_threads}',
                 f'--task test',
+                f'--social {group_social}',
             ]
             if ft:
                 cmd_args.append('--ft')
@@ -180,7 +188,12 @@ def run_ensemble(ensemble_cfg, project_root):
 
         # ── One report per group ───────────────────────────────────────────
         group_report_tag = f'{report_tag}__{group_name}'
-        out_dir = os.path.join(project_root, 'results', 'ensemble', 'ensemble_results', report_tag)
+        print(f"group_report_tag: {group_report_tag}")
+        # breakpoint()
+        if group_social!="":
+            out_dir = os.path.join(project_root, 'results', 'ensemble', 'ensemble_results', group_social, report_tag) 
+        else:
+            out_dir = os.path.join(project_root, 'results', 'ensemble', 'ensemble_results', report_tag)
         os.makedirs(out_dir, exist_ok=True)
 
         tmpdir = tempfile.mkdtemp(prefix='ensemble_maps_')
@@ -196,6 +209,7 @@ def run_ensemble(ensemble_cfg, project_root):
                 '--detector-name', detector,
                 '--dataset-name',  group_report_tag,
                 '--out-dir',       out_dir,
+                '--data-root', group_data_root
             ]
             print(f'\n[ensemble] combining scores for {group_name} → {out_dir}')
             subprocess.run(load_cmd, check=True)

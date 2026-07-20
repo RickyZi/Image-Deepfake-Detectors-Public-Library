@@ -54,8 +54,7 @@ def load_yaml(path):
 DETECTOR_DIRS = {
     'R50_nodown': 'R50_nodown',
     'R50_TF':     'R50_TF',
-    'CLIP-D':     'CLIP-D',
-    'NPR':        'NPR',
+    'CLIP-D':     'CLIP-D'
 }
 
 # test.py output_dir tag per architecture — mirrors each detector's test.py
@@ -63,8 +62,7 @@ DETECTOR_DIRS = {
 DETECTOR_RESULT_TAG = {
     'R50_nodown': 'R50_nodown',
     'R50_TF':     'R50_TF',
-    'CLIP-D':     'CLIP-D',
-    'NPR':        'NPR',
+    'CLIP-D':     'CLIP-D'
 }
 
 
@@ -127,9 +125,22 @@ def run_ensemble(ensemble_cfg, project_root):
         group_device      = group.get('device', 'cuda:0')
         group_name_arg    = group.get('name', weights_name)
         group_num_threads = str(group.get('num_threads', 4))
-        group_batch_size  = str(group.get('batch_size', 32))
+        # group_batch_size  = str(group.get('batch_size', 32))
         group_tf2k        = str(group.get('tf2k', True))
-        group_ensemble    = True
+        # group_ensemble    = True
+        # group_social      = group['social']
+
+        socials = ["facebook", "telegram", "twitter"]
+        group_social = ""
+        for s in socials:
+            if s in group_data_root:
+                group_social = s
+                break
+
+        # if s:
+        #     group_data_root = group_data_root.replace()
+
+        print(f"group_social: {group_social}")
 
         group_test_files = {}    # scores for THIS group only
 
@@ -138,6 +149,7 @@ def run_ensemble(ensemble_cfg, project_root):
             preset   = ckpt['preset']
             ft       = ckpt.get('ft', True)
             unfreeze = ckpt.get('r50unfreezeL4', False)
+            # social = group_social
 
             if arch not in DETECTOR_DIRS:
                 print(f'[ensemble] WARNING: unknown architecture {arch} — skipping')
@@ -185,8 +197,13 @@ def run_ensemble(ensemble_cfg, project_root):
         # ── One report per group ───────────────────────────────────────────
         # report_tag + group_name gives a unique filename per source preset:
         # ensemble_report_R50_nodown_blurbg_family__blurbg_strong_images.json
-        group_report_tag = f'{report_tag}__{group_name}'
-        out_dir = os.path.join(project_root, 'results', 'ensemble', 'ensemble_results', report_tag)
+        group_report_tag = f'{report_tag}_{group_name}'
+        print(f"group_report_tag: {group_report_tag}")
+        # breakpoint()
+        if group_social!="":
+            out_dir = os.path.join(project_root, 'results', 'ensemble', 'ensemble_results', group_social, report_tag) 
+        else:
+            out_dir = os.path.join(project_root, 'results', 'ensemble', 'ensemble_results', report_tag)
         os.makedirs(out_dir, exist_ok=True)
 
         tmpdir = tempfile.mkdtemp(prefix='ensemble_maps_')
@@ -202,6 +219,7 @@ def run_ensemble(ensemble_cfg, project_root):
                 '--detector-name', detector,
                 '--dataset-name',  group_report_tag,
                 '--out-dir',       out_dir,
+                '--data-root', group_data_root
             ]
             print(f'\n[ensemble] combining scores for {group_name} → {out_dir}')
             subprocess.run(load_cmd, check=True)

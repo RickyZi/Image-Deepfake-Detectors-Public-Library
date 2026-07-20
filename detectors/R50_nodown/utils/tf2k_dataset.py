@@ -253,6 +253,12 @@ class TrueFake_dataset(datasets.DatasetFolder):
  
         self.samples = valid_samples
         self.info    = valid_info
+
+        if len(self.samples) == 0:
+            print(f'Warning: No samples found for {self.split} split with the given settings. Please check your data_keys and split_file.')
+            breakpoint()
+        else:
+            print(f'Loaded {len(self.samples)} samples for {self.split}')
  
     def _write_skipped_log(self, settings, skipped):
         """Append skipped-image records to a per-run JSON log file.

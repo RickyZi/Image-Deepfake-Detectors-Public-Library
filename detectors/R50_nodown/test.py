@@ -246,8 +246,13 @@ if __name__ == '__main__':
     # if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
     if settings.ensemble:
         print("ensemble!")
-        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}'
-        logger = create_logger(os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
+        if settings.social:
+            output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}'
+            logger = create_logger(os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
+        else:
+            output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}'
+            logger = create_logger(os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
+        
     
     elif any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
         output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_nodown/{settings.name}_social/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}'

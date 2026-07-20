@@ -218,8 +218,12 @@ if __name__ == "__main__":
     # dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
     if settings.ensemble:
         print("ensemble!")
-        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
-        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/CLIP-D_{tag}/', 'test.log')
+        if settings.social:
+            output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
+            logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/', 'test.log')
+        else:
+            output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
+            logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/CLIP-D_{tag}/', 'test.log')
     elif settings.social:
         output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
         logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/', 'test_log.log')

@@ -198,9 +198,11 @@ if __name__ == "__main__":
     # dataset_dir_name = settings.dataset.replace(os.sep, '_')
     dataset_name =settings.dataset.replace(os.sep, '_').replace('-','_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
     # settings.data_root.split('/')[-1]  # Extract dataset directory name from path
-    if settings.data_root:
-        data_root_name = str(settings.data_root.split('/')[-3])+'_'+str(settings.data_root.split('/')[-2])
-        print(f"data_root_name: {data_root_name}")
+    # if settings.data_root:
+    #     data_root_name = str(settings.data_root.split('/')[-3])+'_'+str(settings.data_root.split('/')[-2])
+    #     print(f"data_root_name: {data_root_name}")
+
+        
     
     # data_tag = ''
     # if dataset_dir_name != data_root_name:
@@ -215,15 +217,18 @@ if __name__ == "__main__":
     # breakpoint()
     # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
     if settings.ensemble:
-        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/R50_TF_{tag}/{settings.data_keys}'
-        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/R50_TF_{tag}/', 'test.log')
+        if settings.social:
+            output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_name}/R50_TF_{tag}/{settings.data_keys}'
+            logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_name}/R50_TF_{tag}/', 'test.log')
+        else:
+            output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/R50_TF_{tag}/{settings.data_keys}'
+            logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/R50_TF_{tag}/', 'test.log')
     
     elif any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
         output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}/social/{dataset_name}/R50_TF_{tag}/{settings.data_keys}'
-        
         logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}_social/{dataset_name}/R50_TF_{tag}/', 'test.log')
+
     elif settings.social:
-        
         output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}_{settings.social}/{dataset_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
         logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}_{settings.social}/{dataset_name}/R50_TF_{tag}/', 'test_log.txt')
 
@@ -253,7 +258,7 @@ if __name__ == "__main__":
     
     logger.info(f"Model name: {settings.name}_{tag}")
     logger.info(f"Loading model from: {load_path}")
-    logger.info(f"Dataset: {dataset_dir_name}")
+    logger.info(f"Dataset: {dataset_name}")
     # breakpoint()
     # path_weight = f'./checkpoint/{settings.name}/weights/best.pt' 
     state_dict = torch.load(load_path, map_location=device)
