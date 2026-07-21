@@ -9,8 +9,8 @@
 
   "adaptive_enhance_portrait": {
     "name":        "pretrained",
-    "data_root":   "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/adaptive/enhance_portrait/",
-    "split_file":  "/second-disk/Image-Deepfake-Detectors-Public-Library/test2k_splits.json",
+    "data_root":   "/dataset-disk/tb_dataset/tf2k_lr/social/telegram/adaptive/enhance-portait/",
+    "split_file":  "/second-disk/Image-Deepfake-Detectors-Public-Library/tf2k_SOCIAL_splits.json",
     "data_keys":   "realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre",
     "tf2k":        true,
     "device":      "cuda:0",

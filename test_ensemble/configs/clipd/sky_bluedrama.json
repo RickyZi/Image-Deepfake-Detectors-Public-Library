@@ -7,7 +7,7 @@
     "report_tag":   "family_sky_bluedrama"
   },
 
-  "sky_bluedrama_images": {
+  "adaptive_sky_bluedrama": {
     "name":        "lora_r4_qv",
     "data_root":   "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/adaptive/sky_bluedrama/",
     "split_file":  "/second-disk/Image-Deepfake-Detectors-Public-Library/test2k_splits.json",
