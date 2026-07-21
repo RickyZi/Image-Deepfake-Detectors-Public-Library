@@ -131,8 +131,12 @@ def run_ensemble(ensemble_cfg, project_root):
                 print(f'[ensemble] WARNING: this launcher only handles CLIP-D, '
                       f'skipping {arch}@{preset}')
                 continue
-
-            model_id = f'CLIP-D@{preset}'
+            
+            if ft:
+                model_id = f'CLIP-D_ft@{preset}'
+                model_name = "CLIP-D_ft"
+            else:
+                model_id = f'CLIP-D@{preset}'
 
             # Build the command as a string, matching CLIP-D launcher.py
             # exactly (shell=True, quoted strings, same arg order).
@@ -149,10 +153,12 @@ def run_ensemble(ensemble_cfg, project_root):
                 f'--device {group_device}',
                 f'--num_threads {group_num_threads}',
                 f'--task test',
-                f'--social {group_social}',
             ]
             if ft:
                 cmd_args.append('--ft')
+
+            if group_social:
+                cmd_args.append(f'--social {group_social}')
             # Pass detector_args from YAML (--lora_r, etc.) but NOT --arch
             # (CLIP-D test.py sets it itself based on --name)
             for arg in detector_args:
@@ -187,13 +193,14 @@ def run_ensemble(ensemble_cfg, project_root):
             print(f'[ensemble] scores found at {img_path}')
 
         # ── One report per group ───────────────────────────────────────────
-        group_report_tag = f'{report_tag}__{group_name}'
+        # group_report_tag = f'{report_tag}__{group_name}'
+        group_report_tag = f'{model_name}_{group_name}'
         print(f"group_report_tag: {group_report_tag}")
         # breakpoint()
         if group_social!="":
-            out_dir = os.path.join(project_root, 'results', 'ensemble', 'ensemble_results', group_social, report_tag) 
+            out_dir = os.path.join(project_root, 'results', 'model_ensemble', 'ensemble_results', group_social, report_tag) 
         else:
-            out_dir = os.path.join(project_root, 'results', 'ensemble', 'ensemble_results', report_tag)
+            out_dir = os.path.join(project_root, 'results', 'model_ensemble', 'ensemble_results', report_tag)
         os.makedirs(out_dir, exist_ok=True)
 
         tmpdir = tempfile.mkdtemp(prefix='ensemble_maps_')

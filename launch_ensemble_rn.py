@@ -117,7 +117,7 @@ def run_ensemble(ensemble_cfg, project_root):
         if group_name == 'meta':
             continue
 
-        print(f'\n[ensemble] === group: {group_name} ===')
+        print(f'\n[ensemble] === group: {group_name} ===') # blurb_strong/subtle/...
 
         group_data_root   = group['data_root']
         group_split_file  = group.get('split_file', split_file_fallback)
@@ -140,15 +140,13 @@ def run_ensemble(ensemble_cfg, project_root):
         # if s:
         #     group_data_root = group_data_root.replace()
 
-        print(f"group_social: {group_social}")
-
         group_test_files = {}    # scores for THIS group only
 
         for ckpt in group['checkpoints']:
             arch     = ckpt['architecture']
             preset   = ckpt['preset']
             ft       = ckpt.get('ft', True)
-            unfreeze = ckpt.get('r50unfreezeL4', False)
+            unfreeze = ckpt.get('r50unfreezeL4', True)
             # social = group_social
 
             if arch not in DETECTOR_DIRS:
@@ -156,7 +154,9 @@ def run_ensemble(ensemble_cfg, project_root):
                 continue
 
             det_dir  = os.path.join(detectors_root, DETECTOR_DIRS[arch])
-            model_id = f'{arch}@{preset}'
+            if ft and unfreeze:
+                model_id = f'{arch}_ft_unfreezeL4@{preset}'
+                model_name = f'{arch}_ft_unfreezeL4'
 
             cmd_parts = [
                 sys.executable, 'test.py',
@@ -175,6 +175,10 @@ def run_ensemble(ensemble_cfg, project_root):
                 cmd_parts.append('--ft')
             if unfreeze:
                 cmd_parts.append('--r50unfreezeL4')
+
+            if group_social:
+                cmd_parts.append(f'--social')
+                cmd_parts.append(group_social)
             cmd_parts.extend(detector_args)
 
             print(f'[ensemble] running test.py for {model_id}')
@@ -197,13 +201,13 @@ def run_ensemble(ensemble_cfg, project_root):
         # ── One report per group ───────────────────────────────────────────
         # report_tag + group_name gives a unique filename per source preset:
         # ensemble_report_R50_nodown_blurbg_family__blurbg_strong_images.json
-        group_report_tag = f'{report_tag}_{group_name}'
+        group_report_tag = f'{model_name}_{group_name}'
         print(f"group_report_tag: {group_report_tag}")
         # breakpoint()
         if group_social!="":
-            out_dir = os.path.join(project_root, 'results', 'ensemble', 'ensemble_results', group_social, report_tag) 
+            out_dir = os.path.join(project_root, 'results', 'model_ensemble', 'ensemble_results', group_social, report_tag) 
         else:
-            out_dir = os.path.join(project_root, 'results', 'ensemble', 'ensemble_results', report_tag)
+            out_dir = os.path.join(project_root, 'results', 'model_ensemble', 'ensemble_results', report_tag)
         os.makedirs(out_dir, exist_ok=True)
 
         tmpdir = tempfile.mkdtemp(prefix='ensemble_maps_')

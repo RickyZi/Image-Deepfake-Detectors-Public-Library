@@ -284,7 +284,7 @@ if __name__ == '__main__':
         # breakpoint()
         import os
         os.makedirs(args.out_dir, exist_ok=True)
-        report_filename = f"ensemble_report_{args.detector_name}_{args.dataset_name}.json"
+        report_filename = f"ensemble_report_{args.dataset_name}.json"
         # ensemble_avg_metrics = f"ensemble_metrics.json"
         report_path = os.path.join(args.out_dir, report_filename)
         # metrics_path = os.path.join(args.out_dir, args.detector_name, args.dataset_name, ensemble_avg_metrics)

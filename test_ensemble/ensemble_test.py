@@ -210,8 +210,8 @@ if __name__ == '__main__':
 
     rules = {
         'average':  average_combine,
-        # 'max':      max_combine,
-        # 'median':   median_combine,
+        'max':      max_combine,
+        'median':   median_combine,
         # 'weighted': lambda s: weighted_combine(s, computed_weights),
         # 'stacked':  stacker.predict,
     }
