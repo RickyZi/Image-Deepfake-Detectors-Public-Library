@@ -14,7 +14,7 @@ global:
  # - "opencliplinearnext_clipL14commonpool
 detector_args:
   - "--arch"
-  - "opencliplinearloranext_clipL14commonpool_r4_qv"
+  - "opencliplinearnext_clipL14commonpool"
   - "--norm_type"
   - "clip"
   - "--resize_size"
@@ -42,6 +42,7 @@ training:
   # - data: realFFHQ:tw&realFORLAB:tw&gan1:tw&gan2:tw&gan3:tw&sd15:tw&sd2:tw&sd3:tw&sdXL:tw&flux:tw
 
 testing:
+  - realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre 
   # # FACEBOOK
   # - realFFHQ:fb
   # - realFORLAB:fb
@@ -75,15 +76,15 @@ testing:
   # - sd3:tw
   # - sdXL:tw
   # - flux:tw
-  # PRESOCIAL
-  - realFFHQ:pre
-  - realFORLAB:pre
-  - gan1:pre
-  - gan2:pre
-  - gan3:pre
-  - sd15:pre
-  - sd2:pre
-  - sd3:pre
-  - sdXL:pre
-  - flux:pre
+  # # PRESOCIAL
+  # - realFFHQ:pre
+  # - realFORLAB:pre
+  # - gan1:pre
+  # - gan2:pre
+  # - gan3:pre
+  # - sd15:pre
+  # - sd2:pre
+  # - sd3:pre
+  # - sdXL:pre
+  # - flux:pre
 
