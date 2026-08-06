@@ -38,6 +38,8 @@ from matplotlib.patches import FancyBboxPatch
 from pathlib import Path
 import argparse
 from datetime import datetime
+import glob
+import os
 
 # Constants
 METRICS      = ["TPR", "TNR", "Acc", "Balanced Acc", "F1", "AUC"]
@@ -82,21 +84,52 @@ def _dataset_sort_key(label: str):
 # ------------ # 
 # Data loading #
 # ------------ #
-def load_overall(json_path: Path) -> dict | None:
+# def load_overall(json_path: Path) -> dict | None:
+#     """Return the 'overall' dict from an aggregated_metrics JSON, or None."""
+#     try:
+#         with json_path.open() as f:
+#             data = json.load(f)
+#         return data.get("overall")
+#     except Exception as e:
+#         print(f"  [warn] could not read {json_path}: {e}")
+#         return None
+
+def load_overall(metric_json):
     """Return the 'overall' dict from an aggregated_metrics JSON, or None."""
-    try:
-        with json_path.open() as f:
-            data = json.load(f)
-        return data.get("overall")
-    except Exception as e:
-        print(f"  [warn] could not read {json_path}: {e}")
+    overall = metric_json.get("overall")
+    # if overall is None:
+    #     return None 
+    
+    return overall if overall is not None else None
+
+
+def find_json(folder: Path, dataset_name) -> Path | None:
+    """Return the *_aggregated_metrics.json containing the dataset_name in the filename."""
+    if dataset_name == 'tf2k_dataset':
+        dataset_name = 'dataset'
+
+    print(f"dataset_name: {dataset_name}")
+    # hits = sorted(folder.glob(os.path.join(folder, "*_aggregated_metrics.json")))
+    hits = glob.glob(os.path.join(folder, "*_aggregated_metrics.json"))
+    print(f"hits: {hits}")
+    valid_match = [h for h in hits if dataset_name in os.path.basename(h)]
+    if not valid_match:
+        print(f"  [warn] metrics file(s) found in {folder} but none contain dataset "
+              f"name '{dataset_name}' -- skipping stale file(s): "
+              f"{[os.path.basename(m) for m in hits]}")
         return None
 
+    if len(valid_match) > 1:
+        print(f"  [warn] multiple matching metrics files in {folder}, using: {valid_match[0]} "
+              f"(others: {[os.path.basename(m) for m in valid_match[1:]]})")
 
-def find_json(folder: Path) -> Path | None:
-    """Return the first *_aggregated_metrics.json found in folder."""
-    hits = sorted(folder.glob("*_aggregated_metrics.json"))
-    return hits[0] if hits else None
+    with open(valid_match[0], "r") as f:
+        return json.load(f)
+
+    # print(f"valid_mathc: {valid_match}")
+
+    breakpoint()
+    # return hits[0] if hits else None
 
 
 def load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, social='', ref_label: str = REF_LABEL) -> dict | None:
@@ -104,6 +137,7 @@ def load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, social='', ref_label: str = R
     Load overall metrics from the reference folder (results/pretrained/dataset/).
     Returns {metric: value} or None if not found.
     """
+    display_label = ''
     if not RESULTS_ROOT.exists():
         print(f"[error] Results root not found: {RESULTS_ROOT.resolve()}")
         return None
@@ -122,16 +156,19 @@ def load_ref_scores(RESULTS_ROOT, BASELINE_SUBDIR, social='', ref_label: str = R
         model_dir = ref_dir / Path(str(subdir))
         print(f"model_dir: {model_dir}")
         if model_dir.is_dir():
-            json_path = find_json(model_dir)
+            json_path = find_json(model_dir, dataset_label)
+            print(f"json_path: {json_path}")
+            breakpoint()
             if json_path:
                 overall = load_overall(json_path)
                 if overall:
                     scores = {m: overall.get(m, np.nan) for m in METRICS}
+                    display_label = str(model_dir).split('/')[-1] + '_' + dataset_label
                     print(f"  [ref] {display_label:<30s}  F1={overall.get('F1', float('nan')):.4f}  (from {subdir})")
-                    display_label = (model_dir.split('/')[-1]).join('_', dataset_label)
+                    
                     return scores, display_label
     print(f"  [warn] reference JSON not found under {ref_dir}")
-    return None
+    return None, ''
 
 
 def collect_results(RESULTS_ROOT, subdir_name: str) -> dict[str, dict]:
@@ -159,7 +196,7 @@ def collect_results(RESULTS_ROOT, subdir_name: str) -> dict[str, dict]:
         if not model_dir.is_dir():
             continue
 
-        json_path = find_json(model_dir)
+        json_path = find_json(model_dir, dataset_dir.name)
         print(f"json_path: {json_path}")
         # breakpoint()
         if json_path is None:
@@ -284,25 +321,25 @@ def plot_table(results: dict[str, dict], ref_label: str, title: str, output_path
     # ---------------------------------------------------------------------------------- #
     table_data = dict(results)
  
-    # if per_row_baseline:
-    #     # FT table: no reference row — just the FT datasets sorted
-    #     row_labels = sorted(table_data.keys())
-    # else:
-    #     # Baseline table: inject reference row first if missing, then others
-    #     if ref_label not in table_data and ref_scores:
-    #         table_data[ref_label] = ref_scores
-    #     other_labels = sorted(k for k in table_data if k != ref_label)
-    #     row_labels   = ([ref_label] if ref_label in table_data else []) + other_labels
+    if per_row_baseline:
+        # FT table: no reference row — just the FT datasets sorted
+        row_labels = sorted(table_data.keys())
+    else:
+        # Baseline table: inject reference row first if missing, then others
+        if ref_label not in table_data and ref_scores:
+            table_data[ref_label] = ref_scores
+        other_labels = sorted(k for k in table_data if k != ref_label)
+        row_labels   = ([ref_label] if ref_label in table_data else []) + other_labels
 
     # if per_row_baseline is not None:
     #     # FT table: no reference row — just the FT datasets, in launcher order
     #     row_labels = sorted(table_data.keys(), key=_dataset_sort_key)
     # else:
     # Baseline table: inject reference row first if missing, then others in launcher order
-    if ref_label not in table_data and ref_scores:
-        table_data[ref_label] = ref_scores
-    other_labels = sorted((k for k in table_data if k != ref_label), key=_dataset_sort_key)
-    row_labels   = ([ref_label] if ref_label in table_data else []) + other_labels
+    # if ref_label not in table_data and ref_scores:
+    #     table_data[ref_label] = ref_scores
+    # other_labels = sorted((k for k in table_data if k != ref_label), key=_dataset_sort_key)
+    # row_labels   = ([ref_label] if ref_label in table_data else []) + other_labels
  
     # ref_row is only used as a fallback diff source in the baseline table
     ref_row = ref_scores if ref_scores is not None else table_data.get(ref_label, {})
@@ -488,7 +525,7 @@ def main():
             ref_label   = display_ref_label,
             ref_scores  = ref_scores,
             title       = f"{args.model}_baseline results" if not args.social else f"{str(args.model)}_baseline_{args.social} results",
-            output_path = OUTPUT_DIR / f"{args.model}_baseline_SOCIAL.png" if args.social else OUTPUT_DIR / f"{args.model}_baseline.png"  #{timestamp}.png",
+            output_path = OUTPUT_DIR / f"{args.model}_baseline_{args.social}.png" if args.social else OUTPUT_DIR / f"{args.model}_baseline.png"  #{timestamp}.png",
         )
     elif not args.skipbase:
         # Baseline table: diffs vs tf2k_dataset (ref_scores), no per_row_baseline

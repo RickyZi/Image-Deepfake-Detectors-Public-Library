@@ -212,6 +212,7 @@ def main():
     parser.add_argument('--demo', action='store_true', help='Run demo on demo_images across detectors')
     # --------------------------- #
     parser.add_argument('--dataset', type = str, default = 'dataset', help = 'Which dataset to use (default: dataset)') # add custom dataset for demo
+    parser.add_argument('--data_root', type = str,  help = 'Path to dataset')
     parser.add_argument('--mlp', action = 'store_true', help = 'If true add MLP head to CLIP-D')
     parser.add_argument('--mlp_hidden',  type=int,   default=256)
     parser.add_argument('--mlp_dropout', type=float, default=0.3)
@@ -298,7 +299,9 @@ def main():
     #     print(args.dataset)
     #     dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_social', args.dataset)
     else:
-        dataset_path = os.path.join(config_dataset_path, args.dataset)
+        # dataset_path = os.path.join(config_dataset_path, args.dataset)
+        dataset_path = '/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset'
+        args.tf2k = True
         split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
             #global_config.get('dataset_path', args.dataset) # default to --dataset argument if not specified in config
     print(f"Using dataset path: {dataset_path}")
@@ -379,8 +382,13 @@ def main():
         cmd_args.append(f'--task {task["type"]}')
         cmd_args.append(f'--num_threads {num_threads}')
         cmd_args.append(f'--data_keys "{task["details"]["data"]}"')
-        cmd_args.append(f'--data_root {dataset_path}')
+        # cmd_args.append(f'--data_root {dataset_path}')
         cmd_args.append(f'--dataset {args.dataset}')
+
+        if args.data_root:
+            cmd_args.append(f'--data_root {args.data_root}')
+        else:
+            cmd_args.append(f'--data_root {dataset_path}')
         
         if args.tf2k:
             cmd_args.append(f'--tf2k {args.tf2k}') # pass tf2k flag to train/test scripts for correct dataset handling

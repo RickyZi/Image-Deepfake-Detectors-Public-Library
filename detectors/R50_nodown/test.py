@@ -5,7 +5,7 @@ import pandas as pd
 import json
 import time
 import numpy as np
-from sklearn.metrics import roc_auc_score, accuracy_score
+from sklearn.metrics import roc_auc_score, accuracy_score, f1_score, balanced_accuracy_score
 from networks import create_architecture, count_parameters
 from utils.dataset import create_dataloader
 from utils.tf2k_dataset import tf2k_create_dataloader
@@ -132,15 +132,23 @@ def test(loader, model, settings, device, output_dir, logger):
         auc = roc_auc_score(all_labels, probabilities)
     else:
         auc = 0.0
+
+
+    f1 = f1_score(all_labels, predictions, labels=[0, 1], zero_division=0.0)
+    
+    balanced_accuracy = balanced_accuracy_score(all_labels, predictions)  # adjusted=False by default
     
     execution_time = time.time() - start_time
     
     # Prepare metrics JSON
     metrics = {
-        'TPR': float(tpr),
-        'TNR': float(tnr),
-        'Acc total': float(total_accuracy),
-        'AUC': float(auc),
+        'TPR':          float(tpr),
+        'TNR':          float(tnr),
+        'Acc':          float(total_accuracy),
+        'Balanced Acc': float(balanced_accuracy),
+        'F1':           float(f1),
+        'AUC':          float(auc),
+        'num_images':   int(len(all_labels)),
         'execution time': float(execution_time)
     }
     
@@ -158,13 +166,56 @@ def test(loader, model, settings, device, output_dir, logger):
     print(f'  TPR: {tpr:.4f}')
     print(f'  TNR: {tnr:.4f}')
     print(f'  Accuracy: {total_accuracy:.4f}')
+    print(f'  Balanced Acc {balanced_accuracy:.4f}')
+    print(f'  F1: {f1:.4f}')
     print(f'  AUC: {auc:.4f}')
+    print(f'  num_imgs:  {int(len(all_labels))}')
     print(f'  Execution time: {execution_time:.2f} seconds')
 
-    logger.info(f"Metrics: {json.dumps(metrics, indent=2)}")
-    logger.info(f"Image results saved to {image_results_filename}")
-    logger.info(f"Metrics saved to {metrics_filename}")
-    logger.info(f"Execution time: {execution_time:.2f} seconds")
+    logger.info(f'\nMetrics saved to {metrics_filename}')
+    logger.info(f'Image results saved to {image_results_filename}')
+    logger.info(f'\nMetrics:')
+    logger.info(f'  TPR: {tpr:.4f}')
+    logger.info(f'  TNR: {tnr:.4f}')
+    logger.info(f'  Accuracy: {total_accuracy:.4f}')
+    logger.info(f'  Balanced Acc {balanced_accuracy:.4f}')
+    logger.info(f'  F1: {f1:.4f}')
+    logger.info(f'  AUC: {auc:.4f}')
+    logger.info(f'  num_imgs:  {int(len(all_labels))}')
+    logger.info(f'  Execution time: {execution_time:.2f} seconds')
+
+    # execution_time = time.time() - start_time
+    
+    # # Prepare metrics JSON
+    # metrics = {
+    #     'TPR': float(tpr),
+    #     'TNR': float(tnr),
+    #     'Acc total': float(total_accuracy),
+    #     'AUC': float(auc),
+    #     'execution time': float(execution_time)
+    # }
+    
+    # # Write metrics JSON
+    # with open(metrics_filename, 'w') as f:
+    #     json.dump(metrics, f, indent=2)
+    
+    # # Write individual image results JSON
+    # with open(image_results_filename, 'w') as f:
+    #     json.dump(image_results, f, indent=2)
+    
+    # print(f'\nMetrics saved to {metrics_filename}')
+    # print(f'Image results saved to {image_results_filename}')
+    # print(f'\nMetrics:')
+    # print(f'  TPR: {tpr:.4f}')
+    # print(f'  TNR: {tnr:.4f}')
+    # print(f'  Accuracy: {total_accuracy:.4f}')
+    # print(f'  AUC: {auc:.4f}')
+    # print(f'  Execution time: {execution_time:.2f} seconds')
+
+    # logger.info(f"Metrics: {json.dumps(metrics, indent=2)}")
+    # logger.info(f"Image results saved to {image_results_filename}")
+    # logger.info(f"Metrics saved to {metrics_filename}")
+    # logger.info(f"Execution time: {execution_time:.2f} seconds")
 
 if __name__ == '__main__':
     parser = get_parser()

@@ -1,0 +1,59 @@
+2026-07-13 18:29:34,574 - === Test settings ===
+2026-07-13 18:29:34,574 - loading the model from: ./checkpoint/pretrained/weights/best.pt
+2026-07-13 18:29:34,725 - Testing model pretrained on dataset dataset with data keys realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb
+2026-07-13 18:29:34,725 - Testing settings: {
+  "name": "pretrained",
+  "arch": "res50nodown",
+  "task": "test",
+  "device": "cuda:0",
+  "split_file": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/test2k_splits.json",
+  "data_root": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset",
+  "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+  "batch_size": 2,
+  "num_threads": 4,
+  "lr": 0.0001,
+  "weight_decay": 0.0,
+  "beta1": 0.9,
+  "num_epoches": 1000,
+  "earlystop_epoch": 5,
+  "ft": false,
+  "tf2k": false,
+  "dataset": "dataset",
+  "social": null,
+  "r50unfreezeL4": false,
+  "resume": false,
+  "cropSize": 96,
+  "resize_prob": 0.2,
+  "jitter_prob": 0.8,
+  "colordist_prob": 0.2,
+  "cutout_prob": 0.2,
+  "noise_prob": 0.2,
+  "blur_prob": 0.5,
+  "cmp_prob": 0.5,
+  "blur_sig": [
+    0.1,
+    3.0
+  ],
+  "cmp_qual": [
+    30,
+    100
+  ],
+  "resize_size": 256,
+  "resize_ratio": 0.75,
+  "norm_type": "resnet",
+  "split": "test"
+}
+2026-07-13 18:29:34,725 - Training dataset keys used for model: ['pretrained']
+2026-07-13 18:29:34,773 - 
+Metrics saved to /home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/PROVA/pretrained/dataset/R50_nodown_pretrained/realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb/metrics.json
+2026-07-13 18:29:34,773 - Image results saved to /home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/PROVA/pretrained/dataset/R50_nodown_pretrained/realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb/image_results.json
+2026-07-13 18:29:34,773 - 
+Metrics:
+2026-07-13 18:29:34,773 -   TPR: 0.0000
+2026-07-13 18:29:34,773 -   TNR: 0.0000
+2026-07-13 18:29:34,773 -   Accuracy: nan
+2026-07-13 18:29:34,773 -   Balanced Acc nan
+2026-07-13 18:29:34,773 -   F1: 0.0000
+2026-07-13 18:29:34,773 -   AUC: 0.0000
+2026-07-13 18:29:34,773 -   num_immgs:  0
+2026-07-13 18:29:34,773 -   Execution time: 0.05 seconds

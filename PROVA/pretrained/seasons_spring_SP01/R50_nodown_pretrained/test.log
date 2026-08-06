@@ -1,0 +1,59 @@
+2026-07-14 09:37:42,902 - === Test settings ===
+2026-07-14 09:37:42,902 - loading the model from: ./checkpoint/pretrained/weights/best.pt
+2026-07-14 09:37:43,055 - Testing model pretrained on dataset seasons/spring_SP01 with data keys realFFHQ&realFORLAB&gan1&gan2&gan3&sd15&sd2&sd3&sdXL&flux
+2026-07-14 09:37:43,055 - Testing settings: {
+  "name": "pretrained",
+  "arch": "res50nodown",
+  "task": "test",
+  "device": "cuda:0",
+  "split_file": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/test2k_splits.json",
+  "data_root": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01",
+  "data_keys": "realFFHQ&realFORLAB&gan1&gan2&gan3&sd15&sd2&sd3&sdXL&flux",
+  "batch_size": 2,
+  "num_threads": 4,
+  "lr": 0.0001,
+  "weight_decay": 0.0,
+  "beta1": 0.9,
+  "num_epoches": 1000,
+  "earlystop_epoch": 5,
+  "ft": false,
+  "tf2k": true,
+  "dataset": "seasons/spring_SP01",
+  "social": null,
+  "r50unfreezeL4": false,
+  "resume": false,
+  "cropSize": 96,
+  "resize_prob": 0.2,
+  "jitter_prob": 0.8,
+  "colordist_prob": 0.2,
+  "cutout_prob": 0.2,
+  "noise_prob": 0.2,
+  "blur_prob": 0.5,
+  "cmp_prob": 0.5,
+  "blur_sig": [
+    0.1,
+    3.0
+  ],
+  "cmp_qual": [
+    30,
+    100
+  ],
+  "resize_size": 256,
+  "resize_ratio": 0.75,
+  "norm_type": "resnet",
+  "split": "test"
+}
+2026-07-14 09:37:43,055 - Training dataset keys used for model: ['pretrained']
+2026-07-14 09:42:45,726 - 
+Metrics saved to /home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/PROVA/pretrained/seasons_spring_SP01/R50_nodown_pretrained/realFFHQ&realFORLAB&gan1&gan2&gan3&sd15&sd2&sd3&sdXL&flux/metrics.json
+2026-07-14 09:42:45,726 - Image results saved to /home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/PROVA/pretrained/seasons_spring_SP01/R50_nodown_pretrained/realFFHQ&realFORLAB&gan1&gan2&gan3&sd15&sd2&sd3&sdXL&flux/image_results.json
+2026-07-14 09:42:45,726 - 
+Metrics:
+2026-07-14 09:42:45,726 -   TPR: 0.8077
+2026-07-14 09:42:45,726 -   TNR: 1.0000
+2026-07-14 09:42:45,726 -   Accuracy: 0.9084
+2026-07-14 09:42:45,726 -   Balanced Acc 0.9038
+2026-07-14 09:42:45,727 -   F1: 0.8936
+2026-07-14 09:42:45,727 -   AUC: 0.9937
+2026-07-14 09:42:45,727 -   num_imgs:  382
+2026-07-14 09:42:45,727 -   Execution time: 302.67 seconds

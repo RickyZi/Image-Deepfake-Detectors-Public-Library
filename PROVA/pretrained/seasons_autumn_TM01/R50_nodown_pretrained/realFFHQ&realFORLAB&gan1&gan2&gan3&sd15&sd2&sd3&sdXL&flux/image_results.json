@@ -1,0 +1,1912 @@
+[
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/00019.jpg",
+    "score": -4.846475124359131,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/00130.jpg",
+    "score": -3.4296605587005615,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/00161.jpg",
+    "score": -8.17413330078125,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/00348.jpg",
+    "score": -8.32093334197998,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/00366.jpg",
+    "score": -6.225841045379639,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/00411.jpg",
+    "score": -5.660802364349365,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/00487.jpg",
+    "score": -4.425339698791504,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/00510.jpg",
+    "score": -9.841729164123535,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/00581.jpg",
+    "score": -4.455183506011963,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/00732.jpg",
+    "score": -7.192732810974121,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/00771.jpg",
+    "score": -7.4434380531311035,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/01009.jpg",
+    "score": -5.310741424560547,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/01027.jpg",
+    "score": -8.752373695373535,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/01109.jpg",
+    "score": -12.165424346923828,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/02087.jpg",
+    "score": -5.324043273925781,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/02135.jpg",
+    "score": -13.54582691192627,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/02156.jpg",
+    "score": -6.135042667388916,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/02308.jpg",
+    "score": -9.370585441589355,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/02419.jpg",
+    "score": -7.068296432495117,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/02616.jpg",
+    "score": -8.999833106994629,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/02787.jpg",
+    "score": -8.384711265563965,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/02876.jpg",
+    "score": -5.059445381164551,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/02998.jpg",
+    "score": -7.45357608795166,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/03100.jpg",
+    "score": -7.639492034912109,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/03308.jpg",
+    "score": -9.076251029968262,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/03362.jpg",
+    "score": -9.12060260772705,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/03377.jpg",
+    "score": -8.806351661682129,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/03527.jpg",
+    "score": -6.461803436279297,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/03532.jpg",
+    "score": -8.848845481872559,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/03540.jpg",
+    "score": -9.810494422912598,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/03621.jpg",
+    "score": -8.343217849731445,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/03682.jpg",
+    "score": -7.297730445861816,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/03738.jpg",
+    "score": -6.81088924407959,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/03802.jpg",
+    "score": -5.937507629394531,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/03863.jpg",
+    "score": -8.930033683776855,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/03918.jpg",
+    "score": -10.889077186584473,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/03930.jpg",
+    "score": -8.795087814331055,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/04020.jpg",
+    "score": -8.242496490478516,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/04145.jpg",
+    "score": -7.444345951080322,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/04263.jpg",
+    "score": -10.915844917297363,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/04341.jpg",
+    "score": -5.376777648925781,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/04384.jpg",
+    "score": -8.075479507446289,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/04508.jpg",
+    "score": -8.300590515136719,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/04567.jpg",
+    "score": -3.9689273834228516,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/04724.jpg",
+    "score": -6.804195880889893,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/04869.jpg",
+    "score": -8.379721641540527,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/04934.jpg",
+    "score": -5.852055072784424,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/04959.jpg",
+    "score": -5.58255672454834,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/04999.jpg",
+    "score": -9.874181747436523,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/05005.jpg",
+    "score": -3.9557294845581055,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/05127.jpg",
+    "score": -8.296981811523438,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/05330.jpg",
+    "score": -6.877836227416992,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/05545.jpg",
+    "score": -10.086236953735352,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/05640.jpg",
+    "score": -6.5789313316345215,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/05703.jpg",
+    "score": -6.599148750305176,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/05729.jpg",
+    "score": -10.028703689575195,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/05866.jpg",
+    "score": -10.2377290725708,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/05881.jpg",
+    "score": -4.874153137207031,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/05926.jpg",
+    "score": -8.743081092834473,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/05951.jpg",
+    "score": -7.452873706817627,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/06028.jpg",
+    "score": -6.5629658699035645,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/06084.jpg",
+    "score": -10.266953468322754,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/06230.jpg",
+    "score": -9.633898735046387,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/06245.jpg",
+    "score": -9.694392204284668,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/06459.jpg",
+    "score": -10.124201774597168,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/06491.jpg",
+    "score": -8.79151439666748,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/06569.jpg",
+    "score": -8.443693161010742,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/06669.jpg",
+    "score": -8.117195129394531,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/06694.jpg",
+    "score": -11.314260482788086,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/06950.jpg",
+    "score": -10.260581970214844,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/07026.jpg",
+    "score": -10.369793891906738,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/07317.jpg",
+    "score": -9.679482460021973,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/07345.jpg",
+    "score": -7.4707136154174805,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/07358.jpg",
+    "score": -7.208705902099609,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/07555.jpg",
+    "score": -6.291031837463379,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/07582.jpg",
+    "score": -7.6910295486450195,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/07624.jpg",
+    "score": -8.58624267578125,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/07694.jpg",
+    "score": -4.370663642883301,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/07819.jpg",
+    "score": -4.079132080078125,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/07870.jpg",
+    "score": -8.533108711242676,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/07926.jpg",
+    "score": -10.983241081237793,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/07990.jpg",
+    "score": -10.257553100585938,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/08030.jpg",
+    "score": -9.839051246643066,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/08182.jpg",
+    "score": -6.5914459228515625,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/08220.jpg",
+    "score": -8.42540454864502,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/08266.jpg",
+    "score": -6.959720134735107,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/08355.jpg",
+    "score": -6.752598762512207,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/08603.jpg",
+    "score": -8.81280517578125,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/08624.jpg",
+    "score": -6.297800540924072,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/08697.jpg",
+    "score": -6.82326078414917,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/08698.jpg",
+    "score": -10.080513954162598,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/08758.jpg",
+    "score": -7.311126708984375,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/08841.jpg",
+    "score": -9.722650527954102,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/08904.jpg",
+    "score": -12.741912841796875,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/08977.jpg",
+    "score": -5.723598480224609,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/09116.jpg",
+    "score": -10.244403839111328,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/09154.jpg",
+    "score": -5.1500372886657715,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/09523.jpg",
+    "score": -4.886307716369629,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/09769.jpg",
+    "score": -10.437856674194336,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FFHQ/09894.jpg",
+    "score": -5.698067665100098,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/00029.jpg",
+    "score": -10.417656898498535,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/00039.jpg",
+    "score": -5.646268844604492,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/00195.jpg",
+    "score": -5.0168962478637695,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/00250.jpg",
+    "score": -11.09534740447998,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/00330.jpg",
+    "score": -1.9256664514541626,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/00542.jpg",
+    "score": -8.59427547454834,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/00793.jpg",
+    "score": -10.168171882629395,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/01084.jpg",
+    "score": -12.450549125671387,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/01106.jpg",
+    "score": -1.1220917701721191,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/01165.jpg",
+    "score": -12.408671379089355,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/01220.jpg",
+    "score": -9.763851165771484,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/01303.jpg",
+    "score": -4.836831092834473,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/01341.jpg",
+    "score": -2.1500446796417236,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/01350.jpg",
+    "score": -12.828070640563965,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/01544.jpg",
+    "score": -7.948877334594727,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/01589.jpg",
+    "score": -7.0641326904296875,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/01591.jpg",
+    "score": -3.555938720703125,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/01635.jpg",
+    "score": -6.029303550720215,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/01680.jpg",
+    "score": -7.78662633895874,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/01717.jpg",
+    "score": -12.70150089263916,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/01764.jpg",
+    "score": -5.636483192443848,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/01991.jpg",
+    "score": -8.1946382522583,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/02241.jpg",
+    "score": -6.813028335571289,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/02376.jpg",
+    "score": -14.426796913146973,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/02459.jpg",
+    "score": -10.526829719543457,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/02476.jpg",
+    "score": -2.6115617752075195,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/02774.jpg",
+    "score": -9.194212913513184,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/02866.jpg",
+    "score": -9.531039237976074,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/02890.jpg",
+    "score": -4.343785285949707,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/02927.jpg",
+    "score": -12.370113372802734,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/03070.jpg",
+    "score": -10.21628189086914,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/03157.jpg",
+    "score": -1.9885094165802002,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/03263.jpg",
+    "score": -11.93266773223877,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/03349.jpg",
+    "score": -7.266386985778809,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/03588.jpg",
+    "score": -8.478737831115723,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/03602.jpg",
+    "score": -2.6650474071502686,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/03667.jpg",
+    "score": -8.065978050231934,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/03715.jpg",
+    "score": -9.147337913513184,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/03946.jpg",
+    "score": -0.9305598735809326,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/03947.jpg",
+    "score": -12.062261581420898,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/04181.jpg",
+    "score": -4.277949333190918,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/04290.jpg",
+    "score": -14.516481399536133,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/04375.jpg",
+    "score": -8.83813762664795,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/04420.jpg",
+    "score": -6.805634498596191,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/04530.jpg",
+    "score": -6.881294250488281,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/04644.jpg",
+    "score": -10.362284660339355,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/04659.jpg",
+    "score": -8.64615535736084,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/04817.jpg",
+    "score": -2.308443784713745,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/05095.jpg",
+    "score": -3.6696114540100098,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/05097.jpg",
+    "score": -5.379486083984375,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/05250.jpg",
+    "score": -4.8234710693359375,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/05382.jpg",
+    "score": -1.6797765493392944,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/05383.jpg",
+    "score": -4.374466896057129,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/05535.jpg",
+    "score": -8.901864051818848,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/05688.jpg",
+    "score": -7.77854585647583,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/05712.jpg",
+    "score": -5.495823383331299,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/05815.jpg",
+    "score": -7.959265232086182,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/05950.jpg",
+    "score": -4.918156623840332,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/05996.jpg",
+    "score": -7.535876274108887,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/06112.jpg",
+    "score": -3.3780224323272705,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/06278.jpg",
+    "score": -3.396460771560669,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/06343.jpg",
+    "score": -11.0922269821167,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/06345.jpg",
+    "score": -7.4956583976745605,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/06618.jpg",
+    "score": -9.312283515930176,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/06656.jpg",
+    "score": -5.5318169593811035,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/06840.jpg",
+    "score": -6.212619781494141,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/07185.jpg",
+    "score": -8.380011558532715,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/07343.jpg",
+    "score": -9.62678050994873,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/07375.jpg",
+    "score": -8.525752067565918,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/07398.jpg",
+    "score": -10.869070053100586,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/07455.jpg",
+    "score": -8.488197326660156,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/07559.jpg",
+    "score": -9.298253059387207,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/07759.jpg",
+    "score": -7.219989776611328,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/08000.jpg",
+    "score": -8.446212768554688,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/08268.jpg",
+    "score": -9.905348777770996,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/08310.jpg",
+    "score": -14.536425590515137,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/08458.jpg",
+    "score": -12.151952743530273,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/08463.jpg",
+    "score": -7.649066925048828,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/08498.jpg",
+    "score": -4.970622539520264,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/08619.jpg",
+    "score": -11.49830150604248,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/08969.jpg",
+    "score": -13.846027374267578,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09041.jpg",
+    "score": -6.642168998718262,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09045.jpg",
+    "score": -12.041054725646973,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09086.jpg",
+    "score": -8.305256843566895,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09099.jpg",
+    "score": -2.959301710128784,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09108.jpg",
+    "score": -12.245330810546875,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09215.jpg",
+    "score": -4.849542140960693,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09229.jpg",
+    "score": -6.363706111907959,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09238.jpg",
+    "score": -7.321191310882568,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09336.jpg",
+    "score": -4.9388251304626465,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09361.jpg",
+    "score": -4.598938941955566,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09363.jpg",
+    "score": -7.0102386474609375,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09441.jpg",
+    "score": -6.152904510498047,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09557.jpg",
+    "score": -5.0758256912231445,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09701.jpg",
+    "score": -5.886911392211914,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09705.jpg",
+    "score": -5.697591304779053,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09739.jpg",
+    "score": -9.169404983520508,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09789.jpg",
+    "score": -9.793244361877441,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09843.jpg",
+    "score": -5.751537322998047,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Real/FORLAB/09890.jpg",
+    "score": -8.144201278686523,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN/images-psi-0.5/00704.jpg",
+    "score": 2.3733248710632324,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN/images-psi-0.5/01008.jpg",
+    "score": -0.2928208112716675,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN/images-psi-0.5/01816.jpg",
+    "score": -1.5196467638015747,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN/images-psi-0.5/02087.jpg",
+    "score": -2.028930187225342,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN/images-psi-0.5/05840.jpg",
+    "score": -1.0559622049331665,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN/images-psi-0.5/09040.jpg",
+    "score": -1.2273298501968384,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN/images-psi-0.5/09740.jpg",
+    "score": 1.509645700454712,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN/images-psi-0.7/00404.jpg",
+    "score": 2.2613704204559326,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN/images-psi-0.7/00410.jpg",
+    "score": -0.8624650835990906,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN/images-psi-0.7/01099.jpg",
+    "score": 2.203964948654175,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN/images-psi-0.7/01187.jpg",
+    "score": 2.4245123863220215,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN/images-psi-0.7/01650.jpg",
+    "score": 1.1967955827713013,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN/images-psi-0.7/06675.jpg",
+    "score": -1.0496807098388672,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN/images-psi-0.7/07830.jpg",
+    "score": 0.5692622065544128,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN2/conf-f-psi-0.5/00107.jpg",
+    "score": 7.94569206237793,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN2/conf-f-psi-0.5/03506.jpg",
+    "score": 9.687003135681152,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN2/conf-f-psi-0.5/03946.jpg",
+    "score": 9.656057357788086,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN2/conf-f-psi-0.5/07356.jpg",
+    "score": 7.87899112701416,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN2/conf-f-psi-0.5/08481.jpg",
+    "score": 7.766409873962402,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN2/conf-f-psi-0.5/08731.jpg",
+    "score": 9.739486694335938,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN2/conf-f-psi-0.5/12796.jpg",
+    "score": 9.569273948669434,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN2/conf-f-psi-1/00280.jpg",
+    "score": 9.93302059173584,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN2/conf-f-psi-1/00398.jpg",
+    "score": 7.118614196777344,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN2/conf-f-psi-1/01601.jpg",
+    "score": 5.722748756408691,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN2/conf-f-psi-1/02736.jpg",
+    "score": 6.795827865600586,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN2/conf-f-psi-1/03691.jpg",
+    "score": 10.259395599365234,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN2/conf-f-psi-1/05706.jpg",
+    "score": 7.521527290344238,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN2/conf-f-psi-1/06401.jpg",
+    "score": 7.766302585601807,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN3/conf-t-psi-0.5/00901.jpg",
+    "score": -3.9277186393737793,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN3/conf-t-psi-0.5/01671.jpg",
+    "score": -3.1284499168395996,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN3/conf-t-psi-0.5/02204.jpg",
+    "score": -5.565088748931885,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN3/conf-t-psi-0.5/02335.jpg",
+    "score": -2.3419342041015625,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN3/conf-t-psi-0.5/02755.jpg",
+    "score": -3.03021502494812,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN3/conf-t-psi-0.5/03044.jpg",
+    "score": -4.601589679718018,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN3/conf-t-psi-0.5/04601.jpg",
+    "score": -1.988316297531128,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN3/conf-t-psi-0.7/00209.jpg",
+    "score": -3.714897394180298,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN3/conf-t-psi-0.7/01050.jpg",
+    "score": -3.893449068069458,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN3/conf-t-psi-0.7/01907.jpg",
+    "score": -4.449623107910156,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN3/conf-t-psi-0.7/02500.jpg",
+    "score": -5.099623680114746,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN3/conf-t-psi-0.7/02625.jpg",
+    "score": -3.867304801940918,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN3/conf-t-psi-0.7/02754.jpg",
+    "score": -3.861297369003296,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StyleGAN3/conf-t-psi-0.7/04865.jpg",
+    "score": -2.64046573638916,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/faces/00047.jpg",
+    "score": 1.305169701576233,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/faces/00090.jpg",
+    "score": 1.7540146112442017,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/faces/00306.jpg",
+    "score": 1.3940433263778687,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/faces/00835.jpg",
+    "score": 2.678349733352661,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/faces/00964.jpg",
+    "score": 2.9726309776306152,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/faces/01325.jpg",
+    "score": 1.4096273183822632,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/faces/02482.jpg",
+    "score": 2.3041603565216064,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/general/01151.jpg",
+    "score": 0.38727259635925293,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/general/01226.jpg",
+    "score": 2.2266390323638916,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/general/01366.jpg",
+    "score": 2.614996910095215,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/general/01373.jpg",
+    "score": 0.8200720548629761,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/general/01723.jpg",
+    "score": 1.1263853311538696,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/general/01749.jpg",
+    "score": 2.3519113063812256,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/general/02116.jpg",
+    "score": 0.7799490690231323,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/landscapes/00852.jpg",
+    "score": 1.8222682476043701,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/landscapes/01096.jpg",
+    "score": 2.2117457389831543,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/landscapes/01621.jpg",
+    "score": 2.1622538566589355,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/landscapes/01671.jpg",
+    "score": 1.9688133001327515,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/landscapes/01912.jpg",
+    "score": 1.3469213247299194,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/landscapes/01947.jpg",
+    "score": 0.9505743980407715,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/landscapes/02280.jpg",
+    "score": 1.0360904932022095,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/animals/00506.jpg",
+    "score": 0.8676961660385132,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/animals/00824.jpg",
+    "score": 0.6532503962516785,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/animals/01041.jpg",
+    "score": 1.682602047920227,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/animals/01547.jpg",
+    "score": 2.489915370941162,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/animals/01586.jpg",
+    "score": 0.8619660139083862,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/animals/01625.jpg",
+    "score": 1.919970154762268,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion1.5/animals/02130.jpg",
+    "score": 2.4767162799835205,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/faces/00463.jpg",
+    "score": 7.6825056076049805,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/faces/00988.jpg",
+    "score": 0.7461823225021362,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/faces/01300.jpg",
+    "score": 0.9313877820968628,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/faces/01919.jpg",
+    "score": 0.7336085438728333,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/faces/01949.jpg",
+    "score": 2.7238919734954834,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/faces/01952.jpg",
+    "score": 2.791322708129883,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/faces/02402.jpg",
+    "score": -0.16644050180912018,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/general/00117.jpg",
+    "score": 0.5674802660942078,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/general/00299.jpg",
+    "score": 0.9497753381729126,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/general/00473.jpg",
+    "score": 0.0989764854311943,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/general/01590.jpg",
+    "score": 0.937079906463623,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/general/01747.jpg",
+    "score": 1.8266299962997437,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/general/01772.jpg",
+    "score": -0.006154082715511322,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/general/01980.jpg",
+    "score": 1.1083059310913086,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/landscapes/00074.jpg",
+    "score": 3.1938059329986572,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/landscapes/00133.jpg",
+    "score": 0.19857294857501984,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/landscapes/01171.jpg",
+    "score": 0.23835991322994232,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/landscapes/01645.jpg",
+    "score": 2.9757580757141113,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/landscapes/01705.jpg",
+    "score": 0.661668062210083,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/landscapes/01878.jpg",
+    "score": 4.390134811401367,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/landscapes/02459.jpg",
+    "score": 1.022255778312683,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/animals/00851.jpg",
+    "score": 0.9703129529953003,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/animals/01595.jpg",
+    "score": 4.266782760620117,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/animals/01609.jpg",
+    "score": 2.5841052532196045,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/animals/02128.jpg",
+    "score": 3.460303783416748,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/animals/02162.jpg",
+    "score": 1.224870204925537,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/animals/02312.jpg",
+    "score": 4.820176601409912,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion2/animals/02362.jpg",
+    "score": 1.3501962423324585,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/faces/00046.jpg",
+    "score": -2.3757519721984863,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/faces/00823.jpg",
+    "score": -3.2041208744049072,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/faces/00848.jpg",
+    "score": -1.5354021787643433,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/faces/02028.jpg",
+    "score": 0.720366895198822,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/faces/02404.jpg",
+    "score": -1.8084250688552856,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/faces/02435.jpg",
+    "score": -1.2161790132522583,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/faces/02486.jpg",
+    "score": -0.7004157304763794,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/general/00206.jpg",
+    "score": 3.431427001953125,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/general/00260.jpg",
+    "score": 0.40288639068603516,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/general/00276.jpg",
+    "score": 0.46435508131980896,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/general/00297.jpg",
+    "score": 0.18264110386371613,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/general/00676.jpg",
+    "score": 3.4391419887542725,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/general/01936.jpg",
+    "score": -0.5037115216255188,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/general/02357.jpg",
+    "score": 2.8427302837371826,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/landscapes/00173.jpg",
+    "score": 1.1327956914901733,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/landscapes/01026.jpg",
+    "score": -1.0802443027496338,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/landscapes/01389.jpg",
+    "score": 2.2378427982330322,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/landscapes/01430.jpg",
+    "score": 6.006559371948242,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/landscapes/01779.jpg",
+    "score": -0.46721190214157104,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/landscapes/02006.jpg",
+    "score": 3.8006436824798584,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/landscapes/02485.jpg",
+    "score": 0.4309910535812378,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/animals/00427.jpg",
+    "score": 0.7289898991584778,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/animals/00697.jpg",
+    "score": 0.24338851869106293,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/animals/00923.jpg",
+    "score": 3.6658899784088135,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/animals/00989.jpg",
+    "score": 1.5698293447494507,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/animals/01231.jpg",
+    "score": 3.7649760246276855,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/animals/02338.jpg",
+    "score": 3.7550647258758545,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusion3/animals/02464.jpg",
+    "score": 1.926430344581604,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/faces/00083.jpg",
+    "score": 13.594955444335938,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/faces/00180.jpg",
+    "score": 14.553544044494629,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/faces/00240.jpg",
+    "score": 10.732837677001953,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/faces/00550.jpg",
+    "score": 13.0403413772583,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/faces/00830.jpg",
+    "score": 14.346979141235352,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/faces/00922.jpg",
+    "score": 13.798140525817871,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/faces/01528.jpg",
+    "score": 9.399170875549316,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/general/00210.jpg",
+    "score": 12.090109825134277,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/general/00737.jpg",
+    "score": 12.028372764587402,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/general/01265.jpg",
+    "score": 14.50258731842041,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/general/01555.jpg",
+    "score": 10.767426490783691,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/general/01569.jpg",
+    "score": 10.837411880493164,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/general/01903.jpg",
+    "score": 8.920101165771484,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/general/02110.jpg",
+    "score": 16.70094871520996,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/landscapes/00129.jpg",
+    "score": 13.569450378417969,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/landscapes/00252.jpg",
+    "score": 10.852604866027832,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/landscapes/00402.jpg",
+    "score": 13.673954963684082,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/landscapes/00774.jpg",
+    "score": 11.651936531066895,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/landscapes/00937.jpg",
+    "score": 11.965689659118652,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/landscapes/01277.jpg",
+    "score": 14.73140811920166,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/landscapes/01540.jpg",
+    "score": 12.893290519714355,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/animals/00100.jpg",
+    "score": 10.309531211853027,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/animals/00274.jpg",
+    "score": 10.08880615234375,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/animals/00388.jpg",
+    "score": 12.260908126831055,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/animals/00992.jpg",
+    "score": 13.887405395507812,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/animals/01187.jpg",
+    "score": 12.252202033996582,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/animals/01700.jpg",
+    "score": 13.163749694824219,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/StableDiffusionXL/animals/02454.jpg",
+    "score": 14.897326469421387,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/faces/00314.jpg",
+    "score": 2.5343739986419678,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/faces/00427.jpg",
+    "score": 2.724841356277466,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/faces/00700.jpg",
+    "score": 5.649069309234619,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/faces/01026.jpg",
+    "score": 4.891831874847412,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/faces/01175.jpg",
+    "score": 2.2684154510498047,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/faces/01518.jpg",
+    "score": 4.128471851348877,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/faces/01623.jpg",
+    "score": 0.13429857790470123,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/general/00259.jpg",
+    "score": 7.52877950668335,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/general/00270.jpg",
+    "score": 5.198950290679932,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/general/00422.jpg",
+    "score": 1.0513826608657837,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/general/00427.jpg",
+    "score": 3.2347545623779297,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/general/01442.jpg",
+    "score": 4.558154106140137,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/general/01734.jpg",
+    "score": 7.020785331726074,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/general/01936.jpg",
+    "score": 5.071173667907715,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/landscapes/00146.jpg",
+    "score": 4.519992828369141,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/landscapes/00556.jpg",
+    "score": 5.964882850646973,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/landscapes/00911.jpg",
+    "score": 5.524102210998535,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/landscapes/01185.jpg",
+    "score": 3.708204984664917,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/landscapes/01836.jpg",
+    "score": 8.302969932556152,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/landscapes/01870.jpg",
+    "score": 4.599128723144531,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/landscapes/02148.jpg",
+    "score": 3.6305339336395264,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/animals/00377.jpg",
+    "score": 3.4200830459594727,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/animals/00879.jpg",
+    "score": 4.329205513000488,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/animals/01672.jpg",
+    "score": 6.309472560882568,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/animals/01692.jpg",
+    "score": 6.813153266906738,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/animals/02012.jpg",
+    "score": 5.136336326599121,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/animals/02041.jpg",
+    "score": 4.147138595581055,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/autumn_TM01/Fake/FLUX.1/animals/02396.jpg",
+    "score": 5.966432571411133,
+    "label": 1.0
+  }
+]

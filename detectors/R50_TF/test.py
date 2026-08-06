@@ -8,7 +8,7 @@ from tqdm import tqdm
 import json
 import time
 import numpy as np
-from sklearn.metrics import roc_auc_score, accuracy_score
+from sklearn.metrics import roc_auc_score, accuracy_score, f1_score, balanced_accuracy_score
 
 from networks import ImageClassifier
 from parser import get_parser
@@ -128,15 +128,23 @@ def test(loader, model, settings, device, output_dir, logger):
         auc = roc_auc_score(all_labels, probabilities)
     else:
         auc = 0.0
+
+    
+    f1 = f1_score(all_labels, predictions, labels = [0,1], zero_division=0.0)
+
+    balanced_accuracy = balanced_accuracy_score(all_labels, predictions)  # adjusted=False by default
     
     execution_time = time.time() - start_time
     
     # Prepare metrics JSON
     metrics = {
-        'TPR': float(tpr),
-        'TNR': float(tnr),
-        'Acc total': float(total_accuracy),
-        'AUC': float(auc),
+        'TPR':          float(tpr),
+        'TNR':          float(tnr),
+        'Acc':          float(total_accuracy),
+        'Balanced Acc': float(balanced_accuracy),
+        'F1':           float(f1),
+        'AUC':          float(auc),
+        'num_images':   int(len(all_labels)),
         'execution time': float(execution_time)
     }
     
@@ -154,7 +162,10 @@ def test(loader, model, settings, device, output_dir, logger):
     print(f'  TPR: {tpr:.4f}')
     print(f'  TNR: {tnr:.4f}')
     print(f'  Accuracy: {total_accuracy:.4f}')
+    print(f'  Balanced Acc {balanced_accuracy:.4f}')
+    print(f'  F1: {f1:.4f}')
     print(f'  AUC: {auc:.4f}')
+    print(f'  num_immgs:  {int(len(all_labels))}')
     print(f'  Execution time: {execution_time:.2f} seconds')
 
     logger.info(f'\nMetrics saved to {metrics_filename}')
@@ -163,7 +174,10 @@ def test(loader, model, settings, device, output_dir, logger):
     logger.info(f'  TPR: {tpr:.4f}')
     logger.info(f'  TNR: {tnr:.4f}')
     logger.info(f'  Accuracy: {total_accuracy:.4f}')
+    logger.info(f'  Balanced Acc {balanced_accuracy:.4f}')
+    logger.info(f'  F1: {f1:.4f}')
     logger.info(f'  AUC: {auc:.4f}')
+    logger.info(f'  num_immgs:  {int(len(all_labels))}')
     logger.info(f'  Execution time: {execution_time:.2f} seconds')
 
 if __name__ == "__main__":
@@ -180,24 +194,19 @@ if __name__ == "__main__":
     model = ImageClassifier(settings)
     # breakpoint()
     model.to(device)
-    # fix load path!!!!
-    # if settings.ft and settings.r50unfreezeL4 and settings.social:
-    #     load_path = f'./checkpoint/{settings.name}/social/{settings.social}/ft_unfreezeL4_weights/{settings.dataset.replace(os.sep, '_')}_ft_unfreezeL4/best.pt'
-    # el
-    # # File paths
-    # output_dir = f'./results/{settings.name}/{settings.data_keys}/data/'
-    # os.makedirs(output_dir, exist_ok=True)
-
-    # --------------------------- #
-    # # File paths update
-    # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") #
-    # # output_dir = f'./results/{settings.name}/data_{timestamp}/{settings.data_keys}'
-    # dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
-    # tag = 'ft' if settings.ft else 'pretrained'
-    # output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
-    # os.makedirs(output_dir, exist_ok=True)
+   
     dataset_dir_name = settings.dataset.replace(os.sep, '_')
     # settings.data_root.split('/')[-1]  # Extract dataset directory name from path
+    if settings.data_root:
+        data_root_name = str(settings.data_root.split('/')[-3])+'_'+str(settings.data_root.split('/')[-2])
+        print(f"data_root_name: {data_root_name}")
+    
+    data_tag = ''
+    if dataset_dir_name != data_root_name:
+        data_tag = f'{dataset_dir_name}_vs_{data_root_name}'
+    
+    print(f"data_tag: {data_tag}")
+
     print(f"dataset_name: {dataset_dir_name}")
     tag = 'ft' if settings.ft else 'pretrained'
     tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''
@@ -208,14 +217,13 @@ if __name__ == "__main__":
         output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}'
         logger = create_logger(os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_social/{dataset_dir_name}/R50_TF_{tag}/', 'test.log'))
     elif settings.social:
-        # output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.social}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}'
-        # logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.social}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.log')
+        
         output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_{settings.social}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
         logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}_{settings.social}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.txt')
 
     else:
-        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
-        logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name}/R50_TF_{tag}/', 'test_log.txt')
+        output_dir = f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name if not data_tag else data_tag}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        logger_path = os.path.join(f'/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_dir_name if not data_tag else data_tag}/R50_TF_{tag}/', 'test_log.txt')
 
     print(f"output_dir: {output_dir}")
     os.makedirs(output_dir, exist_ok=True)

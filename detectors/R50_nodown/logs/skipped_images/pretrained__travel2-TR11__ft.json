@@ -1,0 +1,192 @@
+[
+  {
+    "timestamp": "2026-07-07 19:57:30",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "val",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00039.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00039.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 19:57:30",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "val",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00214.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00214.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 19:57:30",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "val",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/09999.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/09999.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 19:57:38",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "train",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00060.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00060.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 19:57:38",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "train",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00064.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00064.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 19:57:38",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "train",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00139.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00139.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 19:57:38",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "train",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00195.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00195.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 19:57:38",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "train",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00218.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00218.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 19:57:38",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "train",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00234.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00234.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 19:57:38",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "train",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00245.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00245.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 19:57:38",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "train",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00250.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00250.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 19:57:38",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "train",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00288.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00288.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 19:57:38",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "train",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00300.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00300.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 19:57:38",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "train",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00302.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00302.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 19:57:38",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "train",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/09929.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/09929.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 19:57:38",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "train",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/09952.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/09952.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 19:57:38",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "train",
+    "data_keys": "realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/09988.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/09988.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 20:08:38",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "test",
+    "data_keys": "realFORLAB:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00063.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00063.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 20:08:38",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "ft",
+    "split": "test",
+    "data_keys": "realFORLAB:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00216.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00216.jpg'"
+  }
+]

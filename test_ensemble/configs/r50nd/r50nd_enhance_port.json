@@ -1,0 +1,24 @@
+{
+  "meta": {
+    "detector":     "R50_nodown",
+    "weights_name": "pretrained",
+    "config_dir":   "configs",
+    "results_root": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results",
+    "report_tag":   "sky_family_enhance_portrait"
+  },
+
+  "enhance_portrait_images": {
+    "name":        "pretrained",
+    "data_root":   "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/adaptive/enhance_portrait/",
+    "split_file":  "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/test2k_splits.json",
+    "data_keys":   "realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre",
+    "tf2k":        true,
+    "device":      "cuda:0",
+    "num_threads": 4,
+    "checkpoints": [
+      {"architecture": "R50_nodown", "preset": "adaptive_sky_bluedrama",    "ft": true, "r50unfreezeL4": true},
+      {"architecture": "R50_nodown", "preset": "adaptive_enhance_portrait", "ft": true, "r50unfreezeL4": true},
+      {"architecture": "R50_nodown", "preset": "adaptive_subject_pop",      "ft": true, "r50unfreezeL4": true}
+    ]
+  }
+}

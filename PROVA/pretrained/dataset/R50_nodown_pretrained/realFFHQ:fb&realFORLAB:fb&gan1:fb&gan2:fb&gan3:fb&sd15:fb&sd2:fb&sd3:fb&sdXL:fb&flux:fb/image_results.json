@@ -1,0 +1,1912 @@
+[
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/00019.png",
+    "score": -6.890852451324463,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/00130.png",
+    "score": -6.406492710113525,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/00161.png",
+    "score": -12.15222454071045,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/00348.png",
+    "score": -10.34831714630127,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/00366.png",
+    "score": -7.932839870452881,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/00411.png",
+    "score": -10.254423141479492,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/00487.png",
+    "score": -8.016648292541504,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/00510.png",
+    "score": -12.769619941711426,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/00581.png",
+    "score": -5.129112720489502,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/00732.png",
+    "score": -11.37658977508545,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/00771.png",
+    "score": -11.265936851501465,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/01009.png",
+    "score": -5.0788068771362305,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/01027.png",
+    "score": -9.026813507080078,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/01109.png",
+    "score": -14.625239372253418,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/02087.png",
+    "score": -6.064909934997559,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/02135.png",
+    "score": -18.55905532836914,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/02156.png",
+    "score": -8.921639442443848,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/02308.png",
+    "score": -11.951529502868652,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/02419.png",
+    "score": -10.736875534057617,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/02616.png",
+    "score": -8.312085151672363,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/02787.png",
+    "score": -16.717632293701172,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/02876.png",
+    "score": -7.969061851501465,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/02998.png",
+    "score": -13.903441429138184,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/03100.png",
+    "score": -8.984440803527832,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/03308.png",
+    "score": -12.562043190002441,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/03362.png",
+    "score": -17.746030807495117,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/03377.png",
+    "score": -10.201791763305664,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/03527.png",
+    "score": -8.029168128967285,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/03532.png",
+    "score": -10.05562973022461,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/03540.png",
+    "score": -11.680777549743652,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/03621.png",
+    "score": -12.044184684753418,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/03682.png",
+    "score": -6.217922210693359,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/03738.png",
+    "score": -11.284773826599121,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/03802.png",
+    "score": -9.75893497467041,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/03863.png",
+    "score": -12.092547416687012,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/03918.png",
+    "score": -14.996855735778809,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/03930.png",
+    "score": -12.241715431213379,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/04020.png",
+    "score": -12.335796356201172,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/04145.png",
+    "score": -9.753294944763184,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/04263.png",
+    "score": -13.305268287658691,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/04341.png",
+    "score": -9.914942741394043,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/04384.png",
+    "score": -8.428872108459473,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/04508.png",
+    "score": -13.547673225402832,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/04567.png",
+    "score": -11.657559394836426,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/04724.png",
+    "score": -8.56305980682373,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/04869.png",
+    "score": -6.256702899932861,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/04934.png",
+    "score": -7.365348815917969,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/04959.png",
+    "score": -9.930055618286133,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/04999.png",
+    "score": -13.225050926208496,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/05005.png",
+    "score": -6.395931243896484,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/05127.png",
+    "score": -10.856297492980957,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/05330.png",
+    "score": -9.171076774597168,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/05545.png",
+    "score": -11.99113941192627,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/05640.png",
+    "score": -12.32753849029541,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/05703.png",
+    "score": -10.242621421813965,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/05729.png",
+    "score": -18.262468338012695,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/05866.png",
+    "score": -13.262932777404785,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/05881.png",
+    "score": -7.054319381713867,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/05926.png",
+    "score": -13.226302146911621,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/05951.png",
+    "score": -9.51135540008545,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/06028.png",
+    "score": -10.450831413269043,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/06084.png",
+    "score": -15.599618911743164,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/06230.png",
+    "score": -13.686250686645508,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/06245.png",
+    "score": -13.584338188171387,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/06459.png",
+    "score": -12.633879661560059,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/06491.png",
+    "score": -11.234749794006348,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/06569.png",
+    "score": -10.784680366516113,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/06669.png",
+    "score": -9.754639625549316,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/06694.png",
+    "score": -16.565895080566406,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/06950.png",
+    "score": -14.130755424499512,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/07026.png",
+    "score": -15.479842185974121,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/07317.png",
+    "score": -13.842939376831055,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/07345.png",
+    "score": -11.878299713134766,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/07358.png",
+    "score": -10.590889930725098,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/07555.png",
+    "score": -14.295154571533203,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/07582.png",
+    "score": -10.295689582824707,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/07624.png",
+    "score": -12.057918548583984,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/07694.png",
+    "score": -7.815430641174316,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/07819.png",
+    "score": -8.388188362121582,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/07870.png",
+    "score": -10.265671730041504,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/07926.png",
+    "score": -18.284425735473633,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/07990.png",
+    "score": -15.618781089782715,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/08030.png",
+    "score": -13.379724502563477,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/08182.png",
+    "score": -9.91689395904541,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/08220.png",
+    "score": -10.068921089172363,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/08266.png",
+    "score": -8.565704345703125,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/08355.png",
+    "score": -10.427692413330078,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/08603.png",
+    "score": -12.090679168701172,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/08624.png",
+    "score": -7.769870758056641,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/08697.png",
+    "score": -9.169650077819824,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/08698.png",
+    "score": -11.055073738098145,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/08758.png",
+    "score": -11.188761711120605,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/08841.png",
+    "score": -16.565814971923828,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/08904.png",
+    "score": -17.631149291992188,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/08977.png",
+    "score": -9.407166481018066,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/09116.png",
+    "score": -12.211673736572266,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/09154.png",
+    "score": -8.424864768981934,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/09523.png",
+    "score": -8.295370101928711,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/09769.png",
+    "score": -13.279328346252441,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FFHQ/09894.png",
+    "score": -11.171210289001465,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/00029.jpg",
+    "score": -15.974642753601074,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/00039.jpg",
+    "score": -11.795012474060059,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/00195.jpg",
+    "score": -6.467904090881348,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/00250.jpg",
+    "score": -15.904837608337402,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/00330.jpg",
+    "score": -2.905959367752075,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/00542.jpg",
+    "score": -13.5386323928833,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/00793.jpg",
+    "score": -16.812931060791016,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/01084.jpg",
+    "score": -16.40645980834961,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/01106.jpg",
+    "score": -2.525578260421753,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/01165.jpg",
+    "score": -17.798973083496094,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/01220.jpg",
+    "score": -17.761266708374023,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/01303.jpg",
+    "score": -8.473124504089355,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/01341.jpg",
+    "score": -4.47381067276001,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/01350.jpg",
+    "score": -13.433451652526855,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/01544.jpg",
+    "score": -12.047438621520996,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/01589.jpg",
+    "score": -12.156024932861328,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/01591.jpg",
+    "score": -7.796266555786133,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/01635.jpg",
+    "score": -10.121352195739746,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/01680.jpg",
+    "score": -18.83248519897461,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/01717.jpg",
+    "score": -18.972118377685547,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/01764.jpg",
+    "score": -14.880687713623047,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/01991.jpg",
+    "score": -18.435426712036133,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/02241.jpg",
+    "score": -9.957592964172363,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/02376.jpg",
+    "score": -19.215572357177734,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/02459.jpg",
+    "score": -17.04103660583496,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/02476.jpg",
+    "score": -5.747771739959717,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/02774.jpg",
+    "score": -15.510625839233398,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/02866.jpg",
+    "score": -14.529582977294922,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/02890.jpg",
+    "score": -12.596089363098145,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/02927.jpg",
+    "score": -16.739665985107422,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/03070.jpg",
+    "score": -20.36383819580078,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/03157.jpg",
+    "score": -4.155669212341309,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/03263.jpg",
+    "score": -16.262327194213867,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/03349.jpg",
+    "score": -11.599528312683105,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/03588.jpg",
+    "score": -12.498708724975586,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/03602.jpg",
+    "score": -8.383027076721191,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/03667.jpg",
+    "score": -14.182320594787598,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/03715.jpg",
+    "score": -12.749322891235352,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/03946.jpg",
+    "score": -3.5495169162750244,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/03947.jpg",
+    "score": -20.403186798095703,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/04181.jpg",
+    "score": -7.584991931915283,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/04290.jpg",
+    "score": -19.025390625,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/04375.jpg",
+    "score": -13.32682991027832,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/04420.jpg",
+    "score": -8.39428997039795,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/04530.jpg",
+    "score": -12.27640151977539,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/04644.jpg",
+    "score": -15.618025779724121,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/04659.jpg",
+    "score": -10.758204460144043,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/04817.jpg",
+    "score": -4.394948482513428,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/05095.jpg",
+    "score": -3.94523286819458,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/05097.jpg",
+    "score": -9.612784385681152,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/05250.jpg",
+    "score": -10.85789966583252,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/05382.jpg",
+    "score": -5.381922245025635,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/05383.jpg",
+    "score": -8.711949348449707,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/05535.jpg",
+    "score": -14.94575309753418,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/05688.jpg",
+    "score": -12.230931282043457,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/05712.jpg",
+    "score": -13.53266429901123,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/05815.jpg",
+    "score": -12.143492698669434,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/05950.jpg",
+    "score": -14.110218048095703,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/05996.jpg",
+    "score": -10.57898235321045,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/06112.jpg",
+    "score": -7.520769119262695,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/06278.jpg",
+    "score": -2.6426661014556885,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/06343.jpg",
+    "score": -15.449803352355957,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/06345.jpg",
+    "score": -12.576427459716797,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/06618.jpg",
+    "score": -13.504973411560059,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/06656.jpg",
+    "score": -11.249621391296387,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/06840.jpg",
+    "score": -9.003949165344238,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/07185.jpg",
+    "score": -15.279555320739746,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/07343.jpg",
+    "score": -15.930060386657715,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/07375.jpg",
+    "score": -15.072124481201172,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/07398.jpg",
+    "score": -18.25515365600586,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/07455.jpg",
+    "score": -15.214088439941406,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/07559.jpg",
+    "score": -13.484838485717773,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/07759.jpg",
+    "score": -12.952425003051758,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/08000.jpg",
+    "score": -11.128548622131348,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/08268.jpg",
+    "score": -12.47354793548584,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/08310.jpg",
+    "score": -15.017996788024902,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/08458.jpg",
+    "score": -19.443103790283203,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/08463.jpg",
+    "score": -11.393319129943848,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/08498.jpg",
+    "score": -15.795645713806152,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/08619.jpg",
+    "score": -18.82407569885254,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/08969.jpg",
+    "score": -22.268203735351562,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09041.jpg",
+    "score": -10.288605690002441,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09045.jpg",
+    "score": -18.254804611206055,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09086.jpg",
+    "score": -16.57914924621582,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09099.jpg",
+    "score": -6.522435188293457,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09108.jpg",
+    "score": -16.76520538330078,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09215.jpg",
+    "score": -9.216826438903809,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09229.jpg",
+    "score": -7.11747932434082,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09238.jpg",
+    "score": -9.954180717468262,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09336.jpg",
+    "score": -10.896354675292969,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09361.jpg",
+    "score": -8.649964332580566,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09363.jpg",
+    "score": -9.766175270080566,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09441.jpg",
+    "score": -12.074891090393066,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09557.jpg",
+    "score": -11.10019588470459,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09701.jpg",
+    "score": -8.352229118347168,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09705.jpg",
+    "score": -10.581951141357422,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09739.jpg",
+    "score": -14.761096954345703,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09789.jpg",
+    "score": -13.426653861999512,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09843.jpg",
+    "score": -9.008793830871582,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Real/FORLAB/09890.jpg",
+    "score": -10.386784553527832,
+    "label": 0.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN/images-psi-0.7/00404.png",
+    "score": 9.777986526489258,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN/images-psi-0.7/00410.png",
+    "score": -0.10864758491516113,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN/images-psi-0.7/01099.png",
+    "score": 7.556109428405762,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN/images-psi-0.7/01187.png",
+    "score": 5.908791542053223,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN/images-psi-0.7/01650.png",
+    "score": 8.496081352233887,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN/images-psi-0.7/06675.png",
+    "score": 1.542608618736267,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN/images-psi-0.7/07830.png",
+    "score": 6.044929504394531,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN/images-psi-0.5/00704.png",
+    "score": 9.190021514892578,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN/images-psi-0.5/01008.png",
+    "score": 2.7857019901275635,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN/images-psi-0.5/01816.png",
+    "score": 6.094480514526367,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN/images-psi-0.5/02087.png",
+    "score": 0.9864283800125122,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN/images-psi-0.5/05840.png",
+    "score": 4.249485015869141,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN/images-psi-0.5/09040.png",
+    "score": 3.1174685955047607,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN/images-psi-0.5/09740.png",
+    "score": 7.296543121337891,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN2/conf-f-psi-1/00280.png",
+    "score": 17.71795654296875,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN2/conf-f-psi-1/00398.png",
+    "score": 16.928998947143555,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN2/conf-f-psi-1/01601.png",
+    "score": 11.569622993469238,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN2/conf-f-psi-1/02736.png",
+    "score": 15.641758918762207,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN2/conf-f-psi-1/03691.png",
+    "score": 19.43541717529297,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN2/conf-f-psi-1/05706.png",
+    "score": 15.400870323181152,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN2/conf-f-psi-1/06401.png",
+    "score": 16.524906158447266,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN2/conf-f-psi-0.5/00107.png",
+    "score": 16.26600456237793,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN2/conf-f-psi-0.5/03506.png",
+    "score": 20.31893539428711,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN2/conf-f-psi-0.5/03946.png",
+    "score": 19.327320098876953,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN2/conf-f-psi-0.5/07356.png",
+    "score": 17.958351135253906,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN2/conf-f-psi-0.5/08481.png",
+    "score": 17.868331909179688,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN2/conf-f-psi-0.5/08731.png",
+    "score": 17.740827560424805,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN2/conf-f-psi-0.5/12796.png",
+    "score": 19.739057540893555,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN3/conf-t-psi-0.5/00901.png",
+    "score": -5.877612113952637,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN3/conf-t-psi-0.5/01671.png",
+    "score": -4.4661688804626465,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN3/conf-t-psi-0.5/02204.png",
+    "score": -8.922362327575684,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN3/conf-t-psi-0.5/02335.png",
+    "score": -4.453324317932129,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN3/conf-t-psi-0.5/02755.png",
+    "score": -7.853734493255615,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN3/conf-t-psi-0.5/03044.png",
+    "score": -5.994000434875488,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN3/conf-t-psi-0.5/04601.png",
+    "score": -4.2500433921813965,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN3/conf-t-psi-0.7/00209.png",
+    "score": -5.209261894226074,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN3/conf-t-psi-0.7/01050.png",
+    "score": -6.519465923309326,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN3/conf-t-psi-0.7/01907.png",
+    "score": -5.456480026245117,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN3/conf-t-psi-0.7/02500.png",
+    "score": -7.278730392456055,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN3/conf-t-psi-0.7/02625.png",
+    "score": -6.072461128234863,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN3/conf-t-psi-0.7/02754.png",
+    "score": -4.177879810333252,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StyleGAN3/conf-t-psi-0.7/04865.png",
+    "score": -5.74908971786499,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/general/01151.png",
+    "score": 1.636623740196228,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/general/01226.png",
+    "score": 5.457376480102539,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/general/01366.png",
+    "score": 4.070155143737793,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/general/01373.png",
+    "score": 2.2768962383270264,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/general/01723.png",
+    "score": 2.9249706268310547,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/general/01749.png",
+    "score": 4.666293144226074,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/general/02116.png",
+    "score": 1.6299411058425903,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/landscapes/00852.png",
+    "score": 3.410989761352539,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/landscapes/01096.png",
+    "score": 4.254343032836914,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/landscapes/01621.png",
+    "score": 3.6051933765411377,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/landscapes/01671.png",
+    "score": 4.495570182800293,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/landscapes/01912.png",
+    "score": 1.947853922843933,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/landscapes/01947.png",
+    "score": 1.5820482969284058,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/landscapes/02280.png",
+    "score": 3.2819900512695312,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/animals/00506.png",
+    "score": 1.7486604452133179,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/animals/00824.png",
+    "score": 0.8415804505348206,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/animals/01041.png",
+    "score": 3.332432746887207,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/animals/01547.png",
+    "score": 4.807476997375488,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/animals/01586.png",
+    "score": 1.6335538625717163,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/animals/01625.png",
+    "score": 3.5775513648986816,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/animals/02130.png",
+    "score": 6.134756088256836,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/faces/00047.png",
+    "score": 2.6285758018493652,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/faces/00090.png",
+    "score": 3.5962915420532227,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/faces/00306.png",
+    "score": 2.5061352252960205,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/faces/00835.png",
+    "score": 3.2036430835723877,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/faces/00964.png",
+    "score": 5.21028995513916,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/faces/01325.png",
+    "score": 3.2273457050323486,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion1.5/faces/02482.png",
+    "score": 4.112585067749023,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/general/00117.png",
+    "score": -0.2051001936197281,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/general/00299.png",
+    "score": 0.010274125263094902,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/general/00473.png",
+    "score": -2.5751149654388428,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/general/01590.png",
+    "score": 1.1219666004180908,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/general/01747.png",
+    "score": 3.1968047618865967,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/general/01772.png",
+    "score": -1.4482086896896362,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/general/01980.png",
+    "score": 3.0966036319732666,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/landscapes/00074.png",
+    "score": 5.328285217285156,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/landscapes/00133.png",
+    "score": 0.7088386416435242,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/landscapes/01171.png",
+    "score": 0.5588625073432922,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/landscapes/01645.png",
+    "score": 6.014028072357178,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/landscapes/01705.png",
+    "score": 1.36870276927948,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/landscapes/01878.png",
+    "score": 7.664997100830078,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/landscapes/02459.png",
+    "score": 0.23982827365398407,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/animals/00851.png",
+    "score": 1.0009660720825195,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/animals/01595.png",
+    "score": 4.353277206420898,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/animals/01609.png",
+    "score": 5.972058296203613,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/animals/02128.png",
+    "score": 6.049259185791016,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/animals/02162.png",
+    "score": 0.7594022750854492,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/animals/02312.png",
+    "score": 11.843667030334473,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/animals/02362.png",
+    "score": 4.786681175231934,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/faces/00463.png",
+    "score": 16.019968032836914,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/faces/00988.png",
+    "score": 0.6253150701522827,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/faces/01300.png",
+    "score": -1.3848274946212769,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/faces/01919.png",
+    "score": 1.1843279600143433,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/faces/01949.png",
+    "score": 4.461584091186523,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/faces/01952.png",
+    "score": 5.035834789276123,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion2/faces/02402.png",
+    "score": -0.235338032245636,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/general/00206.png",
+    "score": 2.3432953357696533,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/general/00260.png",
+    "score": -0.6289551258087158,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/general/00276.png",
+    "score": -0.05947764217853546,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/general/00297.png",
+    "score": 0.021800752729177475,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/general/00676.png",
+    "score": -0.39401912689208984,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/general/01936.png",
+    "score": 0.09164895862340927,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/general/02357.png",
+    "score": 1.489025592803955,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/landscapes/00173.png",
+    "score": 3.408325433731079,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/landscapes/01026.png",
+    "score": -0.8903864622116089,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/landscapes/01389.png",
+    "score": 2.1537554264068604,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/landscapes/01430.png",
+    "score": 6.523164749145508,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/landscapes/01779.png",
+    "score": -1.250359296798706,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/landscapes/02006.png",
+    "score": 3.255213499069214,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/landscapes/02485.png",
+    "score": -0.9147210121154785,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/animals/00427.png",
+    "score": 1.0842628479003906,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/animals/00697.png",
+    "score": 0.534145712852478,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/animals/00923.png",
+    "score": 3.982375144958496,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/animals/00989.png",
+    "score": 0.36158519983291626,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/animals/01231.png",
+    "score": 6.395320892333984,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/animals/02338.png",
+    "score": 6.8295488357543945,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/animals/02464.png",
+    "score": 0.22866857051849365,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/faces/00046.png",
+    "score": -5.627490043640137,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/faces/00823.png",
+    "score": -1.1061898469924927,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/faces/00848.png",
+    "score": -3.1693649291992188,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/faces/02028.png",
+    "score": 1.852129578590393,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/faces/02404.png",
+    "score": -1.8592044115066528,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/faces/02435.png",
+    "score": -2.4623348712921143,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusion3/faces/02486.png",
+    "score": 0.5918980240821838,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/general/00210.png",
+    "score": 17.778453826904297,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/general/00737.png",
+    "score": 12.472038269042969,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/general/01265.png",
+    "score": 21.737972259521484,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/general/01555.png",
+    "score": 13.7577486038208,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/general/01569.png",
+    "score": 13.677874565124512,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/general/01903.png",
+    "score": 11.849878311157227,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/general/02110.png",
+    "score": 20.20808982849121,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/landscapes/00129.png",
+    "score": 13.973441123962402,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/landscapes/00252.png",
+    "score": 12.820771217346191,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/landscapes/00402.png",
+    "score": 13.246936798095703,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/landscapes/00774.png",
+    "score": 13.943549156188965,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/landscapes/00937.png",
+    "score": 12.484271049499512,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/landscapes/01277.png",
+    "score": 13.972396850585938,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/landscapes/01540.png",
+    "score": 15.74170207977295,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/animals/00100.png",
+    "score": 16.977397918701172,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/animals/00274.png",
+    "score": 14.774199485778809,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/animals/00388.png",
+    "score": 15.50974178314209,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/animals/00992.png",
+    "score": 17.602916717529297,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/animals/01187.png",
+    "score": 15.804139137268066,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/animals/01700.png",
+    "score": 18.094898223876953,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/animals/02454.png",
+    "score": 22.276775360107422,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/faces/00083.png",
+    "score": 16.573680877685547,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/faces/00180.png",
+    "score": 18.256624221801758,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/faces/00240.png",
+    "score": 14.95632266998291,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/faces/00550.png",
+    "score": 12.960659980773926,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/faces/00830.png",
+    "score": 17.234806060791016,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/faces/00922.png",
+    "score": 15.754351615905762,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/StableDiffusionXL/faces/01528.png",
+    "score": 17.157520294189453,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/general/00259.png",
+    "score": 5.515888214111328,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/general/00270.png",
+    "score": 3.7188632488250732,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/general/00422.png",
+    "score": 0.6196778416633606,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/general/00427.png",
+    "score": 1.8583296537399292,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/general/01442.png",
+    "score": 3.637003183364868,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/general/01734.png",
+    "score": 4.9562788009643555,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/general/01936.png",
+    "score": 3.5960090160369873,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/landscapes/00146.png",
+    "score": 5.790940761566162,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/landscapes/00556.png",
+    "score": 4.264482498168945,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/landscapes/00911.png",
+    "score": 4.136256217956543,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/landscapes/01185.png",
+    "score": 5.930988311767578,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/landscapes/01836.png",
+    "score": 7.567052841186523,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/landscapes/01870.png",
+    "score": 2.142486810684204,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/landscapes/02148.png",
+    "score": 3.340944766998291,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/animals/00377.png",
+    "score": 2.9879000186920166,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/animals/00879.png",
+    "score": 4.227704048156738,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/animals/01672.png",
+    "score": 6.203094959259033,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/animals/01692.png",
+    "score": 6.453051567077637,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/animals/02012.png",
+    "score": 4.443843364715576,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/animals/02041.png",
+    "score": 5.009263038635254,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/animals/02396.png",
+    "score": 8.49047565460205,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/faces/00314.png",
+    "score": 2.698808431625366,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/faces/00427.png",
+    "score": 1.2494314908981323,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/faces/00700.png",
+    "score": 4.927476406097412,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/faces/01026.png",
+    "score": 3.4270379543304443,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/faces/01175.png",
+    "score": 1.3272210359573364,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/faces/01518.png",
+    "score": 1.929742455482483,
+    "label": 1.0
+  },
+  {
+    "path": "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset/Fake/FLUX.1/faces/01623.png",
+    "score": -0.923301637172699,
+    "label": 1.0
+  }
+]

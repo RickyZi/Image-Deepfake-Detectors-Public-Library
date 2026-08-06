@@ -43,11 +43,11 @@ detector_args:
 
 training:
   # - data: gan2:pre&sdXL:pre&realFFHQ:pre&realFORLAB:pre # fixed training data
-  # - data: realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre # trn all over trn set
+  - data: realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre # trn all over trn set
   # trn all over trn set - tf2k - PRESOCIAL
   # - data: realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre
   # FACEBOOK
-  - data: realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb
+  # - data: realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb
   # TELEGRAM
   # - data: realFFHQ:tl&realFORLAB:tl&gan1:tl&gan2:tl&gan3:tl&sd15:tl&sd2:tl&sd3:tl&sdXL:tl&flux:tl
   # # TWITTER
@@ -57,18 +57,20 @@ training:
  
 
 testing:
+  - realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre
+  # - realFFHQ&realFORLAB&gan1&gan2&gan3&sd15&sd2&sd3&sdXL&flux
 # for FT with demo images, removed trn subset to avoid duplicate (we do not have enough data)
-# FACEBOOK
-  - realFFHQ:fb
-  - realFORLAB:fb
-  - gan1:fb
-  - gan2:fb
-  - gan3:fb
-  - sd15:fb
-  - sd2:fb
-  - sd3:fb
-  - sdXL:fb
-  - flux:fb
+# # FACEBOOK
+#   - realFFHQ:fb
+#   - realFORLAB:fb
+#   - gan1:fb
+#   - gan2:fb
+#   - gan3:fb
+#   - sd15:fb
+#   - sd2:fb
+#   - sd3:fb
+#   - sdXL:fb
+#   - flux:fb
   # TELEGRAM
   # - realFFHQ:tl
   # - realFORLAB:tl
@@ -103,9 +105,9 @@ testing:
   # - sdXL:pre
   # - flux:pre
 
-  # # ---------- #
-  # # test tf 2k #
-  # # ---------- #
+  # # # ---------- #
+  # # # test tf 2k #
+  # # # ---------- #
   # - realFFHQ:pre
   # - realFORLAB:pre
   # - gan1:pre

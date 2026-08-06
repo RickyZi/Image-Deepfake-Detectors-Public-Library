@@ -1,0 +1,38 @@
+{
+  "sky_bluedrama_images": {
+    "name": "pretrained",
+    "data_root": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/adaptive/sky_bluedrama/",
+    "split_file": "/home/rz/.../test2k_splits.json",
+    "data_keys": "realFFHQ:pre&realFORLAB:pre&gan1:pre&...",
+    "tf2k": true, "device": "cuda:0", "num_threads": 4, "batch_size": 32,
+    "checkpoints": [
+      {"architecture": "R50_nodown", "preset": "adaptive_sky_bluedrama",   "ft": true, "r50unfreezeL4": true},
+      {"architecture": "R50_nodown", "preset": "adaptive_enhance_portrait", "ft": true, "r50unfreezeL4": true},
+      {"architecture": "R50_nodown", "preset": "adaptive_subject_pop",      "ft": true, "r50unfreezeL4": true}
+    ]
+  },
+  "enhance_portrait_images": {
+    "name": "pretrained",
+    "data_root": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/adaptive/enhance_portrait/",
+    "split_file": "/home/rz/.../test2k_splits.json",
+    "data_keys": "realFFHQ:pre&realFORLAB:pre&gan1:pre&...",
+    "tf2k": true, "device": "cuda:0", "num_threads": 4, "batch_size": 32,
+    "checkpoints": [
+      {"architecture": "R50_nodown", "preset": "adaptive_sky_bluedrama",   "ft": true, "r50unfreezeL4": true},
+      {"architecture": "R50_nodown", "preset": "adaptive_enhance_portrait", "ft": true, "r50unfreezeL4": true},
+      {"architecture": "R50_nodown", "preset": "adaptive_subject_pop",      "ft": true, "r50unfreezeL4": true}
+    ]
+  },
+  "subject_pop_images": {
+    "name": "pretrained",
+    "data_root": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/adaptive/subject_pop/",
+    "split_file": "/home/rz/.../test2k_splits.json",
+    "data_keys": "realFFHQ:pre&realFORLAB:pre&gan1:pre&...",
+    "tf2k": true, "device": "cuda:0", "num_threads": 4, "batch_size": 32,
+    "checkpoints": [
+      {"architecture": "R50_nodown", "preset": "adaptive_sky_bluedrama",   "ft": true, "r50unfreezeL4": true},
+      {"architecture": "R50_nodown", "preset": "adaptive_enhance_portrait", "ft": true, "r50unfreezeL4": true},
+      {"architecture": "R50_nodown", "preset": "adaptive_subject_pop",      "ft": true, "r50unfreezeL4": true}
+    ]
+  }
+}

@@ -1,0 +1,1912 @@
+[
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/00019.jpg",
+    "score": -5.961498737335205,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/00130.jpg",
+    "score": -3.534823179244995,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/00161.jpg",
+    "score": -9.019265174865723,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/00348.jpg",
+    "score": -10.39120864868164,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/00366.jpg",
+    "score": -6.782125473022461,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/00411.jpg",
+    "score": -6.709421157836914,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/00487.jpg",
+    "score": -5.014131546020508,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/00510.jpg",
+    "score": -10.334601402282715,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/00581.jpg",
+    "score": -4.977036476135254,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/00732.jpg",
+    "score": -7.798103332519531,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/00771.jpg",
+    "score": -7.724699974060059,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/01009.jpg",
+    "score": -5.76777982711792,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/01027.jpg",
+    "score": -9.044014930725098,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/01109.jpg",
+    "score": -13.01383113861084,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/02087.jpg",
+    "score": -6.264158725738525,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/02135.jpg",
+    "score": -15.272525787353516,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/02156.jpg",
+    "score": -6.32051944732666,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/02308.jpg",
+    "score": -10.911161422729492,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/02419.jpg",
+    "score": -8.736397743225098,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/02616.jpg",
+    "score": -10.026618957519531,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/02787.jpg",
+    "score": -10.449496269226074,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/02876.jpg",
+    "score": -5.699845314025879,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/02998.jpg",
+    "score": -9.51244831085205,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/03100.jpg",
+    "score": -7.346009254455566,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/03308.jpg",
+    "score": -9.8902587890625,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/03362.jpg",
+    "score": -12.544507026672363,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/03377.jpg",
+    "score": -9.591248512268066,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/03527.jpg",
+    "score": -6.673207759857178,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/03532.jpg",
+    "score": -9.406705856323242,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/03540.jpg",
+    "score": -10.446501731872559,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/03621.jpg",
+    "score": -10.052501678466797,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/03682.jpg",
+    "score": -7.087829113006592,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/03738.jpg",
+    "score": -7.55902099609375,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/03802.jpg",
+    "score": -7.4539666175842285,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/03863.jpg",
+    "score": -10.228381156921387,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/03918.jpg",
+    "score": -12.9542875289917,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/03930.jpg",
+    "score": -9.95357894897461,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/04020.jpg",
+    "score": -9.721558570861816,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/04145.jpg",
+    "score": -9.087449073791504,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/04263.jpg",
+    "score": -11.979153633117676,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/04341.jpg",
+    "score": -4.409943580627441,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/04384.jpg",
+    "score": -8.251456260681152,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/04508.jpg",
+    "score": -7.879522323608398,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/04567.jpg",
+    "score": -5.261042594909668,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/04724.jpg",
+    "score": -7.319016456604004,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/04869.jpg",
+    "score": -10.00542163848877,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/04934.jpg",
+    "score": -5.720724105834961,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/04959.jpg",
+    "score": -5.274270534515381,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/04999.jpg",
+    "score": -10.427318572998047,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/05005.jpg",
+    "score": -3.4199044704437256,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/05127.jpg",
+    "score": -9.082123756408691,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/05330.jpg",
+    "score": -6.796568870544434,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/05545.jpg",
+    "score": -11.00253963470459,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/05640.jpg",
+    "score": -7.189137935638428,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/05703.jpg",
+    "score": -6.802698612213135,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/05729.jpg",
+    "score": -12.232399940490723,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/05866.jpg",
+    "score": -9.373312950134277,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/05881.jpg",
+    "score": -5.683416843414307,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/05926.jpg",
+    "score": -9.343785285949707,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/05951.jpg",
+    "score": -7.769408226013184,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/06028.jpg",
+    "score": -8.39702320098877,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/06084.jpg",
+    "score": -11.47062873840332,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/06230.jpg",
+    "score": -9.853276252746582,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/06245.jpg",
+    "score": -11.221282005310059,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/06459.jpg",
+    "score": -10.94063949584961,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/06491.jpg",
+    "score": -10.113930702209473,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/06569.jpg",
+    "score": -9.108305931091309,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/06669.jpg",
+    "score": -9.139704704284668,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/06694.jpg",
+    "score": -13.120451927185059,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/06950.jpg",
+    "score": -10.519123077392578,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/07026.jpg",
+    "score": -13.213204383850098,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/07317.jpg",
+    "score": -11.815655708312988,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/07345.jpg",
+    "score": -9.29947566986084,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/07358.jpg",
+    "score": -8.197737693786621,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/07555.jpg",
+    "score": -10.491766929626465,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/07582.jpg",
+    "score": -8.982312202453613,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/07624.jpg",
+    "score": -9.121541023254395,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/07694.jpg",
+    "score": -6.105243682861328,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/07819.jpg",
+    "score": -4.52995491027832,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/07870.jpg",
+    "score": -9.672638893127441,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/07926.jpg",
+    "score": -12.704411506652832,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/07990.jpg",
+    "score": -13.217375755310059,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/08030.jpg",
+    "score": -10.32292366027832,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/08182.jpg",
+    "score": -6.663446426391602,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/08220.jpg",
+    "score": -9.614872932434082,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/08266.jpg",
+    "score": -6.652685165405273,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/08355.jpg",
+    "score": -7.431426048278809,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/08603.jpg",
+    "score": -9.945433616638184,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/08624.jpg",
+    "score": -6.970165252685547,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/08697.jpg",
+    "score": -8.162127494812012,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/08698.jpg",
+    "score": -11.750630378723145,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/08758.jpg",
+    "score": -8.094882011413574,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/08841.jpg",
+    "score": -11.312642097473145,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/08904.jpg",
+    "score": -14.274886131286621,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/08977.jpg",
+    "score": -6.444647789001465,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/09116.jpg",
+    "score": -10.138442039489746,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/09154.jpg",
+    "score": -6.437617301940918,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/09523.jpg",
+    "score": -5.514615058898926,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/09769.jpg",
+    "score": -12.546713829040527,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FFHQ/09894.jpg",
+    "score": -6.100183486938477,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/00029.jpg",
+    "score": -13.10209846496582,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/00039.jpg",
+    "score": -7.516507625579834,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/00195.jpg",
+    "score": -5.296108245849609,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/00250.jpg",
+    "score": -12.256264686584473,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/00330.jpg",
+    "score": -2.1904220581054688,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/00542.jpg",
+    "score": -8.536161422729492,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/00793.jpg",
+    "score": -12.424967765808105,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/01084.jpg",
+    "score": -13.747410774230957,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/01106.jpg",
+    "score": -1.4554649591445923,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/01165.jpg",
+    "score": -15.667588233947754,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/01220.jpg",
+    "score": -11.825945854187012,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/01303.jpg",
+    "score": -6.292806625366211,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/01341.jpg",
+    "score": -2.618403911590576,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/01350.jpg",
+    "score": -13.212203025817871,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/01544.jpg",
+    "score": -9.449953079223633,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/01589.jpg",
+    "score": -9.137255668640137,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/01591.jpg",
+    "score": -5.398598670959473,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/01635.jpg",
+    "score": -7.127984046936035,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/01680.jpg",
+    "score": -9.97896671295166,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/01717.jpg",
+    "score": -12.66881275177002,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/01764.jpg",
+    "score": -11.271256446838379,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/01991.jpg",
+    "score": -9.772795677185059,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/02241.jpg",
+    "score": -7.541607856750488,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/02376.jpg",
+    "score": -15.65943717956543,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/02459.jpg",
+    "score": -11.748629570007324,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/02476.jpg",
+    "score": -2.3770031929016113,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/02774.jpg",
+    "score": -11.606277465820312,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/02866.jpg",
+    "score": -11.393298149108887,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/02890.jpg",
+    "score": -5.0987982749938965,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/02927.jpg",
+    "score": -13.633622169494629,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/03070.jpg",
+    "score": -13.424869537353516,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/03157.jpg",
+    "score": -1.4917018413543701,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/03263.jpg",
+    "score": -12.948580741882324,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/03349.jpg",
+    "score": -10.173937797546387,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/03588.jpg",
+    "score": -10.47154712677002,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/03602.jpg",
+    "score": -4.286707401275635,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/03667.jpg",
+    "score": -10.636271476745605,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/03715.jpg",
+    "score": -9.933931350708008,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/03946.jpg",
+    "score": -5.038749694824219,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/03947.jpg",
+    "score": -16.500505447387695,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/04181.jpg",
+    "score": -5.342739582061768,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/04290.jpg",
+    "score": -15.774113655090332,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/04375.jpg",
+    "score": -9.048362731933594,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/04420.jpg",
+    "score": -7.305589199066162,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/04530.jpg",
+    "score": -6.511594772338867,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/04644.jpg",
+    "score": -11.312372207641602,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/04659.jpg",
+    "score": -9.597697257995605,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/04817.jpg",
+    "score": -2.6440367698669434,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/05095.jpg",
+    "score": -4.195882797241211,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/05097.jpg",
+    "score": -5.526000022888184,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/05250.jpg",
+    "score": -5.768121719360352,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/05382.jpg",
+    "score": -2.407104730606079,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/05383.jpg",
+    "score": -6.61350679397583,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/05535.jpg",
+    "score": -11.811970710754395,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/05688.jpg",
+    "score": -9.194904327392578,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/05712.jpg",
+    "score": -6.324007511138916,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/05815.jpg",
+    "score": -7.938900947570801,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/05950.jpg",
+    "score": -3.8602232933044434,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/05996.jpg",
+    "score": -8.633418083190918,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/06112.jpg",
+    "score": -6.197558879852295,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/06278.jpg",
+    "score": -5.121496200561523,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/06343.jpg",
+    "score": -10.97214126586914,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/06345.jpg",
+    "score": -9.961194038391113,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/06618.jpg",
+    "score": -9.719326972961426,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/06656.jpg",
+    "score": -8.220929145812988,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/06840.jpg",
+    "score": -6.934700012207031,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/07185.jpg",
+    "score": -11.196284294128418,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/07343.jpg",
+    "score": -12.216123580932617,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/07375.jpg",
+    "score": -10.616442680358887,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/07398.jpg",
+    "score": -14.030268669128418,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/07455.jpg",
+    "score": -10.724034309387207,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/07559.jpg",
+    "score": -12.144092559814453,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/07759.jpg",
+    "score": -8.18779468536377,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/08000.jpg",
+    "score": -8.874247550964355,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/08268.jpg",
+    "score": -10.47579574584961,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/08310.jpg",
+    "score": -10.08423137664795,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/08458.jpg",
+    "score": -13.434385299682617,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/08463.jpg",
+    "score": -8.759847640991211,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/08498.jpg",
+    "score": -11.395169258117676,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/08619.jpg",
+    "score": -12.501849174499512,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/08969.jpg",
+    "score": -15.959676742553711,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09041.jpg",
+    "score": -6.477542400360107,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09045.jpg",
+    "score": -15.551297187805176,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09086.jpg",
+    "score": -13.37971305847168,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09099.jpg",
+    "score": -2.952817678451538,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09108.jpg",
+    "score": -13.408636093139648,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09215.jpg",
+    "score": -5.811746597290039,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09229.jpg",
+    "score": -7.085860729217529,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09238.jpg",
+    "score": -7.518945217132568,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09336.jpg",
+    "score": -5.71141242980957,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09361.jpg",
+    "score": -6.413731575012207,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09363.jpg",
+    "score": -8.0700044631958,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09441.jpg",
+    "score": -7.565916061401367,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09557.jpg",
+    "score": -6.64802885055542,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09701.jpg",
+    "score": -5.871469497680664,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09705.jpg",
+    "score": -7.007406234741211,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09739.jpg",
+    "score": -10.011698722839355,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09789.jpg",
+    "score": -9.35448932647705,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09843.jpg",
+    "score": -8.472504615783691,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Real/FORLAB/09890.jpg",
+    "score": -9.36162281036377,
+    "label": 0.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN/images-psi-0.5/00704.jpg",
+    "score": 3.2777087688446045,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN/images-psi-0.5/01008.jpg",
+    "score": -0.602649450302124,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN/images-psi-0.5/01816.jpg",
+    "score": -1.0946369171142578,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN/images-psi-0.5/02087.jpg",
+    "score": -2.388918161392212,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN/images-psi-0.5/05840.jpg",
+    "score": 0.5360960364341736,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN/images-psi-0.5/09040.jpg",
+    "score": 0.008246703073382378,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN/images-psi-0.5/09740.jpg",
+    "score": 1.2037585973739624,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN/images-psi-0.7/00404.jpg",
+    "score": 2.926459312438965,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN/images-psi-0.7/00410.jpg",
+    "score": -1.1668630838394165,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN/images-psi-0.7/01099.jpg",
+    "score": 3.1723945140838623,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN/images-psi-0.7/01187.jpg",
+    "score": 2.6914820671081543,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN/images-psi-0.7/01650.jpg",
+    "score": 2.049057722091675,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN/images-psi-0.7/06675.jpg",
+    "score": -1.4718115329742432,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN/images-psi-0.7/07830.jpg",
+    "score": 2.2830820083618164,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN2/conf-f-psi-0.5/00107.jpg",
+    "score": 11.010355949401855,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN2/conf-f-psi-0.5/03506.jpg",
+    "score": 11.402377128601074,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN2/conf-f-psi-0.5/03946.jpg",
+    "score": 11.433289527893066,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN2/conf-f-psi-0.5/07356.jpg",
+    "score": 9.499961853027344,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN2/conf-f-psi-0.5/08481.jpg",
+    "score": 10.371532440185547,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN2/conf-f-psi-0.5/08731.jpg",
+    "score": 12.066991806030273,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN2/conf-f-psi-0.5/12796.jpg",
+    "score": 12.743581771850586,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN2/conf-f-psi-1/00280.jpg",
+    "score": 10.647665023803711,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN2/conf-f-psi-1/00398.jpg",
+    "score": 11.026308059692383,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN2/conf-f-psi-1/01601.jpg",
+    "score": 8.349138259887695,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN2/conf-f-psi-1/02736.jpg",
+    "score": 8.100308418273926,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN2/conf-f-psi-1/03691.jpg",
+    "score": 11.741325378417969,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN2/conf-f-psi-1/05706.jpg",
+    "score": 9.187163352966309,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN2/conf-f-psi-1/06401.jpg",
+    "score": 8.627902030944824,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN3/conf-t-psi-0.5/00901.jpg",
+    "score": -3.769172430038452,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN3/conf-t-psi-0.5/01671.jpg",
+    "score": -2.751617670059204,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN3/conf-t-psi-0.5/02204.jpg",
+    "score": -6.571086883544922,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN3/conf-t-psi-0.5/02335.jpg",
+    "score": -2.0642409324645996,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN3/conf-t-psi-0.5/02755.jpg",
+    "score": -4.611566066741943,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN3/conf-t-psi-0.5/03044.jpg",
+    "score": -3.959038257598877,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN3/conf-t-psi-0.5/04601.jpg",
+    "score": -3.2564494609832764,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN3/conf-t-psi-0.7/00209.jpg",
+    "score": -3.5498597621917725,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN3/conf-t-psi-0.7/01050.jpg",
+    "score": -4.032753944396973,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN3/conf-t-psi-0.7/01907.jpg",
+    "score": -3.838765859603882,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN3/conf-t-psi-0.7/02500.jpg",
+    "score": -6.312008857727051,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN3/conf-t-psi-0.7/02625.jpg",
+    "score": -3.005991220474243,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN3/conf-t-psi-0.7/02754.jpg",
+    "score": -3.7432219982147217,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StyleGAN3/conf-t-psi-0.7/04865.jpg",
+    "score": -4.298850059509277,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/faces/00047.jpg",
+    "score": 1.0050545930862427,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/faces/00090.jpg",
+    "score": 1.902352213859558,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/faces/00306.jpg",
+    "score": 1.3151229619979858,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/faces/00835.jpg",
+    "score": 2.5239334106445312,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/faces/00964.jpg",
+    "score": 3.0097744464874268,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/faces/01325.jpg",
+    "score": 1.4227327108383179,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/faces/02482.jpg",
+    "score": 2.3651599884033203,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/general/01151.jpg",
+    "score": 0.5026612281799316,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/general/01226.jpg",
+    "score": 2.4259660243988037,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/general/01366.jpg",
+    "score": 1.9256736040115356,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/general/01373.jpg",
+    "score": 0.6869010925292969,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/general/01723.jpg",
+    "score": 1.0626062154769897,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/general/01749.jpg",
+    "score": 2.1345386505126953,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/general/02116.jpg",
+    "score": 0.7919648885726929,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/landscapes/00852.jpg",
+    "score": 1.8167742490768433,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/landscapes/01096.jpg",
+    "score": 2.2715699672698975,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/landscapes/01621.jpg",
+    "score": 2.324744939804077,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/landscapes/01671.jpg",
+    "score": 2.0897462368011475,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/landscapes/01912.jpg",
+    "score": 1.2338250875473022,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/landscapes/01947.jpg",
+    "score": 1.1814996004104614,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/landscapes/02280.jpg",
+    "score": 1.1365418434143066,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/animals/00506.jpg",
+    "score": 0.6131514310836792,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/animals/00824.jpg",
+    "score": 0.8115289211273193,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/animals/01041.jpg",
+    "score": 1.9536292552947998,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/animals/01547.jpg",
+    "score": 2.389770269393921,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/animals/01586.jpg",
+    "score": 0.8986868262290955,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/animals/01625.jpg",
+    "score": 1.7446423768997192,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion1.5/animals/02130.jpg",
+    "score": 2.2803633213043213,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/faces/00463.jpg",
+    "score": 7.155679702758789,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/faces/00988.jpg",
+    "score": 0.7615874409675598,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/faces/01300.jpg",
+    "score": -0.25556275248527527,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/faces/01919.jpg",
+    "score": 0.5191470384597778,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/faces/01949.jpg",
+    "score": 2.96134877204895,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/faces/01952.jpg",
+    "score": 2.870253562927246,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/faces/02402.jpg",
+    "score": -0.35539472103118896,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/general/00117.jpg",
+    "score": 0.06756646931171417,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/general/00299.jpg",
+    "score": 0.5278836488723755,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/general/00473.jpg",
+    "score": -0.8405522108078003,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/general/01590.jpg",
+    "score": 0.6810743808746338,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/general/01747.jpg",
+    "score": 1.3218311071395874,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/general/01772.jpg",
+    "score": -0.13061405718326569,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/general/01980.jpg",
+    "score": 1.7018189430236816,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/landscapes/00074.jpg",
+    "score": 3.1725361347198486,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/landscapes/00133.jpg",
+    "score": 0.42725670337677,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/landscapes/01171.jpg",
+    "score": 0.3134945034980774,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/landscapes/01645.jpg",
+    "score": 3.695924997329712,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/landscapes/01705.jpg",
+    "score": 0.08023545891046524,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/landscapes/01878.jpg",
+    "score": 4.500306606292725,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/landscapes/02459.jpg",
+    "score": 0.2168513834476471,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/animals/00851.jpg",
+    "score": 0.5085933804512024,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/animals/01595.jpg",
+    "score": 2.5307555198669434,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/animals/01609.jpg",
+    "score": 2.3376245498657227,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/animals/02128.jpg",
+    "score": 2.5602948665618896,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/animals/02162.jpg",
+    "score": 0.39690732955932617,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/animals/02312.jpg",
+    "score": 5.028449058532715,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion2/animals/02362.jpg",
+    "score": 1.6701369285583496,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/faces/00046.jpg",
+    "score": -3.731787919998169,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/faces/00823.jpg",
+    "score": -2.6358888149261475,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/faces/00848.jpg",
+    "score": -1.5644618272781372,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/faces/02028.jpg",
+    "score": 0.20483271777629852,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/faces/02404.jpg",
+    "score": -1.121653437614441,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/faces/02435.jpg",
+    "score": -1.6011834144592285,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/faces/02486.jpg",
+    "score": 0.13331779837608337,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/general/00206.jpg",
+    "score": 3.523951768875122,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/general/00260.jpg",
+    "score": 0.6595146656036377,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/general/00276.jpg",
+    "score": -0.9133164882659912,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/general/00297.jpg",
+    "score": -0.5638256072998047,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/general/00676.jpg",
+    "score": 2.4817564487457275,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/general/01936.jpg",
+    "score": -0.0848555788397789,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/general/02357.jpg",
+    "score": 2.7207303047180176,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/landscapes/00173.jpg",
+    "score": 1.8689969778060913,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/landscapes/01026.jpg",
+    "score": -1.3405183553695679,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/landscapes/01389.jpg",
+    "score": 2.426391124725342,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/landscapes/01430.jpg",
+    "score": 6.036491394042969,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/landscapes/01779.jpg",
+    "score": -0.4768906831741333,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/landscapes/02006.jpg",
+    "score": 4.105183124542236,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/landscapes/02485.jpg",
+    "score": 0.5273858904838562,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/animals/00427.jpg",
+    "score": 0.6090379953384399,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/animals/00697.jpg",
+    "score": -0.19541959464550018,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/animals/00923.jpg",
+    "score": 3.6194307804107666,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/animals/00989.jpg",
+    "score": 1.3189243078231812,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/animals/01231.jpg",
+    "score": 3.020059585571289,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/animals/02338.jpg",
+    "score": 2.93638014793396,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusion3/animals/02464.jpg",
+    "score": 1.4084042310714722,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/faces/00083.jpg",
+    "score": 12.485203742980957,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/faces/00180.jpg",
+    "score": 14.190217018127441,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/faces/00240.jpg",
+    "score": 11.509974479675293,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/faces/00550.jpg",
+    "score": 11.494938850402832,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/faces/00830.jpg",
+    "score": 13.680752754211426,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/faces/00922.jpg",
+    "score": 12.577715873718262,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/faces/01528.jpg",
+    "score": 8.743115425109863,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/general/00210.jpg",
+    "score": 11.794824600219727,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/general/00737.jpg",
+    "score": 11.815682411193848,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/general/01265.jpg",
+    "score": 11.674164772033691,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/general/01555.jpg",
+    "score": 10.782577514648438,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/general/01569.jpg",
+    "score": 10.40335464477539,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/general/01903.jpg",
+    "score": 9.689343452453613,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/general/02110.jpg",
+    "score": 16.28927993774414,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/landscapes/00129.jpg",
+    "score": 13.263028144836426,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/landscapes/00252.jpg",
+    "score": 12.416844367980957,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/landscapes/00402.jpg",
+    "score": 13.731135368347168,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/landscapes/00774.jpg",
+    "score": 12.484793663024902,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/landscapes/00937.jpg",
+    "score": 12.65754508972168,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/landscapes/01277.jpg",
+    "score": 14.520182609558105,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/landscapes/01540.jpg",
+    "score": 14.642528533935547,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/animals/00100.jpg",
+    "score": 8.722783088684082,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/animals/00274.jpg",
+    "score": 11.895895004272461,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/animals/00388.jpg",
+    "score": 13.704211235046387,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/animals/00992.jpg",
+    "score": 13.49946117401123,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/animals/01187.jpg",
+    "score": 11.15878963470459,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/animals/01700.jpg",
+    "score": 15.424543380737305,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/StableDiffusionXL/animals/02454.jpg",
+    "score": 14.527512550354004,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/faces/00314.jpg",
+    "score": 2.4431450366973877,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/faces/00427.jpg",
+    "score": 2.429682731628418,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/faces/00700.jpg",
+    "score": 5.09999942779541,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/faces/01026.jpg",
+    "score": 4.8950514793396,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/faces/01175.jpg",
+    "score": 1.8811997175216675,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/faces/01518.jpg",
+    "score": 3.4613277912139893,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/faces/01623.jpg",
+    "score": -0.045887596905231476,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/general/00259.jpg",
+    "score": 6.938643932342529,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/general/00270.jpg",
+    "score": 5.09132719039917,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/general/00422.jpg",
+    "score": 0.6084312200546265,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/general/00427.jpg",
+    "score": 2.786198377609253,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/general/01442.jpg",
+    "score": 4.101848602294922,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/general/01734.jpg",
+    "score": 6.6401262283325195,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/general/01936.jpg",
+    "score": 4.692507743835449,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/landscapes/00146.jpg",
+    "score": 4.560604095458984,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/landscapes/00556.jpg",
+    "score": 6.247745990753174,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/landscapes/00911.jpg",
+    "score": 4.60849142074585,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/landscapes/01185.jpg",
+    "score": 3.8506548404693604,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/landscapes/01836.jpg",
+    "score": 7.383213043212891,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/landscapes/01870.jpg",
+    "score": 4.481694221496582,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/landscapes/02148.jpg",
+    "score": 3.2891242504119873,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/animals/00377.jpg",
+    "score": 3.88689923286438,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/animals/00879.jpg",
+    "score": 3.743424654006958,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/animals/01672.jpg",
+    "score": 5.590099334716797,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/animals/01692.jpg",
+    "score": 6.964301586151123,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/animals/02012.jpg",
+    "score": 5.17410135269165,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/animals/02041.jpg",
+    "score": 4.110337257385254,
+    "label": 1.0
+  },
+  {
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/seasons/spring_SP01/Fake/FLUX.1/animals/02396.jpg",
+    "score": 5.706894874572754,
+    "label": 1.0
+  }
+]

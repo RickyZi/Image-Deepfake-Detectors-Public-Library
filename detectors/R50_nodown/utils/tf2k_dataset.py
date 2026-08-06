@@ -159,14 +159,16 @@ def parse_tf2k_dataset(settings):
     assert not need_real, 'Train task without real data, this will not get handeled automatically, terminating'
 
     dataset_list = []
+    # - realFFHQ&realFORLAB&gan1&gan2&gan3&sd15&sd2&sd3&sdXL&flux
     for data in settings.data_keys.split('&'):
+        print(f"data: {data}")
         # # gen = data.split(':')
         # dataset_list.append({'gen':gen_keys[data]}) #, 'mod':mod_keys[mod]})
-        print(f'data_split: {data.split(':')}')
+        # print(f'data_split: {data.split(':')}')
         gen, _ = data.split(':')
         dataset_list.append({'gen':gen_keys[gen]}) #, 'mod':mod_keys[mod]})
         # removed mod because we have just Real/FORLAB and no social media processing (mod)
-    
+    print(f"dataset_list: {dataset_list}")
     return dataset_list
 
 

@@ -1,0 +1,22 @@
+[
+  {
+    "timestamp": "2026-07-07 14:35:27",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "test",
+    "split": "test",
+    "data_keys": "realFORLAB:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00063.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00063.jpg'"
+  },
+  {
+    "timestamp": "2026-07-07 14:35:27",
+    "model": "pretrained",
+    "dataset": "travel2-TR11",
+    "phase": "test",
+    "split": "test",
+    "data_keys": "realFORLAB:fb",
+    "path": "/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00216.jpg",
+    "error": "[Errno 74] Bad message: '/dataset-disk/tb_dataset/tf2k_lr/social/facebook/subject/travel2-TR11/Real/FORLAB/00216.jpg'"
+  }
+]
