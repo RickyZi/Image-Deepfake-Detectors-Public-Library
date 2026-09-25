@@ -1,0 +1,102 @@
+{
+  "detectors": [
+    "CLIP-D",
+    "R50_nodown",
+    "R50_TF"
+  ],
+  "n_common_presets": 10,
+  "common_presets": [
+    "adaptive_blurbg_strong",
+    "adaptive_blurbg_subtle",
+    "adaptive_enhance_portrait",
+    "adaptive_sky_bluedrama",
+    "adaptive_subject_pop",
+    "style_film_inspired_boldbw",
+    "style_film_inspired_coolbw",
+    "subject_landscape_LN01",
+    "subject_travel2_TR11",
+    "subject_travel_TR01"
+  ],
+  "stats_per_detector": {
+    "CLIP-D": {
+      "n": 10,
+      "mean_s": 1638.28,
+      "median_s": 1481.25,
+      "variance_s2": 137841.62,
+      "std_s": 371.27,
+      "mean_h": 0.4551,
+      "median_h": 0.4115
+    },
+    "R50_nodown": {
+      "n": 10,
+      "mean_s": 865.27,
+      "median_s": 866.76,
+      "variance_s2": 43829.71,
+      "std_s": 209.36,
+      "mean_h": 0.2404,
+      "median_h": 0.2408
+    },
+    "R50_TF": {
+      "n": 10,
+      "mean_s": 556.56,
+      "median_s": 508.87,
+      "variance_s2": 87545.65,
+      "std_s": 295.88,
+      "mean_h": 0.1546,
+      "median_h": 0.1414
+    }
+  },
+  "elapsed_s_per_preset": {
+    "adaptive_blurbg_strong": {
+      "CLIP-D": 1292.59,
+      "R50_nodown": 532.01,
+      "R50_TF": 219.89
+    },
+    "adaptive_blurbg_subtle": {
+      "CLIP-D": 1388.24,
+      "R50_nodown": 865.17,
+      "R50_TF": 717.83
+    },
+    "adaptive_enhance_portrait": {
+      "CLIP-D": 1402.25,
+      "R50_nodown": 987.78,
+      "R50_TF": 258.1
+    },
+    "adaptive_sky_bluedrama": {
+      "CLIP-D": 1399.83,
+      "R50_nodown": 868.35,
+      "R50_TF": 486.89
+    },
+    "adaptive_subject_pop": {
+      "CLIP-D": 1285.37,
+      "R50_nodown": 746.1,
+      "R50_TF": 530.85
+    },
+    "style_film_inspired_boldbw": {
+      "CLIP-D": 1868.17,
+      "R50_nodown": 776.36,
+      "R50_TF": 619.64
+    },
+    "style_film_inspired_coolbw": {
+      "CLIP-D": 1676.54,
+      "R50_nodown": 1331.6,
+      "R50_TF": 1247.36
+    },
+    "subject_landscape_LN01": {
+      "CLIP-D": 1560.26,
+      "R50_nodown": 712.38,
+      "R50_TF": 356.38
+    },
+    "subject_travel2_TR11": {
+      "CLIP-D": 2233.76,
+      "R50_nodown": 926.53,
+      "R50_TF": 691.98
+    },
+    "subject_travel_TR01": {
+      "CLIP-D": 2275.81,
+      "R50_nodown": 906.4,
+      "R50_TF": 436.67
+    }
+  },
+  "excluded_presets": {}
+}

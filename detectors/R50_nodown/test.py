@@ -233,11 +233,10 @@ if __name__ == '__main__':
         test_dataloader = create_dataloader(settings, split='test')
     # breakpoint()
     
-    # dataset_dir_name = settings.dataset.replace(os.sep, '_')
-    dataset_dir_name =settings.dataset.replace(os.sep, '_').replace('-','_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
+    dataset_dir_name = settings.dataset.replace(os.sep, '_')
     # dataset_dir_name = settings.dataset.replace(os.sep, '_').replace('-','_')
     # dataset_dir_name =settings.dataset.replace(os.sep, '_').replace('-','_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
-    print(f"dataset_name: {dataset_dir_name}")
+    print(f"dataset_dir_name: {dataset_dir_name}")
     tag = 'ft' if settings.ft else 'pretrained'
     tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''
     print(f"test_tag: {tag}")
@@ -245,25 +244,28 @@ if __name__ == '__main__':
     # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
     # if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
     if settings.ensemble:
-        print("ensemble!")
         if settings.social:
-            output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}'
-            logger = create_logger(os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
+               output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}'
+               logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log')
         else:
-            output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}'
-            logger = create_logger(os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
-        
-    
+               output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}'
+               logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log')
+       
     elif any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
-        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_nodown/{settings.name}_social/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}'
-        logger = create_logger(os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_nodown/{settings.name}_social/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
+        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_nodown/{settings.name}/social/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}'
+        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_nodown/{settings.name}_social/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log')
 
     elif settings.social:
         output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_nodown/{settings.name}_{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}' # change path to be outside detector folder
-        logger = create_logger(os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_nodown/{settings.name}_{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
+        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_nodown/{settings.name}_{settings.social}/{dataset_dir_name}/R50_nodown_{tag}/', 'test_log.txt')
+
     else:
         output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_nodown/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/{settings.data_keys}' # change path to be outside detector folder
-        logger = create_logger(os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_nodown/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/', 'test.log'))
+        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_nodown/{settings.name}/{dataset_dir_name}/R50_nodown_{tag}/', 'test_log.txt')
+    
+    logger = create_logger(logger_path)
+
+    print(f"output_dir: {output_dir}")
     os.makedirs(output_dir, exist_ok=True)
 
     model = create_architecture(settings.arch, pretrained=True, num_classes=1).to(device)
@@ -274,7 +276,7 @@ if __name__ == '__main__':
     #     load_path = f'./checkpoint/{settings.name}/social/{settings.social}/ft_unfreezeL4_weights/{settings.dataset.replace(os.sep, '_')}_unfreezeL4/best.pt'
     #     # os.path.join('checkpoint', opt.name, 'social', opt.social, 'ft_unfreezeL4_weights', dataset)
     #
-    
+    dataset_dir_name =settings.dataset.replace(os.sep, '_').replace('-','_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
     if settings.ft and settings.r50unfreezeL4:
         load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{dataset_dir_name}_unfreezeL4/best.pt'
     elif settings.ft:

@@ -14,18 +14,32 @@ class FTModel(torch.nn.Module):
         self.opt = opt
         self.total_steps = 0
         # tag = 'unfreezeL4' if opt.R50unfreeL4 else None
-        dataset = opt.dataset.replace(os.sep, '_')
+        # dataset = opt.dataset.replace(os.sep, '_')
         # dataset += '_unfreezeL4' if opt.r50unfreezeL4 else ''
-        if opt.r50unfreezeL4:
-            dataset += '_r50unfreezeL4'
+        
 
-        print(f"opt: {self.opt}")
+        # print(f"opt: {self.opt}")
+        # print(f"dataset: {dataset}")
+        # # breakpoint()
+        # if opt.ft and opt.r50unfreezeL4:
+        #     self.save_dir = os.path.join('checkpoint', opt.name, 'ft_unfreezeL4_weights', dataset)
+        # else:
+        #     self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights', dataset)
+
+
+        dataset = opt.dataset.replace(os.sep, '_')
+        dataset += '_unfreezeL4' if opt.r50unfreezeL4 else ''
         print(f"dataset: {dataset}")
-        # breakpoint()
-        if opt.ft and opt.r50unfreezeL4:
-            self.save_dir = os.path.join('checkpoint', opt.name, 'ft_unfreezeL4_weights')
+        # weights_name = 'ft_weights' if opt.ft else 'weights'
+        if opt.ft and opt.r50unfreezeL4 and opt.social:
+            self.save_dir = os.path.join('checkpoint', opt.name, 'social', opt.social, 'ft_unfreezeL4_weights', dataset)
+            # checkpoint/pretrained/social/facebook/ft_unfreezeL4_weights/seasons_autumn-TM01
+        elif opt.ft and opt.r50unfreezeL4:
+            self.save_dir = os.path.join('checkpoint', opt.name, 'ft_unfreezeL4_weights', dataset)
+        elif opt.ft:
+            self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights', dataset)
         else:
-            self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights')
+            self.save_dir = os.path.join('checkpoint', opt.name, 'weights', dataset)
         # else:
             # print("no valid option for saving FT model")
         # self.save_dir = os.path.join('checkpoint', opt.name, 'ft_weights', dataset)
@@ -110,6 +124,32 @@ class FTModel(torch.nn.Module):
         # if 'total_steps' in state_dict:
         #     self.total_steps = state_dict['total_steps']
         #     print(f"Restored total_steps: {self.total_steps}")
+    
+    def load_checkpoint(self, checkpoint_path):
+        """Fully restore model, op  timizer, and step count from a checkpoint
+        written by save_networks, for resuming an interrupted run. Unlike
+        load_networks (which only restores weights, for bootstrapping a
+        fine-tune from a pretrained backbone), this restores everything
+        needed to continue training exactly where it left off. Returns the
+        raw checkpoint dict so the caller can pull out any extra keys (e.g.
+        early-stopping state) that were stashed in it."""
+        if not os.path.exists(checkpoint_path):
+            raise FileNotFoundError(f"Checkpoint not found: {checkpoint_path}")
+ 
+        checkpoint = torch.load(checkpoint_path, map_location=self.device, weights_only=False)
+        if not isinstance(checkpoint, dict) or 'model' not in checkpoint:
+            raise ValueError(
+                f"{checkpoint_path} doesn't look like a checkpoint written by save_networks "
+                f"(expected a dict with a 'model' key) - refusing to resume from it."
+            )
+        self.model.load_state_dict(checkpoint['model'])
+        if 'optimizer' in checkpoint:
+            self.optimizer.load_state_dict(checkpoint['optimizer'])
+        if 'total_steps' in checkpoint:
+            self.total_steps = checkpoint['total_steps']
+        print(f"Resumed model, optimizer, and total_steps from {checkpoint_path}")
+        return checkpoint
+
 
     def train_on_batch(self, data):
         self.total_steps += 1
@@ -134,13 +174,19 @@ class FTModel(torch.nn.Module):
         self.optimizer.step()
         return loss.cpu()
 
-    def save_networks(self, epoch):
+    def save_networks(self, epoch, extra=None):
+        # add extra to save epoch - related info for resume training
         save_path = os.path.join(self.save_dir, f'{epoch}.pt')
-        torch.save({
+        state = {
             'model': self.model.state_dict(),
             'optimizer': self.optimizer.state_dict(),
             'total_steps': self.total_steps,
-        }, save_path)
+        }
+        if extra:
+            state.update(extra)
+            
+        torch.save(state, save_path)
+
 
     def predict(self, data_loader):
         self.model.eval()

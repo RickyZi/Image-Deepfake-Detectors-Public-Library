@@ -1,0 +1,344 @@
+{
+  "CLIP-D": {
+    "stats": {
+      "n": 10,
+      "mean_s": 1638.28,
+      "median_s": 1481.25,
+      "variance_s2": 137841.62,
+      "std_s": 371.27,
+      "mean_h": 0.4551,
+      "median_h": 0.4115
+    },
+    "stats_per_config": {
+      "lora_r4_qv": {
+        "n": 10,
+        "mean_s": 1638.28,
+        "median_s": 1481.25,
+        "variance_s2": 137841.62,
+        "std_s": 371.27,
+        "mean_h": 0.4551,
+        "median_h": 0.4115
+      }
+    },
+    "presets": [
+      {
+        "preset": "adaptive_blurbg_strong",
+        "config": "lora_r4_qv",
+        "weights_dir": "ft_weights",
+        "elapsed_s": 1292.593,
+        "elapsed_h": 0.3591,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "adaptive_blurbg_subtle",
+        "config": "lora_r4_qv",
+        "weights_dir": "ft_weights",
+        "elapsed_s": 1388.239,
+        "elapsed_h": 0.3856,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "adaptive_enhance_portrait",
+        "config": "lora_r4_qv",
+        "weights_dir": "ft_weights",
+        "elapsed_s": 1402.248,
+        "elapsed_h": 0.3895,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "adaptive_sky_bluedrama",
+        "config": "lora_r4_qv",
+        "weights_dir": "ft_weights",
+        "elapsed_s": 1399.832,
+        "elapsed_h": 0.3888,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "adaptive_subject_pop",
+        "config": "lora_r4_qv",
+        "weights_dir": "ft_weights",
+        "elapsed_s": 1285.367,
+        "elapsed_h": 0.357,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "style_film_inspired_boldbw",
+        "config": "lora_r4_qv",
+        "weights_dir": "ft_weights",
+        "elapsed_s": 1868.166,
+        "elapsed_h": 0.5189,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "style_film_inspired_coolbw",
+        "config": "lora_r4_qv",
+        "weights_dir": "ft_weights",
+        "elapsed_s": 1676.54,
+        "elapsed_h": 0.4657,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "subject_landscape_LN01",
+        "config": "lora_r4_qv",
+        "weights_dir": "ft_weights",
+        "elapsed_s": 1560.257,
+        "elapsed_h": 0.4334,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "subject_travel2_TR11",
+        "config": "lora_r4_qv",
+        "weights_dir": "ft_weights",
+        "elapsed_s": 2233.763,
+        "elapsed_h": 0.6205,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "subject_travel_TR01",
+        "config": "lora_r4_qv",
+        "weights_dir": "ft_weights",
+        "elapsed_s": 2275.806,
+        "elapsed_h": 0.6322,
+        "log_found": true,
+        "source": "timestamps"
+      }
+    ]
+  },
+  "R50_nodown": {
+    "stats": {
+      "n": 10,
+      "mean_s": 865.27,
+      "median_s": 866.76,
+      "variance_s2": 43829.71,
+      "std_s": 209.36,
+      "mean_h": 0.2404,
+      "median_h": 0.2408
+    },
+    "stats_per_config": {
+      "pretrained": {
+        "n": 10,
+        "mean_s": 865.27,
+        "median_s": 866.76,
+        "variance_s2": 43829.71,
+        "std_s": 209.36,
+        "mean_h": 0.2404,
+        "median_h": 0.2408
+      }
+    },
+    "presets": [
+      {
+        "preset": "adaptive_blurbg_strong",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 532.015,
+        "elapsed_h": 0.1478,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "adaptive_blurbg_subtle",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 865.172,
+        "elapsed_h": 0.2403,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "adaptive_enhance_portrait",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 987.78,
+        "elapsed_h": 0.2744,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "adaptive_sky_bluedrama",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 868.349,
+        "elapsed_h": 0.2412,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "adaptive_subject_pop",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 746.103,
+        "elapsed_h": 0.2073,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "style_film_inspired_boldbw",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 776.36,
+        "elapsed_h": 0.2157,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "style_film_inspired_coolbw",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 1331.602,
+        "elapsed_h": 0.3699,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "subject_landscape_LN01",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 712.38,
+        "elapsed_h": 0.1979,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "subject_travel2_TR11",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 926.526,
+        "elapsed_h": 0.2574,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "subject_travel_TR01",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 906.396,
+        "elapsed_h": 0.2518,
+        "log_found": true,
+        "source": "timestamps"
+      }
+    ]
+  },
+  "R50_TF": {
+    "stats": {
+      "n": 10,
+      "mean_s": 556.56,
+      "median_s": 508.87,
+      "variance_s2": 87545.65,
+      "std_s": 295.88,
+      "mean_h": 0.1546,
+      "median_h": 0.1414
+    },
+    "stats_per_config": {
+      "pretrained": {
+        "n": 10,
+        "mean_s": 556.56,
+        "median_s": 508.87,
+        "variance_s2": 87545.65,
+        "std_s": 295.88,
+        "mean_h": 0.1546,
+        "median_h": 0.1414
+      }
+    },
+    "presets": [
+      {
+        "preset": "adaptive_blurbg_strong",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 219.889,
+        "elapsed_h": 0.0611,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "adaptive_blurbg_subtle",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 717.827,
+        "elapsed_h": 0.1994,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "adaptive_enhance_portrait",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 258.101,
+        "elapsed_h": 0.0717,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "adaptive_sky_bluedrama",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 486.887,
+        "elapsed_h": 0.1352,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "adaptive_subject_pop",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 530.85,
+        "elapsed_h": 0.1475,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "style_film_inspired_boldbw",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 619.642,
+        "elapsed_h": 0.1721,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "style_film_inspired_coolbw",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 1247.357,
+        "elapsed_h": 0.3465,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "subject_landscape_LN01",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 356.384,
+        "elapsed_h": 0.099,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "subject_travel2_TR11",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 691.979,
+        "elapsed_h": 0.1922,
+        "log_found": true,
+        "source": "timestamps"
+      },
+      {
+        "preset": "subject_travel_TR01",
+        "config": "pretrained",
+        "weights_dir": "ft_unfreezeL4_weights",
+        "elapsed_s": 436.665,
+        "elapsed_h": 0.1213,
+        "log_found": true,
+        "source": "timestamps"
+      }
+    ]
+  }
+}

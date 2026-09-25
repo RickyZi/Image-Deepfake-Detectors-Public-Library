@@ -2,8 +2,8 @@
 # run multiple demo in batch, e.g. for different presets
 
 
-python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/sky_bluedrama --resume
-python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/subject_pop
+# python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/sky_bluedrama --resume
+# python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/subject_pop
 
 # ---------------------------- #
 # test baseline #
@@ -98,6 +98,19 @@ python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --
  
 # python3 launcher.py --detector CLIP-D --phases both --dataset style/vintage_VN01 --ft --mlp
 
+
+# "common_presets": [
+#     "adaptive_blurbg_strong",
+#     "adaptive_blurbg_subtle",
+#     "adaptive_enhance_portrait",
+#     "adaptive_sky_bluedrama",
+#     "adaptive_subject_pop",
+#     "style_film_inspired_boldbw",
+#     "style_film_inspired_coolbw",
+#     "subject_landscape_LN01",
+#     "subject_travel2_TR11",
+#     "subject_travel_TR01"
+#   ],
 # CLIP-D LoRA
 # seasons
 # autumn_TM01  spring_SP01  summer_SM01  winter_WN01
@@ -113,16 +126,18 @@ python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --
 # python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset style/cinematic2_CN11
 # python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset style/cinematic2_CN11
 # python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset style/film_inspired_warmgold
-# python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset style/film_inspired_coolbw
-# python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset style/film_inspired_boldbw 
+python launcher.py --detector CLIP-D --phases train  --weights-name lora_r4_qv --tf2k True --ft --dataset style/film_inspired_coolbw
+python launcher.py --detector CLIP-D --phases train  --weights-name lora_r4_qv --tf2k True --ft --dataset style/film_inspired_boldbw 
 # python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset style/futuristic_FT01
 # python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset style/vintage_VN01
 
 # adaptive
 # blurbg_subtle  blurbg_strong  enhance_portrait  sky_bluedrama  subject_pop
-# python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/blurbg_subtle # failed due to wrong dataset name!!! REDO!!!!
+python launcher.py --detector CLIP-D --phases train  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/blurbg_subtle # failed due to wrong dataset name!!! REDO!!!!
 # python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/blurbg_strong
-# python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/enhance_portrait # here
+python launcher.py --detector CLIP-D --phases train  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/enhance_portrait # here
+python launcher.py --detector CLIP-D --phases train  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/sky_bluedrama
+python launcher.py --detector CLIP-D --phases train  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/subject_pop
 ## somehow skipped
 
 # python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/blurbg_subtle
@@ -130,7 +145,7 @@ python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --
 # # subject
 # # landscape_LN01  travel2_TR11  travel_TR01
 # python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset subject/landscape_LN01
-# python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset subject/travel2_TR11
-# python launcher.py --detector CLIP-D --phases both  --weights-name lora_r4_qv --tf2k True --ft --dataset subject/travel_TR01 
+python launcher.py --detector CLIP-D --phases train  --weights-name lora_r4_qv --tf2k True --ft --dataset subject/travel2_TR11
+# python launcher.py --detector CLIP-D --phases train  --weights-name lora_r4_qv --tf2k True --ft --dataset subject/travel_TR01 
 
 
