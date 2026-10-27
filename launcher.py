@@ -64,146 +64,14 @@ def parse_phases(phases_str):
         raise ValueError(f"Invalid phases: {phases_str}. Must be 'train', 'test', or 'both'")
 
 
-def run_demo(args):
-    import json
-    import torch
-
-    project_root = os.path.abspath(os.path.dirname(__file__))
-
-    # if 'tb_preset' in args.demo_dataset:
-    
-    demo_root = os.path.join(project_root, 'demo_images', args.demo_dataset) #'tb_preset', 'style_BW01') # path to the dataset folder (socials subfolder structure)
-    assert os.path.isdir(demo_root), f"Demo folder not found: {demo_root}"
-    print(f"[demo] Using demo dataset at: {demo_root}")
-    # 
-    # Build split file from demo_images
-    def build_demo_split_json(root_path, out_path):
-        test_entries = []
-        for mod in ['PreSocial', 'Facebook', 'Telegram', 'X']:
-            mod_path = os.path.join(root_path, mod)
-            if not os.path.isdir(mod_path):
-                continue
-            for dirpath, dirnames, filenames in os.walk(mod_path, topdown=True, followlinks=True):
-                if len(dirnames):
-                    continue
-                rel_dir = f"{dirpath}/".replace(mod_path + os.sep, '')
-                parts = rel_dir.split(os.sep)[:3]
-                if len(parts) < 3:
-                    continue
-                label, gen, sub = parts
-                for fname in sorted(filenames):
-                    ext = os.path.splitext(fname)[1].lower()
-                    if ext not in ['.png', '.jpg', '.jpeg']:
-                        continue
-                    stem = os.path.splitext(fname)[0]
-                    test_entries.append(os.path.join(gen, sub, stem))
-
-        with open(out_path, 'w') as f:
-            json.dump({'test': sorted(list(set(test_entries)))}, f)
-
-    split_demo_file = os.path.join(project_root, 'split_demo.json')
-    build_demo_split_json(demo_root, split_demo_file)
-
-    def prepare_best_checkpoint(detector_dir, preferred_path=None):
-        weights_dir = os.path.join(detector_dir, 'checkpoint', 'pretrained', 'weights')
-        src_weight = None
-
-        if preferred_path:
-            src_weight = preferred_path if os.path.isabs(preferred_path) else os.path.normpath(os.path.join(detector_dir, preferred_path))
-            if not os.path.isfile(src_weight):
-                print(f"[demo] Preferred weights not found at {src_weight}, falling back to search")
-                src_weight = None
-
-        if src_weight is None:
-            if not os.path.isdir(weights_dir):
-                return None
-            candidates = []
-            for ext in ('*.pt', '*.pth'):
-                candidates.extend(glob.glob(os.path.join(weights_dir, ext)))
-            if not candidates:
-                return None
-            src_weight = sorted(candidates)[0]
-
-        run_dir = os.path.join(detector_dir, 'checkpoint', 'demo', 'weights')
-        os.makedirs(run_dir, exist_ok=True)
-        dst_weight = os.path.join(run_dir, 'best.pt')
-        shutil.copy2(src_weight, dst_weight)
-        return dst_weight
-
-    
-    device = f"cuda:0" if torch.cuda.is_available() else "cpu"
-    name = 'demo'
-
-    detectors_root = os.path.join(project_root, 'detectors')
-    all_methods = ['R50_nodown', 'CLIP-D', 'R50_TF', 'P2G', 'NPR']
-    # missing R50_TF and P2G results
-    methods = all_methods if args.demo_detector == 'all' else [args.demo_detector]
-
-    os.makedirs(os.path.join(project_root, 'logs'), exist_ok=True)
-
-    for method in methods:
-        det_dir = os.path.join(detectors_root, method)
-        if not os.path.isdir(det_dir):
-            continue
-
-        preferred_weights = args.weights_name or './checkpoint/pretrained/weights/best.pt'
-        best_path = prepare_best_checkpoint(det_dir, preferred_weights)
-        if best_path is None:
-            print(f"[demo] Skipping {method}: no pretrained weights found under checkpoint/pretrained/weights/")
-            continue
-
-        config_path = os.path.join(args.config_dir, f'{method}.yaml')
-        config = load_config(config_path) if os.path.exists(config_path) else {}
-        detector_args = config.get('detector_args', [])
-        testing_keys = config.get('testing', []) or ['all:all']
-
-        global_cfg = config.get('global', {})
-        # num_threads = global_cfg.get('num_threads', 8)
-        num_threads = global_cfg.get('num_threads', 4) # lowered num of workers to 4 to fit requirements of T4 vm (warning)
-        for data_keys in testing_keys:
-            args_list = [
-                f'--name "{name}"',
-                f'--task test',
-                f'--device {device}',
-                f'--split_file {split_demo_file}',
-                f'--data_root {demo_root}',
-                f'--data_keys "{data_keys}"',
-                f'--num_threads {num_threads}',
-            ] + detector_args
-
-            cmd_args = ' '.join(args_list)
-            log_file = os.path.join(project_root, 'logs', f'demo_{method}_{data_keys.replace(":","-")}.log')
-            with open(log_file, 'w') as f:
-                cwd = os.getcwd()
-                os.chdir(det_dir)
-                try:
-                    print(f"[demo] Running {method} test with args: {cmd_args}")
-                    # 
-                    runner = 'test.py'
-                    subprocess.run(f'python -u {runner} {cmd_args}', shell=True)#, stdout=f, stderr=f)
-                finally:
-                    os.chdir(cwd)            
-        shutil.rmtree(os.path.join(det_dir, 'checkpoint', 'demo'))
-
-    print('[demo] Completed. Results saved under detectors/<method>/results/demo/<scenario>/results.csv')
-
 def main():
     # Parse command-line arguments
     parser = argparse.ArgumentParser(description='Launcher for deepfake detector training and testing')
-    parser.add_argument('--detector', type=str, required=False,
-                        choices=['R50_TF', 'R50_nodown', 'CLIP-D', 'P2G', 'NPR'],
-                        help='Detector to use')
-    parser.add_argument('--phases', type=str, default='both',
-                        choices=['train', 'test', 'both'],
-                        help='Phases to run: train, test, or both (default: both)')
-    parser.add_argument('--config-dir', type=str, default='configs',
-                        help='Path to configs directory (default: configs/)'),
-    parser.add_argument('--weights-name', type=str, default='pretrained', 
-                        help='Name of the weights directory')
+    parser.add_argument('--detector', type=str, required=False, choices=['R50_E2P', 'R50_ND', 'CLIP-D'], help='Detector to use')
+    parser.add_argument('--phases', type=str, default='both', choices=['train', 'test', 'both'], help='Phases to run: train, test, or both (default: both)')
+    parser.add_argument('--config-dir', type=str, default='configs', help='Path to configs directory (default: configs/)'),
+    parser.add_argument('--weights-name', type=str, default='pretrained', help='Name of the weights directory')
     parser.add_argument('--arch', type=str, help = 'Detector architecture (used for apply LoRA on CLIP-D)')
-    # --------------------------- #
-    # parser.add_argument('--split', type=str, default='./test2k_splits.json', 
-    #                     help='Path to trn-val-tst split file')
     # --------------------------- #
     parser.add_argument('--ft', action = 'store_true', help = 'Path to pretrained model to load') ## for FT model (os just --ft flag?)
     parser.add_argument('--tf2k', type = bool, default = False, help = 'Use 2k dataset and splits for training and testing') ## for FT model (os just --ft flag?)
@@ -212,12 +80,6 @@ def main():
     parser.add_argument('--demo', action='store_true', help='Run demo on demo_images across detectors')
     # --------------------------- #
     parser.add_argument('--dataset', type = str, default = 'dataset', help = 'Which dataset to use (default: dataset)') # add custom dataset for demo
-    parser.add_argument('--mlp', action = 'store_true', help = 'If true add MLP head to CLIP-D')
-    parser.add_argument('--mlp_hidden',  type=int,   default=256)
-    parser.add_argument('--mlp_dropout', type=float, default=0.3)
-    # --------------------------- #
-    parser.add_argument('--demo-detector', type=str, default='all', choices=['all', 'R50_TF', 'R50_nodown', 'CLIP-D', 'P2G', 'NPR'], help='Which detector to demo (default: all)')
-    
     # Add detect mode arguments
     detect_group = parser.add_argument_group('detect', 'Single image detection options')
     detect_group.add_argument('--detect', action='store_true', help='Run single image detection mode')
@@ -227,17 +89,8 @@ def main():
     detect_group.add_argument('--dry-run', action='store_true', help='Print commands without executing')
     parser.add_argument('--resume', action='store_true', help='Resume training from the last saved per-epoch checkpoint in the run\'s checkpoint dir')
     parser.add_argument('--social', type = str, default= "", help = 'Which dataset from a social to load (default: niet)') # add custom dataset for demo
-
-    #  python launcher.py --detect --detector model_name --image path/to/img.jpg --weights pretrained or demo
-    #  python3 launcher.py --detector R50_nodown --phases train --weights-name pretrained --ft # FT test 
     
     args = parser.parse_args()
-
-    # print(f"args: {args}")
-    # 
-
-    if args.demo:
-        return run_demo(args)
         
     if args.detect:
         if args.detector is None:
@@ -259,61 +112,43 @@ def main():
     
     # Extract configuration values
     global_config = config.get('global', {})
-
-    
     
     # set architecture for lora
     if args.detector == 'CLIP-D' and args.weights_name == 'lora_r4_qv':
         args.arch = 'opencliplinearloranext_clipL14commonpool_r4_qv'
-    # else:
-    #     args.arch = config.get('')
     
     print(f"model arch: {args.arch}")
-    # 
-    # get tf dataset path
-
-    config_dataset_path = global_config.get('dataset_path')
     
     if  args.social:
-    # if 'facebook' in args.dataset or 'telegram' in args.dataset or 'twitter' in args.dataset:
             args.tf2k = True # used to remove mod from dataset preprocessing
             print(f"Dataset TF2K: setting --tf2k flag to True")
             print(f"loading social data - {args.social} - {args.dataset}")
             print(args.dataset)
             # /dataset-disk/tb_dataset/tf2k_lr/social
             dataset_path = os.path.join(global_config.get('dataset_path', ''), 'social', args.social, args.dataset)
-            split_file = '/second-disk/Image-Deepfake-Detectors-Public-Library/tf2k_SOCIAL_splits.json'
+            split_file = './Image-Deepfake-Detectors-Public-Library/splits/tf2k_SOCIAL_splits.json'
 
     elif 'seasons' in args.dataset or 'style' in args.dataset or 'adaptive' in args.dataset or 'subject' in args.dataset:
             args.tf2k = True # used to remove mod from dataset preprocessing
             print(f"Dataset TF2K: setting --tf2k flag to True")
             print(args.dataset)
-            # /dataset-disk/tb_dataset/tf2k_lr/tf_dataset
             dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf_dataset', args.dataset)
-            # dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_lr_org', args.dataset)
-            split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
+            split_file = os.path.abspath(global_config.get('split_file', 'tf2k_splits.json'))
 
     elif 'Facebook' in args.dataset or 'Telegram' in args.dataset or 'Twitter' in args.dataset:
             args.tf2k = True # used to remove mod from dataset preprocessing
             print(f"Dataset TF2K: setting --tf2k flag to True")
             print(f"loading social data - {args.social} - {args.dataset}")
             print(args.dataset)
-            # /dataset-disk/tb_dataset/test_split_social
             dataset_path = os.path.join('/dataset-disk/tb_dataset/test_split_social', args.dataset)
-            split_file = '/second-disk/Image-Deepfake-Detectors-Public-Library/tf2k_SOCIAL_splits.json'
-    # elif 'tf2k_social' in config_dataset_path:
-    #     args.tf2k = True # used to remove mod from dataset preprocessing
-    #     print(f"Dataset TF2K: setting --tf2k flag to True")
-    #     print(args.dataset)
-    #     dataset_path = os.path.join(global_config.get('dataset_path', ''), 'tf2k_social', args.dataset)
+            split_file = './Image-Deepfake-Detectors-Public-Library/splits/tf2k_SOCIAL_splits.json'
     else:
-        # dataset_path = os.path.join(config_dataset_path, args.dataset)
-        dataset_path = '/second-disk/Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset'
+        dataset_path = './Image-Deepfake-Detectors-Public-Library/truefake_2k/dataset'
         args.tf2k = True
-        split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
-            #global_config.get('dataset_path', args.dataset) # default to --dataset argument if not specified in config
+        split_file = os.path.abspath(global_config.get('split_file', 'tf2k_splits.json'))
+            
     print(f"Using dataset path: {dataset_path}")
-    # 
+     
     
     device_override = global_config.get('device_override')  # Can be None
     if args.weights_name is not None:
@@ -326,27 +161,8 @@ def main():
         device_override = None
     min_vram = global_config.get('min_vram', 16000)
 
-    # -------------------------- #
-    # old way to load split for FT
-    # if args.ft:
-    #     split_file = '/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/tf2k_dataset_splits.json'
-    #     #'/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/split_hc.json'
-    #     # os.path.abspath(global_config.get('split_file', 'split_hc.json'))
-        
-    # else: 
-    #     split_file = os.path.abspath(global_config.get('split_file', 'split.json'))
-    # --------------------------- #
-    # Baseline test and FT on 2k data -> fix new splits
-    # split_file = '/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/tf2k_dataset_splits.json'
-    # if args.split:
-    #     split_file = args.split
-    #     print(f"split: {split_file}")
-    # else:
-    #     split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
-    # # print(f"split_file: {split_file}")
-    # 
-    
-    num_threads = global_config.get('num_threads', 8) # check if ok for TeslaT4, might need to decrease it to 4
+   
+    num_threads = global_config.get('num_threads', 8) 
     dry_run = global_config.get('dry_run', False)
     only_list = global_config.get('only_list', False)
     phases = parse_phases(args.phases)
@@ -357,7 +173,6 @@ def main():
 
     print(f"training_configs: {training_configs}")
     print(f"test_list: {test_list}")
-    # 
     
     os.makedirs('logs', exist_ok=True)
     
@@ -441,7 +256,6 @@ def main():
         
         # Call train.py or test.py
         if not dry_run:
-            #log_file = f'logs/{task["type"]}_{task["details"]["detector"]}_{task["details"]["model"]}_{task["details"]["data"]}.log'
             log_file = f'logs/{task["type"]}_{task["details"]["detector"]}_{model_name}_{task["details"]["data"]}.log'
             if args.ft:
                 log_file = f'logs/FT_{task["details"]["detector"]}_{model_name}_{task["details"]["data"]}.log'

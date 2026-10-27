@@ -15,21 +15,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 
-from .dataset import create_dataloader        # standard dataset loader
-from .training import TrainingModel            # frozen-backbone fc-only trainer
-from .finetuning import FTModel                # LoRA / block-unfreeze trainer
-
+from .dataset import create_dataloader   
+from .training import TrainingModel
+from .finetuning import FTModel    
 
 class EarlyStopping:
-    """
-    Tracks the best validation score seen so far.
-
-    Returns True from __call__ when the new score is strictly better than
-    best + delta, i.e. when the caller should save a new best checkpoint.
-    Sets self.early_stop = True after `patience` consecutive non-improving
-    calls, signalling the training loop to drop the LR or stop.
-    """
-
     def __init__(self, init_score=None, patience=1, verbose=False, delta=0, logger = None):
         self.best_score = init_score
         self.patience   = patience
@@ -37,6 +27,7 @@ class EarlyStopping:
         self.verbose    = verbose
         self.count_down = patience
         self.early_stop = False
+        self.logger = logger
 
     def __call__(self, score):
         if self.best_score is None:

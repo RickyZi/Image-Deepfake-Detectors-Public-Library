@@ -1,6 +1,3 @@
-# ----------------------------------------------------------------------------
-# IMPORTS
-# ----------------------------------------------------------------------------
 import os
 import sys
 import time
@@ -16,9 +13,6 @@ from support.detect_utils import format_result, save_result, get_device
 
 from networks import create_architecture
 
-# ----------------------------------------------------------------------------
-# IMAGE PREPROCESSING
-# ----------------------------------------------------------------------------
 def preprocess_image(image_path, size=224):
     """Load and preprocess a single image for model input."""
     if not os.path.exists(image_path):
@@ -33,9 +27,6 @@ def preprocess_image(image_path, size=224):
     ])
     return transform(image).unsqueeze(0)  # Add batch dimension
 
-# ----------------------------------------------------------------------------
-# ARGUMENT PARSING
-# ----------------------------------------------------------------------------
 def parse_args():
     parser = argparse.ArgumentParser(description='CLIP-D single image detector')
     parser.add_argument('--image', type=str, required=True, help='Path to input image')

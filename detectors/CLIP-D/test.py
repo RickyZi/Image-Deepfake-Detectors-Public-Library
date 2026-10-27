@@ -1,21 +1,16 @@
 """
-test.py — inference / evaluation entry point for CLIP-D.
+test.py — inference / evaluation entry point for CLIP-D
 
 Called by launcher.py via:
-    python -u test.py --name <name> --arch <arch> --task test [args...]
+- LoRA
+    python launcher.py --detector CLIP-D --phases test  --weights-name lora_r4_qv --tf2k True --ft --dataset style/bw_BW01
+    NOTE: LoRA is called by the --weights-name argument.
+    Results saved to: results/CLIP-D/lora_r4_qv/<dataset_name>/CLIP-D_ft/<data_keys>/
 
-Checkpoint lookup:
-  --ft not set: checkpoint/<name>/weights/best.pt
-  --ft set:     checkpoint/<name>/ft_weights/best.pt
-
-Log file
-────────
-  logs/test_<name>_<dataset_dir>.log     (appended on each run)
-
-Log content:
-  • Run config (arch, weights path, data_root, data_keys)
-  • Per-class breakdown (real count, fake count)
-  • Final metrics: TPR, TNR, Accuracy, AUC, elapsed time
+- FT pretrained backbone
+    python3 launcher.py --detector CLIP-D --phases test --dataset seasons/autumn_TM01 --ft 
+    Results saved to: results/CLIP-D/pretrained/<dataset_name>/CLIP-D_ft/<data_keys>/
+    NOTE: pretrained is the default weights-name for all backbones (already trained by TB)
 """
 
 import os
@@ -36,24 +31,10 @@ from parser import get_parser
 
 def test(loader, model, output_dir, device, logger):
 
-    # print("TESTING MODEL")
-    # 
-
     model.eval()
     start_time = time.time()
-    # dataset_dir_name = settings.data_root.rstrip("/").split("/")[-1]
-    # output_dir = os.path.join(
-    #     # "/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/results",
-    #     "./Image-Deepfake-Detectors-Public-Library/results",
-    #     settings.name,
-    #     dataset_dir_name,
-    #     "CLIP-D",
-    #     settings.data_keys,
-    # )
-    
-
-    csv_filename           = os.path.join(output_dir, "results.csv")
-    metrics_filename       = os.path.join(output_dir, "metrics.json")
+    csv_filename = os.path.join(output_dir, "results.csv")
+    metrics_filename = os.path.join(output_dir, "metrics.json")
     image_results_filename = os.path.join(output_dir, "image_results.json")
 
     logger.info(f"Results directory: {output_dir}")
@@ -72,10 +53,7 @@ def test(loader, model, output_dir, device, logger):
                 imgs   = data_dict["img"].to(device)
                 labels = data_dict["target"].to(device)
                 paths  = data_dict["path"]
-
                 scores = model(imgs).squeeze(1) # raw_logits
-                # print(f"scores: {scores}") 
-                # breakpoint()
 
                 for score, label, path in zip(scores, labels, paths):
                     sv, lv = score.item(), label.item()
@@ -83,8 +61,6 @@ def test(loader, model, output_dir, device, logger):
                     all_labels.append(lv)
                     all_paths.append(path)
                     image_results.append({"path": path, "score": sv, "label": lv})
-                    # print(f"image_result: {image_results}")
-                    # breakpoint()
 
                 with open(csv_filename, "a") as f:
                     for score, label, path in zip(scores, labels, paths):
@@ -106,23 +82,11 @@ def test(loader, model, output_dir, device, logger):
            if real_mask.sum() > 0 else 0.0)
 
     if len(np.unique(all_labels)) > 1:
-        # print(f"all_scores[0:5]: {all_scores[0:5]}")
         probs = torch.sigmoid(torch.tensor(all_scores)).numpy() # transform scores into prob with sigmoid -> values [0,1]
-        # print(f"probs after sigmoid AUC: {probs[0:5]}")
-        # breakpoint()
+        
         auc   = roc_auc_score(all_labels, probs)
     else:
         auc = 0.0
-
-    # elapsed = time.time() - start_time
-
-    # metrics = {
-    #     "TPR":            float(tpr),
-    #     "TNR":            float(tnr),
-    #     "Acc total":      float(total_accuracy),
-    #     "AUC":            float(auc),
-    #     "execution time": float(elapsed),
-    # }
 
     f1 = f1_score(all_labels, predictions, labels=[0, 1], zero_division=0.0)
     
@@ -189,15 +153,7 @@ if __name__ == "__main__":
     os.makedirs("logs", exist_ok=True)
     dataset_name = settings.dataset.replace(os.sep, '_').replace('-', '_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
     print(f"dataset_name: {dataset_name}")
-    # if settings.ft and settings.mlp:
-    #     tag = 'ft_MLP'
-    # elif settings.ft:
-    #     tag = 'ft'
-    # else:
-    #     tag = 'pretrained'
-    # result_folder = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/{settings.name}/{dataset_name}/CLIP-D_{tag}/'
-    # log_path = os.path.join(result_folder,"logs")
-    # logger   = create_logger(os.path.join(log_path, f"test_{settings.name}_{dataset_name}_{settings.data_keys}.log"))
+    
 
     if settings.name == 'lora_r4_qv':
         settings.arch = 'opencliplinearloranext_clipL14commonpool_r4_qv'
@@ -215,24 +171,23 @@ if __name__ == "__main__":
     else:
         tag = 'pretrained'
 
-    # dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
+    
     if settings.ensemble:
         print("ensemble!")
         if settings.social:
-            output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
-            logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/', 'test.log')
+            output_dir = f'/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
+            logger_path = os.path.join(f'./Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/', 'test.log')
         else:
-            output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
-            logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/CLIP-D_{tag}/', 'test.log')
+            output_dir = f'/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
+            logger_path = os.path.join(f'./Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/CLIP-D_{tag}/', 'test.log')
     elif settings.social:
-        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
-        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/', 'test_log.log')
+        output_dir = f'/Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
+        logger_path = os.path.join(f'./Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/', 'test_log.log')
     else:
-        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}' # change path to be outside detector folder
-        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}/{dataset_name}/CLIP-D_{tag}/', 'test_log.txt')
+        output_dir = f'/Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}' # change path to be outside detector folder
+        logger_path = os.path.join(f'./Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}/{dataset_name}/CLIP-D_{tag}/', 'test_log.txt')
 
     print(f"output_dir: {output_dir}")
-    # 
     
     os.makedirs(output_dir, exist_ok=True)
     logger = create_logger(logger_path)
@@ -259,57 +214,25 @@ if __name__ == "__main__":
 
     logger.info(f"test batches = {len(test_dataloader)}")
 
-    # Model 
-    # print(f"settings.arch: {settings.arch}")
-    # 
+    
     if settings.name == 'lora_r4_qv':
             settings.arch = 'opencliplinearloranext_clipL14commonpool_r4_qv'
     model = create_architecture(settings.arch, pretrained=True, num_classes=1)
     n_params = count_parameters(model)
     logger.info(f"arch trainable params = {n_params:,}")
 
-    # Load checkpoint
-    # load_path = (
-    #     os.path.join("checkpoint", settings.name, "ft_weights",dataset_name, "best.pt")
-    #     if settings.ft
-    #     else os.path.join("checkpoint", settings.name, "weights",  "best.pt")
-    # )
-
-    # for testing model on the social dataset used for FT
-    # if settings.ft and settings.social:
-    #     load_path =  os.path.join("checkpoint", settings.name, "social", settings.social,"ft_weights", dataset_name, "best.pt")
-    
     
     if settings.ft:
         load_path = os.path.join("checkpoint", settings.name, "ft_weights", dataset_name, "best.pt")
     else:
         load_path = os.path.join("checkpoint", settings.name, "weights",  "best.pt")
-    # load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+    
     print('loading the model from %s' % load_path)
-
-    # breakpoint()
 
     logger.info(f"Loading weights from: {load_path}")
 
-    # state = torch.load(load_path, map_location=device)
-    # sd    = state["model"] if "model" in state else state
-    
-    # try:
-    #     model.load_state_dict(sd, strict=True)
-    #     logger.info("Weights loaded (strict=True)")
-    # except RuntimeError as e:
-    #     logger.warning(f"strict=True failed: {e}")
-    #     missing, unexpected = model.load_state_dict(sd, strict=False)
-    #     logger.warning(
-    #         f"Loaded with strict=False — missing={len(missing)}, "
-    #         f"unexpected={len(unexpected)}"
-    #     )
-
-    # print('loading the model from %s' % load_path)
     model.load_state_dict(torch.load(load_path, map_location=device, weights_only=True)['model'])
     model.to(device)
-
-    
 
     metrics = test(test_dataloader, model, output_dir, device, logger)
 

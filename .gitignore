@@ -22,5 +22,10 @@ detectors/*/*/__pycache__/*
 detectors/*/*/*/__pycache__/* 
 detectors/*/*/*/*/__pycache__/* 
 */__pycache__/*
-optuna_studies/
-detectors/MISLNet/*
+*/*/__pycache__/*
+__pycache__
+
+# -------------------- #
+TODO.md
+README_repo.md
+# -------------------- #

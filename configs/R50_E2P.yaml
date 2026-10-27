@@ -1,0 +1,22 @@
+global:
+  dataset_path: /dataset-disk/tb_dataset/tf2k_lr/
+  device_override: cuda:0  # null for auto-selection
+  min_vram: 16000
+  split_file: ./splits/tf2k_splits.json
+  num_threads: 4 # 8
+  dry_run: false
+  only_list: false
+
+
+detector_args:
+  - "--arch"
+  - "nodown"
+  - "--prototype"
+  - "--freeze"
+
+training:
+  - data: realFFHQ&realFORLAB&gan1&gan2&gan3&sd15&sd2&sd3&sdXL&flux
+  
+testing:
+  - realFFHQ&realFORLAB&gan1&gan2&gan3&sd15&sd2&sd3&sdXL&flux 
+

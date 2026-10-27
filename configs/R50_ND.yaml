@@ -1,0 +1,44 @@
+global:
+  dataset_path: /dataset-disk/tb_dataset/tf2k_lr/
+  device_override: cuda:0  # null for auto-selection
+  min_vram: 16000
+  split_file: ./splits/tf2k_splits.json
+  num_threads: 4 #8
+  dry_run: false
+  only_list: false
+
+detector_args:
+  - "--arch"
+  - "res50nodown"
+  - "--norm_type"
+  - "resnet"
+  - "--resize_size"
+  - "256"
+  - "--resize_ratio"
+  - "0.75"
+  - "--resize_prob"
+  - "0.2"
+  - "--cmp_qual"
+  - "30,100"
+  - "--cmp_prob"
+  - "0.5"
+  - "--cropSize"
+  - "96"
+  - "--blur_sig"
+  - "0.1,3.0"
+  - "--blur_prob"
+  - "0.5"
+  - "--jitter_prob"
+  - "0.8"
+  - "--colordist_prob"
+  - "0.2"
+  - "--cutout_prob"
+  - "0.2"
+  - "--noise_prob"
+  - "0.2"
+
+training:
+  - data: realFFHQ&realFORLAB&gan1&gan2&gan3&sd15&sd2&sd3&sdXL&flux
+
+testing:
+  - realFFHQ&realFORLAB&gan1&gan2&gan3&sd15&sd2&sd3&sdXL&flux 

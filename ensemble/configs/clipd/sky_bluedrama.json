@@ -1,0 +1,25 @@
+{
+  "experiment": {
+    "detector":     "CLIP-D",
+    "weights_name": "lora_r4_qv",
+    "config_dir":   "configs",
+    "results_root": "/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/",
+    "report_tag":   "family_sky_bluedrama"
+  },
+
+  "adaptive_sky_bluedrama": {
+    "name":        "lora_r4_qv",
+    "data_root":   "/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/adaptive/sky_bluedrama/",
+    "split_file":  "/second-disk/Image-Deepfake-Detectors-Public-Library/test2k_splits.json",
+    "data_keys":   "realFFHQ&realFORLAB&gan1&gan2&gan3&sd15&sd2&sd3&sdXL&flux",
+    "tf2k":        true,
+    "device":      "cuda:0",
+    "num_threads": 4,
+    "batch_size":  32,
+    "checkpoints": [
+      {"architecture": "CLIP-D", "preset": "adaptive_sky_bluedrama",    "ft": true},
+      {"architecture": "CLIP-D", "preset": "adaptive_enhance_portrait", "ft": true},
+      {"architecture": "CLIP-D", "preset": "adaptive_subject_pop",      "ft": true}
+    ]
+  }
+}

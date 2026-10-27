@@ -17,30 +17,8 @@ limitations under the License.
 
 
 def create_architecture(name_arch, pretrained=False, num_classes=1):
-    """
-    Factory function for all CLIP-D network variants.
 
-    Arch string format
-    ──────────────────
-    Frozen backbone (original):
-        opencliplinear_<pretrain>           e.g. opencliplinear_clipL14commonpool
-        opencliplinearnext_<pretrain>       e.g. opencliplinearnext_clipL14commonpool
-
-    LoRA fine-tuning (new):
-        opencliplinearloranext_<pretrain>_r<rank>_<targets>
-        e.g.  opencliplinearloranext_clipL14commonpool_r4_qv
-              opencliplinearloranext_clipL14commonpool_r8_qvo
-              opencliplinearloranext_clipL14commonpool_r4_qkvo
-
-    <targets> is any combination of q / k / v / o (attention projections).
-    Recommended starting point: qv  (query + value, as per Hu et al. 2021).
-
-    ResNet baselines:
-        res50nodown
-        res50
-    """
-
-    # ── ResNet baselines ─────────────────────────────────────────────────
+    # ResNet baselines
     if name_arch == "res50nodown":
         from .resnet_mod import resnet50
         model = (resnet50(pretrained=True, stride0=1, dropout=0.5).change_output(num_classes)
@@ -51,7 +29,7 @@ def create_architecture(name_arch, pretrained=False, num_classes=1):
         model = (resnet50(pretrained=True, stride0=2).change_output(num_classes)
                  if pretrained else resnet50(num_classes=num_classes, stride0=2))
 
-    # ── Frozen-backbone CLIP-D (original) ────────────────────────────────
+    # CLIP-D baselines
     elif name_arch.startswith("opencliplinear_"):
         from .openclipnet import OpenClipLinear
         model = OpenClipLinear(
@@ -70,20 +48,13 @@ def create_architecture(name_arch, pretrained=False, num_classes=1):
             next_to_last=True,
         )
 
-    # ── LoRA CLIP-D ───────────────────────────────────────────────────────
-    # Format: opencliplinearloranext_<pretrain>_r<rank>_<targets>
-    # Example: opencliplinearloranext_clipL14commonpool_r4_qv
+    # LoRA CLIP-D
     elif name_arch.startswith("opencliplinearloranext_"):
         from .openclipnet import OpenClipLinearLoRA
 
-        # Strip prefix, then parse  <pretrain>_r<rank>_<targets>
         suffix = name_arch[len("opencliplinearloranext_"):]
         parts  = suffix.split("_")
 
-        # The last token is <targets>, the second-to-last is r<rank>,
-        # and everything before is the pretrain key.
-        # This works for pretrain keys without underscores (common case)
-        # and for keys that do contain underscores (e.g. clipL14datacomp).
         targets_str = parts[-1]    # e.g. "qv"
         rank_str    = parts[-2]    # e.g. "r4"
         pretrain    = "_".join(parts[:-2])  # e.g. "clipL14commonpool"
@@ -107,9 +78,9 @@ def create_architecture(name_arch, pretrained=False, num_classes=1):
             num_classes=num_classes,
             pretrain=pretrain,
             normalize=True,
-            next_to_last=True,          # always use 1024-d next-to-last features
+            next_to_last=True,          
             lora_r=lora_r,
-            lora_alpha=float(lora_r),   # alpha == r  →  effective scale = 1
+            lora_alpha=float(lora_r),  
             lora_targets=lora_targets,
         )
 

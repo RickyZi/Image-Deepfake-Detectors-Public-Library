@@ -25,9 +25,6 @@ import open_clip
 from .resnet_mod import ChannelLinear
 
 
-# ---------------------------------------------------------------------------
-# Pretrained model registry
-# ---------------------------------------------------------------------------
 dict_pretrain = {
     'clipL14openai'     : ('ViT-L-14', 'openai'),
     'clipL14laion400m'  : ('ViT-L-14', 'laion400m_e32'),
@@ -47,19 +44,15 @@ def _build_backbone(pretrain: str):
     spec = dict_pretrain[pretrain]
     if len(spec) == 2:
         return open_clip.create_model(spec[0], pretrained=spec[1])
+    
     from huggingface_hub import hf_hub_download
     return open_clip.create_model(spec[0], pretrained=hf_hub_download(*spec[1:]))
 
-
-# ---------------------------------------------------------------------------
-# Original frozen-backbone model (unchanged)
-# ---------------------------------------------------------------------------
 
 class OpenClipLinear(nn.Module):
     """
     CLIP-D detector with a permanently frozen backbone.
     Only the ChannelLinear fc head is trainable.
-    This is the original GRIP-UNINA implementation.
     """
 
     def __init__(self, num_classes=1, pretrain='clipL14commonpool',
@@ -74,9 +67,7 @@ class OpenClipLinear(nn.Module):
         else:
             self.num_features = backbone.visual.output_dim
 
-        # Store in a plain list so PyTorch does NOT register it as a submodule.
-        # This keeps it out of model.parameters() and model.state_dict() —
-        # the intentional design choice from the original paper code.
+        # model stored in a plain list so that state_dict() and .to() don't include it
         self.bb        = [backbone]
         self.normalize = normalize
         self.fc        = ChannelLinear(self.num_features, num_classes)
@@ -98,24 +89,7 @@ class OpenClipLinear(nn.Module):
         return self.forward_head(self.forward_features(x))
 
 
-# ===========================================================================
-# LoRA building blocks
-# ===========================================================================
-
 class LoRALinear(nn.Module):
-    """
-    Linear layer whose effective weight is:
-
-        W_eff = W₀  +  (alpha / r) · B @ A
-
-    W₀ is stored as a frozen buffer (never updated).
-    A (r × d_in) and B (d_out × r) are the only trainable parameters.
-
-    Initialisation follows Hu et al. 2021:
-        A ~ Kaiming uniform
-        B  = 0   →  delta_W = 0 at step 0
-    """
-
     def __init__(self, weight: torch.Tensor, bias, r: int, lora_alpha: float = 1.0):
         super().__init__()
         self.scale = lora_alpha / r
@@ -140,21 +114,11 @@ class LoRAMultiheadAttention(nn.Module):
     Drop-in replacement for torch.nn.MultiheadAttention inside an
     open_clip ResidualAttentionBlock.
 
-    open_clip packs Q, K, V into a single in_proj_weight [3d, d].
-    We unpack this into four explicit projections (q, k, v, o) and
-    apply LoRALinear only to the projections listed in lora_targets.
-
-    Call signature matches what open_clip's ResidualAttentionBlock.attention()
-    passes:
-        self.attn(q_x, k_x, v_x, need_weights=False, attn_mask=...)
-    Returns: (output, None)  — consistent with nn.MultiheadAttention.
-
     Args:
         mha          : existing nn.MultiheadAttention to replace
         r            : LoRA rank
         lora_alpha   : scaling factor  (scale = lora_alpha / r)
-        lora_targets : tuple of projections to LoRA-ify:
-                       any subset of ('q', 'k', 'v', 'o')
+        lora_targets : tuple of projections to apply LoRA to — any subset of ('q', 'k', 'v', 'o')
     """
 
     def __init__(self, mha: nn.MultiheadAttention, r: int = 4, lora_alpha: float = 1.0, lora_targets: tuple = ('q', 'v')):
@@ -164,7 +128,7 @@ class LoRAMultiheadAttention(nn.Module):
         self.head_dim  = mha.embed_dim // mha.num_heads
         d = self.embed_dim
 
-        # ── Unpack packed QKV ─────────────────────────────────────────────
+        # Unpack packed QKV into four explicit projections
         W = mha.in_proj_weight.detach()
         b = mha.in_proj_bias.detach() if mha.in_proj_bias is not None else None
 
@@ -172,9 +136,7 @@ class LoRAMultiheadAttention(nn.Module):
             "q": (W[:d].clone(),    b[:d].clone()    if b is not None else None),
             "k": (W[d:2*d].clone(), b[d:2*d].clone() if b is not None else None),
             "v": (W[2*d:].clone(),  b[2*d:].clone()  if b is not None else None),
-            "o": (mha.out_proj.weight.detach().clone(),
-                  mha.out_proj.bias.detach().clone()
-                  if mha.out_proj.bias is not None else None),
+            "o": (mha.out_proj.weight.detach().clone(), mha.out_proj.bias.detach().clone() if mha.out_proj.bias is not None else None),
         }
 
         def _proj(key):
@@ -214,55 +176,20 @@ class LoRAMultiheadAttention(nn.Module):
         return self.o_proj(x), None   # (output, attn_weights)
 
 
-# ===========================================================================
-# LoRA-equipped CLIP-D
-# ===========================================================================
-
 class OpenClipLinearLoRA(nn.Module):
     """
     CLIP-D detector with LoRA adapters in the visual encoder.
-
-    Architecture
-    ─────────────
-    image
-      → CLIP ViT-L/14 visual encoder
-          frozen pretrained weights  +  trainable LoRA deltas (A, B per block)
-      → 1024-d CLS embedding  (next-to-last layer, after ln_post, before proj)
-      → ChannelLinear fc  (1024 → 1)
-      → logit  (BCEWithLogitsLoss during training)
-
-    Key differences from OpenClipLinear
-    ─────────────────────────────────────
-    1. backbone stored as self.backbone (proper nn.Module attribute), so
-       state_dict, .to(device), and .parameters() all cover it automatically.
-    2. forward_features() has NO torch.no_grad() — LoRA A/B need gradients.
-    3. Frozen base weights have requires_grad=False individually, so they
-       never appear in the optimizer even though backbone is registered.
-    4. LoRA is injected only into the visual transformer; the text encoder
-       is untouched (this detector never calls encode_text()).
-
-    Parameter budget  (ViT-L/14, 24 blocks, r=4, targets=('q','v'))
-    ─────────────────────────────────────────────────────────────────
-      LoRA A+B:  24 × 2 × (4×1024 + 1024×4) = 393 216
-      fc:        1024 + 1                    =   1 025
-      Total      trainable                   = 394 241   (≈ 0.10 % of model)
-
-    Checkpoint compatibility
-    ────────────────────────
-    state_dict() includes frozen backbone weights AND LoRA A/B weights.
-    Loading with strict=True works when the arch string is identical between
-    save and load.  Loading an older fc-only checkpoint via strict=False
-    is supported in FTModel (LoRA A/B keep their zero/Kaiming init, which
-    is correct: delta_W = 0 before any fine-tuning step).
+    Text encoder is left untouched.
+    The backbone is frozen, only the LoRA weights and the classification head are trainable.
 
     Args:
         num_classes   : output logits (1 for binary real/fake detection)
         pretrain      : key in dict_pretrain
         normalize     : L2-normalise the CLIP embedding
-        next_to_last  : use 1024-d pre-projection feature (recommended: True)
-        lora_r        : LoRA rank.  r=4 strongly recommended for ≤2k images.
-        lora_alpha    : LoRA scaling (lora_alpha=lora_r → scale=1, recommended)
-        lora_targets  : attention projections to adapt: subset of ('q','k','v','o')
+        next_to_last  : use 1024-d pre-projection feature (default: True)
+        lora_r        : LoRA rank (deafault: r=4).
+        lora_alpha    : LoRA scaling (default: lora_alpha=lora_r -> scale=1)
+        lora_targets  : attention projections to adapt: subset of ('q','k','v','o') [default: ('q','v')]
     """
 
     def __init__(
@@ -281,7 +208,6 @@ class OpenClipLinearLoRA(nn.Module):
         self.lora_alpha   = lora_alpha
         self.lora_targets = lora_targets
 
-        # ── 1. Build backbone ─────────────────────────────────────────────
         backbone = _build_backbone(pretrain)
 
         if next_to_last:
@@ -290,12 +216,10 @@ class OpenClipLinearLoRA(nn.Module):
         else:
             self.num_features = backbone.visual.output_dim      # 768
 
-        # ── 2. Freeze everything ──────────────────────────────────────────
         for p in backbone.parameters():
             p.requires_grad_(False)
 
-        # ── 3. Inject LoRA into visual transformer blocks ─────────────────
-        #       Text encoder is deliberately left untouched.
+        # Inject LoRA into visual transformer blocks (text encoder is deliberately left untouched)
         resblocks = backbone.visual.transformer.resblocks
         print(f"[LoRA] Injecting into {len(resblocks)} visual transformer blocks …")
         for block in resblocks:
@@ -306,31 +230,21 @@ class OpenClipLinearLoRA(nn.Module):
                 lora_targets=lora_targets,
             )
 
-        # ── 4. Register backbone as a real nn.Module attribute ────────────
-        #       Unlike OpenClipLinear (which uses self.bb = [backbone]),
-        #       we register it properly so state_dict and .to() work
-        #       correctly for all parameters including the LoRA matrices.
+        # Register backbone as a nn.Module attribute
         self.backbone = backbone
 
-        # ── 5. Classification head ────────────────────────────────────────
+        # add classification head
         self.fc = ChannelLinear(self.num_features, num_classes)
         nn.init.normal_(self.fc.weight.data, 0.0, 0.02)
 
-        # ── 6. Report ─────────────────────────────────────────────────────
+        # Report trainable parameters
         trainable = sum(p.numel() for p in self.parameters() if p.requires_grad)
         total     = sum(p.numel() for p in self.parameters())
         print(f"[LoRA] r={lora_r}, alpha={lora_alpha}, targets={lora_targets}")
         print(f"[LoRA] Trainable: {trainable:,} / {total:,}  "
               f"({100 * trainable / total:.3f} %)")
 
-    # ------------------------------------------------------------------
-    # Forward
-    # ------------------------------------------------------------------
-
     def forward_features(self, x: torch.Tensor) -> torch.Tensor:
-        # No torch.no_grad(): gradients flow through LoRA A and B.
-        # Frozen base weights are safe because requires_grad=False was set
-        # individually on each of them during construction.
         return self.backbone.encode_image(x, normalize=self.normalize)
 
     def forward_head(self, x: torch.Tensor) -> torch.Tensor:
@@ -338,25 +252,3 @@ class OpenClipLinearLoRA(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.forward_head(self.forward_features(x))
-
-    # ------------------------------------------------------------------
-    # Optional weight merging for inference-time cleanup
-    # ------------------------------------------------------------------
-
-    @torch.no_grad()
-    def merge_lora_weights(self) -> None:
-        """
-        Merge  ΔW = (alpha/r) · B @ A  into the frozen base weight in-place,
-        then zero A and B.  After this the model is equivalent to a plain
-        OpenClipLinear checkpoint and has zero overhead at inference.
-
-        Call only after training is complete — not during training.
-        """
-        for block in self.backbone.visual.transformer.resblocks:
-            for proj in (block.attn.q_proj, block.attn.k_proj,
-                         block.attn.v_proj, block.attn.o_proj):
-                if isinstance(proj, LoRALinear):
-                    proj.weight.add_(proj.scale * (proj.lora_B @ proj.lora_A))
-                    proj.lora_A.zero_()
-                    proj.lora_B.zero_()
-        print("[LoRA] Weights merged into base matrices.")

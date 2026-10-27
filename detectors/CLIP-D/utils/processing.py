@@ -18,18 +18,18 @@ import torchvision.transforms.v2 as Tv2
 
 def make_processing(opt):
     opt = parse_arguments(opt)
-    transforms_list = list()  # list of transforms
+    transforms_list = list() 
 
     if opt.task == 'train':
-        transforms_aug = make_aug(opt)  # make data-augmentation transforms
+        transforms_aug = make_aug(opt) 
         if transforms_aug is not None:
             transforms_list.append(transforms_aug)
 
-    transforms_post = make_post(opt)  # make post-data-augmentation transforms
+    transforms_post = make_post(opt)  
     if transforms_post is not None:
         transforms_list.append(transforms_post)
 
-    transforms_list.append(make_normalize(opt))  # make normalization
+    transforms_list.append(make_normalize(opt)) 
 
     t = Tv2.Compose(transforms_list)
 
@@ -37,12 +37,7 @@ def make_processing(opt):
 
 
 def add_processing_arguments(parser):
-    # parser is an argparse.ArgumentParser
-    #
-    # ICASSP2023: --cropSize 96 --loadSize -1 --resizeSize -1 --norm_type resnet --resize_prob 0.2 --jitter_prob 0.8 --colordist_prob 0.2 --cutout_prob 0.2 --noise_prob 0.2 --blur_prob 0.5 --cmp_prob 0.5 --rot90_prob 1.0 --hpf_prob 0.0 --blur_sig 0.0,3.0 --cmp_method cv2,pil --cmp_qual 30,100 --resize_size 256 --resize_ratio 0.75
-    # ICME2021  : --cropSize 96 --loadSize -1 --resizeSize -1 --norm_type resnet --resize_prob 0.0 --jitter_prob 0.0 --colordist_prob 0.0 --cutout_prob 0.0 --noise_prob 0.0 --blur_prob 0.5 --cmp_prob 0.5 --rot90_prob 1.0 --hpf_prob 0.0 --blur_sig 0.0,3.0 --cmp_method cv2,pil --cmp_qual 30,100
-    #
-
+    # data-augmentation
     parser.add_argument("--resizeSize", type=int, default=224, help="scale images to this size post augumentation")
 
     # data-augmentation probabilities
