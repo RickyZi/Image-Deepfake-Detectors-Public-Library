@@ -175,7 +175,7 @@ class FTModel(torch.nn.Module):
             self.save_dir = os.path.join("checkpoint", opt.name, "social", opt.social , "ft_weights", dataset_name)
 
         elif opt.ft:
-            self.save_dir = os.path.join("checkpoint", opt.name, "ft_weights" , dataset_name)
+            self.save_dir = os.path.join("checkpoint", opt.name, "ft_weights_redo" , dataset_name)
         else:
             self.save_dir = os.path.join("checkpoint", opt.name, "weights" , dataset_name)
         os.makedirs(self.save_dir, exist_ok=True)

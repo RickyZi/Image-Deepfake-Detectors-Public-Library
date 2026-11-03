@@ -26,7 +26,7 @@
 
 # # # adaptive
 # # # blurbg-strong/   blurbg-subtle/   enhance-portait/ sky-bluedrama/   subject-pop/
-# python launcher.py --detector CLIP-D --phases test  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/blurbg-strong --social facebook
+# python launcher.py --detector CLIP-D --phases test  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/bl  urbg-strong --social facebook
 # python launcher.py --detector CLIP-D --phases test  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/blurbg-subtle --social facebook
 # python launcher.py --detector CLIP-D --phases test  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/enhance-portait --social facebook
 python launcher.py --detector CLIP-D --phases test  --weights-name lora_r4_qv --tf2k True --ft --dataset adaptive/sky-bluedrama --social facebook

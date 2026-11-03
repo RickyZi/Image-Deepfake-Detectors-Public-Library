@@ -22,6 +22,7 @@ import bisect
 import numpy as np
 from torch.utils.data.sampler import WeightedRandomSampler, RandomSampler
 from torchvision import datasets
+# from torch.utils.data import Dataset
 from .processing import make_processing
 
 from PIL import Image, ImageFile
@@ -108,14 +109,23 @@ def parse_tf2k_dataset(settings):
     for data in settings.data_keys.split('&'):
         # # gen = data.split(':')
         # dataset_list.append({'gen':gen_keys[data]}) #, 'mod':mod_keys[mod]})
-        gen, mod = data.split(':')
-        dataset_list.append({'gen':gen_keys[gen]}) #, 'mod':mod_keys[mod]})
+        # gen, mod = data.split(':')
+        # dataset_list.append({'gen':gen_keys[gen]}) #, 'mod':mod_keys[mod]})
         # removed mod because we have just Real/FORLAB and no social media processing (mod)
+
+        dataset_list.append({'gen':gen_keys[data]}) 
     
+    # check if dataset_list is empty
+    if len(dataset_list) == 0:
+        raise ValueError(f"[parse_tf2k_dataset] Dataset list is empty. Please check your data_keys: {settings.data_keys}")
+    else:
+        print(f"[parse_tf2k_dataset] Dataset list: {dataset_list}")
+
     return dataset_list
 
 
 class TrueFake_dataset(datasets.DatasetFolder):
+# class TrueFake_dataset(Dataset):
     def __init__(self, settings):
         self.data_root = settings.data_root
         self.split = settings.split
@@ -127,10 +137,19 @@ class TrueFake_dataset(datasets.DatasetFolder):
         
         dataset_list = parse_tf2k_dataset(settings)
 
+        if len(dataset_list) == 0:
+                raise ValueError(f"[TrueFake_dataset] Dataset list is empty. Please check your data_keys: {settings.data_keys}")
+        else:
+                print(f"[TrueFake_dataset] Dataset list: {dataset_list}")
+
         self.samples = []
         self.info = []
+
+        print(f"data_root: {self.data_root} - split: {self.split} - split_file: {settings.split_file}")
+
         for dict in dataset_list:
             generators = dict['gen']
+            print(f"[TrueFake_dataset] Generators: {generators}")
             
             # print("NO MOD!!!")
             # dataset_roo = os.path.join(self.data_root, mod)
@@ -139,14 +158,13 @@ class TrueFake_dataset(datasets.DatasetFolder):
                 if len(dataset_dirs):
                     continue
 
+
+
                 # Compute path relative to mod root, e.g.:
                 #   Real/FFHQ (2 parts — no sub, Real images)
                 #   Fake/StyleGAN3/conf-t (3 parts — has sub, Fake images)
                 rel = os.path.relpath(dataset_root, self.data_root)
                 parts = rel.split(os.sep)
-                # print(f"rel: {rel}")
-                # print(f"parts: {parts}")
-                # breakpoint()
                 if len(parts) < 2:
                     continue
 
@@ -170,8 +188,11 @@ class TrueFake_dataset(datasets.DatasetFolder):
 
 
         if len(self.samples) == 0:
-            print(f'Warning: No samples found for {self.split} split with the given settings. Please check your data_keys and split_file.')
-            breakpoint()
+            raise RuntimeError(
+                f"No samples found for {self.split} split under {self.data_root}. "
+                f"Check that the dataset uses label/generator[/subfolder] layout "
+                f"and that its filenames match {settings.split_file}."
+            )
         else:
             print(f'Loaded {len(self.samples)} samples for {self.split}')
         self.transform = make_processing(settings)
@@ -190,6 +211,7 @@ class TrueFake_dataset(datasets.DatasetFolder):
 
         import time
         last_exc = None
+        sample = None
         for attempt in range(3):
             try:
                 sample = Image.open(path).convert('RGB')
@@ -199,12 +221,9 @@ class TrueFake_dataset(datasets.DatasetFolder):
                 last_exc = e
                 if attempt < 2:
                     print(f"[WARN] Attempt {attempt+1}/3 failed for {path}: {e} — retrying...")
-                    time.sleep(0.1 * (attempt + 1))  # 0.1 s, 0.2 s
+                    time.sleep(0.1 * (attempt + 1))  
  
-        if last_exc is not None:
-            # All retries exhausted — file is genuinely unreadable.
-            # Re-raise so the problem is visible rather than silently injecting
-            # a dummy sample into training.
+        if sample is None:
             raise RuntimeError(
                 f"Failed to load image after 3 attempts: {path}"
             ) from last_exc

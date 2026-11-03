@@ -164,7 +164,7 @@
  
 # python3 launcher.py --detector R50_TF --phases both --dataset style/futuristic_FT01 --ft  
  
-# python3 launcher.py --detector R50_TF --phases both --dataset style/vintage_VN01 --ft 
+# # python3 launcher.py --detector R50_TF --phases both --dataset style/vintage_VN01 --ft 
 
 # python3 launcher.py --detector R50_TF --phases both --dataset adaptive/blurbg_strong --ft 
 # python3 launcher.py --detector R50_TF --phases both --dataset adaptive/enhance_portrait --ft 

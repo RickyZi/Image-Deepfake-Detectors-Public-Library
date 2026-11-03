@@ -68,7 +68,7 @@ def train(train_dataloader, val_dataloader, model, optimizer, dataset, settings)
     if settings.freeze and settings.r50unfreezeL4 and settings.social:
         save_dir = f'./checkpoint/{settings.name}/social/{settings.social}/ft_unfreezeL4_weights/{dataset}'
     elif settings.freeze and settings.r50unfreezeL4:
-        save_dir = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{dataset}'
+        save_dir = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights_redo/{dataset}'
         # torch.save(model.state_dict(), f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/best.pt')
     elif settings.freeze:
         save_dir = f'./checkpoint/{settings.name}/ft_weights/{dataset}'

@@ -44,7 +44,8 @@ if __name__ == "__main__":
     # breakpoint()
     opt.task = "train"   # tell make_processing() to apply augmentation
     dataset_name = opt.dataset.replace(os.sep, '_')
-    # print(f"dataset: {dataset}")
+    print(f"dataset: {dataset_name}")
+
 
     # ── Log file ──────────────────────────────────────────────────────────
     # os.makedirs("logs", exist_ok=True)
@@ -63,8 +64,11 @@ if __name__ == "__main__":
         train_loader = _mk(opt, split="train")
         val_loader   = _mk(opt, split="val")
 
-    #logger.info(f"training batches   = {len(train_loader)}")
-    #logger.info(f"validation batches = {len(val_loader)}")
+
+    print(f"training batches   = {len(train_loader)}")
+    print(f"validation batches = {len(val_loader)}")
+
+    # breakpoint()
 
     # ── Model ─────────────────────────────────────────────────────────────
     if opt.ft and opt.social:
@@ -78,7 +82,7 @@ if __name__ == "__main__":
     elif opt.ft:
         from utils.finetuning import FTModel
         from utils import EarlyStopping
-        save_dir = os.path.join("checkpoint", opt.name, "ft_weights", dataset_name)
+        save_dir = os.path.join("checkpoint", opt.name, "ft_weights_redo", dataset_name)
         
         # os.makedirs(os.path.join("checkpoint", opt.name, "ft_weights", dataset_name), exist_ok=True)
         model = FTModel(opt)

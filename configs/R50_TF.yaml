@@ -1,5 +1,5 @@
 global:
-  dataset_path: /dataset-disk/tb_dataset/tf2k_lr/
+  dataset_path: /datasets-disk/tb_dataset/tf2k_lr/
   device_override: cuda:0  # null for auto-selection
   min_vram: 16000
   split_file: ./test2k_splits.json
@@ -16,7 +16,8 @@ detector_args:
 
 training:
   # - data: gan2:pre&sdXL:pre&realFFHQ:pre&realFORLAB:pre
-  - data: realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre
+  - data: realFFHQ&realFORLAB&gan1&gan2&gan3&sd15&sd2&sd3&sdXL&flux
+  # - data: realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre
   # FACEBOOK
   # - data: realFFHQ:fb&realFORLAB:fb&gan1:fb&gan2:fb&gan3:fb&sd15:fb&sd2:fb&sd3:fb&sdXL:fb&flux:fb
   # # TELEGRAM
@@ -25,7 +26,7 @@ training:
   # - data: realFFHQ:tw&realFORLAB:tw&gan1:tw&gan2:tw&gan3:tw&sd15:tw&sd2:tw&sd3:tw&sdXL:tw&flux:tw
 
 testing:
-  - realFFHQ:pre&realFORLAB:pre&gan1:pre&gan2:pre&gan3:pre&sd15:pre&sd2:pre&sd3:pre&sdXL:pre&flux:pre
+  - realFFHQ&realFORLAB&gan1&gan2&gan3&sd15&sd2&sd3&sdXL&flux
   # # FACEBOOK
   # - realFFHQ:fb
   # - realFORLAB:fb

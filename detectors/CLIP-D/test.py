@@ -258,7 +258,7 @@ if __name__ == "__main__":
         test_dataloader = create_dataloader(settings, split="test")
 
     logger.info(f"test batches = {len(test_dataloader)}")
-
+    breakpoint()
     # Model 
     # print(f"settings.arch: {settings.arch}")
     # 

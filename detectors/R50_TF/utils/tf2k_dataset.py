@@ -141,6 +141,7 @@ class TrueFake_dataset(datasets.DatasetFolder):
             # dataset_roo = os.path.join(self.data_root, mod)
             # print(f"\n\tR50_nodown - dataset.py - mod_root: {dataset_root}")
             for dataset_root, dataset_dirs, dataset_files in os.walk(self.data_root, topdown=True, followlinks=True):
+                print(f" dataset_root: {dataset_root}, dataset_dirs: {dataset_dirs}, dataset_files: {dataset_files} ")
                 if len(dataset_dirs):
                     continue
 
@@ -149,8 +150,8 @@ class TrueFake_dataset(datasets.DatasetFolder):
                 #   Fake/StyleGAN3/conf-t (3 parts — has sub, Fake images)
                 rel = os.path.relpath(dataset_root, self.data_root)
                 parts = rel.split(os.sep)
-                # print(f"rel: {rel}")
-                # print(f"parts: {parts}")
+                print(f"rel: {rel}")
+                print(f"parts: {parts}")
                 # breakpoint()
                 if len(parts) < 2:
                     continue

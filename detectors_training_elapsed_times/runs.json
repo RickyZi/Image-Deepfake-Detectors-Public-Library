@@ -6,9 +6,9 @@
     "preset": "adaptive_blurbg_strong",
     "preset_folder": "adaptive_blurbg_strong",
     "log_found": true,
-    "elapsed_s": 1292.593,
-    "elapsed_h": 0.3591,
-    "source": "timestamps",
+    "elapsed_s": 3505.0,
+    "elapsed_h": 0.9736,
+    "source": "run_end",
     "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/adaptive_blurbg_strong/train.log"
   },
   {
@@ -18,9 +18,9 @@
     "preset": "adaptive_blurbg_subtle",
     "preset_folder": "adaptive_blurbg_subtle",
     "log_found": true,
-    "elapsed_s": 1388.239,
-    "elapsed_h": 0.3856,
-    "source": "timestamps",
+    "elapsed_s": 3504.0,
+    "elapsed_h": 0.9733,
+    "source": "run_end",
     "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/adaptive_blurbg_subtle/train.log"
   },
   {
@@ -30,9 +30,9 @@
     "preset": "adaptive_enhance_portrait",
     "preset_folder": "adaptive_enhance_portrait",
     "log_found": true,
-    "elapsed_s": 1402.248,
-    "elapsed_h": 0.3895,
-    "source": "timestamps",
+    "elapsed_s": 3937.0,
+    "elapsed_h": 1.0936,
+    "source": "run_end",
     "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/adaptive_enhance_portrait/train.log"
   },
   {
@@ -42,10 +42,10 @@
     "preset": "adaptive_sky_bluedrama",
     "preset_folder": "adaptive_sky_bluedrama",
     "log_found": true,
-    "elapsed_s": 1399.832,
-    "elapsed_h": 0.3888,
-    "source": "timestamps",
-    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/adaptive_sky_bluedrama/train.log"
+    "elapsed_s": 12.0,
+    "elapsed_h": 0.0033,
+    "source": "run_end",
+    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/adaptive_sky_bluedrama/train_v5.log"
   },
   {
     "detector": "CLIP-D",
@@ -54,10 +54,94 @@
     "preset": "adaptive_subject_pop",
     "preset_folder": "adaptive_subject_pop",
     "log_found": true,
-    "elapsed_s": 1285.367,
-    "elapsed_h": 0.357,
-    "source": "timestamps",
-    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/adaptive_subject_pop/train.log"
+    "elapsed_s": 1359.0,
+    "elapsed_h": 0.3775,
+    "source": "run_end",
+    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/adaptive_subject_pop/train_v1.log"
+  },
+  {
+    "detector": "CLIP-D",
+    "config": "lora_r4_qv",
+    "weights_dir": "ft_weights",
+    "preset": "seasons_autumn_TM01",
+    "preset_folder": "seasons_autumn_TM01",
+    "log_found": true,
+    "elapsed_s": 4681.0,
+    "elapsed_h": 1.3003,
+    "source": "run_end",
+    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/seasons_autumn_TM01/train_v1.log"
+  },
+  {
+    "detector": "CLIP-D",
+    "config": "lora_r4_qv",
+    "weights_dir": "ft_weights",
+    "preset": "seasons_spring_SP01",
+    "preset_folder": "seasons_spring_SP01",
+    "log_found": true,
+    "elapsed_s": 4626.0,
+    "elapsed_h": 1.285,
+    "source": "run_end",
+    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/seasons_spring_SP01/train.log"
+  },
+  {
+    "detector": "CLIP-D",
+    "config": "lora_r4_qv",
+    "weights_dir": "ft_weights",
+    "preset": "seasons_summer_SM01",
+    "preset_folder": "seasons_summer_SM01",
+    "log_found": true,
+    "elapsed_s": 3977.0,
+    "elapsed_h": 1.1047,
+    "source": "run_end",
+    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/seasons_summer_SM01/train.log"
+  },
+  {
+    "detector": "CLIP-D",
+    "config": "lora_r4_qv",
+    "weights_dir": "ft_weights",
+    "preset": "seasons_winter_WN01",
+    "preset_folder": "seasons_winter_WN01",
+    "log_found": true,
+    "elapsed_s": 4189.0,
+    "elapsed_h": 1.1636,
+    "source": "run_end",
+    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/seasons_winter_WN01/train.log"
+  },
+  {
+    "detector": "CLIP-D",
+    "config": "lora_r4_qv",
+    "weights_dir": "ft_weights",
+    "preset": "style_bw_BW01",
+    "preset_folder": "style_bw_BW01",
+    "log_found": true,
+    "elapsed_s": 4820.0,
+    "elapsed_h": 1.3389,
+    "source": "run_end",
+    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/style_bw_BW01/train.log"
+  },
+  {
+    "detector": "CLIP-D",
+    "config": "lora_r4_qv",
+    "weights_dir": "ft_weights",
+    "preset": "style_cinematic2_CN11",
+    "preset_folder": "style_cinematic2_CN11",
+    "log_found": true,
+    "elapsed_s": 4484.0,
+    "elapsed_h": 1.2456,
+    "source": "run_end",
+    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/style_cinematic2_CN11/train_v1.log"
+  },
+  {
+    "detector": "CLIP-D",
+    "config": "lora_r4_qv",
+    "weights_dir": "ft_weights",
+    "preset": "style_cinematic_CN01",
+    "preset_folder": "style_cinematic_CN01",
+    "log_found": true,
+    "elapsed_s": 2348.0,
+    "elapsed_h": 0.6522,
+    "source": "run_end",
+    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/style_cinematic_CN01/train_v7.log"
   },
   {
     "detector": "CLIP-D",
@@ -66,10 +150,10 @@
     "preset": "style_film_inspired_boldbw",
     "preset_folder": "style_film_inspired_boldbw",
     "log_found": true,
-    "elapsed_s": 1868.166,
-    "elapsed_h": 0.5189,
-    "source": "timestamps",
-    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/style_film_inspired_boldbw/train.log"
+    "elapsed_s": 4648.0,
+    "elapsed_h": 1.2911,
+    "source": "run_end",
+    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/style_film_inspired_boldbw/train_v2.log"
   },
   {
     "detector": "CLIP-D",
@@ -78,10 +162,46 @@
     "preset": "style_film_inspired_coolbw",
     "preset_folder": "style_film_inspired_coolbw",
     "log_found": true,
-    "elapsed_s": 1676.54,
-    "elapsed_h": 0.4657,
-    "source": "timestamps",
-    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/style_film_inspired_coolbw/train.log"
+    "elapsed_s": 5195.0,
+    "elapsed_h": 1.4431,
+    "source": "run_end",
+    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/style_film_inspired_coolbw/train_v1.log"
+  },
+  {
+    "detector": "CLIP-D",
+    "config": "lora_r4_qv",
+    "weights_dir": "ft_weights",
+    "preset": "style_film_inspired_warmgold",
+    "preset_folder": "style_film_inspired_warmgold",
+    "log_found": true,
+    "elapsed_s": 5668.0,
+    "elapsed_h": 1.5744,
+    "source": "run_end",
+    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/style_film_inspired_warmgold/train.log"
+  },
+  {
+    "detector": "CLIP-D",
+    "config": "lora_r4_qv",
+    "weights_dir": "ft_weights",
+    "preset": "style_futuristic_FT01",
+    "preset_folder": "style_futuristic_FT01",
+    "log_found": true,
+    "elapsed_s": 3547.0,
+    "elapsed_h": 0.9853,
+    "source": "run_end",
+    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/style_futuristic_FT01/train.log"
+  },
+  {
+    "detector": "CLIP-D",
+    "config": "lora_r4_qv",
+    "weights_dir": "ft_weights",
+    "preset": "style_vintage_VN01",
+    "preset_folder": "style_vintage_VN01",
+    "log_found": true,
+    "elapsed_s": 5534.0,
+    "elapsed_h": 1.5372,
+    "source": "run_end",
+    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/style_vintage_VN01/train.log"
   },
   {
     "detector": "CLIP-D",
@@ -90,10 +210,10 @@
     "preset": "subject_landscape_LN01",
     "preset_folder": "subject_landscape_LN01",
     "log_found": true,
-    "elapsed_s": 1560.257,
-    "elapsed_h": 0.4334,
-    "source": "timestamps",
-    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/subject_landscape_LN01/train.log"
+    "elapsed_s": 4372.0,
+    "elapsed_h": 1.2144,
+    "source": "run_end",
+    "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/subject_landscape_LN01/train_v1.log"
   },
   {
     "detector": "CLIP-D",
@@ -102,9 +222,9 @@
     "preset": "subject_travel2_TR11",
     "preset_folder": "subject_travel2_TR11",
     "log_found": true,
-    "elapsed_s": 2233.763,
-    "elapsed_h": 0.6205,
-    "source": "timestamps",
+    "elapsed_s": 5077.0,
+    "elapsed_h": 1.4103,
+    "source": "run_end",
     "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/subject_travel2_TR11/train.log"
   },
   {
@@ -114,9 +234,9 @@
     "preset": "subject_travel_TR01",
     "preset_folder": "subject_travel_TR01",
     "log_found": true,
-    "elapsed_s": 2275.806,
-    "elapsed_h": 0.6322,
-    "source": "timestamps",
+    "elapsed_s": 4042.0,
+    "elapsed_h": 1.1228,
+    "source": "run_end",
     "log": "detectors/CLIP-D/checkpoint/lora_r4_qv/ft_weights/subject_travel_TR01/train.log"
   },
   {
@@ -126,8 +246,8 @@
     "preset": "adaptive_blurbg_strong",
     "preset_folder": "adaptive_blurbg_strong_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 532.015,
-    "elapsed_h": 0.1478,
+    "elapsed_s": 1041.588,
+    "elapsed_h": 0.2893,
     "source": "timestamps",
     "log": "detectors/R50_nodown/checkpoint/pretrained/ft_unfreezeL4_weights/adaptive_blurbg_strong_unfreezeL4/train.log"
   },
@@ -138,8 +258,8 @@
     "preset": "adaptive_blurbg_subtle",
     "preset_folder": "adaptive_blurbg_subtle_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 865.172,
-    "elapsed_h": 0.2403,
+    "elapsed_s": 860.216,
+    "elapsed_h": 0.2389,
     "source": "timestamps",
     "log": "detectors/R50_nodown/checkpoint/pretrained/ft_unfreezeL4_weights/adaptive_blurbg_subtle_unfreezeL4/train.log"
   },
@@ -150,8 +270,8 @@
     "preset": "adaptive_enhance_portrait",
     "preset_folder": "adaptive_enhance_portrait_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 987.78,
-    "elapsed_h": 0.2744,
+    "elapsed_s": 1051.293,
+    "elapsed_h": 0.292,
     "source": "timestamps",
     "log": "detectors/R50_nodown/checkpoint/pretrained/ft_unfreezeL4_weights/adaptive_enhance_portrait_unfreezeL4/train.log"
   },
@@ -162,8 +282,8 @@
     "preset": "adaptive_sky_bluedrama",
     "preset_folder": "adaptive_sky_bluedrama_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 868.349,
-    "elapsed_h": 0.2412,
+    "elapsed_s": 1138.402,
+    "elapsed_h": 0.3162,
     "source": "timestamps",
     "log": "detectors/R50_nodown/checkpoint/pretrained/ft_unfreezeL4_weights/adaptive_sky_bluedrama_unfreezeL4/train.log"
   },
@@ -174,10 +294,94 @@
     "preset": "adaptive_subject_pop",
     "preset_folder": "adaptive_subject_pop_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 746.103,
-    "elapsed_h": 0.2073,
+    "elapsed_s": 1153.692,
+    "elapsed_h": 0.3205,
     "source": "timestamps",
     "log": "detectors/R50_nodown/checkpoint/pretrained/ft_unfreezeL4_weights/adaptive_subject_pop_unfreezeL4/train.log"
+  },
+  {
+    "detector": "R50_nodown",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "seasons_autumn_TM01",
+    "preset_folder": "seasons_autumn_TM01_unfreezeL4",
+    "log_found": true,
+    "elapsed_s": null,
+    "elapsed_h": null,
+    "source": "no_usable_timestamps",
+    "log": "detectors/R50_nodown/checkpoint/pretrained/ft_unfreezeL4_weights/seasons_autumn_TM01_unfreezeL4/train_v2.log"
+  },
+  {
+    "detector": "R50_nodown",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "seasons_spring_SP01",
+    "preset_folder": "seasons_spring_SP01_unfreezeL4",
+    "log_found": false,
+    "elapsed_s": null,
+    "elapsed_h": null,
+    "source": "log_missing",
+    "log": null
+  },
+  {
+    "detector": "R50_nodown",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "seasons_summer_SM01",
+    "preset_folder": "seasons_summer_SM01_unfreezeL4",
+    "log_found": false,
+    "elapsed_s": null,
+    "elapsed_h": null,
+    "source": "log_missing",
+    "log": null
+  },
+  {
+    "detector": "R50_nodown",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "seasons_winter_WN01",
+    "preset_folder": "seasons_winter_WN01_unfreezeL4",
+    "log_found": false,
+    "elapsed_s": null,
+    "elapsed_h": null,
+    "source": "log_missing",
+    "log": null
+  },
+  {
+    "detector": "R50_nodown",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "style_bw_BW01",
+    "preset_folder": "style_bw_BW01_unfreezeL4",
+    "log_found": false,
+    "elapsed_s": null,
+    "elapsed_h": null,
+    "source": "log_missing",
+    "log": null
+  },
+  {
+    "detector": "R50_nodown",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "style_cinematic2_CN11",
+    "preset_folder": "style_cinematic2_CN11_unfreezeL4",
+    "log_found": false,
+    "elapsed_s": null,
+    "elapsed_h": null,
+    "source": "log_missing",
+    "log": null
+  },
+  {
+    "detector": "R50_nodown",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "style_cinematic_CN01",
+    "preset_folder": "style_cinematic_CN01_unfreezeL4",
+    "log_found": false,
+    "elapsed_s": null,
+    "elapsed_h": null,
+    "source": "log_missing",
+    "log": null
   },
   {
     "detector": "R50_nodown",
@@ -186,8 +390,8 @@
     "preset": "style_film_inspired_boldbw",
     "preset_folder": "style_film_inspired_boldbw_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 776.36,
-    "elapsed_h": 0.2157,
+    "elapsed_s": 2552.292,
+    "elapsed_h": 0.709,
     "source": "timestamps",
     "log": "detectors/R50_nodown/checkpoint/pretrained/ft_unfreezeL4_weights/style_film_inspired_boldbw_unfreezeL4/train.log"
   },
@@ -198,10 +402,46 @@
     "preset": "style_film_inspired_coolbw",
     "preset_folder": "style_film_inspired_coolbw_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 1331.602,
-    "elapsed_h": 0.3699,
+    "elapsed_s": 1702.125,
+    "elapsed_h": 0.4728,
     "source": "timestamps",
     "log": "detectors/R50_nodown/checkpoint/pretrained/ft_unfreezeL4_weights/style_film_inspired_coolbw_unfreezeL4/train.log"
+  },
+  {
+    "detector": "R50_nodown",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "style_film_inspired_warmgold",
+    "preset_folder": "style_film_inspired_warmgold_unfreezeL4",
+    "log_found": false,
+    "elapsed_s": null,
+    "elapsed_h": null,
+    "source": "log_missing",
+    "log": null
+  },
+  {
+    "detector": "R50_nodown",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "style_futuristic_FT01",
+    "preset_folder": "style_futuristic_FT01_unfreezeL4",
+    "log_found": false,
+    "elapsed_s": null,
+    "elapsed_h": null,
+    "source": "log_missing",
+    "log": null
+  },
+  {
+    "detector": "R50_nodown",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "style_vintage_VN01",
+    "preset_folder": "style_vintage_VN01_unfreezeL4",
+    "log_found": false,
+    "elapsed_s": null,
+    "elapsed_h": null,
+    "source": "log_missing",
+    "log": null
   },
   {
     "detector": "R50_nodown",
@@ -210,8 +450,8 @@
     "preset": "subject_landscape_LN01",
     "preset_folder": "subject_landscape_LN01_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 712.38,
-    "elapsed_h": 0.1979,
+    "elapsed_s": 2135.816,
+    "elapsed_h": 0.5933,
     "source": "timestamps",
     "log": "detectors/R50_nodown/checkpoint/pretrained/ft_unfreezeL4_weights/subject_landscape_LN01_unfreezeL4/train.log"
   },
@@ -222,8 +462,8 @@
     "preset": "subject_travel2_TR11",
     "preset_folder": "subject_travel2_TR11_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 926.526,
-    "elapsed_h": 0.2574,
+    "elapsed_s": 927.248,
+    "elapsed_h": 0.2576,
     "source": "timestamps",
     "log": "detectors/R50_nodown/checkpoint/pretrained/ft_unfreezeL4_weights/subject_travel2_TR11_unfreezeL4/train.log"
   },
@@ -234,8 +474,8 @@
     "preset": "subject_travel_TR01",
     "preset_folder": "subject_travel_TR01_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 906.396,
-    "elapsed_h": 0.2518,
+    "elapsed_s": 1183.591,
+    "elapsed_h": 0.3288,
     "source": "timestamps",
     "log": "detectors/R50_nodown/checkpoint/pretrained/ft_unfreezeL4_weights/subject_travel_TR01_unfreezeL4/train.log"
   },
@@ -246,10 +486,10 @@
     "preset": "adaptive_blurbg_strong",
     "preset_folder": "adaptive_blurbg_strong_ft_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 219.889,
-    "elapsed_h": 0.0611,
+    "elapsed_s": 573.078,
+    "elapsed_h": 0.1592,
     "source": "timestamps",
-    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/adaptive_blurbg_strong_ft_unfreezeL4/train.log"
+    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/adaptive_blurbg_strong_ft_unfreezeL4/train_v1.log"
   },
   {
     "detector": "R50_TF",
@@ -258,8 +498,8 @@
     "preset": "adaptive_blurbg_subtle",
     "preset_folder": "adaptive_blurbg_subtle_ft_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 717.827,
-    "elapsed_h": 0.1994,
+    "elapsed_s": 503.501,
+    "elapsed_h": 0.1399,
     "source": "timestamps",
     "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/adaptive_blurbg_subtle_ft_unfreezeL4/train.log"
   },
@@ -270,10 +510,10 @@
     "preset": "adaptive_enhance_portrait",
     "preset_folder": "adaptive_enhance_portrait_ft_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 258.101,
-    "elapsed_h": 0.0717,
+    "elapsed_s": 1221.176,
+    "elapsed_h": 0.3392,
     "source": "timestamps",
-    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/adaptive_enhance_portrait_ft_unfreezeL4/train.log"
+    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/adaptive_enhance_portrait_ft_unfreezeL4/train_v1.log"
   },
   {
     "detector": "R50_TF",
@@ -282,10 +522,10 @@
     "preset": "adaptive_sky_bluedrama",
     "preset_folder": "adaptive_sky_bluedrama_ft_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 486.887,
-    "elapsed_h": 0.1352,
+    "elapsed_s": 1003.437,
+    "elapsed_h": 0.2787,
     "source": "timestamps",
-    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/adaptive_sky_bluedrama_ft_unfreezeL4/train.log"
+    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/adaptive_sky_bluedrama_ft_unfreezeL4/train_v1.log"
   },
   {
     "detector": "R50_TF",
@@ -294,10 +534,94 @@
     "preset": "adaptive_subject_pop",
     "preset_folder": "adaptive_subject_pop_ft_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 530.85,
-    "elapsed_h": 0.1475,
+    "elapsed_s": 606.625,
+    "elapsed_h": 0.1685,
     "source": "timestamps",
     "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/adaptive_subject_pop_ft_unfreezeL4/train.log"
+  },
+  {
+    "detector": "R50_TF",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "seasons_autumn_TM01",
+    "preset_folder": "seasons_autumn_TM01_ft_unfreezeL4",
+    "log_found": true,
+    "elapsed_s": 754.803,
+    "elapsed_h": 0.2097,
+    "source": "timestamps",
+    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/seasons_autumn_TM01_ft_unfreezeL4/train.log"
+  },
+  {
+    "detector": "R50_TF",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "seasons_spring_SP01",
+    "preset_folder": "seasons_spring_SP01_ft_unfreezeL4",
+    "log_found": true,
+    "elapsed_s": 773.065,
+    "elapsed_h": 0.2147,
+    "source": "timestamps",
+    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/seasons_spring_SP01_ft_unfreezeL4/train.log"
+  },
+  {
+    "detector": "R50_TF",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "seasons_summer_SM01",
+    "preset_folder": "seasons_summer_SM01_ft_unfreezeL4",
+    "log_found": true,
+    "elapsed_s": 608.546,
+    "elapsed_h": 0.169,
+    "source": "timestamps",
+    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/seasons_summer_SM01_ft_unfreezeL4/train.log"
+  },
+  {
+    "detector": "R50_TF",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "seasons_winter_WN01",
+    "preset_folder": "seasons_winter_WN01_ft_unfreezeL4",
+    "log_found": true,
+    "elapsed_s": 456.916,
+    "elapsed_h": 0.1269,
+    "source": "timestamps",
+    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/seasons_winter_WN01_ft_unfreezeL4/train_v2.log"
+  },
+  {
+    "detector": "R50_TF",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "style_bw_BW01",
+    "preset_folder": "style_bw_BW01_ft_unfreezeL4",
+    "log_found": true,
+    "elapsed_s": 640.397,
+    "elapsed_h": 0.1779,
+    "source": "timestamps",
+    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/style_bw_BW01_ft_unfreezeL4/train.log"
+  },
+  {
+    "detector": "R50_TF",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "style_cinematic2_CN11",
+    "preset_folder": "style_cinematic2_CN11_ft_unfreezeL4",
+    "log_found": true,
+    "elapsed_s": 1221.568,
+    "elapsed_h": 0.3393,
+    "source": "timestamps",
+    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/style_cinematic2_CN11_ft_unfreezeL4/train.log"
+  },
+  {
+    "detector": "R50_TF",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "style_cinematic_CN01",
+    "preset_folder": "style_cinematic_CN01_ft_unfreezeL4",
+    "log_found": true,
+    "elapsed_s": 1512.687,
+    "elapsed_h": 0.4202,
+    "source": "timestamps",
+    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/style_cinematic_CN01_ft_unfreezeL4/train.log"
   },
   {
     "detector": "R50_TF",
@@ -306,10 +630,10 @@
     "preset": "style_film_inspired_boldbw",
     "preset_folder": "style_film_inspired_boldbw_ft_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 619.642,
-    "elapsed_h": 0.1721,
+    "elapsed_s": 939.699,
+    "elapsed_h": 0.261,
     "source": "timestamps",
-    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/style_film_inspired_boldbw_ft_unfreezeL4/train.log"
+    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/style_film_inspired_boldbw_ft_unfreezeL4/train_v1.log"
   },
   {
     "detector": "R50_TF",
@@ -318,10 +642,46 @@
     "preset": "style_film_inspired_coolbw",
     "preset_folder": "style_film_inspired_coolbw_ft_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 1247.357,
-    "elapsed_h": 0.3465,
+    "elapsed_s": 1085.378,
+    "elapsed_h": 0.3015,
     "source": "timestamps",
     "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/style_film_inspired_coolbw_ft_unfreezeL4/train.log"
+  },
+  {
+    "detector": "R50_TF",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "style_film_inspired_warmgold",
+    "preset_folder": "style_film_inspired_warmgold_ft_unfreezeL4",
+    "log_found": true,
+    "elapsed_s": 1726.085,
+    "elapsed_h": 0.4795,
+    "source": "timestamps",
+    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/style_film_inspired_warmgold_ft_unfreezeL4/train.log"
+  },
+  {
+    "detector": "R50_TF",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "style_futuristic_FT01",
+    "preset_folder": "style_futuristic_FT01_ft_unfreezeL4",
+    "log_found": true,
+    "elapsed_s": 595.58,
+    "elapsed_h": 0.1654,
+    "source": "timestamps",
+    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/style_futuristic_FT01_ft_unfreezeL4/train_v1.log"
+  },
+  {
+    "detector": "R50_TF",
+    "config": "pretrained",
+    "weights_dir": "ft_unfreezeL4_weights",
+    "preset": "style_vintage_VN01",
+    "preset_folder": "style_vintage_VN01_ft_unfreezeL4",
+    "log_found": true,
+    "elapsed_s": 433.418,
+    "elapsed_h": 0.1204,
+    "source": "timestamps",
+    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/style_vintage_VN01_ft_unfreezeL4/train_v1.log"
   },
   {
     "detector": "R50_TF",
@@ -330,8 +690,8 @@
     "preset": "subject_landscape_LN01",
     "preset_folder": "subject_landscape_LN01_ft_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 356.384,
-    "elapsed_h": 0.099,
+    "elapsed_s": 1084.08,
+    "elapsed_h": 0.3011,
     "source": "timestamps",
     "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/subject_landscape_LN01_ft_unfreezeL4/train.log"
   },
@@ -342,8 +702,8 @@
     "preset": "subject_travel2_TR11",
     "preset_folder": "subject_travel2_TR11_ft_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 691.979,
-    "elapsed_h": 0.1922,
+    "elapsed_s": 740.278,
+    "elapsed_h": 0.2056,
     "source": "timestamps",
     "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/subject_travel2_TR11_ft_unfreezeL4/train.log"
   },
@@ -354,9 +714,9 @@
     "preset": "subject_travel_TR01",
     "preset_folder": "subject_travel_TR01_ft_unfreezeL4",
     "log_found": true,
-    "elapsed_s": 436.665,
-    "elapsed_h": 0.1213,
+    "elapsed_s": 927.979,
+    "elapsed_h": 0.2578,
     "source": "timestamps",
-    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/subject_travel_TR01_ft_unfreezeL4/train.log"
+    "log": "detectors/R50_TF/checkpoint/pretrained/ft_unfreezeL4_weights/subject_travel_TR01_ft_unfreezeL4/train_v1.log"
   }
 ]
