@@ -1,4 +1,23 @@
 import os
+# Resolve the dataset mount spelling used by the current machine.
+def resolve_dataset_path(dataset_path):
+    if os.path.exists(dataset_path):
+        return dataset_path
+
+    mount_aliases = {
+        '/dataset-disk': '/datasets-disk',
+        '/datasets-disk': '/dataset-disk',
+    }
+    for source, target in mount_aliases.items():
+        if dataset_path == source or dataset_path.startswith(source + os.sep):
+            fallback_path = target + dataset_path[len(source):]
+            if os.path.exists(fallback_path):
+                print(f"Dataset path not found: {dataset_path}")
+                print(f"Using alternate dataset path: {fallback_path}")
+                return fallback_path
+
+    return dataset_path
+
 import subprocess
 import time
 import argparse
@@ -312,8 +331,9 @@ def main():
         args.tf2k = True
         split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
             #global_config.get('dataset_path', args.dataset) # default to --dataset argument if not specified in config
+    dataset_path = resolve_dataset_path(dataset_path)
     print(f"Using dataset path: {dataset_path}")
-    # 
+    # breakpoint()
     
     device_override = global_config.get('device_override')  # Can be None
     if args.weights_name is not None:
