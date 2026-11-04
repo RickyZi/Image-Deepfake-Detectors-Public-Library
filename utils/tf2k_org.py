@@ -10,7 +10,8 @@ and reconstructs: output_root/split/algo/optional_dir/filename.ext
 
 NOTE: adapted for truefake_2k dataset structure
 
-CHANGES:
+CHANGES: 
+- REORGANIZE IN PLACE (no more separate output folder)
 - Files are now MOVED (shutil.move) instead of copied, since we want the
   flat renamed originals to disappear once reorganized.
 - The reorganized output now lands next to the input folder instead of
@@ -20,9 +21,19 @@ CHANGES:
       <dataset_root>/tf2k_org/<preset>
   i.e. same parent folder as the input, just a sibling directory instead
   of "./tf2k_lr".
+
+Run with: python3 utils/tf2k_org_imgs.py <input_root> 
+
+Note: <input_root> should be the root of the tf2k_lr dataset, e.g.
+    ./truefake_2k/tf2k_lr
+
+Also the json file is used to check the number of images expected in each subfolder after reconstruction.
+-> using as reference the full_social_split.json file, just for the counts for each subfolder (Real/Fake, algo, optional subdir). 
+
+-> could be updated to perform also a check on the actual split.
 """
 
-import os
+import ost
 import sys
 import shutil
 from pathlib import Path
@@ -131,7 +142,7 @@ def parse_flat_name(filename: str) -> tuple[list[str], str] | None:
     return folder_parts, remaining + ext
 
 
-def reconstruct(input_path: str, output_path: str, expected: dict, dry_run: bool = True):
+def reconstruct(input_path: str | os.PathLike[str], output_path: str | os.PathLike[str], expected: dict, dry_run: bool = True):
     os.makedirs(output_path, exist_ok=True)
 
     files = [
@@ -142,10 +153,15 @@ def reconstruct(input_path: str, output_path: str, expected: dict, dry_run: bool
 
     ok, skipped = 0, 0
 
-    for filename in sorted(files):
-        result = parse_flat_name(filename)
+    total = len(files)
+    print(f"Processing folder {Path(input_path).name} images:")
+    parsed_files = [(filename, parse_flat_name(filename)) for filename in sorted(files)]
+    _print_progress(0, total)
+
+    for processed, (filename, result) in enumerate(parsed_files, start=1):
         if result is None:
             skipped += 1
+            _print_progress(processed, total)
             continue
 
         folder_parts, original_filename = result
@@ -163,6 +179,7 @@ def reconstruct(input_path: str, output_path: str, expected: dict, dry_run: bool
             shutil.move(src_path, dst_path)  # move (not copy) — src is removed once done
 
         ok += 1
+        _print_progress(processed, total)
 
     print(f"\nDone. Re-organized: {ok}  Skipped: {skipped}")
 
@@ -171,7 +188,17 @@ def reconstruct(input_path: str, output_path: str, expected: dict, dry_run: bool
         sanity_check(output_path, expected)
 
 
-def sanity_check(output_path: str, expected: dict):
+def _print_progress(current: int, total: int, width: int = 40):
+    percentage = int(current / total * 100) if total else 0
+    filled = int(width * current / total) if total else 0
+    bar = '#' * filled + '-' * (width - filled)
+    sys.stdout.write(f"\r[{bar}] {current}/{total} ({percentage:3d}%)")
+    if current == total:
+        sys.stdout.write("\n")
+    sys.stdout.flush()
+
+
+def sanity_check(output_path: str | os.PathLike[str], expected: dict):
     """
     Verify reconstructed folder counts match expected JSON counts.
     Checks total Real/Fake counts and per-subfolder counts.
@@ -282,6 +309,7 @@ def sanity_check(output_path: str, expected: dict):
         for e in errors:
             print(f"  [FAIL] {e}")
         print(reset, end="")
+        breakpoint() # to inspect errors
     else:
         print(f"{green}SANITY CHECK PASSED — all counts match.{reset}")
     print("="*60)
@@ -290,34 +318,52 @@ def sanity_check(output_path: str, expected: dict):
 if __name__ == "__main__":
     # run with: python3 utils/tf2k_org_imgs.py <input_root> <lr_preset>
     # e.g.      python3 utils/tf2k_org_imgs.py ./truefake_2k/tf2k_lr seasons
-    #
+    # -------------------------------------------------------------------- #
     # This reorganizes IN PLACE: each subfolder under input_path (e.g.
     # seasons/spring_SP01) has its own flat images moved into freshly
     # created Real/Fake/algo/subdir folders *inside that same subfolder*.
     # Nothing is written outside the input tree.
-    input_root = Path(sys.argv[1]) if len(sys.argv) > 2 else Path("./truefake_2k/tf2k_lr")
-    lr_preset  = str(sys.argv[2]) if len(sys.argv) > 2 else str("seasons")
+    # -------------------------------------------------------------------- #
+    input_root = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("./truefake_2k/tf2k_lr")
+    # lr_preset  = str(sys.argv[2]) if len(sys.argv) > 2 else str("seasons")
     json_path  = './full_social_split.json'
 
-    input_path = input_root / lr_preset
+    # if 'facebook' in input_root.name.lower() or 'telegram' in input_root.name.lower() or 'twitter' in input_root.name.lower():
+    #     json_path = './full_social_split.json'
+    # else:
+    #     json_path = './test2k_split.json'
 
-    if not input_path.exists():
-        sys.exit(f"ERROR: Input path not found: {input_path}")
+    print(f"Input root: {input_root}")
+    print(f"Using JSON for expected counts: {json_path}")
 
-    # get subfolders from input_path -> e.g. spring_SP01, summer_SU01, ...
-    inpt_subfolders = sorted(child for child in input_path.iterdir() if child.is_dir())
-    print(inpt_subfolders)
-    # breakpoint()
+    # look for all preset folders under input_root (e.g. seasons, style, etc.)
+    # presets = os.listdir(input_root)
+    # stay at the top level of input_root, only include directories and not .zip files
+    presets = [child.name for child in input_root.iterdir() if child.is_dir()]
+    print(f"Found presets under {input_root}: {presets}")
+    breakpoint()
 
-    # load expected counts from dataset JSON (sanity check)
-    expected = load_expected(json_path)
+    for preset in presets:
+        input_path = input_root / preset
 
-    # for each subfolder, reorganize its own flat images into subfolders
-    # inside itself (Real/Fake -> algo -> optional subdir -> filename)
-    for subfolder in inpt_subfolders:
-        output_subfolder = subfolder  # reorganize in place
-        print(f"\nProcessing subfolder in place: {subfolder}")
+    # input_path = input_root / lr_preset
 
-        reconstruct(subfolder, output_subfolder, expected, dry_run=False)  # dry_run = True -> do a dry run to verify paths
-        print(f"Reconstruction complete for subfolder: {subfolder}")
-        # breakpoint()  # to make it easier to inspect the sanity check
+        if not input_path.exists():
+            sys.exit(f"ERROR: Input path not found: {input_path}")
+
+        # get subfolders from input_path -> e.g. spring_SP01, summer_SU01, ...
+        inpt_subfolders = sorted(child for child in input_path.iterdir() if child.is_dir())
+        print(inpt_subfolders)
+        # breakpoint()
+
+        # load expected counts from dataset JSON (sanity check)
+        expected = load_expected(json_path)
+
+        # for each subfolder, reorganize its own flat images into subfolders
+        # inside itself (Real/Fake -> algo -> optional subdir -> filename)
+        for subfolder in inpt_subfolders:
+            output_subfolder = subfolder  # reorganize in place
+            print(f"\nProcessing subfolder in place: {subfolder}")
+            reconstruct(subfolder, output_subfolder, expected, dry_run=False)  # dry_run = True -> do a dry run to verify paths
+            print(f"Reconstruction complete for subfolder: {subfolder}")
+            # breakpoint()  # to make it easier to inspect the sanity check
