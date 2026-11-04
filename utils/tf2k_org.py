@@ -33,7 +33,7 @@ Also the json file is used to check the number of images expected in each subfol
 -> could be updated to perform also a check on the actual split.
 """
 
-import ost
+import os
 import sys
 import shutil
 from pathlib import Path
