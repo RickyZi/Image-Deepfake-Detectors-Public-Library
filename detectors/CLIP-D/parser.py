@@ -29,6 +29,8 @@ def get_parser():
     # Passed by launcher for book-keeping; not used inside train/test scripts directly
     parser.add_argument("--dataset",    type=str, default="dataset",
                         help="Dataset sub-folder name (used by launcher for path assembly)")
+    parser.add_argument('--trn-dataset', type = str, default = None, 
+                        help = 'Which dataset to use for training (default: None)') # dataset used for training, if different from --dataset (used for testing)
 
     # ── DataLoader ───────────────────────────────────────────────────────
     parser.add_argument("--batch_size",   type=int,   default=32,

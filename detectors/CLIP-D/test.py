@@ -32,6 +32,7 @@ from networks import create_architecture, count_parameters
 from utils.logger import create_logger
 from utils.processing import add_processing_arguments
 from parser import get_parser
+from pathlib import Path
 
 
 def test(loader, model, output_dir, device, logger):
@@ -215,25 +216,47 @@ if __name__ == "__main__":
     else:
         tag = 'pretrained'
 
-    # dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
-    if settings.ensemble:
-        print("ensemble!")
-        if settings.social:
-            output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
-            logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/', 'test.log')
-        else:
-            output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
-            logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/CLIP-D_{tag}/', 'test.log')
-    elif settings.social:
-        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
-        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/', 'test_log.log')
-    else:
-        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}' # change path to be outside detector folder
-        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}/{dataset_name}/CLIP-D_{tag}/', 'test_log.txt')
+    # # dataset_dir_name = settings.data_root.split('/')[-1]  # Extract dataset directory name from path
+    # if settings.ensemble:
+    #     print("ensemble!")
+    #     if settings.social:
+    #         output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
+    #         logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/', 'test.log')
+    #     else:
+    #         output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
+    #         logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/CLIP-D_{tag}/', 'test.log')
+    # elif settings.social:
+    #     output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}'
+    #     logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}_{settings.social}/{dataset_name}/CLIP-D_{tag}/', 'test_log.log')
+    # else:
+    #     output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}/{dataset_name}/CLIP-D_{tag}/{settings.data_keys}' # change path to be outside detector folder
+    #     logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/CLIP-D/{settings.name}/{dataset_name}/CLIP-D_{tag}/', 'test_log.txt')
+
+    # print(f"output_dir: {output_dir}")
+    # # 
+    
+    # os.makedirs(output_dir, exist_ok=True)
+    # logger = create_logger(logger_path)
+
+    dataset_name = settings.dataset.replace(os.sep, "_")
+    evaluation_name = (
+        f"{settings.trn_dataset.replace(os.sep, '_')}_vs_{dataset_name}"
+        if settings.trn_dataset
+        else dataset_name
+    )
+
+    run_dir = (
+        Path("/second-disk/Image-Deepfake-Detectors-Public-Library/results")
+        / ("ensemble" if settings.ensemble else "CLIP-D")
+        / settings.name
+        / evaluation_name
+        / f"CLIP-D_{tag}"
+    )
+    output_dir = run_dir / str(settings.data_keys)
+    logger_path = run_dir / "test.log"
 
     print(f"output_dir: {output_dir}")
-    # 
-    
+
     os.makedirs(output_dir, exist_ok=True)
     logger = create_logger(logger_path)
 
@@ -280,14 +303,27 @@ if __name__ == "__main__":
     #     load_path =  os.path.join("checkpoint", settings.name, "social", settings.social,"ft_weights", dataset_name, "best.pt")
     
     
-    if settings.ft:
-        load_path = os.path.join("checkpoint", settings.name, "ft_weights", dataset_name, "best.pt")
+    # if settings.ft:
+    #     load_path = os.path.join("checkpoint", settings.name, "ft_weights", dataset_name, "best.pt")
+    # else:
+    #     load_path = os.path.join("checkpoint", settings.name, "weights",  "best.pt")
+    # # load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+    
+    if settings.trn_dataset:
+        trn_dataset_name = settings.trn_dataset.replace(os.sep, "_")
+        if settings.ft:
+            load_path = os.path.join("checkpoint", settings.name, "ft_weights", trn_dataset_name, "best.pt")
+        else:
+            load_path = os.path.join("checkpoint", settings.name, "weights",  trn_dataset_name, "best.pt")
     else:
-        load_path = os.path.join("checkpoint", settings.name, "weights",  "best.pt")
-    # load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+        if settings.ft:
+            load_path = os.path.join("checkpoint", settings.name, "ft_weights", dataset_name, "best.pt")
+        else:
+            load_path = os.path.join("checkpoint", settings.name, "weights",  dataset_name, "best.pt")
+    
+    
     print('loading the model from %s' % load_path)
-
-    # breakpoint()
+    breakpoint()
 
     logger.info(f"Loading weights from: {load_path}")
 

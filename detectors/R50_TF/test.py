@@ -18,6 +18,7 @@ from utils.tf2k_dataset import tf2k_create_dataloader
 from datetime import datetime
 
 from utils.logger import create_logger
+from pathlib import Path
 
 def test(loader, model, settings, device, output_dir, logger):
     model.eval()
@@ -214,47 +215,98 @@ if __name__ == "__main__":
     tag = 'ft' if settings.ft else 'pretrained'
     tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''
     print(f"test_tag: {tag}")
-    # breakpoint()
-    # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
-    if settings.ensemble:
-        if settings.social:
-            output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_name}/R50_TF_{tag}/{settings.data_keys}'
-            logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_name}/R50_TF_{tag}/', 'test.log')
-        else:
-            output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/R50_TF_{tag}/{settings.data_keys}'
-            logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/R50_TF_{tag}/', 'test.log')
+    # # breakpoint()
+    # # if dataset_dir_name in ['Facebook', 'Telegram', 'Twitter']:
+    # if settings.ensemble:
+    #     if settings.social:
+    #         output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_name}/R50_TF_{tag}/{settings.data_keys}'
+    #         logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}_{settings.social}/{dataset_name}/R50_TF_{tag}/', 'test.log')
+    #     else:
+    #         output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/R50_TF_{tag}/{settings.data_keys}'
+    #         logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/ensemble/{settings.name}/{dataset_name}/R50_TF_{tag}/', 'test.log')
     
-    elif any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
-        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}/social/{dataset_name}/R50_TF_{tag}/{settings.data_keys}'
-        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}_social/{dataset_name}/R50_TF_{tag}/', 'test.log')
+    # elif any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
+    #     output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}/social/{dataset_name}/R50_TF_{tag}/{settings.data_keys}'
+    #     logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}_social/{dataset_name}/R50_TF_{tag}/', 'test.log')
 
-    elif settings.social:
-        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}_{settings.social}/{dataset_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
-        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}_{settings.social}/{dataset_name}/R50_TF_{tag}/', 'test_log.txt')
+    # elif settings.social:
+    #     output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}_{settings.social}/{dataset_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
+    #     logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}_{settings.social}/{dataset_name}/R50_TF_{tag}/', 'test_log.txt')
 
-    else:
-        output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}/{dataset_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
-        logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}/{dataset_name}/R50_TF_{tag}/', 'test_log.txt')
+    # else:
+    #     output_dir = f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}/{dataset_name}/R50_TF_{tag}/{settings.data_keys}' # change path to be outside detector folder
+    #     logger_path = os.path.join(f'/second-disk/Image-Deepfake-Detectors-Public-Library/results/R50_TF/{settings.name}/{dataset_name}/R50_TF_{tag}/', 'test_log.txt')
 
-    print(f"output_dir: {output_dir}")
-    os.makedirs(output_dir, exist_ok=True)
-    # breakpoint()
-    # --------------------------- #
+    # print(f"output_dir: {output_dir}")
+    # os.makedirs(output_dir, exist_ok=True)
+    # # breakpoint()
+    # # --------------------------- #
+
+    # logger = create_logger(logger_path)
+
+    
+
+    # if settings.ft and settings.r50unfreezeL4:
+    #     load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{dataset_name}_ft_unfreezeL4/best.pt'
+    # elif settings.ft:
+    #     load_path = f'./checkpoint/{settings.name}/ft_weights/{dataset_name}/best.pt'
+    # else:
+    #     load_path = f'./checkpoint/{settings.name}/weights/best.pt'
+    # # load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+    # print('loading the model from %s' % load_path)
+    # # add info on the testing set
+    # logger.info("=== Test settings ===")
+
+    dataset_name = settings.dataset.replace(os.sep, "_")
+    evaluation_name = (
+        f"{settings.trn_dataset.replace(os.sep, '_')}_vs_{dataset_name}"
+        if settings.trn_dataset
+        else dataset_name
+    )
+
+    run_dir = (
+        Path("/second-disk/Image-Deepfake-Detectors-Public-Library/results")
+        / ("ensemble" if settings.ensemble else "R50_TF")
+        / settings.name
+        / evaluation_name
+        / f"R50_TF_{tag}"
+    )
+    output_dir = run_dir / str(settings.data_keys)
+    logger_path = run_dir / "test.log"
 
     logger = create_logger(logger_path)
 
-    
+    print(f"output_dir: {output_dir}")
+    os.makedirs(output_dir, exist_ok=True)
 
-    if settings.ft and settings.r50unfreezeL4:
-        load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{dataset_name}_ft_unfreezeL4/best.pt'
-    elif settings.ft:
-        load_path = f'./checkpoint/{settings.name}/ft_weights/{dataset_name}/best.pt'
+    # model = create_architecture(settings.arch, pretrained=True, num_classes=1).to(device)
+    # num_parameters = count_parameters(model)
+    # print(f"Arch: {settings.arch} with #parameters {num_parameters}")
+    if settings.trn_dataset:
+        training_dataset_name = settings.trn_dataset.replace(os.sep, '_')
+        if settings.r50unfreezeL4:
+            training_dataset_name += '_unfreezeL4'
+
+        if settings.ft and settings.r50unfreezeL4 and settings.social:
+            load_path = f'./checkpoint/{settings.name}/social/{settings.social}/ft_unfreezeL4_weights/{training_dataset_name}/best.pt'
+        elif settings.ft and settings.r50unfreezeL4:
+            load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{training_dataset_name}/best.pt'
+        elif settings.ft:
+            load_path = f'./checkpoint/{settings.name}/ft_weights/{training_dataset_name}/best.pt'
+        else:
+            load_path = f'./checkpoint/{settings.name}/weights/{training_dataset_name}/best.pt'
     else:
-        load_path = f'./checkpoint/{settings.name}/weights/best.pt'
-    # load_path = f'./checkpoint/{settings.name}/weights/best.pt' if not settings.ft else f'./checkpoint/{settings.name}/ft_weights/{settings.dataset.replace(os.sep, '_')}/best.pt'
+        checkpoint_dataset_name = settings.dataset.replace(os.sep, '_').replace('-', '_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
+        if settings.ft and settings.r50unfreezeL4:
+            load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{checkpoint_dataset_name}_unfreezeL4/best.pt'
+        elif settings.ft:
+            load_path = f'./checkpoint/{settings.name}/ft_weights/{checkpoint_dataset_name}/best.pt'
+        else:
+            load_path = f'./checkpoint/{settings.name}/weights/best.pt'
+
     print('loading the model from %s' % load_path)
-    # add info on the testing set
     logger.info("=== Test settings ===")
+    logger.info(f"loading the model from: {load_path}")
     
     logger.info(f"Model name: {settings.name}_{tag}")
     logger.info(f"Loading model from: {load_path}")

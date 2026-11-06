@@ -231,6 +231,7 @@ def main():
     parser.add_argument('--demo', action='store_true', help='Run demo on demo_images across detectors')
     # --------------------------- #
     parser.add_argument('--dataset', type = str, default = 'dataset', help = 'Which dataset to use (default: dataset)') # add custom dataset for demo
+    parser.add_argument('--trn-dataset', type = str, default = None, help = 'Which dataset to use for training (default: None)') # dataset used for training, if different from --dataset (used for testing)
     parser.add_argument('--mlp', action = 'store_true', help = 'If true add MLP head to CLIP-D')
     parser.add_argument('--mlp_hidden',  type=int,   default=256)
     parser.add_argument('--mlp_dropout', type=float, default=0.3)
@@ -347,24 +348,10 @@ def main():
     min_vram = global_config.get('min_vram', 16000)
 
     # -------------------------- #
-    # old way to load split for FT
-    # if args.ft:
-    #     split_file = '/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/tf2k_dataset_splits.json'
-    #     #'/media/data/TB_WP3/Image-Deepfake-Detectors-Public-Library/split_hc.json'
-    #     # os.path.abspath(global_config.get('split_file', 'split_hc.json'))
-        
-    # else: 
-    #     split_file = os.path.abspath(global_config.get('split_file', 'split.json'))
-    # --------------------------- #
-    # Baseline test and FT on 2k data -> fix new splits
-    # split_file = '/home/rz/TB_WP3/Image-Deepfake-Detectors-Public-Library/tf2k_dataset_splits.json'
-    # if args.split:
-    #     split_file = args.split
-    #     print(f"split: {split_file}")
-    # else:
-    #     split_file = os.path.abspath(global_config.get('split_file', 'test2k_splits.json'))
-    # # print(f"split_file: {split_file}")
-    # 
+    # generalization analysis
+    # add a funct to load a specific model given its name and detector, then test it on a specific dataset (or multiple datasets)
+    # i.e. --detector CLIP-D_season_autumn_TM01 --dataset seasons/summer_SM01 
+    # i.e. --detector CLIP-D --trn-dataset season_autumn_TM01 --dataset seasons/summer_SM01 -> just for testing
     
     num_threads = global_config.get('num_threads', 8) # check if ok for TeslaT4, might need to decrease it to 4
     dry_run = global_config.get('dry_run', False)
@@ -432,6 +419,9 @@ def main():
 
         if args.social:
             cmd_args.append(f'--social {args.social}')
+
+        if args.trn_dataset:
+            cmd_args.append(f'--trn-dataset {args.trn_dataset}')
 
         device = None
         if device_override is not None:
