@@ -131,7 +131,7 @@ def sanity_check_flat(output_path: str, expected: dict):
 
         # Walk tokens to find split (Real/Fake)
         split_key = None
-        split_idx = None
+        split_idx = 0
         for i, t in enumerate(tokens):
             if t == 'Real':
                 split_key, split_idx = 'real', i
