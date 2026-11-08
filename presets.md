@@ -1,14 +1,14 @@
 Preset2process
 
 Twitter
-- [ ] AR09
-  - [ ] R
-  - [ ] A
-  - [ ] E
-- [ ] PG06
-  - [ ] R
-  - [ ] A
-  - [ ] E
+- [ x ] AR09
+  - [ x ] R
+  - [ x ] A
+  - [ x ] E
+- [ x ] PG06
+  - [ x ] R
+  - [ x ] A
+  - [ x ] E
 - [ ] PG07
   - [ ] R
   - [ ] A

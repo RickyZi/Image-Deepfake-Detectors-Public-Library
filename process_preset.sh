@@ -11,9 +11,9 @@ fi
 # Determine the platform based on the first argument
 case "${1,,}" in
     pre)      platform="pre" ;;
-    facebook) platform="social/facebook" ;;
-    telegram) platform="social/telegram" ;;
-    twitter)  platform="social/twitter" ;;
+    fb) platform="social/facebook" ;;
+    tl) platform="social/telegram" ;;
+    x)  platform="social/twitter" ;;
     *)
         echo "Error: unsupported platform '$1'." >&2
         echo "Choose one of: pre, facebook, telegram, twitter." >&2
@@ -25,10 +25,12 @@ esac
 # script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # cd "$script_dir"
 
+# define the input root directory based on the platform
 input_root="/mnt/c/Users/ricky/Documenti/Immagini/Lightroom Saved Photos/$platform"
 if [[ ! -d "$input_root" ]]; then
     echo "Error: input directory not found: $input_root" >&2
     exit 1
 fi
 
+# run the python script
 python3 utils/tf2k_org.py "$input_root"
