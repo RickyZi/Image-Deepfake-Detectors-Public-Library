@@ -388,22 +388,26 @@ if __name__ == "__main__":
         sys.exit(f"ERROR: Input path not found or not a directory: {input_root}")
 
     print("\nFinding folders containing files...")
-    folders = find_file_folders(input_root)
-    print(f"Found {len(folders)} folders containing files under {input_root}")
-    expected = load_expected(json_path)
-    # breakpoint()
-
-
-    all_folders = [
-        Path(dir_path) 
-        for dir_path, dirs, files in os.walk(input_root) 
-        if files
-    ]
-
+    all_folders = find_file_folders(input_root)
     print(f"Found {len(all_folders)} folders containing files under {input_root}")
+    expected = load_expected(json_path)
+    # # breakpoint()
+
+    # collect all folders containing files, deepst first
+    # all_folders = [
+    #     Path(dir_path) 
+    #     for dir_path, dirs, files in os.walk(input_root) 
+    #     if files
+    # ]
+
+    # print(f"Found {len(all_folders)} folders containing files under {input_root}")
     print(f"folders: {[str(folder) for folder in all_folders]}")
+    # breakpoint()
     for i, folder in enumerate(all_folders, start=1):
         print(f"\nProcessing folder {i}/{len(all_folders)}: {folder.name}")
+        if len(os.listdir(folder)) == 0:
+            print(f"  [WARN] Folder is empty, skipping: {folder}")
+            continue
         reconstruct(
             folder,
             folder,
