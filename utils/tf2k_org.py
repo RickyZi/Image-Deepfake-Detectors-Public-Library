@@ -366,6 +366,7 @@ def find_file_folders(root: Path) -> list[Path]:
             Path(dir_path) 
             for dir_path, dirs, files in os.walk(input_root) 
             if files and (not "Fake" in dir_path and not "Real" in dir_path)
+            # skip already organized folders (those containing Real/Fake in their path)
         ])
     return all_folders
 
@@ -390,7 +391,7 @@ if __name__ == "__main__":
     print("\nFinding folders containing files...")
     all_folders = find_file_folders(input_root)
     if len(all_folders) == 0:
-        print(f"\nNo folders containing files found under {input_root}. Images alredy preprocessed. \nExiting.")
+        print(f"\nNo folders containing files found under {input_root}. Images alredy organized. \nExiting.")
         sys.exit(0)
     print(f"Found {len(all_folders)} folders containing files under {input_root}")
     expected = load_expected(json_path)
