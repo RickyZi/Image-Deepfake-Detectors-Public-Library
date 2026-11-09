@@ -2,6 +2,7 @@ import argparse
 
 def get_parser():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--detector', type=str, default='R50_nodown', help='Detector to use (default: R50_nodown)')
     parser.add_argument("--name", type=str, default="test", help="run name")
     parser.add_argument("--arch", type=str, default="resnet_nodown", help="architecture name")
 

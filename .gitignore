@@ -24,3 +24,4 @@ detectors/*/*/*/*/__pycache__/*
 */__pycache__/*
 optuna_studies/
 detectors/MISLNet/*
+generalization_results/*

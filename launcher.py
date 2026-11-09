@@ -334,6 +334,9 @@ def main():
             #global_config.get('dataset_path', args.dataset) # default to --dataset argument if not specified in config
     dataset_path = resolve_dataset_path(dataset_path)
     print(f"Using dataset path: {dataset_path}")
+    if args.trn_dataset:
+        # trn_dataset_path = resolve_dataset_path(trn_dataset_path)
+        print(f"Using model trained on dataset: {args.trn_dataset}")
     # breakpoint()
     
     device_override = global_config.get('device_override')  # Can be None
@@ -391,14 +394,16 @@ def main():
             cmd_args.append(f'--name "{model_name}"')#{task["details"]["model"]}"')
         else:
             cmd_args.append(f'--name "{task["details"]["model"]}"')
-        
+
+        cmd_args.append(f'--detector {args.detector}')
         cmd_args.append(f'--split_file {split_file}')
         cmd_args.append(f'--task {task["type"]}')
         cmd_args.append(f'--num_threads {num_threads}')
         cmd_args.append(f'--data_keys "{task["details"]["data"]}"')
         cmd_args.append(f'--data_root {dataset_path}')
         cmd_args.append(f'--dataset {args.dataset}')
-        
+        # cmd_args.append(f'--trn-dataset {trn_dataset_path}')
+
         if args.tf2k:
             cmd_args.append(f'--tf2k {args.tf2k}') # pass tf2k flag to train/test scripts for correct dataset handling
 

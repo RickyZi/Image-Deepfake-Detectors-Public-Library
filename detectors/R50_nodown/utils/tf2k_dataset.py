@@ -161,9 +161,9 @@ def parse_tf2k_dataset(settings):
     dataset_list = []
     for data in settings.data_keys.split('&'):
         # # gen = data.split(':')
-        # dataset_list.append({'gen':gen_keys[data]}) #, 'mod':mod_keys[mod]})
-        gen, mod = data.split(':')
-        dataset_list.append({'gen':gen_keys[gen]}) #, 'mod':mod_keys[mod]})
+        dataset_list.append({'gen':gen_keys[data]}) #, 'mod':mod_keys[mod]})
+        # gen = data.split(':')
+        # dataset_list.append({'gen':gen_keys[gen]}) #, 'mod':mod_keys[mod]})
         # removed mod because we have just Real/FORLAB and no social media processing (mod)
     
     return dataset_list

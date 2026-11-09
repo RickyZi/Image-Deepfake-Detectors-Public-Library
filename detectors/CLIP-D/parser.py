@@ -4,6 +4,7 @@ def get_parser():
     parser = argparse.ArgumentParser()
 
     # ── Identity ──────────────────────────────────────────────────────────
+    parser.add_argument('--detector', type=str, default='CLIP-D', help='Detector to use (default: CLIP-D)')
     parser.add_argument("--name", type=str, default="test",
                         help="Run name — used as checkpoint directory key")
     parser.add_argument("--arch", type=str,

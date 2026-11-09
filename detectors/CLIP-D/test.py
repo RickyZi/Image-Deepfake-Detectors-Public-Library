@@ -239,19 +239,28 @@ if __name__ == "__main__":
     # logger = create_logger(logger_path)
 
     dataset_name = settings.dataset.replace(os.sep, "_")
+    training_dataset_name = settings.trn_dataset.replace(os.sep, "_") if settings.trn_dataset else None
     evaluation_name = (
-        f"{settings.trn_dataset.replace(os.sep, '_')}_vs_{dataset_name}"
-        if settings.trn_dataset
+        f"{training_dataset_name}_vs_{dataset_name}"
+        if training_dataset_name != dataset_name
         else dataset_name
     )
 
-    run_dir = (
-        Path("/second-disk/Image-Deepfake-Detectors-Public-Library/results")
-        / ("ensemble" if settings.ensemble else "CLIP-D")
-        / settings.name
-        / evaluation_name
-        / f"CLIP-D_{tag}"
-    )
+    if settings.trn_dataset:
+        run_dir = (
+            Path("/second-disk/Image-Deepfake-Detectors-Public-Library/generalization_results")
+            / ("ensemble" if settings.ensemble else settings.name)
+            / evaluation_name
+            / f"CLIP-D_{tag}"
+        )
+    else:
+        run_dir = (
+            Path("/second-disk/Image-Deepfake-Detectors-Public-Library/results")
+            / ("ensemble" if settings.ensemble else settings.name)
+            / evaluation_name
+            / f"CLIP-D_{tag}"
+        )
+
     output_dir = run_dir / str(settings.data_keys)
     logger_path = run_dir / "test.log"
 
@@ -262,7 +271,7 @@ if __name__ == "__main__":
 
     logger.info("=" * 60)
     logger.info(f"TEST START  {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    logger.info(f"name       = {settings.name}")
+    logger.info(f"name       = {settings.detector}_{settings.name}")
     logger.info(f"arch       = {settings.arch}")
     logger.info(f"fine-tune  = {settings.ft}")
     logger.info(f"data_keys  = {settings.data_keys}")

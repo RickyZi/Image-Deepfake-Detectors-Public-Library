@@ -109,9 +109,9 @@ def parse_tf2k_dataset(settings):
     dataset_list = []
     for data in settings.data_keys.split('&'):
         # # gen = data.split(':')
-        # dataset_list.append({'gen':gen_keys[data]}) #, 'mod':mod_keys[mod]})
-        gen, mod = data.split(':')
-        dataset_list.append({'gen':gen_keys[gen]}) #, 'mod':mod_keys[mod]})
+        dataset_list.append({'gen':gen_keys[data]}) #, 'mod':mod_keys[mod]})
+        # gen, mod = data.split(':')
+        # dataset_list.append({'gen':gen_keys[gen]}) #, 'mod':mod_keys[mod]})
         # removed mod because we have just Real/FORLAB and no social media processing (mod)
     
     return dataset_list
@@ -141,7 +141,7 @@ class TrueFake_dataset(datasets.DatasetFolder):
             # dataset_roo = os.path.join(self.data_root, mod)
             # print(f"\n\tR50_nodown - dataset.py - mod_root: {dataset_root}")
             for dataset_root, dataset_dirs, dataset_files in os.walk(self.data_root, topdown=True, followlinks=True):
-                print(f" dataset_root: {dataset_root}, dataset_dirs: {dataset_dirs}, dataset_files: {dataset_files} ")
+                # print(f" dataset_root: {dataset_root}, dataset_dirs: {dataset_dirs}, dataset_files: {dataset_files} ")
                 if len(dataset_dirs):
                     continue
 
@@ -150,8 +150,8 @@ class TrueFake_dataset(datasets.DatasetFolder):
                 #   Fake/StyleGAN3/conf-t (3 parts — has sub, Fake images)
                 rel = os.path.relpath(dataset_root, self.data_root)
                 parts = rel.split(os.sep)
-                print(f"rel: {rel}")
-                print(f"parts: {parts}")
+                # print(f"rel: {rel}")
+                # print(f"parts: {parts}")
                 # breakpoint()
                 if len(parts) < 2:
                     continue
@@ -184,12 +184,37 @@ class TrueFake_dataset(datasets.DatasetFolder):
             ]
         )
 
+        # mapping from social platform to crop size key
+        map_platform_to_crop ={
+            'facebook': 'fb',
+            'telegram': 'tl',
+            'twitter': 'tw',
+        }
+        if settings.social:
+            print(f"Social platform specified: {settings.social}")
+            social_crop_key = map_platform_to_crop.get(settings.social.lower())
+            platform_data_keys = settings.data_keys.replace(f"realFORLAB", f"realFORLAB:{social_crop_key}") if social_crop_key else settings.data_keys
+        #     print(f"Social data keys: {social_data_keys}")
+        else:
+            print("No social platform specified.")
+            # social_crop_key = None
+            platform_data_keys = settings.data_keys.replace(f"realFORLAB", f"realFORLAB:pre")
+        print(f"Updated data keys: {platform_data_keys}")
+        # breakpoint()
+
+        # has_forlab_platform_crop = any(
+        #     f'realFORLAB:{platform}' in settings.data_keys
+        #     for platform in ('pre', 'fb', 'tw', 'tl')
+        # )
         self.transform_end = Tv2.Compose(
             [
-                Tv2.CenterCrop(1024)    if self.split == 'test' and 'realFORLAB:pre'    in settings.data_keys  else Tv2.Identity(),
-                Tv2.CenterCrop(720)     if self.split == 'test' and 'realFORLAB:fb'     in settings.data_keys  else Tv2.Identity(),
-                Tv2.CenterCrop(1200)    if self.split == 'test' and 'realFORLAB:tw'     in settings.data_keys  else Tv2.Identity(),
-                Tv2.CenterCrop(800)     if self.split == 'test' and 'realFORLAB:tl'     in settings.data_keys  else Tv2.Identity(),
+                Tv2.CenterCrop(1024)    if self.split == 'test' and 'realFORLAB:pre'   in platform_data_keys  else Tv2.Identity(),
+                Tv2.CenterCrop(720)     if self.split == 'test' and 'realFORLAB:fb'    in platform_data_keys  else Tv2.Identity(),
+                Tv2.CenterCrop(1200)    if self.split == 'test' and 'realFORLAB:tw'    in platform_data_keys  else Tv2.Identity(),
+                Tv2.CenterCrop(800)     if self.split == 'test' and 'realFORLAB:tl'    in platform_data_keys  else Tv2.Identity(),
+                # Tv2.CenterCrop(1024)
+                # if self.split == 'test' and 'realFORLAB' in settings.data_keys and not has_forlab_platform_crop
+                # else Tv2.Identity(),
                 Tv2.ToDtype(torch.float32, scale=True),
                 Tv2.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
             ]

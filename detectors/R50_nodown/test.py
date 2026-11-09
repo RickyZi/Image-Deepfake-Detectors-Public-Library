@@ -7,6 +7,8 @@ import time
 import numpy as np
 from sklearn.metrics import roc_auc_score, accuracy_score, f1_score, balanced_accuracy_score
 from pathlib import Path
+
+from transformers.convert_slow_tokenizers_checkpoints_to_fast import args
 from networks import create_architecture, count_parameters
 from utils.dataset import create_dataloader
 from utils.tf2k_dataset import tf2k_create_dataloader
@@ -67,7 +69,7 @@ def test(loader, model, settings, device, output_dir, logger):
 
     # log test settings info
     # logger.info("=== Test settings ===")
-    logger.info(f"Testing model {settings.name} on dataset {settings.dataset} with data keys {settings.data_keys}")
+    logger.info(f"Testing model {settings.detector}_{settings.name} on dataset {settings.dataset} with data keys {settings.data_keys}")
     logger.info(f"Testing settings: {json.dumps(vars(settings), indent=2, default=str)}")
     logger.info(f"Training dataset keys used for model: {training_dataset_keys}")
     
@@ -246,19 +248,27 @@ if __name__ == '__main__':
     # if any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter'])
 
     dataset_name = settings.dataset.replace(os.sep, "_")
+    trn_dataset_name = settings.trn_dataset.replace(os.sep, "_") if settings.trn_dataset else None
     evaluation_name = (
-        f"{settings.trn_dataset.replace(os.sep, '_')}_vs_{dataset_name}"
-        if settings.trn_dataset
+        f"{trn_dataset_name}_vs_{dataset_name}"
+        if trn_dataset_name != dataset_name
         else dataset_name
     )
 
-    run_dir = (
-        Path("/second-disk/Image-Deepfake-Detectors-Public-Library/results")
-        / ("ensemble" if settings.ensemble else "R50_nodown")
-        / settings.name
-        / evaluation_name
-        / f"R50_nodown_{tag}"
-    )
+    if settings.trn_dataset:
+        run_dir = (
+            Path("/second-disk/Image-Deepfake-Detectors-Public-Library/generalization_results")
+            / ("ensemble" if settings.ensemble else settings.name)
+            / evaluation_name
+            / f"R50_nodown_{tag}"
+        )
+    else:
+        run_dir = (
+            Path("/second-disk/Image-Deepfake-Detectors-Public-Library/results")
+            / ("ensemble" if settings.ensemble else settings.name)
+            / evaluation_name
+            / f"R50_nodown_{tag}"
+        )
     output_dir = run_dir / str(settings.data_keys)
     logger_path = run_dir / "test.log"
 
@@ -293,6 +303,9 @@ if __name__ == '__main__':
             load_path = f'./checkpoint/{settings.name}/weights/best.pt'
     print('loading the model from %s' % load_path)
     logger.info("=== Test settings ===")
+    logger.info(f"Testing model {settings.detector}_{settings.name} on dataset {settings.dataset} with data keys {settings.data_keys}")
+    if settings.trn_dataset:
+                logger.info(f"Training dataset: {trn_dataset_name}")
     logger.info(f"loading the model from: {load_path}")
     # breakpoint()
     model.load_state_dict(torch.load(load_path, map_location=device)['model'])
