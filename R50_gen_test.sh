@@ -14,8 +14,8 @@ FORCE=${FORCE:-0}
 
 DATASETS=(
   seasons/autumn_TM01 seasons/spring_SP01 seasons/summer_SM01 seasons/winter_WN01
-  style/bw_BW01 style/cinematic_CN01 style/cinematic2_CN11 style/filminspired_warmgold
-  style/futuristic_FT01 style/vintage_VN01
+  style/bw_BW01 style/cinematic_CN01 style/cinematic2_CN11 style/film_inspired_warmgold
+  style/film_inspired_boldbw/ style/film_inspired_coolbw style/futuristic_FT01 style/vintage_VN01
   adaptive/blurbg_strong adaptive/blurbg_subtle adaptive/enhance_portrait
   adaptive/sky_bluedrama adaptive/subject_pop
   subject/landscape_LN01 subject/travel2_TR11 subject/travel_TR01
