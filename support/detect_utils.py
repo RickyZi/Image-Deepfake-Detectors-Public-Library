@@ -55,9 +55,16 @@ def save_result(result, output_path):
     
     Args:
         result (dict): Detection result to save
-        output_path (str): Path to save the JSON file
+        output_path (str): File path, or directory in which to save ``result.json``
     """
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    if output_path.endswith((os.sep, os.altsep or os.sep)) or os.path.isdir(output_path):
+        os.makedirs(output_path, exist_ok=True)
+        output_path = os.path.join(output_path, "result.json")
+    else:
+        output_dir = os.path.dirname(output_path)
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
+
     with open(output_path, 'w') as f:
         json.dump(result, f, indent=2)
 

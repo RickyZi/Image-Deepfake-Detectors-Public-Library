@@ -294,7 +294,7 @@ def main():
 
     config_dataset_path = global_config.get('dataset_path')
     
-    if  args.social:
+    if  args.social and args.dataset:
     # if 'facebook' in args.dataset or 'telegram' in args.dataset or 'twitter' in args.dataset:
             args.tf2k = True # used to remove mod from dataset preprocessing
             print(f"Dataset TF2K: setting --tf2k flag to True")
@@ -304,7 +304,8 @@ def main():
             dataset_path = os.path.join(global_config.get('dataset_path', ''), 'social', args.social, args.dataset)
             split_file = '/second-disk/Image-Deepfake-Detectors-Public-Library/tf2k_SOCIAL_splits.json'
 
-    elif 'seasons' in args.dataset or 'style' in args.dataset or 'adaptive' in args.dataset or 'subject' in args.dataset:
+    # elif 'seasons' in args.dataset or 'style' in args.dataset or 'adaptive' in args.dataset or 'subject' in args.dataset or 'portraits' in args.dataset or 'video':
+    elif args.dataset:
             args.tf2k = True # used to remove mod from dataset preprocessing
             print(f"Dataset TF2K: setting --tf2k flag to True")
             print(args.dataset)
@@ -471,19 +472,22 @@ def main():
                 runner = f'{task["type"]}.py'
                 print(f'Call to {runner} with: {cmd_args_str}')
                 
-                subprocess.run(f'python -u {runner} {cmd_args_str}', shell=True)#, stdout=f, stderr=f)
+                try:
+                    subprocess.run(
+                        f'python -u {runner} {cmd_args_str}',
+                        shell=True,
+                        check=True,
+                    )
+                finally:
+                    os.chdir(cwd)
                 
                 end_time = time.time()
                 print(f'Execution time: {end_time-start_time:.2f} seconds')
                 
                 print('#'*80)
                 print('#'*80)
-                
-                os.chdir(cwd)
-
 
 if __name__ == '__main__':
     main()
-
 
 

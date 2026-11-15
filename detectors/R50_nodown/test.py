@@ -8,7 +8,6 @@ import numpy as np
 from sklearn.metrics import roc_auc_score, accuracy_score, f1_score, balanced_accuracy_score
 from pathlib import Path
 
-from transformers.convert_slow_tokenizers_checkpoints_to_fast import args
 from networks import create_architecture, count_parameters
 from utils.dataset import create_dataloader
 from utils.tf2k_dataset import tf2k_create_dataloader
@@ -69,6 +68,7 @@ def test(loader, model, settings, device, output_dir, logger):
 
     # log test settings info
     # logger.info("=== Test settings ===")
+    logger.info(f"Testing model {settings.detector}_{settings.name} on dataset {settings.dataset} with data keys {settings.data_keys}")
     logger.info(f"Testing model {settings.detector}_{settings.name} on dataset {settings.dataset} with data keys {settings.data_keys}")
     logger.info(f"Testing settings: {json.dumps(vars(settings), indent=2, default=str)}")
     logger.info(f"Training dataset keys used for model: {training_dataset_keys}")
@@ -261,8 +261,8 @@ if __name__ == '__main__':
     print(f"test_tag: {tag}")
 
     results_root = Path(
-        "/second-disk/Image-Deepfake-Detectors-Public-Library"
-    ) / ("generalization_results" if settings.trn_dataset else "results")
+            "/second-disk/Image-Deepfake-Detectors-Public-Library"
+        ) / ("generalization_results" if settings.trn_dataset else "results") / (settings.detector)
 
     if settings.ensemble:
         print("ensemble!")
@@ -298,7 +298,7 @@ if __name__ == '__main__':
         elif settings.ft:
             load_path = f'./checkpoint/{settings.name}/ft_weights/{training_dataset_name}/best.pt'
         else:
-            load_path = f'./checkpoint/{settings.name}/weights/{training_dataset_name}/best.pt'
+            load_path = f'./checkpoint/{settings.name}/weights/best.pt'
     else:
         checkpoint_dataset_name = settings.dataset.replace(os.sep, '_').replace('-', '_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
         if settings.ft and settings.r50unfreezeL4:
@@ -309,6 +309,9 @@ if __name__ == '__main__':
             load_path = f'./checkpoint/{settings.name}/weights/best.pt'
     print('loading the model from %s' % load_path)
     logger.info("=== Test settings ===")
+    logger.info(f"Testing model {settings.detector}_{settings.name} on dataset {settings.dataset} with data keys {settings.data_keys}")
+    if settings.trn_dataset:
+                logger.info(f"Training dataset: {trn_dataset_name}")
     logger.info(f"Testing model {settings.detector}_{settings.name} on dataset {settings.dataset} with data keys {settings.data_keys}")
     if settings.trn_dataset:
                 logger.info(f"Training dataset: {trn_dataset_name}")

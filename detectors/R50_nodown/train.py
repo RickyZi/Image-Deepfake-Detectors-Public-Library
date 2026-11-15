@@ -108,7 +108,7 @@ if __name__ == "__main__":
     # breakpoint()
 
     # log info on training settings
-    logger.info(f"Training model {opt.name} on dataset {opt.dataset} with data keys {opt.data_keys}")
+    logger.info(f"Training model {opt.detector} on dataset {opt.dataset} with data keys {opt.data_keys}")
     logger.info(f"Training settings: {json.dumps(vars(opt), indent=2, default=str)}")
 
     logger.info(f"Number of training batches: {len(train_data_loader)}")

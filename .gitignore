@@ -25,3 +25,5 @@ detectors/*/*/*/*/__pycache__/*
 optuna_studies/
 detectors/MISLNet/*
 generalization_results/*
+.gen_state/
+.social_state/

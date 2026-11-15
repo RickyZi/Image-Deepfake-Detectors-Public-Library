@@ -19,6 +19,7 @@ from datetime import datetime
 
 from utils.logger import create_logger
 from pathlib import Path
+from pathlib import Path
 
 def test(loader, model, settings, device, output_dir, logger):
     model.eval()
@@ -216,8 +217,8 @@ if __name__ == "__main__":
     print(f"evaluation_name: {evaluation_name}")
 
     results_root = Path(
-        "/second-disk/Image-Deepfake-Detectors-Public-Library"
-    ) / ("generalization_results" if settings.trn_dataset else "results")
+            "/second-disk/Image-Deepfake-Detectors-Public-Library"
+        ) / ("generalization_results" if settings.trn_dataset else "results") / (settings.detector)
 
     if settings.ensemble:
         model_dir = Path("ensemble") / (
@@ -259,7 +260,7 @@ if __name__ == "__main__":
         elif settings.ft:
             load_path = f'./checkpoint/{settings.name}/ft_weights/{training_dataset_name}/best.pt'
         else:
-            load_path = f'./checkpoint/{settings.name}/weights/{training_dataset_name}/best.pt'
+            load_path = f'./checkpoint/{settings.name}/weights/best.pt'
     else:
         checkpoint_dataset_name = settings.dataset.replace(os.sep, '_').replace('-', '_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
         if settings.ft and settings.r50unfreezeL4:
@@ -275,8 +276,13 @@ if __name__ == "__main__":
     if settings.trn_dataset:
             logger.info(f"Training dataset: {trn_dataset_name}")
     logger.info(f"Model name: {settings.detector}_{settings.name}_{tag}")
+    logger.info(f"loading the model from: {load_path}")
+    if settings.trn_dataset:
+            logger.info(f"Training dataset: {trn_dataset_name}")
+    logger.info(f"Model name: {settings.detector}_{settings.name}_{tag}")
     logger.info(f"Loading model from: {load_path}")
     logger.info(f"Dataset: {dataset_name}")
+    logger.info(f"Dataset keys: {settings.data_keys}")
     logger.info(f"Dataset keys: {settings.data_keys}")
     # breakpoint()
     # path_weight = f'./checkpoint/{settings.name}/weights/best.pt' 

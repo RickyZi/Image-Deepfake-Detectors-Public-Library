@@ -15,10 +15,10 @@ from networks import create_architecture
 
 def parse_args():
     parser = argparse.ArgumentParser(description='R50_nodown single image detector')
-    parser.add_argument('--image', type=str, required=True, help='Path to input image')
-    parser.add_argument('--model', type=str, default='checkpoint/best.pt', help='Path to model checkpoint')
-    parser.add_argument('--output', type=str, help='Path to save detection result JSON')
-    parser.add_argument('--device', type=str, help='Device to run on (e.g., cuda:0, cuda:1, cpu)')
+    parser.add_argument('--image', type=str, default ="/dataset-disk/tb_dataset/tf2k_lr/tf_dataset/auto+/retro-AR01/Real/FFHQ/00001.jpg", help='Path to input image')
+    parser.add_argument('--model', type=str, default='pretrained', help='Path to model checkpoint')
+    parser.add_argument('--output', type=str, default='R50_ND_detect/', help='Path to save detection result JSON')
+    parser.add_argument('--device', type=str, default = "cuda:0", help='Device to run on (e.g., cuda:0, cuda:1, cpu)')
     parser.add_argument('--config', type=str, default='configs/r50_nodown.yaml', help='Path to config file')
     return parser.parse_args()
 
@@ -53,7 +53,10 @@ def main():
             device = torch.device(args.device)
     else:
         device = get_device()
-    
+
+    # create the output folder
+    # os.makedirs(args.output, exist_ok=True)
+
     # Load model
     try:
         # Initialize model

@@ -33,6 +33,7 @@ from utils.logger import create_logger
 from utils.processing import add_processing_arguments
 from parser import get_parser
 from pathlib import Path
+from pathlib import Path
 
 
 def test(loader, model, output_dir, device, logger):
@@ -248,7 +249,7 @@ if __name__ == "__main__":
 
     results_root = Path(
         "/second-disk/Image-Deepfake-Detectors-Public-Library"
-    ) / ("generalization_results" if settings.trn_dataset else "results")
+    ) / ("generalization_results" if settings.trn_dataset else "results") / (settings.detector)
 
     if settings.ensemble:
         model_dir = Path("ensemble") / (
@@ -266,12 +267,14 @@ if __name__ == "__main__":
     logger_path = run_dir / "test.log"
 
     print(f"output_dir: {output_dir}")
+    # breakpoint()
 
     os.makedirs(output_dir, exist_ok=True)
     logger = create_logger(logger_path)
 
     logger.info("=" * 60)
     logger.info(f"TEST START  {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    logger.info(f"name       = {settings.detector}_{settings.name}")
     logger.info(f"name       = {settings.detector}_{settings.name}")
     logger.info(f"arch       = {settings.arch}")
     logger.info(f"fine-tune  = {settings.ft}")
@@ -291,7 +294,7 @@ if __name__ == "__main__":
         test_dataloader = create_dataloader(settings, split="test")
 
     logger.info(f"test batches = {len(test_dataloader)}")
-    breakpoint()
+    # breakpoint()
     # Model 
     # print(f"settings.arch: {settings.arch}")
     # 
@@ -329,11 +332,11 @@ if __name__ == "__main__":
         if settings.ft:
             load_path = os.path.join("checkpoint", settings.name, "ft_weights", dataset_name, "best.pt")
         else:
-            load_path = os.path.join("checkpoint", settings.name, "weights",  dataset_name, "best.pt")
+            load_path = os.path.join("checkpoint", settings.name, "weights", "best.pt")
     
     
     print('loading the model from %s' % load_path)
-    breakpoint()
+    # breakpoint()
 
     logger.info(f"Loading weights from: {load_path}")
 
