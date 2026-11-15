@@ -242,25 +242,26 @@ if __name__ == "__main__":
     training_dataset_name = settings.trn_dataset.replace(os.sep, "_") if settings.trn_dataset else None
     evaluation_name = (
         f"{training_dataset_name}_vs_{dataset_name}"
-        if training_dataset_name != dataset_name
+        if training_dataset_name and training_dataset_name != dataset_name
         else dataset_name
     )
 
-    if settings.trn_dataset:
-        run_dir = (
-            Path("/second-disk/Image-Deepfake-Detectors-Public-Library/generalization_results")
-            / ("ensemble" if settings.ensemble else settings.name)
-            / evaluation_name
-            / f"CLIP-D_{tag}"
-        )
-    else:
-        run_dir = (
-            Path("/second-disk/Image-Deepfake-Detectors-Public-Library/results")
-            / ("ensemble" if settings.ensemble else settings.name)
-            / evaluation_name
-            / f"CLIP-D_{tag}"
-        )
+    results_root = Path(
+        "/second-disk/Image-Deepfake-Detectors-Public-Library"
+    ) / ("generalization_results" if settings.trn_dataset else "results")
 
+    if settings.ensemble:
+        model_dir = Path("ensemble") / (
+            f"{settings.name}_{settings.social}" if settings.social else settings.name
+        )
+    elif any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
+        model_dir = Path(f"{settings.name}_social")
+    elif settings.social:
+        model_dir = Path(f"{settings.name}_{settings.social}")
+    else:
+        model_dir = Path(settings.name)
+
+    run_dir = results_root / model_dir / evaluation_name / f"CLIP-D_{tag}"
     output_dir = run_dir / str(settings.data_keys)
     logger_path = run_dir / "test.log"
 

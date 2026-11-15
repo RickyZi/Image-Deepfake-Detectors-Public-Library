@@ -251,31 +251,37 @@ if __name__ == '__main__':
     trn_dataset_name = settings.trn_dataset.replace(os.sep, "_") if settings.trn_dataset else None
     evaluation_name = (
         f"{trn_dataset_name}_vs_{dataset_name}"
-        if trn_dataset_name != dataset_name
+        if trn_dataset_name and trn_dataset_name != dataset_name
         else dataset_name
     )
 
-    if settings.trn_dataset:
-        run_dir = (
-            Path("/second-disk/Image-Deepfake-Detectors-Public-Library/generalization_results")
-            / ("ensemble" if settings.ensemble else settings.name)
-            / evaluation_name
-            / f"R50_nodown_{tag}"
+    print(f"dataset_name: {dataset_dir_name}")
+    tag = 'ft' if settings.ft else 'pretrained'
+    tag += '_unfreezeL4' if settings.r50unfreezeL4 else ''
+    print(f"test_tag: {tag}")
+
+    results_root = Path(
+        "/second-disk/Image-Deepfake-Detectors-Public-Library"
+    ) / ("generalization_results" if settings.trn_dataset else "results")
+
+    if settings.ensemble:
+        print("ensemble!")
+        model_dir = Path("ensemble") / (
+            f"{settings.name}_{settings.social}" if settings.social else settings.name
         )
+    elif any(sub in str(settings.data_root) for sub in ['Facebook', 'Telegram', 'Twitter']):
+        model_dir = Path(f"{settings.name}_social")
+    elif settings.social:
+        model_dir = Path(f"{settings.name}_{settings.social}")
     else:
-        run_dir = (
-            Path("/second-disk/Image-Deepfake-Detectors-Public-Library/results")
-            / ("ensemble" if settings.ensemble else settings.name)
-            / evaluation_name
-            / f"R50_nodown_{tag}"
-        )
+        model_dir = Path(settings.name)
+
+    run_dir = results_root / model_dir / evaluation_name / f"R50_nodown_{tag}"
     output_dir = run_dir / str(settings.data_keys)
     logger_path = run_dir / "test.log"
-
-    logger = create_logger(logger_path)
-
     print(f"output_dir: {output_dir}")
     os.makedirs(output_dir, exist_ok=True)
+    logger = create_logger(logger_path)
 
     model = create_architecture(settings.arch, pretrained=True, num_classes=1).to(device)
     num_parameters = count_parameters(model)
