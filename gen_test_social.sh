@@ -49,8 +49,8 @@ DATASETS=(
   # adaptive/subject_pop
 
   # auto+
-  auto+/retro_AR01
-  auto+/retro_AR09
+  auto+/retro-AR01
+  auto+/retro-AR09
 
   # portraits
   portraits/bw-PB01
@@ -98,8 +98,8 @@ DATASETS=(
 
   # video
   video/creative-VCR01
-  video/creative-CR08
-  video/creative-CR12
+  video/creative-VCR08
+  video/creative-VCR12
 )
 
 slug() { echo "${1//\//_}"; }
