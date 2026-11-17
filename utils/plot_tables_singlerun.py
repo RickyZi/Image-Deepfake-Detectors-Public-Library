@@ -169,7 +169,7 @@ def collect_results(RESULTS_ROOT, subdir_name: str) -> dict[str, dict]:
         print(f"json_path: {json_path}")
         # breakpoint()
         if json_path is None:
-            print(f"  [skip] no aggregated_metrics.json in {model_dir}")
+            print(f"  \033[91m[skip]\033[0m no aggregated_metrics.json in {model_dir}")
             continue
 
         overall = load_overall(json_path)
