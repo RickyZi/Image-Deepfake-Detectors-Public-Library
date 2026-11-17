@@ -14,8 +14,18 @@ Choose which presets to map:
 Examples:
   python3 plot_gen_matrix.py --list-keys
   python3 plot_gen_matrix.py --preset-set wifs --metric-key balanced_acc
-  python3 plot_gen_matrix.py --preset-set extended --detectors R50_TF
+  python3 plot_gen_matrix.py --preset-set extended --detectors R50_TF --summary
   python3 plot_gen_matrix.py --presets adaptive/blurbg_strong adaptive/blurbg_subtle style/bw_BW01
+
+Cell annotations
+  preset x preset matrices : value of the single run. With several detectors the all_detectors mean
+                             matrices show  mean (variance across detectors).
+  family x family (--summary): mean (variance) over all the preset pairs averaged in that block.
+                             Variance is the sample variance (ddof=1, in percentage points^2 when the
+                             metric is in %); a block with a single cell has no variance and shows the mean only.
+                             Use --dispersion std for the standard deviation instead.
+
+Row/column labels are the full preset slug  <family>_<preset_name>_<preset_code>  (e.g. seasons_autumn_TM01).
 
 Outputs in <out>/<preset-set>/: all_results.csv, compare_delta_<a>_vs_<b>.png and, per detector,
 <det>/<det>_{raw,delta,summary}.{csv,png}.
@@ -118,7 +128,7 @@ def pick_key(flat, key):
     sys.exit("cannot guess the metric, pass --metric-key. Available keys:\n  " + "\n  ".join(keys))
 
 
-label = lambda s: s.split("_", 1)[1] if "_" in s else s
+label = lambda s: s  # full slug <family>_<preset_name>_<preset_code>, e.g. seasons_autumn_TM01
 family = lambda s: s.split("_", 1)[0]
 
 
@@ -143,9 +153,10 @@ def scan(run_root: Path, allowed=None):
     return runs
 
 
-def family_matrix(M, include_aligned=False):
+def family_matrix(M, include_aligned=False, dispersion="var"):
     """Average a preset x preset matrix into a family x family one.
-    Returns (mean matrix, number of cells averaged, family order)."""
+    Returns (mean, dispersion, number of cells averaged, family order); dispersion is the sample
+    variance (or std) over the cells of each block, NaN when a block has a single cell."""
     s = M.stack().dropna()
     s.index.names = ["trn", "test"]
     long = s.rename("v").reset_index()
@@ -154,17 +165,23 @@ def family_matrix(M, include_aligned=False):
     long["ft"], long["fs"] = long.trn.map(family), long.test.map(family)
     fams = sorted({family(p) for p in M.index},
                   key=lambda f: FAMILY_ORDER.index(f) if f in FAMILY_ORDER else 99)
-    G = long.groupby(["ft", "fs"]).v.mean().unstack().reindex(index=fams, columns=fams)
-    N = long.groupby(["ft", "fs"]).v.count().unstack().reindex(index=fams, columns=fams).fillna(0).astype(int)
-    return G, N, fams
+    g = long.groupby(["ft", "fs"]).v
+    G = g.mean().unstack().reindex(index=fams, columns=fams)
+    V = (g.var(ddof=1) if dispersion == "var" else g.std(ddof=1)).unstack().reindex(index=fams, columns=fams)
+    N = g.count().unstack().reindex(index=fams, columns=fams).fillna(0).astype(int)
+    return G, V, N, fams
 
 
-def draw(mat, presets, title, path, cmap, vmin=None, vmax=None, fmt="{:.1f}", cbar_label="", labels=None):
+def draw(mat, presets, title, path, cmap, vmin=None, vmax=None, fmt="{:.1f}", cbar_label="",
+         labels=None, disp=None, disp_label="variance"):
+    """disp: optional DataFrame (same shape as mat) written under each value as '(x)'."""
     n = len(presets)
     summary = labels is not None
     cell, fs = (1.3, 11) if n <= 10 else (0.75, 6) if n <= 24 else (0.5, 4)
     tfs = 11 if n <= 10 else 8 if n <= 24 else 6
     lbls = labels or [label(p) for p in presets]
+    if disp is not None:
+        title += f"\ncell = value ({disp_label})"
     fig, ax = plt.subplots(figsize=(cell * n + 3, cell * n + 2))
     im = ax.imshow(mat.values, cmap=cmap, vmin=vmin, vmax=vmax)
     ax.set_xticks(range(n)); ax.set_yticks(range(n))
@@ -175,7 +192,10 @@ def draw(mat, presets, title, path, cmap, vmin=None, vmax=None, fmt="{:.1f}", cb
         for j in range(n):
             v = mat.values[i, j]
             if not np.isnan(v):
-                ax.text(j, i, fmt.format(v), ha="center", va="center", fontsize=fs)
+                txt = fmt.format(v)
+                if disp is not None and not np.isnan(disp.values[i, j]):
+                    txt += f"\n({disp.values[i, j]:.1f})"
+                ax.text(j, i, txt, ha="center", va="center", fontsize=fs)
         ax.add_patch(plt.Rectangle((i - .5, i - .5), 1, 1, fill=False, ec="black", lw=1.5))
     for i in range(1, 0 if summary else n):  # family separators (not needed in the family summary)
         if family(presets[i]) != family(presets[i - 1]):
@@ -189,7 +209,7 @@ def main():
     ap.add_argument("--root", default="generalization_results")
     ap.add_argument("--out", default="generalization_results/matrices")
     ap.add_argument("--detectors", nargs="+", default=list(DETECTOR_LAYOUT), choices=list(DETECTOR_LAYOUT))
-    ap.add_argument("--preset-set", default="wifs", choices=["wifs", "extended", "all"])
+    ap.add_argument("--preset-set", default="all", choices=["wifs", "extended", "all"])
     ap.add_argument("--presets", nargs="+", default=None,
                     help="custom subset, e.g. style/bw_BW01 seasons/autumn_TM01 (overrides --preset-set)")
     ap.add_argument("--metric-key", default="balanced_accuracy", help="key in metrics.json (aliases accepted)")
@@ -198,7 +218,11 @@ def main():
                     help="also produce family x family matrices (mean over all presets of each family)")
     ap.add_argument("--include-aligned", action="store_true",
                     help="in the family summary keep the aligned cells (trn == tst) inside the diagonal blocks")
+    ap.add_argument("--dispersion", default="var", choices=["var", "std"],
+                    help="number shown in parentheses: sample variance (default) or standard deviation")
     a = ap.parse_args()
+    dname = "variance" if a.dispersion == "var" else "std"
+    disp_fn = np.var if a.dispersion == "var" else np.std
 
     # ---- which presets
     if a.presets:
@@ -255,7 +279,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     df.to_csv(out / "all_results.csv", index=False)
 
-    # ---- per-detector matrices
+    # ---- per-detector matrices (one run per cell -> no variance)
     deltas, raws = {}, {}
     for det in a.detectors:
         d = df[df.detector == det]
@@ -282,31 +306,47 @@ def main():
                              "worst_delta": np.nanmin(off, axis=1)}, index=presets)
         summ.to_csv(out / det / f"{det}_summary.csv"); print(f"\n{det}\n{summ.round(2)}")
 
-    # ---- family-level summary (mean of all presets of family A trained vs all presets of family B tested)
+    # ---- all detectors together: mean over detectors, only for cells present in every detector
+    Mm = Dm = None
+    if len(raws) > 1:
+        names = "+".join(raws)
+        (out / "all_detectors").mkdir(exist_ok=True)
+        wrap = lambda arr: pd.DataFrame(arr, index=presets, columns=presets)
+        stack = lambda dd: np.stack([m.values for m in dd.values()])
+        Mm, Dm = wrap(stack(raws).mean(axis=0)), wrap(stack(deltas).mean(axis=0))
+        Mm.to_csv(out / "all_detectors" / "mean_raw.csv"); Dm.to_csv(out / "all_detectors" / "mean_delta.csv")
+        draw(Mm, presets, f"Mean over {names}: {key}", out / "all_detectors" / "mean_raw.png", "viridis",
+             cbar_label=f"{key} {unit}")
+        lim = np.nanmax(np.abs(Dm.values))
+        draw(Dm, presets, f"Mean over {names}: change in {key} vs aligned", out / "all_detectors" / "mean_delta.png",
+             "RdYlGn", -lim, lim, fmt="{:+.1f}", cbar_label=f"delta {unit}")
+
+    # ---- family-level summary: mean (variance) over all preset pairs of family A (train) vs family B (test)
     if a.summary:
-        def save_family(Fr, Fd, fams, name, folder, cnt=None):
+        def save_family(Fr, Vr, Fd, Vd, fams, name, folder, cnt=None):
             folder.mkdir(parents=True, exist_ok=True)
             Fr.to_csv(folder / f"{name}_family_raw.csv"); Fd.to_csv(folder / f"{name}_family_delta.csv")
+            Vr.to_csv(folder / f"{name}_family_raw_{dname}.csv"); Vd.to_csv(folder / f"{name}_family_delta_{dname}.csv")
             if cnt is not None:
                 cnt.to_csv(folder / f"{name}_family_counts.csv")
-            draw(Fr, fams, f"{name}: {key} by family (rows = training family)", folder / f"{name}_family_raw_summary.png",
-                 "viridis", cbar_label=f"{key} {unit}", labels=fams)
+            dl = f"{dname} over averaged presets"
+            draw(Fr, fams, f"{name}: {key} by family (rows = training family)",
+                 folder / f"{name}_family_raw_summary.png", "viridis", cbar_label=f"{key} {unit}",
+                 labels=fams, disp=Vr, disp_label=dl)
             lim = np.nanmax(np.abs(Fd.values))
-            draw(Fd, fams, f"{name}: change in {key} vs aligned, by family", folder / f"{name}_family_delta_summary.png",
-                 "RdYlGn", -lim, lim, fmt="{:+.1f}", cbar_label=f"delta {unit}", labels=fams)
+            draw(Fd, fams, f"{name}: change in {key} vs aligned, by family",
+                 folder / f"{name}_family_delta_summary.png", "RdYlGn", -lim, lim, fmt="{:+.1f}",
+                 cbar_label=f"delta {unit}", labels=fams, disp=Vd, disp_label=dl)
 
-        fam_raw, fam_delta = {}, {}
         for det in raws:
-            Fr, cnt, fams = family_matrix(raws[det], a.include_aligned)
-            Fd, _, _ = family_matrix(deltas[det], a.include_aligned)
-            fam_raw[det], fam_delta[det] = Fr, Fd
-            save_family(Fr, Fd, fams, det, out / det / "summary", cnt)
-            print(f"\n{det} family summary ({key}):\n{Fr.round(2)}")
-        if len(fam_raw) > 1:
-            mean = lambda dd: pd.DataFrame(np.mean([m.values for m in dd.values()], axis=0),
-                                           index=fams, columns=fams)
-            save_family(mean(fam_raw), mean(fam_delta), fams, "mean_" + "+".join(fam_raw),
-                        out / "all_detectors" / "summary")
+            Fr, Vr, cnt, fams = family_matrix(raws[det], a.include_aligned, a.dispersion)
+            Fd, Vd, _, _ = family_matrix(deltas[det], a.include_aligned, a.dispersion)
+            save_family(Fr, Vr, Fd, Vd, fams, det, out / det / "summary", cnt)
+            print(f"\n{det} family summary ({key}, mean):\n{Fr.round(2)}\n({dname}):\n{Vr.round(2)}")
+        if Mm is not None:  # family matrices of the detector-averaged preset matrices
+            Fr, Vr, cnt, fams = family_matrix(Mm, a.include_aligned, a.dispersion)
+            Fd, Vd, _, _ = family_matrix(Dm, a.include_aligned, a.dispersion)
+            save_family(Fr, Vr, Fd, Vd, fams, "mean_" + "+".join(raws), out / "all_detectors" / "summary", cnt)
 
     # ---- pairwise comparison between detectors
     for (n1, D1), (n2, D2) in itertools.combinations(deltas.items(), 2):
@@ -315,19 +355,6 @@ def main():
         draw(C, presets, f"Delta({n1}) - Delta({n2}): positive = {n1} generalizes better",
              out / f"compare_delta_{n1}_vs_{n2}.png", "PuOr", -lim, lim, fmt="{:+.1f}",
              cbar_label="difference of deltas")
-
-    # ---- all detectors together: mean over detectors, only for cells present in every detector
-    if len(raws) > 1:
-        names = "+".join(raws)
-        (out / "all_detectors").mkdir(exist_ok=True)
-        Mm = pd.DataFrame(np.mean([m.values for m in raws.values()], axis=0), index=presets, columns=presets)
-        Dm = pd.DataFrame(np.mean([m.values for m in deltas.values()], axis=0), index=presets, columns=presets)
-        Mm.to_csv(out / "all_detectors" / "mean_raw.csv"); Dm.to_csv(out / "all_detectors" / "mean_delta.csv")
-        draw(Mm, presets, f"Mean over {names}: {key}", out / "all_detectors" / "mean_raw.png", "viridis",
-             cbar_label=f"{key} {unit}")
-        lim = np.nanmax(np.abs(Dm.values))
-        draw(Dm, presets, f"Mean over {names}: change in {key} vs aligned", out / "all_detectors" / "mean_delta.png",
-             "RdYlGn", -lim, lim, fmt="{:+.1f}", cbar_label=f"delta {unit}")
 
 
 if __name__ == "__main__":
