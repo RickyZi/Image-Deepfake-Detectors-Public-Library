@@ -35,6 +35,8 @@ from parser import get_parser
 from pathlib import Path
 from pathlib import Path
 
+from utils.presets_naming import fix_preset_name
+
 
 def test(loader, model, output_dir, device, logger):
 
@@ -239,8 +241,10 @@ if __name__ == "__main__":
     # os.makedirs(output_dir, exist_ok=True)
     # logger = create_logger(logger_path)
 
-    dataset_name = settings.dataset.replace(os.sep, "_")
-    training_dataset_name = settings.trn_dataset.replace(os.sep, "_") if settings.trn_dataset else None
+    # dataset_name = settings.dataset.replace(os.sep, "_")
+    dataset_name = fix_preset_name(settings.dataset, settings.social).replace(os.sep, "_")
+    training_dataset_name = fix_preset_name(settings.trn_dataset, settings.social).replace(os.sep, "_") if settings.trn_dataset else None
+    # training_dataset_name = settings.trn_dataset.replace(os.sep, "_") if settings.trn_dataset else None
     evaluation_name = (
         f"{training_dataset_name}_vs_{dataset_name}"
         if training_dataset_name and training_dataset_name != dataset_name

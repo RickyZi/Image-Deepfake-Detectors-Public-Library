@@ -21,6 +21,8 @@ from utils.logger import create_logger
 from pathlib import Path
 from pathlib import Path
 
+from utils.presets_naming import fix_preset_name
+
 def test(loader, model, settings, device, output_dir, logger):
     model.eval()
     
@@ -247,26 +249,29 @@ if __name__ == "__main__":
     #     load_path = f'./checkpoint/{settings.name}/ft_weights/{dataset_name}/best.pt'
     # else:
     #     load_path = f'./checkpoint/{settings.name}/weights/best.pt'
-
+    training_dataset_name, checkpoint_dataset_name = '', ''
     if settings.trn_dataset:
-        training_dataset_name = settings.trn_dataset.replace(os.sep, '_')
+        # training_dataset_name = settings.trn_dataset.replace(os.sep, '_')
+        training_dataset_name = fix_preset_name(settings.trn_dataset, settings.social).replace(os.sep, '_') 
         if settings.r50unfreezeL4:
             training_dataset_name += '_ft_unfreezeL4'
 
-        if settings.ft and settings.r50unfreezeL4 and settings.social:
-            load_path = f'./checkpoint/{settings.name}/social/{settings.social}/ft_unfreezeL4_weights/{training_dataset_name}/best.pt'
-        elif settings.ft and settings.r50unfreezeL4:
+        # if settings.ft and settings.r50unfreezeL4 and settings.social:
+        #     load_path = f'./checkpoint/{settings.name}/social/{settings.social}/ft_unfreezeL4_weights/{training_dataset_name}/best.pt'
+        # el
+        if settings.ft and settings.r50unfreezeL4:
             load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{training_dataset_name}/best.pt'
         elif settings.ft:
             load_path = f'./checkpoint/{settings.name}/ft_weights/{training_dataset_name}/best.pt'
         else:
             load_path = f'./checkpoint/{settings.name}/weights/best.pt'
     else:
-        checkpoint_dataset_name = settings.dataset.replace(os.sep, '_').replace('-', '_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
+        # checkpoint_dataset_name = settings.dataset.replace(os.sep, '_') #.replace('-', '_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
+        checkpoint_dataset_name = fix_preset_name(settings.dataset, settings.social).replace(os.sep, '_')
         if settings.ft and settings.r50unfreezeL4:
-            load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{checkpoint_dataset_name}_unfreezeL4/best.pt'
+            load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{checkpoint_dataset_name}_{tag}/best.pt'
         elif settings.ft:
-            load_path = f'./checkpoint/{settings.name}/ft_weights/{checkpoint_dataset_name}/best.pt'
+            load_path = f'./checkpoint/{settings.name}/ft_weights/{checkpoint_dataset_name}_{tag}/best.pt'
         else:
             load_path = f'./checkpoint/{settings.name}/weights/best.pt'
 

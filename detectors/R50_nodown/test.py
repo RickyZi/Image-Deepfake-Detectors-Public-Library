@@ -18,6 +18,9 @@ from datetime import datetime
 
 from utils.logger import create_logger
 
+from utils.presets_naming import fix_preset_name
+
+
 def test(loader, model, settings, device, output_dir, logger):
     model.eval()
     
@@ -287,7 +290,8 @@ if __name__ == '__main__':
     num_parameters = count_parameters(model)
     print(f"Arch: {settings.arch} with #parameters {num_parameters}")
     if settings.trn_dataset:
-        training_dataset_name = settings.trn_dataset.replace(os.sep, '_')
+        # training_dataset_name = settings.trn_dataset.replace(os.sep, '_')   
+        training_dataset_name = fix_preset_name(settings.trn_dataset, settings.social).replace(os.sep, '_')
         if settings.r50unfreezeL4:
             training_dataset_name += '_unfreezeL4'
 
@@ -300,7 +304,18 @@ if __name__ == '__main__':
         else:
             load_path = f'./checkpoint/{settings.name}/weights/best.pt'
     else:
-        checkpoint_dataset_name = settings.dataset.replace(os.sep, '_').replace('-', '_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
+        # checkpoint_dataset_name = settings.dataset.replace(os.sep, '_') #.replace('-', '_').replace('bw01', 'bw_BW01').replace('portait', 'portrait')
+        # print(f"checkpoint_dataset_name: {checkpoint_dataset_name}")
+        # print(f"dataset_name: {dataset_name}")
+        # checkpoint_dataset_name = dataset_name
+        # breakpoint()
+
+        checkpoint_dataset_name = fix_preset_name(settings.dataset, settings.social).replace(os.sep, '_')
+        print(f"checkpoint_dataset_name: {checkpoint_dataset_name}")
+        print(f"dataset_name: {dataset_name}")
+        # checkpoint_dataset_name = dataset_name
+        # breakpoint()
+
         if settings.ft and settings.r50unfreezeL4:
             load_path = f'./checkpoint/{settings.name}/ft_unfreezeL4_weights/{checkpoint_dataset_name}_unfreezeL4/best.pt'
         elif settings.ft:
