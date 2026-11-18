@@ -154,7 +154,7 @@ def collect_results(RESULTS_ROOT, subdir_name: str) -> dict[str, dict]:
         return results
 
     for dataset_dir in sorted(RESULTS_ROOT.iterdir()):
-        # print(f"dataset_dir: {dataset_dir}")
+        # print(f"dataset_dir: {dxataset_dir}")
         if not dataset_dir.is_dir():
             continue
         if dataset_dir.name == REF_FOLDER:          # skip — loaded separately
@@ -443,7 +443,7 @@ def main():
     # breakpoint()
     
     if args.social:
-        out_dir = Path(f"./results/{args.model}/metric_tables/social/lora_r4_qv_{args.social}") if args.model == 'CLIP-D' else Path(f"./results/{args.model}/metric_tables/social/pretrained_{args.social}")
+        out_dir = Path(f"./results/metric_tables/{args.model}/social/lora_r4_qv_{args.social}") if args.model == 'CLIP-D' else Path(f"./results/metric_tables/{args.model}/social/pretrained_{args.social}")
         
         # out_dir = Path(f"./results/metric_tables/social/baseline/")
         OUTPUT_DIR= out_dir
@@ -454,7 +454,7 @@ def main():
         RESULTS_ROOT = results
     else:
         RESULTS_ROOT = Path(f"./results/{args.model}/pretrained") if args.model != 'CLIP-D' else Path(f"./results/{args.model}/lora_r4_qv/")
-        OUTPUT_DIR   = Path(f"./results/{args.model}/metric_tables")
+        OUTPUT_DIR   = Path(f"./results/metric_tables")
     
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 

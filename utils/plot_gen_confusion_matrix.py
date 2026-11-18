@@ -209,7 +209,7 @@ def main():
     ap.add_argument("--root", default="generalization_results")
     ap.add_argument("--out", default="generalization_results/matrices")
     ap.add_argument("--detectors", nargs="+", default=list(DETECTOR_LAYOUT), choices=list(DETECTOR_LAYOUT))
-    ap.add_argument("--preset-set", default="all", choices=["wifs", "extended", "all"])
+    ap.add_argument("--preset-set", default="extended", choices=["wifs", "extended", "all"])
     ap.add_argument("--presets", nargs="+", default=None,
                     help="custom subset, e.g. style/bw_BW01 seasons/autumn_TM01 (overrides --preset-set)")
     ap.add_argument("--metric-key", default="balanced_accuracy", help="key in metrics.json (aliases accepted)")
